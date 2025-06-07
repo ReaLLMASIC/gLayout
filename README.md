@@ -18,7 +18,7 @@ Key features:
 ### Basic Installation
 
 ```bash
-pip install glayout
+pip install -e .
 ```
 
 ### Development Installation
@@ -32,7 +32,7 @@ pip install -e ".[dev]"
 ### ML Features Installation
 
 ```bash
-pip install glayout[ml]
+pip install glayout ".[ml]"
 ```
 
 ## Quick Start
