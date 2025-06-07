@@ -32,7 +32,7 @@ pip install -e ".[dev]"
 ### ML Features Installation
 
 ```bash
-pip install glayout ".[ml]"
+pip install -e ".[ml]"
 ```
 
 ## Quick Start
