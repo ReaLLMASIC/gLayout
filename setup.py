@@ -6,7 +6,9 @@ setup(
     description="A PDK-agnostic layout automation framework for analog circuit design",
     author="OpenFASOC Team",
     author_email="mehdi@umich.edu",
-    packages=find_packages(),
+    #packages=find_packages(),
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     install_requires=[
         "gdsfactory>=6.0.0",
         "numpy>=1.21.0",
