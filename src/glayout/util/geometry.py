@@ -6,7 +6,8 @@ from typing import Optional, Union, Tuple, List
 from pathlib import Path
 
 from gdsfactory.cell import cell
-from gdsfactory.component import Component, Reference
+from gdsfactory.component import Component
+from gdsfactory import ComponentReference as Reference
 from gdsfactory.types import Layer, ComponentOrReference
 from pydantic import validate_arguments
 
