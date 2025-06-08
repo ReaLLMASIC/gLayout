@@ -7,7 +7,7 @@ from pathlib import Path
 
 from gdsfactory.cell import cell
 from gdsfactory.component import Component
-from gdsfactory.types import Layer
+from gdsfactory.typings import Layer
 from pydantic import validate_arguments
 
 from ..pdk.mappedpdk import MappedPDK
