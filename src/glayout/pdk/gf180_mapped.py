@@ -4,7 +4,7 @@ GF180 PDK implementation for Glayout.
 
 from pathlib import Path
 from .mappedpdk import MappedPDK, SetupPDKFiles
-
+import os
 # Layer definitions for GF180
 LAYER = {
     "metal5": (81, 0),
@@ -75,7 +75,8 @@ gf180_glayer_mapping = {
 }
 
 # PDK file paths
-pdk_root = Path('/usr/bin/miniconda3/share/pdk/')
+#pdk_root = Path('/usr/bin/miniconda3/share/pdk/')
+pdk_root = Path(os.getenv('PDK_ROOT'))
 klayout_drc_file = Path(__file__).parent / "gf180mcu_drc.lydrc"
 lvs_schematic_ref_file = pdk_root / "gf180mcuC" / "libs.ref" / "gf180mcu_osu_sc_9T" / "spice" / "gf180mcu_osu_sc_9T.spice"
 lvs_setup_tcl_file = pdk_root / "gf180mcuC" / "libs.tech" / "netgen" / "gf180mcuC_setup.tcl"
