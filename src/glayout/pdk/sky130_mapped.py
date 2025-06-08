@@ -4,7 +4,7 @@ Sky130 PDK implementation for Glayout.
 
 from pathlib import Path
 from .mappedpdk import MappedPDK, SetupPDKFiles
-
+import os
 # Layer definitions for Sky130
 LAYER = {
     "met5": (68, 20),
@@ -73,7 +73,8 @@ sky130_glayer_mapping = {
 }
 
 # PDK file paths
-pdk_root = Path('/usr/bin/miniconda3/share/pdk/')
+#pdk_root = Path('/usr/bin/miniconda3/share/pdk/')
+pdk_root = Path(os.getenv('PDK_ROOT'))
 klayout_drc_file = Path(__file__).parent / "sky130_drc.lydrc"
 lvs_schematic_ref_file = pdk_root / "sky130A" / "libs.ref" / "sky130_fd_sc_hd" / "spice" / "sky130_fd_sc_hd.spice"
 lvs_setup_tcl_file = pdk_root / "sky130A" / "libs.tech" / "netgen" / "sky130_setup.tcl"
