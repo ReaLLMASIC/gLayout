@@ -4,7 +4,7 @@ Routing utility functions for Glayout.
 
 from typing import Optional, Tuple
 from gdsfactory.component import Component
-from gdsfactory.types import Port
+from gdsfactory.typings import Port
 from ..pdk.mappedpdk import MappedPDK
 from .geometry import rectangle
 
