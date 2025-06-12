@@ -155,7 +155,7 @@ class MappedPDK(Pdk):
         else:
             glayer2 = glayer1
             rules_dict = self.grules.get(glayer1, dict()).get(glayer1)
-        
+
         # error check, convert type, and return
         if rules_dict is None or rules_dict == {}:
             raise NotImplementedError(
