@@ -6,7 +6,7 @@ from typing import Optional, Literal, Union, Tuple
 from pathlib import Path
 from math import floor
 
-from gdsfactory.cell import cell
+from gdsfactory import cell
 from gdsfactory.component import Component
 from gdsfactory.typings import Layer
 from pydantic import validate_arguments
@@ -23,7 +23,7 @@ from ..util.geometry import (
     to_float
 )
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def __get_layer_dim(pdk: MappedPDK, glayer: str, mode: Literal["both","above","below"]="both") -> float:
     """Returns the required dimension of a routable layer in a via stack.
     
@@ -57,7 +57,7 @@ def __get_layer_dim(pdk: MappedPDK, glayer: str, mode: Literal["both","above","b
     layer_dim = max(layer_dim, pdk.get_grule(glayer)["min_width"])
     return layer_dim
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def __get_viastack_minseperation(pdk: MappedPDK, viastack: Component, ordered_layer_info) -> tuple[float,float]:
     """Internal use: return absolute via separation and top_enclosure.
     

@@ -3,7 +3,8 @@ MappedPDK - A PDK-agnostic layout automation framework for analog circuit design
 """
 
 from gdsfactory.pdk import Pdk
-from gdsfactory.typings import Component, PathType, Layer
+from gdsfactory.component import Component
+from gdsfactory.typings import PathType, Layer
 from pydantic import validator, StrictStr, ValidationError
 from typing import ClassVar, Optional, Any, Union, Literal, Iterable, TypedDict
 from pathlib import Path

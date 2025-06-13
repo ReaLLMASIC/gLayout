@@ -12,9 +12,9 @@ from gdstk import rectangle as primitive_rectangle
 from .port_utils import add_ports_perimeter, rename_ports_by_list, parse_direction
 
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def evaluate_bbox(custom_comp: Union[Component, ComponentReference], return_decimal: Optional[bool]=False, padding: float=0) -> tuple[Union[float,Decimal],Union[float,Decimal]]:
-	"""returns the length and height of a component like object"""
+	"""returns the length and height of a Component like object"""
 	compbbox = custom_comp.bbox
 	width = abs(Decimal(str(compbbox[1][0])) - Decimal(str(compbbox[0][0]))) + 2*Decimal(str(padding))
 	height = abs(Decimal(str(compbbox[1][1])) - Decimal(str(compbbox[0][1]))) + 2*Decimal(str(padding))
@@ -23,10 +23,10 @@ def evaluate_bbox(custom_comp: Union[Component, ComponentReference], return_deci
 	return (float(width),float(height))
 
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def center_to_edge_distance(custom_comp: Union[Component, ComponentReference], direction: Union[str,int]) -> float:
 	"""specifies the distance between the center of custom_comp and a specified edge given by the direction argument
-	the component is considerd a rectangle (using the bounding box), such there are 4 edges
+	the Component is considerd a rectangle (using the bounding box), such there are 4 edges
 	Args:
 		custom_comp (Component | ComponentReference): Component we want the center of
 		direction (str | int): the edge we are interested in
@@ -49,7 +49,7 @@ def center_to_edge_distance(custom_comp: Union[Component, ComponentReference], d
 		raise ValueError("unknown error with direction in function center_to_edge_distance (comp_utils)")
 	return snap_to_grid(abs(distance),2)
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def move(custom_comp: Union[Port, ComponentReference, Component], offsetxy: tuple[float,float] = (0,0), destination: Optional[tuple[Optional[float],Optional[float]]]=None, layer: Optional[tuple[int,int]]=None) -> Union[Port, ComponentReference, Component]:
 	"""moves custom_comp
 	moves by offset[0]=x offset, offset[1]=y offset
@@ -88,7 +88,7 @@ def move(custom_comp: Union[Port, ComponentReference, Component], offsetxy: tupl
 	return custom_comp
 
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def movex(custom_comp: Union[Port, ComponentReference, Component], offsetx: Optional[float] = 0, destination: Optional[float]=None, layer: Optional[tuple[int,int]]=None) -> Union[Port, ComponentReference, Component]:
 	"""moves custom_comp by offsetx in the x direction
 	returns the modified custom_comp
@@ -98,7 +98,7 @@ def movex(custom_comp: Union[Port, ComponentReference, Component], offsetx: Opti
 	return move(custom_comp, (offsetx,0),destination,layer)
 
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def movey(custom_comp: Union[Port, ComponentReference, Component], offsety: Optional[float] = 0, destination: Optional[float]=None, layer: Optional[tuple[int,int]]=None) -> Union[Port, ComponentReference, Component]:
 	"""moves custom_comp by offsety in the y direction
 	returns the modified custom_comp
@@ -108,7 +108,7 @@ def movey(custom_comp: Union[Port, ComponentReference, Component], offsety: Opti
 	return move(custom_comp, (0,offsety),destination,layer)
 
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def align_comp_to_port(
 	custom_comp: Union[Component,ComponentReference],
 	align_to: Port,
@@ -116,18 +116,18 @@ def align_comp_to_port(
 	layer: Optional[tuple[int,int]] = None,
 	rtr_comp_ref = True
 ) -> Union[Component,ComponentReference]:
-	"""Returns component/componentReference of component/componentReference aligned to port as specifed
-	by default returns a componentReference
-	for componentReference, the componentReference is modified (mutable), but for component, a copy of component is returned
+	"""Returns Component/ComponentReference of Component/ComponentReference aligned to port as specifed
+	by default returns a ComponentReference
+	for ComponentReference, the ComponentReference is modified (mutable), but for Component, a copy of Component is returned
 	args:
-	custom_comp = component to align properly
+	custom_comp = Component to align properly
 	align_to = Port to align to
 	alignment = tuple(str,str) = (xalign,yalign). You can individually specify x/y algin=None and that means do nothing for that dim
-	***NOTE, if left None, function will align component to outside and center of port (based on port orientation), specify (None,None) for real no align (do not move at all)
-	****xalign = either l/left or r/right or c/center or None. component will be flush to right or left side of port or centered
-	****yalgin = either t/top or b/bottom or c/center or None. top or bottom edge or center of component will align with port top/bottom/center
-	layer = extract this layer from the component and aligns to this layer.
-	rtr_comp_ref = will return a component reference if set true, else return component
+	***NOTE, if left None, function will align Component to outside and center of port (based on port orientation), specify (None,None) for real no align (do not move at all)
+	****xalign = either l/left or r/right or c/center or None. Component will be flush to right or left side of port or centered
+	****yalgin = either t/top or b/bottom or c/center or None. top or bottom edge or center of Component will align with port top/bottom/center
+	layer = extract this layer from the Component and aligns to this layer.
+	rtr_comp_ref = will return a Component reference if set true, else return Component
 	"""
 	# find center and bbox
 	if isinstance(custom_comp, ComponentReference):
@@ -201,7 +201,7 @@ def align_comp_to_port(
 		return transformed(comp_ref)
 
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def to_decimal(elements: Union[tuple,list,float,int,str]):
 	"""converts all elements of list like object into decimals
 	or converts single num into decimal"""
@@ -214,7 +214,7 @@ def to_decimal(elements: Union[tuple,list,float,int,str]):
 			elements[i] = Decimal(str(element))
 	return elements
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def to_float(elements: Union[tuple,list,Decimal,float]):
 	"""converts all elements of list like object into floats and snaps to grid
 	or converts single decimal into floats"""
@@ -227,9 +227,9 @@ def to_float(elements: Union[tuple,list,Decimal,float]):
 			elements[i] = snap_to_grid(float(element))
 	return elements
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def prec_array(custom_comp: Component, rows: int, columns: int, spacing: tuple[Union[float,Decimal],Union[float,Decimal]], absolute_spacing: Optional[bool]=False) -> Component:
-	"""instead of using the component.add_array function, if you are having grid snapping issues try using this function
+	"""instead of using the Component.add_array function, if you are having grid snapping issues try using this function
 	works the same way as add_array but uses decimals and snaps to grid to mitigate grid snapping issues
 	args
 	custom_comp: Component type to make an array from
@@ -258,10 +258,10 @@ def prec_array(custom_comp: Component, rows: int, columns: int, spacing: tuple[U
 	return precarray.flatten()
 
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def prec_center(custom_comp: Union[Component,ComponentReference], return_decimal: bool=False) -> tuple[Union[float,Decimal],Union[float,Decimal]]:
-	"""instead of using component.ref_center() to get the center of a component,
-	use this function which will return the correct offset to center a component
+	"""instead of using Component.ref_center() to get the center of a Component,
+	use this function which will return the correct offset to center a Component
 	returns (x,y) corrections
 	if return_decimal=True, return in Decimal, otherwise return float"""
 	correctmax = [dim/2 for dim in evaluate_bbox(custom_comp, True)]
@@ -271,13 +271,13 @@ def prec_center(custom_comp: Union[Component,ComponentReference], return_decimal
 		return correctionxy
 	return to_float(correctionxy)
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def prec_ref_center(custom_comp: Union[Component,ComponentReference], destination: Optional[tuple[float,float]]=None, snapmov2grid: bool=False) -> ComponentReference:
-	"""instead of using component.ref_center() to get a ref to center at origin,
+	"""instead of using Component.ref_center() to get a ref to center at origin,
 	use this function which will return a centered ref
-	you can then run component.add(prec_ref_center(custom_comp)) to add the reference to your component
+	you can then run Component.add(prec_ref_center(custom_comp)) to add the reference to your Component
 	you can optionally specify a destination = tuple(x,y), by default, the destination is 0,0
-	returns component reference
+	returns Component reference
 	"""
 	compref = custom_comp if isinstance(custom_comp, ComponentReference) else custom_comp.ref()
 	xcor, ycor = prec_center(compref, False)
@@ -300,7 +300,7 @@ def get_padding_points_cc(
 	left: Optional[float]=None,
 	pdk_for_snap2xgrid: Optional[MappedPDK]=None
 ) -> list:
-	"""works like gdsfactory.add_padding.get_padding_points, but also accepts componentReference or bbox
+	"""works like gdsfactory.add_padding.get_padding_points, but also accepts ComponentReference or bbox
 	additionally, if you optionally pass a pdk it will snap to 2x grid (else just operates like get_padding_points)"""
 	if isinstance(custom_comp, ComponentReference) or isinstance(custom_comp, Component):
 		bbox = custom_comp.bbox
@@ -324,8 +324,8 @@ def get_padding_points_cc(
 
 
 def get_primitive_rectangle(size: tuple[float,float]=(5,3), layer: tuple[int,int]=(0,0)):
-	"""creates a rectangle component which snaps point to grid (does not snap to 2x grid)
-	has same behavoir as gdsfactory.components.rectangle but doesnt allow centering (would snap to grid)
+	"""creates a rectangle Component which snaps point to grid (does not snap to 2x grid)
+	has same behavoir as gdsfactory.Components.rectangle but doesnt allow centering (would snap to grid)
 	"""
 	temprect = Component()
 	temprect.add_polygon(primitive_rectangle((0,0),size,*layer))

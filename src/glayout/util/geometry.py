@@ -5,7 +5,7 @@ Geometry utility functions for Glayout.
 from typing import Optional, Union, Tuple, List
 from pathlib import Path
 
-from gdsfactory.cell import cell
+from gdsfactory import cell
 from gdsfactory.component import Component
 from gdsfactory import ComponentReference as Reference
 from gdsfactory.typings import Layer, ComponentOrReference
@@ -13,7 +13,7 @@ from pydantic import validate_arguments
 
 from ..pdk.mappedpdk import MappedPDK
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def rectangle(
     size: tuple[float, float],
     layer: Layer,
@@ -45,7 +45,7 @@ def rectangle(
     
     return rect
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def evaluate_bbox(component: ComponentOrReference) -> tuple[float, float]:
     """Get the bounding box dimensions of a component.
     
@@ -58,7 +58,7 @@ def evaluate_bbox(component: ComponentOrReference) -> tuple[float, float]:
     bbox = component.bbox
     return (bbox[1][0] - bbox[0][0], bbox[1][1] - bbox[0][1])
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def component_snap_to_grid(component: Component) -> Component:
     """Snap component ports and polygons to grid.
     
@@ -78,7 +78,7 @@ def component_snap_to_grid(component: Component) -> Component:
     
     return component
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def rename_ports_by_orientation(component: Component) -> Component:
     """Rename ports based on their orientation.
     
@@ -106,7 +106,7 @@ def rename_ports_by_orientation(component: Component) -> Component:
     
     return component
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def prec_ref_center(component: Component) -> Reference:
     """Create a centered reference to a component.
     
@@ -120,7 +120,7 @@ def prec_ref_center(component: Component) -> Reference:
     ref.center = (0, 0)
     return ref
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def prec_array(
     component: Component,
     columns: int = 1,
@@ -157,7 +157,7 @@ def prec_array(
     
     return array
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def to_decimal(value: Union[float, str]) -> float:
     """Convert value to decimal.
     
@@ -171,7 +171,7 @@ def to_decimal(value: Union[float, str]) -> float:
         return float(value)
     return value
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def to_float(value: Union[float, str]) -> float:
     """Convert value to float.
     
@@ -185,7 +185,7 @@ def to_float(value: Union[float, str]) -> float:
         return float(value)
     return value
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def move(
     component: ComponentOrReference,
     destination: tuple[float, float]
@@ -202,7 +202,7 @@ def move(
     component.move(destination)
     return component
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def movex(
     component: ComponentOrReference,
     destination: float
@@ -219,7 +219,7 @@ def movex(
     component.movex(destination)
     return component
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def movey(
     component: ComponentOrReference,
     destination: float
@@ -236,7 +236,7 @@ def movey(
     component.movey(destination)
     return component
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def align_comp_to_port(
     component: Component,
     port: ComponentOrReference,
@@ -295,7 +295,7 @@ def align_comp_to_port(
     
     return ref
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def rename_ports_by_list(
     component: Component,
     rename_list: List[tuple[str, str]]

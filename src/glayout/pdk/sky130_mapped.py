@@ -1,7 +1,7 @@
-from glayout.pdk.mappedpdk import MappedPDK, SetupPDKFiles
-from glayout import via_stack
+from src.glayout.pdk.mappedpdk import MappedPDK, SetupPDKFiles
+from src.glayout import via_stack
 from pathlib import Path
-from glayout.primitives import fet
+from src.glayout.primitives import fet
 from .sky130_add_npc import sky130_add_npc
 
 

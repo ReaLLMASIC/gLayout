@@ -5,7 +5,7 @@ FET primitives for Glayout.
 from typing import Optional, Union, Tuple
 from pathlib import Path
 
-from gdsfactory.cell import cell
+from gdsfactory import cell
 from gdsfactory.component import Component
 from gdsfactory.typings import Layer
 from pydantic import validate_arguments
@@ -30,7 +30,7 @@ from ..util.routing import straight_route, L_route, c_route
 from ..spice.netlist import Netlist
 from .via_gen import via_stack, via_array
 
-@validate_arguments
+@validate_arguments(config=dict(arbitrary_types_allowed=True))
 def __gen_fingers_macro(
     pdk: MappedPDK,
     rmult: int,

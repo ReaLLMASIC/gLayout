@@ -5,7 +5,7 @@ Guard ring primitives for Glayout.
 from typing import Optional, Union, Tuple
 from pathlib import Path
 
-from gdsfactory.cell import cell
+from gdsfactory import cell
 from gdsfactory.component import Component
 from gdsfactory.typings import Layer
 from pydantic import validate_arguments
