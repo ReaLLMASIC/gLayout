@@ -1,0 +1,20 @@
+magic
+tech sky130B
+timestamp 1701704242
+<< pwell >>
+rect -13 -13 122 394
+<< psubdiff >>
+rect 0 369 109 381
+rect 0 12 12 369
+rect 97 12 109 369
+rect 0 0 109 12
+<< psubdiffcont >>
+rect 12 12 97 369
+<< locali >>
+rect 12 369 97 377
+rect 12 4 97 12
+<< properties >>
+string GDS_END 87534152
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 87531844
+<< end >>

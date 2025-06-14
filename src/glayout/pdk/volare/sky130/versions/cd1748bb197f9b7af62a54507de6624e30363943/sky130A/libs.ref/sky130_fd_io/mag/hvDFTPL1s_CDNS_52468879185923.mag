@@ -1,0 +1,115 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< pwell >>
+rect -26 -26 226 626
+<< ndiff >>
+rect 0 522 60 600
+rect 0 488 11 522
+rect 45 488 60 522
+rect 0 454 60 488
+rect 0 420 11 454
+rect 45 420 60 454
+rect 0 386 60 420
+rect 0 352 11 386
+rect 45 352 60 386
+rect 0 318 60 352
+rect 0 284 11 318
+rect 45 284 60 318
+rect 0 250 60 284
+rect 0 216 11 250
+rect 45 216 60 250
+rect 0 182 60 216
+rect 0 148 11 182
+rect 45 148 60 182
+rect 0 114 60 148
+rect 0 80 11 114
+rect 45 80 60 114
+rect 0 46 60 80
+rect 0 12 11 46
+rect 45 12 60 46
+rect 0 0 60 12
+<< ndiffc >>
+rect 11 488 45 522
+rect 11 420 45 454
+rect 11 352 45 386
+rect 11 284 45 318
+rect 11 216 45 250
+rect 11 148 45 182
+rect 11 80 45 114
+rect 11 12 45 46
+<< psubdiff >>
+rect 60 534 200 600
+rect 60 500 79 534
+rect 113 500 200 534
+rect 60 466 200 500
+rect 60 432 79 466
+rect 113 432 200 466
+rect 60 398 200 432
+rect 60 364 79 398
+rect 113 364 200 398
+rect 60 330 200 364
+rect 60 296 79 330
+rect 113 296 200 330
+rect 60 262 200 296
+rect 60 228 79 262
+rect 113 228 200 262
+rect 60 194 200 228
+rect 60 160 79 194
+rect 113 160 200 194
+rect 60 126 200 160
+rect 60 92 79 126
+rect 113 92 200 126
+rect 60 58 200 92
+rect 60 24 79 58
+rect 113 24 200 58
+rect 60 0 200 24
+<< psubdiffcont >>
+rect 79 500 113 534
+rect 79 432 113 466
+rect 79 364 113 398
+rect 79 296 113 330
+rect 79 228 113 262
+rect 79 160 113 194
+rect 79 92 113 126
+rect 79 24 113 58
+<< locali >>
+rect 11 534 113 550
+rect 11 522 79 534
+rect 45 500 79 522
+rect 45 488 113 500
+rect 11 466 113 488
+rect 11 454 79 466
+rect 45 432 79 454
+rect 45 420 113 432
+rect 11 398 113 420
+rect 11 386 79 398
+rect 45 364 79 386
+rect 45 352 113 364
+rect 11 330 113 352
+rect 11 318 79 330
+rect 45 296 79 318
+rect 45 284 113 296
+rect 11 262 113 284
+rect 11 250 79 262
+rect 45 228 79 250
+rect 45 216 113 228
+rect 11 194 113 216
+rect 11 182 79 194
+rect 45 160 79 182
+rect 45 148 113 160
+rect 11 126 113 148
+rect 11 114 79 126
+rect 45 92 79 114
+rect 45 80 113 92
+rect 11 58 113 80
+rect 11 46 79 58
+rect 45 24 79 46
+rect 45 12 113 24
+rect 11 -4 113 12
+<< properties >>
+string GDS_END 80502146
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 80500734
+<< end >>

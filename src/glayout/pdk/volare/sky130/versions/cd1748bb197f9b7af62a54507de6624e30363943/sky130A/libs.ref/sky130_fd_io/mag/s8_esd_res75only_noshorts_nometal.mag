@@ -1,0 +1,36 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< poly >>
+rect 10 759 128 802
+rect 10 45 26 759
+rect 10 2 128 45
+rect 1340 759 1458 802
+rect 1442 45 1458 759
+rect 1340 2 1458 45
+<< polycont >>
+rect 26 45 128 759
+rect 1340 45 1442 759
+<< npolyres >>
+rect 128 2 1340 802
+<< locali >>
+rect 2 759 152 804
+rect 2 45 26 759
+rect 128 45 152 759
+rect 2 0 152 45
+rect 1316 759 1466 804
+rect 1316 45 1340 759
+rect 1442 45 1466 759
+rect 1316 0 1466 45
+<< labels >>
+flabel comment s 735 410 735 410 0 FreeSans 400 0 0 0 75 ohm
+flabel locali s 1464 1 1466 803 7 FreeSans 400 0 0 0 rout
+port 2 nsew
+flabel locali s 2 1 4 803 3 FreeSans 400 0 0 0 pad
+port 3 nsew
+<< properties >>
+string GDS_END 89695210
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 89691556
+<< end >>

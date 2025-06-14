@@ -1,0 +1,19 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< metal2 >>
+rect 0 785 296 794
+rect 0 0 296 9
+<< via2 >>
+rect 0 9 296 785
+<< metal3 >>
+rect -5 785 301 790
+rect -5 9 0 785
+rect 296 9 301 785
+rect -5 4 301 9
+<< properties >>
+string GDS_END 85415636
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 85412944
+<< end >>

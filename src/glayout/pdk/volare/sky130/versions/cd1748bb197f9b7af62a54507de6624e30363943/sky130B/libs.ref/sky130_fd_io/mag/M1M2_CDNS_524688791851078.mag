@@ -1,0 +1,40 @@
+magic
+tech sky130B
+timestamp 1701704242
+<< metal1 >>
+rect 0 0 3 26
+rect 29 0 35 26
+rect 61 0 67 26
+rect 93 0 99 26
+rect 125 0 131 26
+rect 157 0 163 26
+rect 189 0 195 26
+rect 221 0 227 26
+rect 253 0 259 26
+rect 285 0 288 26
+<< via1 >>
+rect 3 0 29 26
+rect 35 0 61 26
+rect 67 0 93 26
+rect 99 0 125 26
+rect 131 0 157 26
+rect 163 0 189 26
+rect 195 0 221 26
+rect 227 0 253 26
+rect 259 0 285 26
+<< metal2 >>
+rect 0 0 3 26
+rect 29 0 35 26
+rect 61 0 67 26
+rect 93 0 99 26
+rect 125 0 131 26
+rect 157 0 163 26
+rect 189 0 195 26
+rect 221 0 227 26
+rect 253 0 259 26
+rect 285 0 288 26
+<< properties >>
+string GDS_END 79971152
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 79970444
+<< end >>

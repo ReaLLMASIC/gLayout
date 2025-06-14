@@ -1,0 +1,104 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -38 261 222 582
+<< pwell >>
+rect 5 13 183 203
+rect 29 -17 63 13
+<< ndiode >>
+rect 31 159 157 177
+rect 31 125 40 159
+rect 74 125 115 159
+rect 149 125 157 159
+rect 31 91 157 125
+rect 31 57 40 91
+rect 74 57 115 91
+rect 149 57 157 91
+rect 31 39 157 57
+<< ndiodec >>
+rect 40 125 74 159
+rect 115 125 149 159
+rect 40 57 74 91
+rect 115 57 149 91
+<< locali >>
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 184 561
+rect 17 159 167 493
+rect 17 125 40 159
+rect 74 125 115 159
+rect 149 125 167 159
+rect 17 91 167 125
+rect 17 57 40 91
+rect 74 57 115 91
+rect 149 57 167 91
+rect 17 51 167 57
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 184 17
+<< viali >>
+rect 29 527 63 561
+rect 121 527 155 561
+rect 29 -17 63 17
+rect 121 -17 155 17
+<< metal1 >>
+rect 0 561 184 592
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 184 561
+rect 0 496 184 527
+rect 0 17 184 48
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 184 17
+rect 0 -48 184 -17
+<< labels >>
+flabel locali s 121 85 155 119 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 121 357 155 391 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 29 357 63 391 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 121 425 155 459 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 29 425 63 459 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 29 289 63 323 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 121 289 155 323 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 29 221 63 255 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 121 221 155 255 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 121 153 155 187 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 29 153 63 187 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel locali s 29 85 63 119 0 FreeSans 200 0 0 0 DIODE
+port 1 nsew signal input
+flabel metal1 s 29 -17 63 17 0 FreeSans 200 0 0 0 VGND
+port 2 nsew ground bidirectional abutment
+flabel metal1 s 29 527 63 561 0 FreeSans 200 0 0 0 VPWR
+port 5 nsew power bidirectional abutment
+flabel nwell s 29 527 63 561 0 FreeSans 200 0 0 0 VPB
+port 4 nsew power bidirectional
+flabel pwell s 29 -17 63 17 0 FreeSans 200 0 0 0 VNB
+port 3 nsew ground bidirectional
+rlabel comment s 0 0 0 0 4 diode_2
+rlabel metal1 s 0 -48 184 48 1 VGND
+port 2 nsew ground bidirectional abutment
+rlabel metal1 s 0 496 184 592 1 VPWR
+port 5 nsew power bidirectional abutment
+<< properties >>
+string FIXED_BBOX 0 0 184 544
+string GDS_END 2636228
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds
+string GDS_START 2632798
+string LEFclass CORE ANTENNACELL
+string LEFsite unithd
+string LEFsymmetry X Y R90
+string path 0.000 0.000 4.600 0.000 
+<< end >>

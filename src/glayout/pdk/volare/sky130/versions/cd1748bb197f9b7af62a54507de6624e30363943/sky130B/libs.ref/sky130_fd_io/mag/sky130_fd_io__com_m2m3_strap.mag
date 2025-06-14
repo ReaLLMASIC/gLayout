@@ -1,0 +1,81 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< comment >>
+rect 62 556 302 796
+tri 172 552 173 553 se
+rect 173 552 175 553
+tri 175 552 176 553 sw
+tri 171 551 172 552 se
+rect 172 551 176 552
+tri 176 551 177 552 sw
+tri 170 550 171 551 se
+rect 171 550 177 551
+rect 170 549 178 550
+rect 169 548 179 549
+rect 168 547 180 548
+tri 158 536 167 547 se
+rect 167 543 181 547
+tri 181 543 184 547 sw
+rect 167 536 184 543
+tri 184 536 190 543 sw
+tri 150 527 158 536 se
+rect 158 533 190 536
+tri 150 521 158 527 ne
+tri 158 521 169 533 nw
+rect 169 492 179 533
+tri 179 527 184 533 ne
+rect 184 527 190 533
+tri 190 527 198 536 sw
+tri 184 521 190 527 ne
+tri 190 521 198 527 nw
+tri 150 332 158 338 se
+tri 158 332 164 338 sw
+tri 150 316 164 332 ne
+tri 164 326 169 332 sw
+rect 169 326 179 367
+tri 184 332 190 338 se
+tri 190 332 198 338 sw
+tri 179 326 184 332 se
+rect 184 326 190 332
+rect 164 323 190 326
+tri 190 323 198 332 nw
+rect 164 317 185 323
+tri 185 317 190 323 nw
+rect 164 316 184 317
+tri 184 316 185 317 nw
+tri 164 312 167 316 ne
+rect 167 312 181 316
+tri 181 312 184 316 nw
+rect 168 311 180 312
+rect 169 310 179 311
+tri 179 310 180 311 nw
+tri 169 309 170 310 ne
+rect 170 309 178 310
+rect 171 308 177 309
+tri 177 308 178 309 nw
+tri 171 307 172 308 ne
+rect 172 307 176 308
+tri 176 307 177 308 nw
+tri 172 306 173 307 ne
+rect 173 306 175 307
+tri 175 306 176 307 nw
+rect 62 62 302 302
+use M2M3_CDNS_52468879185938  M2M3_CDNS_52468879185938_0
+timestamp 1701704242
+transform 0 -1 340 1 0 39
+box -5 0 781 314
+<< labels >>
+flabel comment s 178 406 178 406 0 FreeSans 400 0 0 0 space
+flabel comment s 178 454 178 454 0 FreeSans 400 0 0 0 1.27um
+flabel comment s 62 556 302 796 0 FreeSans 600 0 0 0 s8d
+flabel comment s 178 641 178 641 0 FreeSans 600 0 0 0 via2
+flabel comment s 62 62 302 302 0 FreeSans 600 0 0 0 via2
+flabel comment s 176 230 176 230 0 FreeSans 600 0 0 0 s8d
+<< properties >>
+string GDS_END 85515676
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 85514766
+string path 4.350 13.700 4.350 12.300 
+<< end >>

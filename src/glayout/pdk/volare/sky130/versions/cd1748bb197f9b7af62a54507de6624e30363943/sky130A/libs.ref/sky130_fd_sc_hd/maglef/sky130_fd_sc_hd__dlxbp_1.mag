@@ -1,0 +1,222 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -38 261 1418 582
+<< pwell >>
+rect 826 157 1379 203
+rect 1 21 1379 157
+rect 30 -17 64 21
+<< locali >>
+rect 17 197 66 325
+rect 271 191 337 265
+rect 1028 334 1098 491
+rect 1064 164 1098 334
+rect 1028 51 1098 164
+rect 1311 289 1363 493
+rect 1320 165 1363 289
+rect 1311 51 1363 165
+<< obsli1 >>
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 305 561
+rect 339 527 397 561
+rect 431 527 489 561
+rect 523 527 581 561
+rect 615 527 673 561
+rect 707 527 765 561
+rect 799 527 857 561
+rect 891 527 949 561
+rect 983 527 1041 561
+rect 1075 527 1133 561
+rect 1167 527 1225 561
+rect 1259 527 1317 561
+rect 1351 527 1380 561
+rect 35 393 69 493
+rect 103 427 169 527
+rect 35 359 156 393
+rect 122 280 156 359
+rect 203 337 248 493
+rect 122 214 168 280
+rect 122 161 156 214
+rect 35 127 156 161
+rect 35 69 69 127
+rect 103 17 169 93
+rect 203 69 237 337
+rect 286 333 359 483
+rect 393 367 449 527
+rect 550 451 722 485
+rect 685 418 722 451
+rect 756 435 796 527
+rect 685 413 726 418
+rect 685 407 730 413
+rect 686 404 730 407
+rect 687 402 730 404
+rect 688 399 730 402
+rect 593 382 639 399
+rect 286 299 423 333
+rect 371 247 423 299
+rect 493 271 559 337
+rect 593 315 658 382
+rect 371 175 467 247
+rect 593 213 627 315
+rect 692 265 730 399
+rect 857 373 903 487
+rect 764 307 903 373
+rect 937 314 994 527
+rect 869 265 903 307
+rect 692 233 835 265
+rect 371 157 427 175
+rect 302 123 427 157
+rect 516 141 627 213
+rect 661 199 835 233
+rect 869 199 1030 265
+rect 302 69 341 123
+rect 661 107 695 199
+rect 869 149 910 199
+rect 375 17 441 89
+rect 560 73 695 107
+rect 740 17 809 106
+rect 857 83 910 149
+rect 944 17 994 143
+rect 1132 265 1182 493
+rect 1218 367 1277 527
+rect 1132 199 1286 265
+rect 1132 51 1182 199
+rect 1218 17 1277 109
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 305 17
+rect 339 -17 397 17
+rect 431 -17 489 17
+rect 523 -17 581 17
+rect 615 -17 673 17
+rect 707 -17 765 17
+rect 799 -17 857 17
+rect 891 -17 949 17
+rect 983 -17 1041 17
+rect 1075 -17 1133 17
+rect 1167 -17 1225 17
+rect 1259 -17 1317 17
+rect 1351 -17 1380 17
+<< obsli1c >>
+rect 29 527 63 561
+rect 121 527 155 561
+rect 213 527 247 561
+rect 305 527 339 561
+rect 397 527 431 561
+rect 489 527 523 561
+rect 581 527 615 561
+rect 673 527 707 561
+rect 765 527 799 561
+rect 857 527 891 561
+rect 949 527 983 561
+rect 1041 527 1075 561
+rect 1133 527 1167 561
+rect 1225 527 1259 561
+rect 1317 527 1351 561
+rect 29 -17 63 17
+rect 121 -17 155 17
+rect 213 -17 247 17
+rect 305 -17 339 17
+rect 397 -17 431 17
+rect 489 -17 523 17
+rect 581 -17 615 17
+rect 673 -17 707 17
+rect 765 -17 799 17
+rect 857 -17 891 17
+rect 949 -17 983 17
+rect 1041 -17 1075 17
+rect 1133 -17 1167 17
+rect 1225 -17 1259 17
+rect 1317 -17 1351 17
+<< metal1 >>
+rect 0 561 1380 592
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 305 561
+rect 339 527 397 561
+rect 431 527 489 561
+rect 523 527 581 561
+rect 615 527 673 561
+rect 707 527 765 561
+rect 799 527 857 561
+rect 891 527 949 561
+rect 983 527 1041 561
+rect 1075 527 1133 561
+rect 1167 527 1225 561
+rect 1259 527 1317 561
+rect 1351 527 1380 561
+rect 0 496 1380 527
+rect 0 17 1380 48
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 305 17
+rect 339 -17 397 17
+rect 431 -17 489 17
+rect 523 -17 581 17
+rect 615 -17 673 17
+rect 707 -17 765 17
+rect 799 -17 857 17
+rect 891 -17 949 17
+rect 983 -17 1041 17
+rect 1075 -17 1133 17
+rect 1167 -17 1225 17
+rect 1259 -17 1317 17
+rect 1351 -17 1380 17
+rect 0 -48 1380 -17
+<< obsm1 >>
+rect 202 388 260 397
+rect 581 388 639 397
+rect 202 360 639 388
+rect 202 351 260 360
+rect 581 351 639 360
+rect 110 320 168 329
+rect 499 320 557 329
+rect 110 292 557 320
+rect 110 283 168 292
+rect 499 283 557 292
+<< labels >>
+rlabel locali s 271 191 337 265 6 D
+port 1 nsew signal input
+rlabel locali s 17 197 66 325 6 GATE
+port 2 nsew clock input
+rlabel metal1 s 0 -48 1380 48 8 VGND
+port 3 nsew ground bidirectional abutment
+rlabel pwell s 30 -17 64 21 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 1 21 1379 157 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 826 157 1379 203 6 VNB
+port 4 nsew ground bidirectional
+rlabel nwell s -38 261 1418 582 6 VPB
+port 5 nsew power bidirectional
+rlabel metal1 s 0 496 1380 592 6 VPWR
+port 6 nsew power bidirectional abutment
+rlabel locali s 1028 51 1098 164 6 Q
+port 7 nsew signal output
+rlabel locali s 1064 164 1098 334 6 Q
+port 7 nsew signal output
+rlabel locali s 1028 334 1098 491 6 Q
+port 7 nsew signal output
+rlabel locali s 1311 51 1363 165 6 Q_N
+port 8 nsew signal output
+rlabel locali s 1320 165 1363 289 6 Q_N
+port 8 nsew signal output
+rlabel locali s 1311 289 1363 493 6 Q_N
+port 8 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 1380 544
+string LEFclass CORE
+string LEFsite unithd
+string LEFsymmetry X Y R90
+string LEFview TRUE
+string GDS_END 2834022
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds
+string GDS_START 2821536
+<< end >>

@@ -1,0 +1,65 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -38 261 314 582
+<< pwell >>
+rect 29 -17 63 17
+<< locali >>
+rect 17 51 121 348
+rect 155 183 259 493
+<< obsli1 >>
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 276 561
+rect 55 382 121 527
+rect 155 17 223 149
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 276 17
+<< obsli1c >>
+rect 29 527 63 561
+rect 121 527 155 561
+rect 213 527 247 561
+rect 29 -17 63 17
+rect 121 -17 155 17
+rect 213 -17 247 17
+<< metal1 >>
+rect 0 561 276 592
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 276 561
+rect 0 496 276 527
+rect 0 17 276 48
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 276 17
+rect 0 -48 276 -17
+<< labels >>
+rlabel metal1 s 0 -48 276 48 8 VGND
+port 1 nsew ground bidirectional abutment
+rlabel pwell s 29 -17 63 17 8 VNB
+port 2 nsew ground bidirectional
+rlabel nwell s -38 261 314 582 6 VPB
+port 3 nsew power bidirectional
+rlabel metal1 s 0 496 276 592 6 VPWR
+port 4 nsew power bidirectional abutment
+rlabel locali s 17 51 121 348 6 HI
+port 5 nsew signal output
+rlabel locali s 155 183 259 493 6 LO
+port 6 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 276 544
+string LEFclass CORE
+string LEFsite unithd
+string LEFsymmetry X Y R90
+string LEFview TRUE
+string GDS_END 1638680
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds
+string GDS_START 1635376
+<< end >>

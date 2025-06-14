@@ -1,0 +1,89 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< pwell >>
+rect -79 -26 335 226
+<< mvnmos >>
+rect 0 0 100 200
+rect 156 0 256 200
+<< mvndiff >>
+rect -53 182 0 200
+rect -53 148 -45 182
+rect -11 148 0 182
+rect -53 114 0 148
+rect -53 80 -45 114
+rect -11 80 0 114
+rect -53 46 0 80
+rect -53 12 -45 46
+rect -11 12 0 46
+rect -53 0 0 12
+rect 100 182 156 200
+rect 100 148 111 182
+rect 145 148 156 182
+rect 100 114 156 148
+rect 100 80 111 114
+rect 145 80 156 114
+rect 100 46 156 80
+rect 100 12 111 46
+rect 145 12 156 46
+rect 100 0 156 12
+rect 256 182 309 200
+rect 256 148 267 182
+rect 301 148 309 182
+rect 256 114 309 148
+rect 256 80 267 114
+rect 301 80 309 114
+rect 256 46 309 80
+rect 256 12 267 46
+rect 301 12 309 46
+rect 256 0 309 12
+<< mvndiffc >>
+rect -45 148 -11 182
+rect -45 80 -11 114
+rect -45 12 -11 46
+rect 111 148 145 182
+rect 111 80 145 114
+rect 111 12 145 46
+rect 267 148 301 182
+rect 267 80 301 114
+rect 267 12 301 46
+<< poly >>
+rect 0 200 100 226
+rect 156 200 256 226
+rect 0 -26 100 0
+rect 156 -26 256 0
+<< locali >>
+rect -45 182 -11 198
+rect -45 114 -11 148
+rect -45 46 -11 80
+rect -45 -4 -11 12
+rect 111 182 145 198
+rect 111 114 145 148
+rect 111 46 145 80
+rect 111 -4 145 12
+rect 267 182 301 198
+rect 267 114 301 148
+rect 267 46 301 80
+rect 267 -4 301 12
+use hvDFL1sd2_CDNS_52468879185133  hvDFL1sd2_CDNS_52468879185133_0
+timestamp 1701704242
+transform 1 0 100 0 1 0
+box 0 0 1 1
+use hvDFL1sd_CDNS_52468879185132  hvDFL1sd_CDNS_52468879185132_0
+timestamp 1701704242
+transform -1 0 0 0 1 0
+box 0 0 1 1
+use hvDFL1sd_CDNS_52468879185132  hvDFL1sd_CDNS_52468879185132_1
+timestamp 1701704242
+transform 1 0 256 0 1 0
+box 0 0 1 1
+<< labels >>
+flabel comment s -28 97 -28 97 0 FreeSans 300 0 0 0 S
+flabel comment s 128 97 128 97 0 FreeSans 300 0 0 0 D
+flabel comment s 284 97 284 97 0 FreeSans 300 0 0 0 S
+<< properties >>
+string GDS_END 79590416
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 79589026
+<< end >>

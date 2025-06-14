@@ -1,0 +1,53 @@
+li1     NET,SPNET,VIA            67  20
+li1     LEFPIN,PIN               67  16
+li1     LEFOBS                   67  5
+NAME    li1/LABEL,li1/LEFPIN     67  5
+
+mcon    LEFOBS                   67  44
+mcon    LEFPIN                   67  48
+NAME    mcon/LABEL,mcon/LEFPIN   67  48
+
+nwell   LEFPIN                   64  16
+NAME    nwell/LABEL,nwell/LEFPIN 64  5
+
+pwell   LEFPIN                   122 16
+NAME    pwell/LABEL,pwell/LEFPIN 122 5
+
+mcon    VIA,LEFPIN,PIN           67  44
+via     VIA,LEFPIN,PIN           68  44
+via2    VIA,LEFPIN,PIN           69  44
+via3    VIA,LEFPIN,PIN           70  44
+via4    VIA,LEFPIN,PIN           71  44
+
+mcon    LEFPIN,PIN               67  48
+via     LEFPIN,PIN               68  48
+via2    LEFPIN,PIN               69  48
+via3    LEFPIN,PIN               70  48
+via4    LEFPIN,PIN               71  48
+
+met1    LEFPIN,NET,SPNET,PIN,VIA 68  20
+met1    LEFPIN,PIN               68  16
+met1    LEFOBS                   68  4
+NAME    met1/LABEL,met1/LEFPIN   68  5
+
+met2    LEFPIN,NET,SPNET,PIN,VIA 69  20
+met2    LEFPIN,PIN               69  16
+met2    LEFOBS                   69  4
+NAME    met2/LABEL,met2/LEFPIN   69  5
+
+met3    LEFPIN,NET,SPNET,PIN,VIA 70  20
+met3    LEFPIN,PIN               70  16
+met3    LEFOBS                   70  4
+NAME    met3/LABEL,met3/LEFPIN   70  5
+
+met4    LEFPIN,NET,SPNET,PIN,VIA 71  20
+met4    LEFPIN,PIN               71  16
+met4    LEFOBS                   71  4
+NAME    met4/LABEL,met4/LEFPIN   71  5
+
+met5    LEFPIN,NET,SPNET,PIN,VIA 72  20
+met5    LEFPIN,PIN               72  16
+met5    LEFOBS                   72  4
+NAME    met5/LABEL,met5/LEFPIN   72  5
+
+DIEAREA ALL                      235 4

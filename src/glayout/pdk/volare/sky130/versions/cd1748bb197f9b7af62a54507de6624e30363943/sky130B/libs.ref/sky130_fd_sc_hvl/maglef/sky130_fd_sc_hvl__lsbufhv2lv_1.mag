@@ -1,0 +1,397 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -66 377 306 1251
+rect 706 385 1000 1115
+rect 1400 377 1698 1251
+<< pwell >>
+rect -26 1585 1658 1671
+rect 4 1311 780 1585
+rect 366 1101 624 1311
+rect 366 325 624 811
+rect 366 317 904 325
+rect 4 43 904 317
+rect -26 -43 1658 43
+<< locali >>
+rect 0 1611 31 1645
+rect 65 1611 127 1645
+rect 161 1611 223 1645
+rect 257 1611 319 1645
+rect 353 1611 415 1645
+rect 449 1611 511 1645
+rect 545 1611 607 1645
+rect 641 1611 703 1645
+rect 737 1611 799 1645
+rect 833 1611 895 1645
+rect 929 1611 991 1645
+rect 1025 1611 1087 1645
+rect 1121 1611 1183 1645
+rect 1217 1611 1279 1645
+rect 1313 1611 1375 1645
+rect 1409 1611 1471 1645
+rect 1505 1611 1567 1645
+rect 1601 1611 1632 1645
+rect 126 974 260 1040
+rect 0 797 31 831
+rect 65 797 127 831
+rect 161 797 177 831
+rect 697 147 792 649
+rect 1455 797 1471 831
+rect 1505 797 1567 831
+rect 1601 797 1632 831
+rect 0 -17 31 17
+rect 65 -17 127 17
+rect 161 -17 223 17
+rect 257 -17 319 17
+rect 353 -17 415 17
+rect 449 -17 511 17
+rect 545 -17 607 17
+rect 641 -17 703 17
+rect 737 -17 799 17
+rect 833 -17 895 17
+rect 929 -17 991 17
+rect 1025 -17 1087 17
+rect 1121 -17 1183 17
+rect 1217 -17 1279 17
+rect 1313 -17 1375 17
+rect 1409 -17 1471 17
+rect 1505 -17 1567 17
+rect 1601 -17 1632 17
+<< viali >>
+rect 31 1611 65 1645
+rect 127 1611 161 1645
+rect 223 1611 257 1645
+rect 319 1611 353 1645
+rect 415 1611 449 1645
+rect 511 1611 545 1645
+rect 607 1611 641 1645
+rect 703 1611 737 1645
+rect 799 1611 833 1645
+rect 895 1611 929 1645
+rect 991 1611 1025 1645
+rect 1087 1611 1121 1645
+rect 1183 1611 1217 1645
+rect 1279 1611 1313 1645
+rect 1375 1611 1409 1645
+rect 1471 1611 1505 1645
+rect 1567 1611 1601 1645
+rect 31 797 65 831
+rect 127 797 161 831
+rect 1471 797 1505 831
+rect 1567 797 1601 831
+rect 31 -17 65 17
+rect 127 -17 161 17
+rect 223 -17 257 17
+rect 319 -17 353 17
+rect 415 -17 449 17
+rect 511 -17 545 17
+rect 607 -17 641 17
+rect 703 -17 737 17
+rect 799 -17 833 17
+rect 895 -17 929 17
+rect 991 -17 1025 17
+rect 1087 -17 1121 17
+rect 1183 -17 1217 17
+rect 1279 -17 1313 17
+rect 1375 -17 1409 17
+rect 1471 -17 1505 17
+rect 1567 -17 1601 17
+<< obsli1 >>
+rect 179 1543 297 1549
+rect 179 1509 185 1543
+rect 219 1509 257 1543
+rect 291 1509 297 1543
+rect 34 1315 84 1412
+rect 179 1349 297 1509
+rect 506 1543 624 1549
+rect 506 1509 512 1543
+rect 546 1509 584 1543
+rect 618 1509 624 1543
+rect 34 1244 350 1315
+rect 26 939 92 1176
+rect 190 1110 350 1244
+rect 26 933 144 939
+rect 26 899 32 933
+rect 66 899 104 933
+rect 138 899 144 933
+rect 26 893 144 899
+rect 26 729 144 735
+rect 26 695 32 729
+rect 66 695 104 729
+rect 138 695 144 729
+rect 26 689 144 695
+rect 26 452 92 689
+rect 294 617 350 1110
+rect 384 1089 450 1491
+rect 506 1123 624 1509
+rect 696 1169 762 1491
+rect 658 1119 1034 1169
+rect 658 1089 708 1119
+rect 384 1039 708 1089
+rect 742 919 792 1083
+rect 126 567 350 617
+rect 384 851 792 919
+rect 190 379 240 518
+rect 289 379 350 447
+rect 34 313 350 379
+rect 34 216 84 313
+rect 179 119 297 279
+rect 384 137 450 851
+rect 826 817 880 1083
+rect 179 85 185 119
+rect 219 85 257 119
+rect 291 85 297 119
+rect 179 79 297 85
+rect 514 119 632 782
+rect 756 683 950 817
+rect 826 655 950 683
+rect 826 621 832 655
+rect 866 621 904 655
+rect 938 621 950 655
+rect 826 615 950 621
+rect 826 417 880 615
+rect 984 581 1034 1119
+rect 914 531 1034 581
+rect 914 417 964 531
+rect 514 85 520 119
+rect 554 85 592 119
+rect 626 85 632 119
+rect 514 79 632 85
+rect 826 119 944 303
+rect 826 85 832 119
+rect 866 85 904 119
+rect 938 85 944 119
+rect 826 79 944 85
+<< obsli1c >>
+rect 185 1509 219 1543
+rect 257 1509 291 1543
+rect 512 1509 546 1543
+rect 584 1509 618 1543
+rect 32 899 66 933
+rect 104 899 138 933
+rect 32 695 66 729
+rect 104 695 138 729
+rect 185 85 219 119
+rect 257 85 291 119
+rect 832 621 866 655
+rect 904 621 938 655
+rect 520 85 554 119
+rect 592 85 626 119
+rect 832 85 866 119
+rect 904 85 938 119
+<< metal1 >>
+rect 0 1645 1632 1651
+rect 0 1611 31 1645
+rect 65 1611 127 1645
+rect 161 1611 223 1645
+rect 257 1611 319 1645
+rect 353 1611 415 1645
+rect 449 1611 511 1645
+rect 545 1611 607 1645
+rect 641 1611 703 1645
+rect 737 1611 799 1645
+rect 833 1611 895 1645
+rect 929 1611 991 1645
+rect 1025 1611 1087 1645
+rect 1121 1611 1183 1645
+rect 1217 1611 1279 1645
+rect 1313 1611 1375 1645
+rect 1409 1611 1471 1645
+rect 1505 1611 1567 1645
+rect 1601 1611 1632 1645
+rect 0 1605 1632 1611
+rect 0 1543 1632 1577
+rect 0 1509 185 1543
+rect 219 1509 257 1543
+rect 291 1509 512 1543
+rect 546 1509 584 1543
+rect 618 1509 1632 1543
+rect 0 1503 1632 1509
+rect 0 933 1632 939
+rect 0 899 32 933
+rect 66 899 104 933
+rect 138 899 1632 933
+rect 0 865 1632 899
+rect 0 831 1632 837
+rect 0 797 31 831
+rect 65 797 127 831
+rect 161 797 1471 831
+rect 1505 797 1567 831
+rect 1601 797 1632 831
+rect 0 791 1632 797
+rect 0 729 1632 763
+rect 0 695 32 729
+rect 66 695 104 729
+rect 138 695 1632 729
+rect 0 689 1632 695
+rect 14 655 1618 661
+rect 14 621 832 655
+rect 866 621 904 655
+rect 938 621 1618 655
+rect 14 604 1618 621
+rect 0 119 1632 125
+rect 0 85 185 119
+rect 219 85 257 119
+rect 291 85 520 119
+rect 554 85 592 119
+rect 626 85 832 119
+rect 866 85 904 119
+rect 938 85 1632 119
+rect 0 51 1632 85
+rect 0 17 1632 23
+rect 0 -17 31 17
+rect 65 -17 127 17
+rect 161 -17 223 17
+rect 257 -17 319 17
+rect 353 -17 415 17
+rect 449 -17 511 17
+rect 545 -17 607 17
+rect 641 -17 703 17
+rect 737 -17 799 17
+rect 833 -17 895 17
+rect 929 -17 991 17
+rect 1025 -17 1087 17
+rect 1121 -17 1183 17
+rect 1217 -17 1279 17
+rect 1313 -17 1375 17
+rect 1409 -17 1471 17
+rect 1505 -17 1567 17
+rect 1601 -17 1632 17
+rect 0 -23 1632 -17
+<< labels >>
+rlabel locali s 126 974 260 1040 6 A
+port 1 nsew signal input
+rlabel metal1 s 14 604 1618 661 6 LVPWR
+port 2 nsew power bidirectional
+rlabel nwell s 706 385 1000 1115 6 LVPWR
+port 2 nsew power bidirectional
+rlabel metal1 s 0 1503 1632 1577 6 VGND
+port 3 nsew ground bidirectional
+rlabel metal1 s 0 51 1632 125 6 VGND
+port 3 nsew ground bidirectional
+rlabel metal1 s 0 -23 1632 23 8 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s -26 -43 1658 43 8 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 4 43 904 317 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 366 317 904 325 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 366 325 624 811 6 VNB
+port 4 nsew ground bidirectional
+rlabel metal1 s 0 1605 1632 1651 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 366 1101 624 1311 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 4 1311 780 1585 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s -26 1585 1658 1671 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1567 1611 1601 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1471 1611 1505 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1375 1611 1409 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1279 1611 1313 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1183 1611 1217 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1087 1611 1121 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 991 1611 1025 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 895 1611 929 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 799 1611 833 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 703 1611 737 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 607 1611 641 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 511 1611 545 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 415 1611 449 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 319 1611 353 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 223 1611 257 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 127 1611 161 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 31 1611 65 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel locali s 0 1611 1632 1645 6 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1567 -17 1601 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1471 -17 1505 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1375 -17 1409 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1279 -17 1313 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1183 -17 1217 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 1087 -17 1121 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 991 -17 1025 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 895 -17 929 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 799 -17 833 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 703 -17 737 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 607 -17 641 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 511 -17 545 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 415 -17 449 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 319 -17 353 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 223 -17 257 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 127 -17 161 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel viali s 31 -17 65 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel locali s 0 -17 1632 17 8 VNB
+port 4 nsew ground bidirectional
+rlabel metal1 s 0 791 1632 837 6 VPB
+port 5 nsew power bidirectional
+rlabel nwell s 1400 377 1698 1251 6 VPB
+port 5 nsew power bidirectional
+rlabel nwell s -66 377 306 1251 6 VPB
+port 5 nsew power bidirectional
+rlabel viali s 1567 797 1601 831 6 VPB
+port 5 nsew power bidirectional
+rlabel viali s 1471 797 1505 831 6 VPB
+port 5 nsew power bidirectional
+rlabel locali s 1455 797 1632 831 6 VPB
+port 5 nsew power bidirectional
+rlabel viali s 127 797 161 831 6 VPB
+port 5 nsew power bidirectional
+rlabel viali s 31 797 65 831 6 VPB
+port 5 nsew power bidirectional
+rlabel locali s 0 797 177 831 6 VPB
+port 5 nsew power bidirectional
+rlabel metal1 s 0 689 1632 763 6 VPWR
+port 6 nsew power bidirectional
+rlabel metal1 s 0 865 1632 939 6 VPWR
+port 6 nsew power bidirectional
+rlabel locali s 697 147 792 649 6 X
+port 7 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 1632 1628
+string LEFclass CORE
+string LEFsite unithvdbl
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 146382
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 127692
+<< end >>

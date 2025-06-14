@@ -1,0 +1,69 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -38 261 130 582
+<< pwell >>
+rect 3 38 89 195
+<< psubdiff >>
+rect 29 145 63 169
+rect 29 64 63 111
+<< nsubdiff >>
+rect 29 456 63 480
+rect 29 363 63 422
+rect 29 305 63 329
+<< psubdiffcont >>
+rect 29 111 63 145
+<< nsubdiffcont >>
+rect 29 422 63 456
+rect 29 329 63 363
+<< locali >>
+rect 0 527 29 561
+rect 63 527 92 561
+rect 17 456 75 527
+rect 17 422 29 456
+rect 63 422 75 456
+rect 17 363 75 422
+rect 17 329 29 363
+rect 63 329 75 363
+rect 17 294 75 329
+rect 17 145 75 162
+rect 17 111 29 145
+rect 63 111 75 145
+rect 17 17 75 111
+rect 0 -17 29 17
+rect 63 -17 92 17
+<< viali >>
+rect 29 527 63 561
+rect 29 -17 63 17
+<< metal1 >>
+rect 0 561 92 592
+rect 0 527 29 561
+rect 63 527 92 561
+rect 0 496 92 527
+rect 0 17 92 48
+rect 0 -17 29 17
+rect 63 -17 92 17
+rect 0 -48 92 -17
+<< labels >>
+flabel metal1 s 22 524 75 553 0 FreeSans 200 0 0 0 VPWR
+port 2 nsew power bidirectional abutment
+flabel metal1 s 21 -18 72 20 0 FreeSans 200 0 0 0 VGND
+port 1 nsew ground bidirectional abutment
+rlabel comment s 0 0 0 0 4 tapvpwrvgnd_1
+rlabel metal1 s 0 -48 92 48 1 VGND
+port 1 nsew ground bidirectional abutment
+rlabel metal1 s 0 496 92 592 1 VPWR
+port 2 nsew power bidirectional abutment
+<< properties >>
+string FIXED_BBOX 0 0 92 544
+string GDS_END 634034
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds
+string GDS_START 632414
+string LEFclass CORE WELLTAP
+string LEFsite unithd
+string LEFsymmetry X Y R90
+string MASKHINTS_PSDM 0 38 92 195
+string MASKHINTS_NSDM 0 279 92 506
+<< end >>

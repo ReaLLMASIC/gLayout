@@ -1,0 +1,240 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -107 515 459 1337
+<< pwell >>
+rect -67 367 67 455
+rect 285 367 419 455
+<< mvpsubdiff >>
+rect -41 427 41 429
+rect -41 393 -17 427
+rect 17 393 41 427
+rect 311 427 393 429
+rect 311 393 335 427
+rect 369 393 393 427
+<< mvnsubdiff >>
+rect -41 583 -17 617
+rect 17 583 41 617
+rect -41 581 41 583
+rect 311 583 335 617
+rect 369 583 393 617
+rect 311 581 393 583
+<< mvpsubdiffcont >>
+rect -17 393 17 427
+rect 335 393 369 427
+<< mvnsubdiffcont >>
+rect -17 583 17 617
+rect 335 583 369 617
+<< poly >>
+rect 21 1353 331 1369
+rect 21 1319 37 1353
+rect 71 1319 105 1353
+rect 139 1319 213 1353
+rect 247 1319 281 1353
+rect 315 1319 331 1353
+rect 21 1303 331 1319
+rect 28 1297 324 1303
+rect 52 345 148 645
+rect 204 345 300 645
+rect 28 87 324 93
+rect 21 71 331 87
+rect 21 37 37 71
+rect 71 37 105 71
+rect 139 37 213 71
+rect 247 37 281 71
+rect 315 37 331 71
+rect 21 21 331 37
+<< polycont >>
+rect 37 1319 71 1353
+rect 105 1319 139 1353
+rect 213 1319 247 1353
+rect 281 1319 315 1353
+rect 37 37 71 71
+rect 105 37 139 71
+rect 213 37 247 71
+rect 281 37 315 71
+<< locali >>
+rect 37 1353 139 1369
+rect 71 1319 105 1353
+rect 37 1303 139 1319
+rect 213 1353 315 1369
+rect 247 1319 281 1353
+rect 213 1303 315 1319
+rect -17 857 17 869
+rect -17 785 17 823
+rect -17 713 17 751
+rect -17 667 17 679
+rect -17 567 17 583
+rect -17 427 17 443
+rect -17 259 17 297
+rect -17 187 17 225
+rect -17 141 17 153
+rect 51 87 125 1303
+rect 159 121 193 1269
+rect 227 87 301 1303
+rect 335 857 369 869
+rect 335 785 369 823
+rect 335 713 369 751
+rect 335 667 369 679
+rect 335 567 369 583
+rect 335 427 369 443
+rect 335 259 369 297
+rect 335 187 369 225
+rect 335 141 369 153
+rect 37 71 139 87
+rect 71 37 105 71
+rect 37 21 139 37
+rect 213 71 315 87
+rect 247 37 281 71
+rect 213 21 315 37
+<< viali >>
+rect -17 823 17 857
+rect -17 751 17 785
+rect -17 679 17 713
+rect -17 617 17 633
+rect -17 599 17 617
+rect -17 393 17 411
+rect -17 377 17 393
+rect -17 297 17 331
+rect -17 225 17 259
+rect -17 153 17 187
+rect 335 823 369 857
+rect 335 751 369 785
+rect 335 679 369 713
+rect 335 617 369 633
+rect 335 599 369 617
+rect 335 393 369 411
+rect 335 377 369 393
+rect 335 297 369 331
+rect 335 225 369 259
+rect 335 153 369 187
+<< metal1 >>
+rect -29 857 381 869
+rect -29 823 -17 857
+rect 17 823 335 857
+rect 369 823 381 857
+rect -29 785 381 823
+rect -29 751 -17 785
+rect 17 751 335 785
+rect 369 751 381 785
+rect -29 713 381 751
+rect -29 679 -17 713
+rect 17 679 335 713
+rect 369 679 381 713
+rect -29 667 381 679
+rect -29 633 381 639
+rect -29 599 -17 633
+rect 17 599 335 633
+rect 369 599 381 633
+rect -29 593 381 599
+rect -29 411 381 417
+rect -29 377 -17 411
+rect 17 377 335 411
+rect 369 377 381 411
+rect -29 371 381 377
+rect -29 331 381 343
+rect -29 297 -17 331
+rect 17 297 335 331
+rect 369 297 381 331
+rect -29 259 381 297
+rect -29 225 -17 259
+rect 17 225 335 259
+rect 369 225 381 259
+rect -29 187 381 225
+rect -29 153 -17 187
+rect 17 153 335 187
+rect 369 153 381 187
+rect -29 141 381 153
+use hvnTran_CDNS_52468879185633  hvnTran_CDNS_52468879185633_0
+timestamp 1701704242
+transform 1 0 28 0 -1 319
+box -79 -26 375 226
+use hvpTran_CDNS_52468879185634  hvpTran_CDNS_52468879185634_0
+timestamp 1701704242
+transform 1 0 28 0 1 671
+box -119 -66 415 666
+use L1M1_CDNS_5246887918590  L1M1_CDNS_5246887918590_0
+timestamp 1701704242
+transform 0 -1 369 -1 0 331
+box 0 0 1 1
+use L1M1_CDNS_5246887918590  L1M1_CDNS_5246887918590_1
+timestamp 1701704242
+transform 0 -1 17 -1 0 331
+box 0 0 1 1
+use L1M1_CDNS_5246887918590  L1M1_CDNS_5246887918590_2
+timestamp 1701704242
+transform 0 -1 369 1 0 679
+box 0 0 1 1
+use L1M1_CDNS_5246887918590  L1M1_CDNS_5246887918590_3
+timestamp 1701704242
+transform 0 -1 17 1 0 679
+box 0 0 1 1
+use L1M1_CDNS_52468879185501  L1M1_CDNS_52468879185501_0
+timestamp 1701704242
+transform 1 0 335 0 -1 411
+box 0 0 1 1
+use L1M1_CDNS_52468879185501  L1M1_CDNS_52468879185501_1
+timestamp 1701704242
+transform 1 0 -17 0 -1 411
+box 0 0 1 1
+use L1M1_CDNS_52468879185501  L1M1_CDNS_52468879185501_2
+timestamp 1701704242
+transform 1 0 335 0 -1 633
+box 0 0 1 1
+use L1M1_CDNS_52468879185501  L1M1_CDNS_52468879185501_3
+timestamp 1701704242
+transform 1 0 -17 0 -1 633
+box 0 0 1 1
+use PYL1_CDNS_5246887918526  PYL1_CDNS_5246887918526_0
+timestamp 1701704242
+transform 1 0 197 0 1 1303
+box 0 0 1 1
+use PYL1_CDNS_5246887918526  PYL1_CDNS_5246887918526_1
+timestamp 1701704242
+transform 1 0 21 0 1 1303
+box 0 0 1 1
+use PYL1_CDNS_5246887918526  PYL1_CDNS_5246887918526_2
+timestamp 1701704242
+transform 1 0 21 0 1 21
+box 0 0 1 1
+use PYL1_CDNS_5246887918526  PYL1_CDNS_5246887918526_3
+timestamp 1701704242
+transform 1 0 197 0 1 21
+box 0 0 1 1
+<< labels >>
+flabel comment s 180 88 180 88 0 FreeSans 100 0 0 0 no_jumper_check
+flabel metal1 s 340 593 352 639 3 FreeSans 200 180 0 0 vpb
+port 1 nsew
+flabel metal1 s 340 141 352 343 3 FreeSans 200 180 0 0 vgnd
+port 2 nsew
+flabel metal1 s 0 141 12 343 3 FreeSans 200 0 0 0 vgnd
+port 2 nsew
+flabel metal1 s 0 371 12 417 3 FreeSans 200 0 0 0 vnb
+port 3 nsew
+flabel metal1 s 0 593 12 639 3 FreeSans 200 0 0 0 vpb
+port 1 nsew
+flabel metal1 s 0 667 12 869 3 FreeSans 200 0 0 0 vpwr
+port 4 nsew
+flabel metal1 s 340 667 352 869 3 FreeSans 200 180 0 0 vpwr
+port 4 nsew
+flabel metal1 s 340 371 352 417 3 FreeSans 200 180 0 0 vnb
+port 3 nsew
+flabel locali s 159 121 193 171 0 FreeSans 200 0 0 0 out
+port 6 nsew
+flabel locali s 159 1220 193 1269 0 FreeSans 200 0 0 0 out
+port 6 nsew
+flabel locali s 71 21 105 71 0 FreeSans 200 0 0 0 in
+port 7 nsew
+flabel locali s 247 1319 281 1369 0 FreeSans 200 0 0 0 in
+port 7 nsew
+flabel locali s 71 1319 105 1369 0 FreeSans 200 0 0 0 in
+port 7 nsew
+flabel locali s 247 21 281 71 0 FreeSans 200 0 0 0 in
+port 7 nsew
+<< properties >>
+string GDS_END 86500080
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 86494890
+<< end >>

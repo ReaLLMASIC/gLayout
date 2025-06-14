@@ -1,0 +1,45 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+use sky130_fd_pr__model__nfet_highvoltage__example_55959141808422  sky130_fd_pr__model__nfet_highvoltage__example_55959141808422_0
+timestamp 1701704242
+transform 1 0 119 0 -1 284
+box -1 0 297 1
+use sky130_fd_pr__model__pfet_highvoltage__example_55959141808421  sky130_fd_pr__model__pfet_highvoltage__example_55959141808421_0
+timestamp 1701704242
+transform 1 0 119 0 1 750
+box -1 0 297 1
+use sky130_fd_pr__model__pfet_highvoltage__example_55959141808421  sky130_fd_pr__model__pfet_highvoltage__example_55959141808421_1
+timestamp 1701704242
+transform 1 0 119 0 -1 682
+box -1 0 297 1
+use sky130_fd_pr__via_l1m1__example_559591418084  sky130_fd_pr__via_l1m1__example_559591418084_0
+timestamp 1701704242
+transform 0 -1 108 -1 0 227
+box 0 0 1 1
+use sky130_fd_pr__via_l1m1__example_559591418084  sky130_fd_pr__via_l1m1__example_559591418084_1
+timestamp 1701704242
+transform 0 -1 108 1 0 872
+box 0 0 1 1
+use sky130_fd_pr__via_l1m1__example_559591418084  sky130_fd_pr__via_l1m1__example_559591418084_2
+timestamp 1701704242
+transform 0 -1 460 1 0 872
+box 0 0 1 1
+use sky130_fd_pr__via_l1m1__example_559591418084  sky130_fd_pr__via_l1m1__example_559591418084_3
+timestamp 1701704242
+transform 0 -1 460 -1 0 227
+box 0 0 1 1
+use sky130_fd_pr__via_pol1__example_559591418083  sky130_fd_pr__via_pol1__example_559591418083_0
+timestamp 1701704242
+transform 0 -1 394 1 0 316
+box 0 0 1 1
+use sky130_fd_pr__via_pol1__example_559591418083  sky130_fd_pr__via_pol1__example_559591418083_1
+timestamp 1701704242
+transform 0 -1 207 1 0 316
+box 0 0 1 1
+<< properties >>
+string GDS_END 20328294
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 20326034
+<< end >>

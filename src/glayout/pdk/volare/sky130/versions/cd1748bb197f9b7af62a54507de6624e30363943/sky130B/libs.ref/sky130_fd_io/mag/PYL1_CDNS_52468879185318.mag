@@ -1,0 +1,53 @@
+magic
+tech sky130B
+timestamp 1701704242
+<< poly >>
+rect 0 263 33 271
+rect 0 246 8 263
+rect 25 246 33 263
+rect 0 229 33 246
+rect 0 212 8 229
+rect 25 212 33 229
+rect 0 195 33 212
+rect 0 178 8 195
+rect 25 178 33 195
+rect 0 161 33 178
+rect 0 144 8 161
+rect 25 144 33 161
+rect 0 127 33 144
+rect 0 110 8 127
+rect 25 110 33 127
+rect 0 93 33 110
+rect 0 76 8 93
+rect 25 76 33 93
+rect 0 59 33 76
+rect 0 42 8 59
+rect 25 42 33 59
+rect 0 25 33 42
+rect 0 8 8 25
+rect 25 8 33 25
+rect 0 0 33 8
+<< polycont >>
+rect 8 246 25 263
+rect 8 212 25 229
+rect 8 178 25 195
+rect 8 144 25 161
+rect 8 110 25 127
+rect 8 76 25 93
+rect 8 42 25 59
+rect 8 8 25 25
+<< locali >>
+rect 8 263 25 271
+rect 8 229 25 246
+rect 8 195 25 212
+rect 8 161 25 178
+rect 8 127 25 144
+rect 8 93 25 110
+rect 8 59 25 76
+rect 8 25 25 42
+rect 8 0 25 8
+<< properties >>
+string GDS_END 78949906
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 78949198
+<< end >>

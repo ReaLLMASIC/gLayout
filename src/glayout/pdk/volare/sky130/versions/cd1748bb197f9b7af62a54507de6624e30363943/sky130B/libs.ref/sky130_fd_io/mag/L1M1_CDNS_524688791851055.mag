@@ -1,0 +1,91 @@
+magic
+tech sky130B
+timestamp 1701704242
+<< locali >>
+rect 0 521 17 540
+rect 0 485 17 504
+rect 0 449 17 468
+rect 0 413 17 432
+rect 0 377 17 396
+rect 0 341 17 360
+rect 0 305 17 324
+rect 0 269 17 288
+rect 0 233 17 252
+rect 0 197 17 216
+rect 0 161 17 180
+rect 0 125 17 144
+rect 0 89 17 108
+rect 0 53 17 72
+rect 0 17 17 36
+<< viali >>
+rect 0 540 17 557
+rect 0 504 17 521
+rect 0 468 17 485
+rect 0 432 17 449
+rect 0 396 17 413
+rect 0 360 17 377
+rect 0 324 17 341
+rect 0 288 17 305
+rect 0 252 17 269
+rect 0 216 17 233
+rect 0 180 17 197
+rect 0 144 17 161
+rect 0 108 17 125
+rect 0 72 17 89
+rect 0 36 17 53
+rect 0 0 17 17
+<< metal1 >>
+rect -6 557 23 560
+rect -6 540 0 557
+rect 17 540 23 557
+rect -6 521 23 540
+rect -6 504 0 521
+rect 17 504 23 521
+rect -6 485 23 504
+rect -6 468 0 485
+rect 17 468 23 485
+rect -6 449 23 468
+rect -6 432 0 449
+rect 17 432 23 449
+rect -6 413 23 432
+rect -6 396 0 413
+rect 17 396 23 413
+rect -6 377 23 396
+rect -6 360 0 377
+rect 17 360 23 377
+rect -6 341 23 360
+rect -6 324 0 341
+rect 17 324 23 341
+rect -6 305 23 324
+rect -6 288 0 305
+rect 17 288 23 305
+rect -6 269 23 288
+rect -6 252 0 269
+rect 17 252 23 269
+rect -6 233 23 252
+rect -6 216 0 233
+rect 17 216 23 233
+rect -6 197 23 216
+rect -6 180 0 197
+rect 17 180 23 197
+rect -6 161 23 180
+rect -6 144 0 161
+rect 17 144 23 161
+rect -6 125 23 144
+rect -6 108 0 125
+rect 17 108 23 125
+rect -6 89 23 108
+rect -6 72 0 89
+rect 17 72 23 89
+rect -6 53 23 72
+rect -6 36 0 53
+rect 17 36 23 53
+rect -6 17 23 36
+rect -6 0 0 17
+rect 17 0 23 17
+rect -6 -3 23 0
+<< properties >>
+string GDS_END 79593028
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 79591872
+<< end >>

@@ -1,0 +1,79 @@
+magic
+tech sky130B
+timestamp 1701704242
+<< metal1 >>
+rect 0 0 3 26
+rect 29 0 35 26
+rect 61 0 67 26
+rect 93 0 99 26
+rect 125 0 131 26
+rect 157 0 163 26
+rect 189 0 195 26
+rect 221 0 227 26
+rect 253 0 259 26
+rect 285 0 291 26
+rect 317 0 323 26
+rect 349 0 355 26
+rect 381 0 387 26
+rect 413 0 419 26
+rect 445 0 451 26
+rect 477 0 483 26
+rect 509 0 515 26
+rect 541 0 547 26
+rect 573 0 579 26
+rect 605 0 611 26
+rect 637 0 643 26
+rect 669 0 675 26
+rect 701 0 704 26
+<< via1 >>
+rect 3 0 29 26
+rect 35 0 61 26
+rect 67 0 93 26
+rect 99 0 125 26
+rect 131 0 157 26
+rect 163 0 189 26
+rect 195 0 221 26
+rect 227 0 253 26
+rect 259 0 285 26
+rect 291 0 317 26
+rect 323 0 349 26
+rect 355 0 381 26
+rect 387 0 413 26
+rect 419 0 445 26
+rect 451 0 477 26
+rect 483 0 509 26
+rect 515 0 541 26
+rect 547 0 573 26
+rect 579 0 605 26
+rect 611 0 637 26
+rect 643 0 669 26
+rect 675 0 701 26
+<< metal2 >>
+rect 0 0 3 26
+rect 29 0 35 26
+rect 61 0 67 26
+rect 93 0 99 26
+rect 125 0 131 26
+rect 157 0 163 26
+rect 189 0 195 26
+rect 221 0 227 26
+rect 253 0 259 26
+rect 285 0 291 26
+rect 317 0 323 26
+rect 349 0 355 26
+rect 381 0 387 26
+rect 413 0 419 26
+rect 445 0 451 26
+rect 477 0 483 26
+rect 509 0 515 26
+rect 541 0 547 26
+rect 573 0 579 26
+rect 605 0 611 26
+rect 637 0 643 26
+rect 669 0 675 26
+rect 701 0 704 26
+<< properties >>
+string GDS_END 79944732
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 79943192
+<< end >>

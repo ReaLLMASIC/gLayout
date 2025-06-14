@@ -1,0 +1,72 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -38 261 130 582
+<< pwell >>
+rect 3 38 89 195
+<< psubdiff >>
+rect 29 145 63 169
+rect 29 64 63 111
+<< nsubdiff >>
+rect 29 447 63 480
+rect 29 363 63 413
+rect 29 305 63 329
+<< psubdiffcont >>
+rect 29 111 63 145
+<< nsubdiffcont >>
+rect 29 413 63 447
+rect 29 329 63 363
+<< locali >>
+rect 0 527 29 561
+rect 63 527 92 561
+rect 17 447 75 491
+rect 17 413 29 447
+rect 63 413 75 447
+rect 17 363 75 413
+rect 17 329 29 363
+rect 63 329 75 363
+rect 17 294 75 329
+rect 17 145 75 162
+rect 17 111 29 145
+rect 63 111 75 145
+rect 17 53 75 111
+rect 0 -17 29 17
+rect 63 -17 92 17
+<< viali >>
+rect 29 527 63 561
+rect 29 -17 63 17
+<< metal1 >>
+rect 0 561 92 592
+rect 0 527 29 561
+rect 63 527 92 561
+rect 0 496 92 527
+rect 0 17 92 48
+rect 0 -17 29 17
+rect 63 -17 92 17
+rect 0 -48 92 -17
+<< labels >>
+flabel metal1 s 28 -10 68 14 0 FreeSans 200 0 0 0 VGND
+port 1 nsew ground bidirectional abutment
+flabel metal1 s 26 535 69 555 0 FreeSans 200 0 0 0 VPWR
+port 4 nsew power bidirectional abutment
+flabel locali s 38 94 54 113 0 FreeSans 250 0 0 0 VNB
+port 2 nsew ground bidirectional
+flabel locali s 29 362 57 386 0 FreeSans 250 0 0 0 VPB
+port 3 nsew power bidirectional
+rlabel comment s 0 0 0 0 4 tap_1
+rlabel metal1 s 0 -48 92 48 1 VGND
+port 1 nsew ground bidirectional abutment
+rlabel metal1 s 0 496 92 592 1 VPWR
+port 4 nsew power bidirectional abutment
+<< properties >>
+string FIXED_BBOX 0 0 92 544
+string GDS_END 559278
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds
+string GDS_START 557474
+string LEFclass CORE WELLTAP
+string LEFsite unithd
+string LEFsymmetry X Y R90
+string path 0.000 2.720 0.460 2.720 
+<< end >>

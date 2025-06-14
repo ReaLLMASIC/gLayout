@@ -1,0 +1,26 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< metal4 >>
+rect 24024 9780 24234 10016
+<< via4 >>
+rect 24234 9780 24470 10016
+<< metal5 >>
+rect 24000 10016 24494 10040
+rect 24000 9780 24234 10016
+rect 24470 9780 24494 10016
+rect 24000 9756 24494 9780
+use sky130_fd_io__gpio_ovtv2_bus_hookup  sky130_fd_io__gpio_ovtv2_bus_hookup_0
+timestamp 1701704242
+transform 1 0 0 0 1 0
+box -3360 -142 24640 39451
+use sky130_fd_io__gpio_ovtv2_pad  sky130_fd_io__gpio_ovtv2_pad_0
+timestamp 1701704242
+transform 1 0 0 0 1 0
+box -34 20407 15046 33487
+<< properties >>
+string GDS_END 63049066
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 63048758
+<< end >>

@@ -1,0 +1,58 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< metal2 >>
+rect 0 665 216 674
+rect 56 609 80 665
+rect 136 609 160 665
+rect 0 465 216 609
+rect 56 409 80 465
+rect 136 409 160 465
+rect 0 265 216 409
+rect 56 209 80 265
+rect 136 209 160 265
+rect 0 65 216 209
+rect 56 9 80 65
+rect 136 9 160 65
+rect 0 0 216 9
+<< via2 >>
+rect 0 609 56 665
+rect 80 609 136 665
+rect 160 609 216 665
+rect 0 409 56 465
+rect 80 409 136 465
+rect 160 409 216 465
+rect 0 209 56 265
+rect 80 209 136 265
+rect 160 209 216 265
+rect 0 9 56 65
+rect 80 9 136 65
+rect 160 9 216 65
+<< metal3 >>
+rect -5 665 221 670
+rect -5 609 0 665
+rect 56 609 80 665
+rect 136 609 160 665
+rect 216 609 221 665
+rect -5 465 221 609
+rect -5 409 0 465
+rect 56 409 80 465
+rect 136 409 160 465
+rect 216 409 221 465
+rect -5 265 221 409
+rect -5 209 0 265
+rect 56 209 80 265
+rect 136 209 160 265
+rect 216 209 221 265
+rect -5 65 221 209
+rect -5 9 0 65
+rect 56 9 80 65
+rect 136 9 160 65
+rect 216 9 221 65
+rect -5 4 221 9
+<< properties >>
+string GDS_END 78398462
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 78397562
+<< end >>
