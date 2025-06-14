@@ -1,0 +1,150 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -38 261 866 582
+<< pwell >>
+rect 1 157 187 203
+rect 1 21 781 157
+rect 84 -17 118 21
+<< locali >>
+rect 18 299 85 493
+rect 187 459 593 493
+rect 18 165 52 299
+rect 187 265 221 459
+rect 182 199 221 265
+rect 18 51 69 165
+rect 323 323 525 357
+rect 323 163 357 323
+rect 398 51 453 283
+rect 487 51 525 323
+rect 559 326 593 459
+rect 559 288 709 326
+<< obsli1 >>
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 305 561
+rect 339 527 397 561
+rect 431 527 489 561
+rect 523 527 581 561
+rect 615 527 673 561
+rect 707 527 765 561
+rect 799 527 828 561
+rect 119 299 153 527
+rect 86 199 137 265
+rect 255 391 480 425
+rect 103 165 137 199
+rect 255 165 289 391
+rect 103 131 289 165
+rect 254 124 289 131
+rect 103 17 169 97
+rect 254 51 360 124
+rect 627 375 661 527
+rect 708 375 811 457
+rect 743 213 811 375
+rect 565 179 811 213
+rect 561 17 663 124
+rect 707 58 756 179
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 305 17
+rect 339 -17 397 17
+rect 431 -17 489 17
+rect 523 -17 581 17
+rect 615 -17 673 17
+rect 707 -17 765 17
+rect 799 -17 828 17
+<< obsli1c >>
+rect 29 527 63 561
+rect 121 527 155 561
+rect 213 527 247 561
+rect 305 527 339 561
+rect 397 527 431 561
+rect 489 527 523 561
+rect 581 527 615 561
+rect 673 527 707 561
+rect 765 527 799 561
+rect 29 -17 63 17
+rect 121 -17 155 17
+rect 213 -17 247 17
+rect 305 -17 339 17
+rect 397 -17 431 17
+rect 489 -17 523 17
+rect 581 -17 615 17
+rect 673 -17 707 17
+rect 765 -17 799 17
+<< metal1 >>
+rect 0 561 828 592
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 305 561
+rect 339 527 397 561
+rect 431 527 489 561
+rect 523 527 581 561
+rect 615 527 673 561
+rect 707 527 765 561
+rect 799 527 828 561
+rect 0 496 828 527
+rect 0 17 828 48
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 305 17
+rect 339 -17 397 17
+rect 431 -17 489 17
+rect 523 -17 581 17
+rect 615 -17 673 17
+rect 707 -17 765 17
+rect 799 -17 828 17
+rect 0 -48 828 -17
+<< labels >>
+rlabel locali s 398 51 453 283 6 A0
+port 1 nsew signal input
+rlabel locali s 487 51 525 323 6 A1
+port 2 nsew signal input
+rlabel locali s 323 163 357 323 6 A1
+port 2 nsew signal input
+rlabel locali s 323 323 525 357 6 A1
+port 2 nsew signal input
+rlabel locali s 182 199 221 265 6 S
+port 3 nsew signal input
+rlabel locali s 559 288 709 326 6 S
+port 3 nsew signal input
+rlabel locali s 559 326 593 459 6 S
+port 3 nsew signal input
+rlabel locali s 187 265 221 459 6 S
+port 3 nsew signal input
+rlabel locali s 187 459 593 493 6 S
+port 3 nsew signal input
+rlabel metal1 s 0 -48 828 48 8 VGND
+port 4 nsew ground bidirectional abutment
+rlabel pwell s 84 -17 118 21 6 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s 1 21 781 157 6 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s 1 157 187 203 6 VNB
+port 5 nsew ground bidirectional
+rlabel nwell s -38 261 866 582 6 VPB
+port 6 nsew power bidirectional
+rlabel metal1 s 0 496 828 592 6 VPWR
+port 7 nsew power bidirectional abutment
+rlabel locali s 18 51 69 165 6 X
+port 8 nsew signal output
+rlabel locali s 18 165 52 299 6 X
+port 8 nsew signal output
+rlabel locali s 18 299 85 493 6 X
+port 8 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 828 544
+string LEFclass CORE
+string LEFsite unithd
+string LEFsymmetry X Y R90
+string LEFview TRUE
+string GDS_END 1670164
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds
+string GDS_START 1663336
+<< end >>

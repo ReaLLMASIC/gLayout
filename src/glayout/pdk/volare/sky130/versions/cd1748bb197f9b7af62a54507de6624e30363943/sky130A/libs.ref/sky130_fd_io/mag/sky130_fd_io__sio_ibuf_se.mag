@@ -1,0 +1,19 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect 7962 -3368 8269 -2719
+<< nsubdiff >>
+rect 8073 -3332 8160 -3298
+<< locali >>
+rect 8059 -3332 8121 -3298
+use sky130_fd_io__sio_inbuf  sky130_fd_io__sio_inbuf_0
+timestamp 1701704242
+transform 1 0 5 0 1 0
+box -256 -3429 10364 3645
+<< properties >>
+string GDS_END 85792024
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 85791716
+<< end >>

@@ -1,0 +1,15 @@
+magic
+tech sky130B
+timestamp 1701704242
+<< viali >>
+rect 0 0 197 305
+<< metal1 >>
+rect -6 305 203 308
+rect -6 0 0 305
+rect 197 0 203 305
+rect -6 -3 203 0
+<< properties >>
+string GDS_END 88437720
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 88434132
+<< end >>

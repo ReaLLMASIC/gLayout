@@ -1,0 +1,57 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< poly >>
+rect -50 50 0 66
+rect -50 16 -34 50
+rect -50 0 0 16
+rect -50 -1732 2 -1716
+rect -50 -1766 -32 -1732
+rect -50 -1782 2 -1766
+<< polycont >>
+rect -34 16 0 50
+rect -32 -1766 2 -1732
+<< npolyres >>
+rect 0 0 11931 66
+rect 11865 -96 11931 0
+rect -50 -162 11931 -96
+rect -50 -258 16 -162
+rect -50 -324 11931 -258
+rect 11865 -420 11931 -324
+rect -50 -486 11931 -420
+rect -50 -582 16 -486
+rect -50 -648 11931 -582
+rect 11865 -744 11931 -648
+rect -50 -810 11931 -744
+rect -50 -906 16 -810
+rect -50 -972 11931 -906
+rect 11865 -1068 11931 -972
+rect -50 -1134 11931 -1068
+rect -50 -1230 16 -1134
+rect -50 -1296 11931 -1230
+rect 11865 -1392 11931 -1296
+rect -50 -1458 11931 -1392
+rect -50 -1554 16 -1458
+rect -50 -1620 11931 -1554
+rect 11865 -1716 11931 -1620
+rect 2 -1782 11931 -1716
+<< locali >>
+rect -34 50 0 66
+rect -34 0 0 16
+rect -34 -1732 2 -1716
+rect -34 -1766 -32 -1732
+rect -34 -1782 2 -1766
+use PYL1_CDNS_5595914180839  PYL1_CDNS_5595914180839_0
+timestamp 1701704242
+transform 1 0 -50 0 1 0
+box 0 0 1 1
+use PYL1_CDNS_5595914180839  PYL1_CDNS_5595914180839_1
+timestamp 1701704242
+transform 1 0 -48 0 1 -1782
+box 0 0 1 1
+<< properties >>
+string GDS_END 42942304
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 42939004
+<< end >>

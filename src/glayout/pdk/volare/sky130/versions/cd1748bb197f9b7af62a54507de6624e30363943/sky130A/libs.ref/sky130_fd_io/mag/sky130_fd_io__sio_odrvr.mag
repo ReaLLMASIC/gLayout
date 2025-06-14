@@ -1,0 +1,272 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< metal1 >>
+rect 15989 13685 16044 13739
+rect 17337 7417 17423 7469
+rect 17337 7303 17423 7355
+rect 17337 6186 17404 6238
+rect 17337 6094 17406 6146
+rect 17337 5954 17434 6006
+rect 17337 5874 17434 5926
+rect 17086 4705 17138 4751
+rect 13552 3547 13604 3553
+rect 13552 3483 13604 3495
+tri 13604 3477 13615 3488 sw
+rect 13604 3462 13615 3477
+tri 13615 3462 13630 3477 sw
+tri 14038 3462 14053 3477 se
+rect 14053 3462 16405 3477
+rect 13604 3431 16405 3462
+rect 13552 3425 16405 3431
+rect 17028 2339 17577 2391
+rect 17629 2339 17641 2391
+rect 17693 2339 17699 2391
+<< via1 >>
+rect 13552 3495 13604 3547
+rect 13552 3431 13604 3483
+rect 17577 2339 17629 2391
+rect 17641 2339 17693 2391
+<< metal2 >>
+rect 17957 30099 18267 30139
+rect 20459 23376 20681 23450
+rect 31465 23219 31609 23354
+rect 31689 23214 31817 23354
+rect 31875 23214 32003 23354
+rect -3034 12951 -2982 12985
+rect -2554 12951 -2502 12985
+rect -2394 12951 -2342 12985
+rect -2234 12951 -2182 12985
+rect 2584 12951 2766 13025
+rect 3787 12951 4009 13025
+rect 4759 12951 4941 13025
+rect 5591 12951 5813 13025
+rect 6505 12951 6687 13025
+rect 9199 12951 9421 13025
+rect 9875 12951 10057 13025
+rect 11197 12951 11417 13025
+rect 11912 12951 12094 13025
+rect 14611 12951 14833 13025
+rect 15481 12951 15663 13025
+rect 16028 12951 16086 13008
+rect 16365 12951 16587 13025
+rect 16808 12951 16866 13008
+rect 16961 12951 17019 13009
+rect 17187 12951 17507 13016
+rect 6502 12575 6554 12609
+rect 8625 12579 8677 12613
+tri 17659 5367 17735 5443 nw
+rect 13552 3547 13604 3553
+rect 13552 3483 13604 3495
+rect 13552 3425 13604 3431
+tri 17599 2419 17611 2431 se
+rect 17611 2419 17659 2431
+rect 17187 2409 17507 2419
+tri 17589 2409 17599 2419 se
+rect 17599 2409 17659 2419
+tri 17571 2391 17589 2409 se
+rect 17589 2391 17659 2409
+tri 17659 2391 17699 2431 sw
+rect 17889 2409 18699 2425
+rect 20100 2409 20925 2425
+rect 22379 2409 22790 2419
+rect 22928 2409 23120 2419
+rect 23416 2409 23468 2479
+rect 23568 2409 24019 2419
+rect 24109 2409 24301 2419
+rect 24691 2409 24873 2419
+rect 24929 2409 25636 2419
+rect 25694 2409 25833 2419
+rect 26122 2409 26535 2419
+rect 26993 2409 27442 2419
+rect 28566 2391 29040 2419
+rect 29153 2391 29473 2419
+rect 31652 2391 32003 2419
+rect 17571 2339 17577 2391
+rect 17629 2339 17641 2391
+rect 17693 2339 17699 2391
+<< metal3 >>
+rect 1310 28139 1529 28353
+<< metal4 >>
+rect 8967 31598 9186 31812
+rect 13850 23603 14275 24474
+rect 8533 16524 8936 16881
+use M1M2_CDNS_5246887918577  M1M2_CDNS_5246887918577_0
+timestamp 1701704242
+transform -1 0 17699 0 1 2339
+box 0 0 1 1
+use M1M2_CDNS_5246887918577  M1M2_CDNS_5246887918577_1
+timestamp 1701704242
+transform 0 -1 13604 1 0 3425
+box 0 0 1 1
+use sky130_fd_io__sio_odrvr_sub  sky130_fd_io__sio_odrvr_sub_0
+timestamp 1701704242
+transform 1 0 175 0 1 8487
+box -3209 -8854 33759 33764
+<< labels >>
+flabel metal1 s 17337 6094 17406 6146 3 FreeSans 200 0 0 0 vreg_en_h
+port 2 nsew
+flabel metal1 s 15989 13685 16044 13739 7 FreeSans 400 0 0 0 pd_h<4>
+port 3 nsew
+flabel metal1 s 17337 6186 17404 6238 3 FreeSans 200 0 0 0 slow_h_n
+port 4 nsew
+flabel metal1 s 17337 5954 17434 6006 3 FreeSans 200 0 0 0 puen_reg_h
+port 5 nsew
+flabel metal1 s 17337 7303 17423 7355 3 FreeSans 200 0 0 0 pu_h_n<5>
+port 6 nsew
+flabel metal1 s 17337 7417 17423 7469 3 FreeSans 200 0 0 0 pu_h_n<4>
+port 7 nsew
+flabel metal1 s 17086 4705 17138 4751 0 FreeSans 200 0 0 0 oe_hs_h
+port 8 nsew
+flabel metal1 s 17337 5874 17434 5926 3 FreeSans 200 0 0 0 drvhi_h
+port 9 nsew
+flabel metal1 s 17371 6120 17371 6120 3 FreeSans 200 0 0 0 vreg_en_h
+flabel metal1 s 17100 4705 17138 4751 0 FreeSans 200 0 0 0 oe_hs_h
+port 8 nsew
+flabel metal1 s 17370 6212 17370 6212 3 FreeSans 200 0 0 0 slow_h_n
+flabel metal1 s 17385 5980 17385 5980 3 FreeSans 200 0 0 0 puen_reg_h
+flabel metal1 s 17380 7329 17380 7329 3 FreeSans 200 0 0 0 pu_h_n<5>
+flabel metal1 s 17380 7443 17380 7443 3 FreeSans 200 0 0 0 pu_h_n<4>
+flabel metal1 s 17385 5900 17385 5900 3 FreeSans 200 0 0 0 drvhi_h
+flabel metal4 s 13850 23603 14275 24474 0 FreeSans 200 0 0 0 pad
+port 10 nsew
+flabel metal4 s 8533 16524 8936 16881 0 FreeSans 200 0 0 0 pad
+port 10 nsew
+flabel metal4 s 8967 31598 9186 31812 0 FreeSans 200 0 0 0 pad
+port 10 nsew
+flabel metal4 s 14062 24038 14062 24038 0 FreeSans 200 0 0 0 pad
+flabel metal4 s 8734 16702 8734 16702 0 FreeSans 200 0 0 0 pad
+flabel metal4 s 9076 31705 9076 31705 0 FreeSans 200 0 0 0 pad
+flabel metal3 s 1310 28139 1529 28353 0 FreeSans 200 0 0 0 pad
+port 10 nsew
+flabel metal3 s 1419 28246 1419 28246 0 FreeSans 200 0 0 0 pad
+flabel metal2 s 31652 2391 32003 2419 0 FreeSans 200 0 0 0 vpwr_ka
+port 11 nsew
+flabel metal2 s 31465 23219 31609 23354 0 FreeSans 200 0 0 0 vpwr_ka
+port 11 nsew
+flabel metal2 s 31689 23214 31817 23354 7 FreeSans 200 90 0 0 voutref
+port 12 nsew
+flabel metal2 s 29153 2391 29473 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 26993 2409 27442 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 26122 2409 26535 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 24929 2409 25636 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 23568 2409 24019 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 22379 2409 22790 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 20459 23376 20681 23450 0 FreeSans 400 0 0 0 vgnd_io
+port 14 nsew
+flabel metal2 s 3787 12951 4009 13025 0 FreeSans 400 0 0 0 vgnd_io
+port 14 nsew
+flabel metal2 s 16365 12951 16587 13025 0 FreeSans 400 0 0 0 vgnd_io
+port 14 nsew
+flabel metal2 s 14611 12951 14833 13025 0 FreeSans 400 0 0 0 vgnd_io
+port 14 nsew
+flabel metal2 s 11197 12951 11417 13025 0 FreeSans 400 0 0 0 vgnd_io
+port 14 nsew
+flabel metal2 s 9199 12951 9421 13025 0 FreeSans 400 0 0 0 vgnd_io
+port 14 nsew
+flabel metal2 s 5591 12951 5813 13025 0 FreeSans 400 0 0 0 vgnd_io
+port 14 nsew
+flabel metal2 s 25694 2409 25833 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 24691 2409 24873 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 24109 2409 24301 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 22928 2409 23120 2419 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 20100 2409 20925 2425 0 FreeSans 200 0 0 0 vgnd
+port 13 nsew
+flabel metal2 s 28566 2391 29040 2419 0 FreeSans 200 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 17889 2409 18699 2425 0 FreeSans 200 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 17957 30099 18267 30139 0 FreeSans 200 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 2584 12951 2766 13025 0 FreeSans 400 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 4759 12951 4941 13025 0 FreeSans 400 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 6505 12951 6687 13025 0 FreeSans 400 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 9875 12951 10057 13025 0 FreeSans 400 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 11912 12951 12094 13025 0 FreeSans 400 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 15481 12951 15663 13025 0 FreeSans 400 0 0 0 vcc_io
+port 15 nsew
+flabel metal2 s 16961 12951 17019 13009 3 FreeSans 200 90 0 0 tie_lo_esd
+port 16 nsew
+flabel metal2 s 31875 23214 32003 23354 7 FreeSans 200 90 0 0 refleak_bias
+port 17 nsew
+flabel metal2 s -2234 12951 -2182 12985 3 FreeSans 200 90 0 0 pu_h_n<3>
+port 18 nsew
+flabel metal2 s -2394 12951 -2342 12985 3 FreeSans 200 90 0 0 pu_h_n<2>
+port 19 nsew
+flabel metal2 s -2554 12951 -2502 12985 3 FreeSans 200 90 0 0 pu_h_n<1>
+port 20 nsew
+flabel metal2 s -3034 12951 -2982 12985 3 FreeSans 200 90 0 0 pu_h_n<0>
+port 21 nsew
+flabel metal2 s 16808 12951 16866 13008 3 FreeSans 200 90 0 0 pd_h<3>
+port 22 nsew
+flabel metal2 s 16028 12951 16086 13008 3 FreeSans 200 90 0 0 pd_h<2>
+port 23 nsew
+flabel metal2 s 6502 12575 6554 12609 3 FreeSans 200 90 0 0 pd_h<1>
+port 24 nsew
+flabel metal2 s 8625 12579 8677 12613 3 FreeSans 200 90 0 0 pd_h<0>
+port 25 nsew
+flabel metal2 s 17187 2409 17507 2419 0 FreeSans 200 0 0 0 pad
+port 10 nsew
+flabel metal2 s 17187 12951 17507 13016 0 FreeSans 200 0 0 0 pad
+port 10 nsew
+flabel metal2 s 23416 2409 23468 2479 3 FreeSans 200 90 0 0 od_h
+port 26 nsew
+flabel metal2 s 31827 2405 31827 2405 0 FreeSans 200 0 0 0 vpwr_ka
+flabel metal2 s 20570 23413 20570 23413 0 FreeSans 400 0 0 0 vgnd_io
+flabel metal2 s 3898 12988 3898 12988 0 FreeSans 400 0 0 0 vgnd_io
+flabel metal2 s 16476 12988 16476 12988 0 FreeSans 400 0 0 0 vgnd_io
+flabel metal2 s 14722 12988 14722 12988 0 FreeSans 400 0 0 0 vgnd_io
+flabel metal2 s 11308 12988 11308 12988 0 FreeSans 400 0 0 0 vgnd_io
+flabel metal2 s 9310 12988 9310 12988 0 FreeSans 400 0 0 0 vgnd_io
+flabel metal2 s 5702 12988 5702 12988 0 FreeSans 400 0 0 0 vgnd_io
+flabel metal2 s 25827 2414 25827 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 24787 2414 24787 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 24205 2414 24205 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 23024 2414 23024 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 20512 2417 20512 2417 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 28803 2405 28803 2405 0 FreeSans 200 0 0 0 vcc_io
+flabel metal2 s 18294 2417 18294 2417 0 FreeSans 200 0 0 0 vcc_io
+flabel metal2 s 18112 30119 18112 30119 0 FreeSans 200 0 0 0 vcc_io
+flabel metal2 s 2675 12988 2675 12988 0 FreeSans 400 0 0 0 vcc_io
+flabel metal2 s 4850 12988 4850 12988 0 FreeSans 400 0 0 0 vcc_io
+flabel metal2 s 6596 12988 6596 12988 0 FreeSans 400 0 0 0 vcc_io
+flabel metal2 s 9966 12988 9966 12988 0 FreeSans 400 0 0 0 vcc_io
+flabel metal2 s 12003 12988 12003 12988 0 FreeSans 400 0 0 0 vcc_io
+flabel metal2 s 31537 23286 31537 23286 0 FreeSans 200 0 0 0 vpwr_ka
+flabel metal2 s 31753 23284 31753 23284 7 FreeSans 200 90 0 0 voutref
+flabel metal2 s 29313 2405 29313 2405 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 16990 12980 16990 12980 3 FreeSans 200 90 0 0 tie_lo_esd
+flabel metal2 s 31939 23284 31939 23284 7 FreeSans 200 90 0 0 refleak_bias
+flabel metal2 s 27398 2414 27398 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 26364 2414 26364 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 25289 2414 25289 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 16837 12979 16837 12979 3 FreeSans 200 90 0 0 pd_h<3>
+flabel metal2 s 16057 12979 16057 12979 3 FreeSans 200 90 0 0 pd_h<2>
+flabel metal2 s 6528 12592 6528 12592 3 FreeSans 200 90 0 0 pd_h<1>
+flabel metal2 s 23442 2444 23442 2444 3 FreeSans 200 90 0 0 od_h
+flabel metal2 s 17347 2414 17347 2414 0 FreeSans 200 0 0 0 pad
+flabel metal2 s 17347 12983 17347 12983 0 FreeSans 200 0 0 0 pad
+flabel metal2 s 23793 2414 23793 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 22584 2414 22584 2414 0 FreeSans 200 0 0 0 vgnd
+flabel metal2 s 15572 12988 15572 12988 0 FreeSans 400 0 0 0 vcc_io
+<< properties >>
+string GDS_END 100320534
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 100306262
+<< end >>

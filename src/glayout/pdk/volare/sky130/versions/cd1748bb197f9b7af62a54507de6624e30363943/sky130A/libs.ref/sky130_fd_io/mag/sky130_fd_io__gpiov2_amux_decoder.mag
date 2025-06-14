@@ -1,0 +1,157 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+use sky130_fd_io__gpiov2_amux_nand4  sky130_fd_io__gpiov2_amux_nand4_0
+timestamp 1701704242
+transform 1 0 5688 0 -1 3114
+box 56 228 880 1650
+use sky130_fd_io__gpiov2_amux_nand4  sky130_fd_io__gpiov2_amux_nand4_1
+timestamp 1701704242
+transform -1 0 5746 0 -1 3114
+box 56 228 880 1650
+use sky130_fd_io__gpiov2_amux_nand5  sky130_fd_io__gpiov2_amux_nand5_0
+timestamp 1701704242
+transform 0 1 4701 1 0 140
+box 71 228 1011 1650
+use sky130_fd_io__gpiov2_amux_nand5  sky130_fd_io__gpiov2_amux_nand5_1
+timestamp 1701704242
+transform 0 -1 8349 1 0 140
+box 71 228 1011 1650
+use sky130_fd_io__hvsbt_nand2  sky130_fd_io__hvsbt_nand2_0
+timestamp 1701704242
+transform -1 0 2178 0 1 139
+box 107 226 460 873
+use sky130_fd_io__hvsbt_nand2  sky130_fd_io__hvsbt_nand2_1
+timestamp 1701704242
+transform 1 0 1996 0 1 139
+box 107 226 460 873
+use sky130_fd_io__hvsbt_nand2  sky130_fd_io__hvsbt_nand2_2
+timestamp 1701704242
+transform -1 0 3457 0 1 139
+box 107 226 460 873
+use sky130_fd_io__hvsbt_nand2  sky130_fd_io__hvsbt_nand2_3
+timestamp 1701704242
+transform -1 0 2992 0 1 139
+box 107 226 460 873
+use sky130_fd_io__hvsbt_nor  sky130_fd_io__hvsbt_nor_0
+timestamp 1701704242
+transform 1 0 3391 0 1 139
+box 107 226 460 873
+use sky130_fd_io__hvsbt_nor  sky130_fd_io__hvsbt_nor_1
+timestamp 1701704242
+transform -1 0 4396 0 1 139
+box 107 226 460 873
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_0
+timestamp 1701704242
+transform 1 0 2512 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_1
+timestamp 1701704242
+transform -1 0 1936 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_2
+timestamp 1701704242
+transform 1 0 976 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_3
+timestamp 1701704242
+transform -1 0 3760 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_4
+timestamp 1701704242
+transform -1 0 4048 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_5
+timestamp 1701704242
+transform -1 0 3088 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_6
+timestamp 1701704242
+transform 1 0 1936 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_7
+timestamp 1701704242
+transform 1 0 4336 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_8
+timestamp 1701704242
+transform 1 0 1264 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_9
+timestamp 1701704242
+transform 1 0 2512 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_10
+timestamp 1701704242
+transform -1 0 4048 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_11
+timestamp 1701704242
+transform -1 0 3760 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_12
+timestamp 1701704242
+transform 1 0 688 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_13
+timestamp 1701704242
+transform 1 0 400 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__inv_1  sky130_fd_io__inv_1_14
+timestamp 1701704242
+transform 1 0 3088 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__nand2_1  sky130_fd_io__nand2_1_0
+timestamp 1701704242
+transform 1 0 2224 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__nand2_1  sky130_fd_io__nand2_1_1
+timestamp 1701704242
+transform 1 0 976 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__nand2_1  sky130_fd_io__nand2_1_2
+timestamp 1701704242
+transform 1 0 4048 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__nand2_1  sky130_fd_io__nand2_1_3
+timestamp 1701704242
+transform 1 0 3088 0 -1 2688
+box -38 -49 326 715
+use sky130_fd_io__nor2_1  sky130_fd_io__nor2_1_0
+timestamp 1701704242
+transform 1 0 688 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__nor2_1  sky130_fd_io__nor2_1_1
+timestamp 1701704242
+transform 1 0 1360 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__nor2_1  sky130_fd_io__nor2_1_2
+timestamp 1701704242
+transform 1 0 2800 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__nor2_1  sky130_fd_io__nor2_1_3
+timestamp 1701704242
+transform 1 0 2224 0 1 1356
+box -38 -49 326 715
+use sky130_fd_io__tap_1  sky130_fd_io__tap_1_0
+timestamp 1701704242
+transform 1 0 1264 0 1 1356
+box -38 -49 134 715
+use sky130_fd_io__tap_1  sky130_fd_io__tap_1_1
+timestamp 1701704242
+transform 1 0 3376 0 1 1356
+box -38 -49 134 715
+use sky130_fd_io__tap_1  sky130_fd_io__tap_1_2
+timestamp 1701704242
+transform 1 0 3376 0 -1 2688
+box -38 -49 134 715
+use sky130_fd_io__xor2_1  sky130_fd_io__xor2_1_0
+timestamp 1701704242
+transform 1 0 1552 0 -1 2688
+box 0 0 1 1
+<< properties >>
+string GDS_END 22200092
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 22132252
+<< end >>

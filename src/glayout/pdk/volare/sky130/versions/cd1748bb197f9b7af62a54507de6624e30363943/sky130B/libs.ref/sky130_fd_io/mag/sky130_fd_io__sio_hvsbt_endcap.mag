@@ -1,0 +1,119 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -84 515 164 1337
+<< pwell >>
+rect -44 367 124 455
+rect -44 93 44 367
+<< mvpsubdiff >>
+rect -18 393 98 429
+rect -18 385 18 393
+rect -18 351 -17 385
+rect 17 351 18 385
+rect -18 315 18 351
+rect -18 281 -17 315
+rect 17 281 18 315
+rect -18 247 18 281
+rect -18 213 -17 247
+rect 17 213 18 247
+rect -18 179 18 213
+rect -18 145 -17 179
+rect 17 145 18 179
+rect -18 119 18 145
+<< mvnsubdiff >>
+rect -18 1187 18 1271
+rect -18 1153 -17 1187
+rect 17 1153 18 1187
+rect -18 1119 18 1153
+rect -18 1085 -17 1119
+rect 17 1085 18 1119
+rect -18 1051 18 1085
+rect -18 1017 -17 1051
+rect 17 1017 18 1051
+rect -18 983 18 1017
+rect -18 949 -17 983
+rect 17 949 18 983
+rect -18 913 18 949
+rect -18 879 -17 913
+rect 17 879 18 913
+rect -18 845 18 879
+rect -18 811 -17 845
+rect 17 811 18 845
+rect -18 777 18 811
+rect -18 743 -17 777
+rect 17 743 18 777
+rect -18 709 18 743
+rect -18 675 -17 709
+rect 17 675 18 709
+rect -18 639 18 675
+rect -18 605 -17 639
+rect 17 617 18 639
+rect 17 605 98 617
+rect -18 581 98 605
+<< mvpsubdiffcont >>
+rect -17 351 17 385
+rect -17 281 17 315
+rect -17 213 17 247
+rect -17 145 17 179
+<< mvnsubdiffcont >>
+rect -17 1153 17 1187
+rect -17 1085 17 1119
+rect -17 1017 17 1051
+rect -17 949 17 983
+rect -17 879 17 913
+rect -17 811 17 845
+rect -17 743 17 777
+rect -17 675 17 709
+rect -17 605 17 639
+<< locali >>
+rect -17 1187 17 1269
+rect -17 1119 17 1153
+rect -17 1051 17 1085
+rect -17 983 17 1017
+rect -17 913 17 949
+rect -17 845 17 879
+rect -17 777 17 811
+rect -17 709 17 743
+rect -17 639 17 675
+rect -17 567 17 599
+rect -17 411 17 423
+rect -17 315 17 351
+rect -17 247 17 281
+rect -17 179 17 213
+rect -17 121 17 145
+<< viali >>
+rect -17 605 17 633
+rect -17 599 17 605
+rect -17 385 17 411
+rect -17 377 17 385
+<< metal1 >>
+rect -29 667 139 869
+rect -29 633 139 639
+rect -29 599 -17 633
+rect 17 599 139 633
+rect -29 593 139 599
+rect -29 411 139 417
+rect -29 377 -17 411
+rect 17 377 139 411
+rect -29 371 139 377
+rect -29 141 139 343
+use L1M1_CDNS_52468879185501  L1M1_CDNS_52468879185501_0
+timestamp 1701704242
+transform 1 0 -17 0 -1 633
+box 0 0 1 1
+use L1M1_CDNS_52468879185501  L1M1_CDNS_52468879185501_1
+timestamp 1701704242
+transform 1 0 -17 0 1 377
+box 0 0 1 1
+<< labels >>
+flabel comment s 60 607 60 607 0 FreeSans 200 180 0 0 vpb
+flabel comment s 60 703 60 703 0 FreeSans 200 180 0 0 vpwr
+flabel comment s 60 229 60 229 0 FreeSans 200 180 0 0 vgnd
+flabel comment s 60 400 60 400 0 FreeSans 200 180 0 0 vnb
+<< properties >>
+string GDS_END 85246750
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 85244676
+<< end >>

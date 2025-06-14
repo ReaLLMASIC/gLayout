@@ -1,0 +1,76 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< pwell >>
+rect -79 -26 239 176
+<< mvnmos >>
+rect 0 0 160 150
+<< mvndiff >>
+rect -53 114 0 150
+rect -53 80 -45 114
+rect -11 80 0 114
+rect -53 46 0 80
+rect -53 12 -45 46
+rect -11 12 0 46
+rect -53 0 0 12
+rect 160 114 213 150
+rect 160 80 171 114
+rect 205 80 213 114
+rect 160 46 213 80
+rect 160 12 171 46
+rect 205 12 213 46
+rect 160 0 213 12
+<< mvndiffc >>
+rect -45 80 -11 114
+rect -45 12 -11 46
+rect 171 80 205 114
+rect 171 12 205 46
+<< poly >>
+rect 0 150 160 176
+rect 0 -26 160 0
+<< locali >>
+rect -45 114 -11 130
+rect -45 46 -11 68
+rect 171 114 205 130
+rect 171 46 205 68
+<< viali >>
+rect -45 80 -11 102
+rect -45 68 -11 80
+rect -45 12 -11 30
+rect -45 -4 -11 12
+rect 171 80 205 102
+rect 171 68 205 80
+rect 171 12 205 30
+rect 171 -4 205 12
+<< metal1 >>
+rect -51 102 -5 114
+rect -51 68 -45 102
+rect -11 68 -5 102
+rect -51 30 -5 68
+rect -51 -4 -45 30
+rect -11 -4 -5 30
+rect -51 -16 -5 -4
+rect 165 102 211 114
+rect 165 68 171 102
+rect 205 68 211 102
+rect 165 30 211 68
+rect 165 -4 171 30
+rect 205 -4 211 30
+rect 165 -16 211 -4
+use hvDFM1sd_CDNS_52468879185143  hvDFM1sd_CDNS_52468879185143_0
+timestamp 1701704242
+transform -1 0 0 0 1 0
+box 0 0 1 1
+use hvDFM1sd_CDNS_52468879185143  hvDFM1sd_CDNS_52468879185143_1
+timestamp 1701704242
+transform 1 0 160 0 1 0
+box 0 0 1 1
+<< labels >>
+flabel comment s -28 49 -28 49 0 FreeSans 300 0 0 0 S
+flabel comment s 188 49 188 49 0 FreeSans 300 0 0 0 D
+<< properties >>
+string GDS_END 86868978
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 86868088
+<< end >>

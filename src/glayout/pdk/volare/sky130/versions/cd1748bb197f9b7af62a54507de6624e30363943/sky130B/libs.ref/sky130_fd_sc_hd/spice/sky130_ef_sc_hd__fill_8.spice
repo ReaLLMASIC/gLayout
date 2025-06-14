@@ -1,0 +1,5 @@
+* NGSPICE file created from sky130_ef_sc_hd__fill_8.ext - technology: sky130B
+
+.subckt sky130_ef_sc_hd__fill_8 VGND VPWR VPB VNB
+.ends
+

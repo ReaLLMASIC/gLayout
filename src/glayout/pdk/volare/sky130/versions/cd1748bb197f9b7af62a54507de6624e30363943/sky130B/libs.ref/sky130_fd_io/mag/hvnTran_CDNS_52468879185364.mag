@@ -1,0 +1,89 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< pwell >>
+rect -93 -26 389 226
+<< mvnmos >>
+rect 0 0 120 200
+rect 176 0 296 200
+<< mvndiff >>
+rect -67 182 0 200
+rect -67 148 -59 182
+rect -25 148 0 182
+rect -67 114 0 148
+rect -67 80 -59 114
+rect -25 80 0 114
+rect -67 46 0 80
+rect -67 12 -59 46
+rect -25 12 0 46
+rect -67 0 0 12
+rect 120 182 176 200
+rect 120 148 131 182
+rect 165 148 176 182
+rect 120 114 176 148
+rect 120 80 131 114
+rect 165 80 176 114
+rect 120 46 176 80
+rect 120 12 131 46
+rect 165 12 176 46
+rect 120 0 176 12
+rect 296 182 363 200
+rect 296 148 321 182
+rect 355 148 363 182
+rect 296 114 363 148
+rect 296 80 321 114
+rect 355 80 363 114
+rect 296 46 363 80
+rect 296 12 321 46
+rect 355 12 363 46
+rect 296 0 363 12
+<< mvndiffc >>
+rect -59 148 -25 182
+rect -59 80 -25 114
+rect -59 12 -25 46
+rect 131 148 165 182
+rect 131 80 165 114
+rect 131 12 165 46
+rect 321 148 355 182
+rect 321 80 355 114
+rect 321 12 355 46
+<< poly >>
+rect 0 200 120 226
+rect 176 200 296 226
+rect 0 -26 120 0
+rect 176 -26 296 0
+<< locali >>
+rect -59 182 -25 198
+rect -59 114 -25 148
+rect -59 46 -25 80
+rect -59 -4 -25 12
+rect 131 182 165 198
+rect 131 114 165 148
+rect 131 46 165 80
+rect 131 -4 165 12
+rect 321 182 355 198
+rect 321 114 355 148
+rect 321 46 355 80
+rect 321 -4 355 12
+use hvDFL1sd2_CDNS_52468879185133  hvDFL1sd2_CDNS_52468879185133_0
+timestamp 1701704242
+transform 1 0 120 0 1 0
+box 0 0 1 1
+use hvDFL1sd_CDNS_52468879185132  hvDFL1sd_CDNS_52468879185132_0
+timestamp 1701704242
+transform -1 0 -14 0 1 0
+box 0 0 1 1
+use hvDFL1sd_CDNS_52468879185132  hvDFL1sd_CDNS_52468879185132_1
+timestamp 1701704242
+transform 1 0 310 0 1 0
+box 0 0 1 1
+<< labels >>
+flabel comment s -42 97 -42 97 0 FreeSans 300 0 0 0 S
+flabel comment s 148 97 148 97 0 FreeSans 300 0 0 0 D
+flabel comment s 338 97 338 97 0 FreeSans 300 0 0 0 S
+<< properties >>
+string GDS_END 67711358
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 67709648
+<< end >>

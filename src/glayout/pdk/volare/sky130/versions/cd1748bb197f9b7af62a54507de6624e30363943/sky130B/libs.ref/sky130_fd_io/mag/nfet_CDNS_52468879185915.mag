@@ -1,0 +1,109 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< pwell >>
+rect -76 -26 364 226
+<< nmoslvt >>
+rect 0 0 30 200
+rect 86 0 116 200
+rect 172 0 202 200
+rect 258 0 288 200
+<< ndiff >>
+rect -50 0 0 200
+rect 30 182 86 200
+rect 30 148 41 182
+rect 75 148 86 182
+rect 30 114 86 148
+rect 30 80 41 114
+rect 75 80 86 114
+rect 30 46 86 80
+rect 30 12 41 46
+rect 75 12 86 46
+rect 30 0 86 12
+rect 116 182 172 200
+rect 116 148 127 182
+rect 161 148 172 182
+rect 116 114 172 148
+rect 116 80 127 114
+rect 161 80 172 114
+rect 116 46 172 80
+rect 116 12 127 46
+rect 161 12 172 46
+rect 116 0 172 12
+rect 202 182 258 200
+rect 202 148 213 182
+rect 247 148 258 182
+rect 202 114 258 148
+rect 202 80 213 114
+rect 247 80 258 114
+rect 202 46 258 80
+rect 202 12 213 46
+rect 247 12 258 46
+rect 202 0 258 12
+rect 288 0 338 200
+<< ndiffc >>
+rect 41 148 75 182
+rect 41 80 75 114
+rect 41 12 75 46
+rect 127 148 161 182
+rect 127 80 161 114
+rect 127 12 161 46
+rect 213 148 247 182
+rect 213 80 247 114
+rect 213 12 247 46
+<< poly >>
+rect 0 200 30 232
+rect 86 200 116 232
+rect 172 200 202 232
+rect 258 200 288 232
+rect 0 -32 30 0
+rect 86 -32 116 0
+rect 172 -32 202 0
+rect 258 -32 288 0
+<< locali >>
+rect -113 -4 -11 198
+rect 41 182 75 198
+rect 41 114 75 148
+rect 41 46 75 80
+rect 41 -4 75 12
+rect 127 182 161 198
+rect 127 114 161 148
+rect 127 46 161 80
+rect 127 -4 161 12
+rect 213 182 247 198
+rect 213 114 247 148
+rect 213 46 247 80
+rect 213 -4 247 12
+rect 299 -4 401 198
+use DFL1sd2_CDNS_5246887918539  DFL1sd2_CDNS_5246887918539_0
+timestamp 1701704242
+transform 1 0 202 0 1 0
+box 0 0 1 1
+use DFL1sd2_CDNS_5246887918539  DFL1sd2_CDNS_5246887918539_1
+timestamp 1701704242
+transform 1 0 116 0 1 0
+box 0 0 1 1
+use DFL1sd2_CDNS_5246887918539  DFL1sd2_CDNS_5246887918539_2
+timestamp 1701704242
+transform 1 0 30 0 1 0
+box 0 0 1 1
+use DFTPL1s_CDNS_52468879185916  DFTPL1s_CDNS_52468879185916_0
+timestamp 1701704242
+transform -1 0 0 0 1 0
+box -26 -26 151 226
+use DFTPL1s_CDNS_52468879185916  DFTPL1s_CDNS_52468879185916_1
+timestamp 1701704242
+transform 1 0 288 0 1 0
+box -26 -26 151 226
+<< labels >>
+flabel comment s -62 97 -62 97 0 FreeSans 300 0 0 0 S
+flabel comment s 58 97 58 97 0 FreeSans 300 0 0 0 D
+flabel comment s 144 97 144 97 0 FreeSans 300 0 0 0 S
+flabel comment s 230 97 230 97 0 FreeSans 300 0 0 0 D
+flabel comment s 350 97 350 97 0 FreeSans 300 0 0 0 S
+<< properties >>
+string GDS_END 80657830
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 80655452
+<< end >>

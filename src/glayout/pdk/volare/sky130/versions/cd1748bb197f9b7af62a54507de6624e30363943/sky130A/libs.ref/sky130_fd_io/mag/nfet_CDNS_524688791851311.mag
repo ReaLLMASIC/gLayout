@@ -1,0 +1,78 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< pwell >>
+rect -76 -26 5156 626
+<< mvnmos >>
+rect 0 0 800 600
+rect 856 0 1656 600
+rect 1712 0 2512 600
+rect 2568 0 3368 600
+rect 3424 0 4224 600
+rect 4280 0 5080 600
+<< mvndiff >>
+rect -50 0 0 600
+rect 5080 0 5130 600
+<< poly >>
+rect 0 600 800 626
+rect 0 -26 800 0
+rect 856 600 1656 626
+rect 856 -26 1656 0
+rect 1712 600 2512 626
+rect 1712 -26 2512 0
+rect 2568 600 3368 626
+rect 2568 -26 3368 0
+rect 3424 600 4224 626
+rect 3424 -26 4224 0
+rect 4280 600 5080 626
+rect 4280 -26 5080 0
+<< locali >>
+rect -45 -4 -11 538
+rect 811 -4 845 538
+rect 1667 -4 1701 538
+rect 2523 -4 2557 538
+rect 3379 -4 3413 538
+rect 4235 -4 4269 538
+rect 5091 -4 5125 538
+use hvDFL1sd2_CDNS_52468879185120  hvDFL1sd2_CDNS_52468879185120_0
+timestamp 1701704242
+transform 1 0 4224 0 1 0
+box -26 -26 82 626
+use hvDFL1sd2_CDNS_52468879185120  hvDFL1sd2_CDNS_52468879185120_1
+timestamp 1701704242
+transform 1 0 3368 0 1 0
+box -26 -26 82 626
+use hvDFL1sd2_CDNS_52468879185120  hvDFL1sd2_CDNS_52468879185120_2
+timestamp 1701704242
+transform 1 0 2512 0 1 0
+box -26 -26 82 626
+use hvDFL1sd2_CDNS_52468879185120  hvDFL1sd2_CDNS_52468879185120_3
+timestamp 1701704242
+transform 1 0 1656 0 1 0
+box -26 -26 82 626
+use hvDFL1sd2_CDNS_52468879185120  hvDFL1sd2_CDNS_52468879185120_4
+timestamp 1701704242
+transform 1 0 800 0 1 0
+box -26 -26 82 626
+use hvDFL1sd_CDNS_52468879185311  hvDFL1sd_CDNS_52468879185311_0
+timestamp 1701704242
+transform -1 0 0 0 1 0
+box -26 -26 79 626
+use hvDFL1sd_CDNS_52468879185311  hvDFL1sd_CDNS_52468879185311_1
+timestamp 1701704242
+transform 1 0 5080 0 1 0
+box -26 -26 79 626
+<< labels >>
+flabel comment s -28 267 -28 267 0 FreeSans 300 0 0 0 S
+flabel comment s 828 267 828 267 0 FreeSans 300 0 0 0 D
+flabel comment s 1684 267 1684 267 0 FreeSans 300 0 0 0 S
+flabel comment s 2540 267 2540 267 0 FreeSans 300 0 0 0 D
+flabel comment s 3396 267 3396 267 0 FreeSans 300 0 0 0 S
+flabel comment s 4252 267 4252 267 0 FreeSans 300 0 0 0 D
+flabel comment s 5108 267 5108 267 0 FreeSans 300 0 0 0 S
+<< properties >>
+string GDS_END 86895574
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 86892184
+<< end >>

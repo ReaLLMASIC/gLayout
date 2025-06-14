@@ -1,0 +1,25 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< pdiff >>
+rect 12629 3800 12799 3826
+rect 17216 3800 17386 3826
+<< metal2 >>
+rect 13868 5255 14088 5670
+use sky130_fd_io__sio_hotswap_latch  sky130_fd_io__sio_hotswap_latch_0
+timestamp 1701704242
+transform 1 0 0 0 1 0
+box -248 -98 17453 8269
+use sky130_fd_io__sio_hotswap_log  sky130_fd_io__sio_hotswap_log_0
+timestamp 1701704242
+transform -1 0 2287 0 -1 8269
+box -2383 -206 2214 2798
+<< labels >>
+flabel metal2 s 13923 5255 14073 5670 0 FreeSans 1000 0 0 0 vpb_drvr
+port 0 nsew
+<< properties >>
+string GDS_END 88806182
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 88805854
+<< end >>

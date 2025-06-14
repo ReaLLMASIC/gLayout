@@ -1,0 +1,37 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+use sky130_fd_pr__hvdfl1sd2__example_55959141808378  sky130_fd_pr__hvdfl1sd2__example_55959141808378_0
+timestamp 1701704242
+transform 1 0 1600 0 1 0
+box 0 0 1 1
+use sky130_fd_pr__hvdfl1sd2__example_55959141808378  sky130_fd_pr__hvdfl1sd2__example_55959141808378_1
+timestamp 1701704242
+transform 1 0 3256 0 1 0
+box 0 0 1 1
+use sky130_fd_pr__hvdfl1sd2__example_55959141808378  sky130_fd_pr__hvdfl1sd2__example_55959141808378_2
+timestamp 1701704242
+transform 1 0 4912 0 1 0
+box 0 0 1 1
+use sky130_fd_pr__hvdfl1sd2__example_55959141808378  sky130_fd_pr__hvdfl1sd2__example_55959141808378_3
+timestamp 1701704242
+transform 1 0 6568 0 1 0
+box 0 0 1 1
+use sky130_fd_pr__hvdfl1sd2__example_55959141808378  sky130_fd_pr__hvdfl1sd2__example_55959141808378_4
+timestamp 1701704242
+transform 1 0 8224 0 1 0
+box 0 0 1 1
+use sky130_fd_pr__hvdfl1sd__example_5595914180851  sky130_fd_pr__hvdfl1sd__example_5595914180851_0
+timestamp 1701704242
+transform -1 0 0 0 1 0
+box 0 0 1 1
+use sky130_fd_pr__hvdfl1sd__example_5595914180851  sky130_fd_pr__hvdfl1sd__example_5595914180851_1
+timestamp 1701704242
+transform 1 0 9880 0 1 0
+box 0 0 1 1
+<< properties >>
+string GDS_END 30629284
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 30625832
+<< end >>

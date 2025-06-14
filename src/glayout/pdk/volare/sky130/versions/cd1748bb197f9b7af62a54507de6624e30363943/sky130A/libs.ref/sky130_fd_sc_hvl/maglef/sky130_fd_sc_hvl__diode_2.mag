@@ -1,0 +1,63 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -66 377 258 897
+<< pwell >>
+rect 4 43 188 317
+rect -26 -43 218 43
+<< locali >>
+rect 21 103 171 656
+<< obsli1 >>
+rect 0 797 31 831
+rect 65 797 127 831
+rect 161 797 192 831
+rect 0 -17 31 17
+rect 65 -17 127 17
+rect 161 -17 192 17
+<< obsli1c >>
+rect 31 797 65 831
+rect 127 797 161 831
+rect 31 -17 65 17
+rect 127 -17 161 17
+<< metal1 >>
+rect 0 831 192 837
+rect 0 797 31 831
+rect 65 797 127 831
+rect 161 797 192 831
+rect 0 791 192 797
+rect 0 689 192 763
+rect 0 51 192 125
+rect 0 17 192 23
+rect 0 -17 31 17
+rect 65 -17 127 17
+rect 161 -17 192 17
+rect 0 -23 192 -17
+<< labels >>
+rlabel locali s 21 103 171 656 6 DIODE
+port 1 nsew default input
+rlabel metal1 s 0 51 192 125 6 VGND
+port 2 nsew ground bidirectional
+rlabel metal1 s 0 -23 192 23 8 VNB
+port 3 nsew ground bidirectional
+rlabel pwell s -26 -43 218 43 8 VNB
+port 3 nsew ground bidirectional
+rlabel pwell s 4 43 188 317 6 VNB
+port 3 nsew ground bidirectional
+rlabel metal1 s 0 791 192 837 6 VPB
+port 4 nsew power bidirectional
+rlabel nwell s -66 377 258 897 6 VPB
+port 4 nsew power bidirectional
+rlabel metal1 s 0 689 192 763 6 VPWR
+port 5 nsew power bidirectional
+<< properties >>
+string FIXED_BBOX 0 0 192 814
+string LEFclass CORE ANTENNACELL
+string LEFsite unithv
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 1159870
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 1154836
+<< end >>

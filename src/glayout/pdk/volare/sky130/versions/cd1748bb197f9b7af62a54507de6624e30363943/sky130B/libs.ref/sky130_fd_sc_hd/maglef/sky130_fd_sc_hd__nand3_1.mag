@@ -1,0 +1,96 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -38 261 406 582
+<< pwell >>
+rect 1 21 367 203
+rect 30 -17 64 21
+<< locali >>
+rect 103 333 169 493
+rect 283 333 349 493
+rect 103 299 349 333
+rect 22 149 66 265
+rect 103 119 139 299
+rect 173 153 248 265
+rect 289 199 351 265
+rect 283 119 349 165
+rect 103 51 349 119
+<< obsli1 >>
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 305 561
+rect 339 527 368 561
+rect 18 299 69 527
+rect 203 367 249 527
+rect 18 17 69 115
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 305 17
+rect 339 -17 368 17
+<< obsli1c >>
+rect 29 527 63 561
+rect 121 527 155 561
+rect 213 527 247 561
+rect 305 527 339 561
+rect 29 -17 63 17
+rect 121 -17 155 17
+rect 213 -17 247 17
+rect 305 -17 339 17
+<< metal1 >>
+rect 0 561 368 592
+rect 0 527 29 561
+rect 63 527 121 561
+rect 155 527 213 561
+rect 247 527 305 561
+rect 339 527 368 561
+rect 0 496 368 527
+rect 0 17 368 48
+rect 0 -17 29 17
+rect 63 -17 121 17
+rect 155 -17 213 17
+rect 247 -17 305 17
+rect 339 -17 368 17
+rect 0 -48 368 -17
+<< labels >>
+rlabel locali s 289 199 351 265 6 A
+port 1 nsew signal input
+rlabel locali s 173 153 248 265 6 B
+port 2 nsew signal input
+rlabel locali s 22 149 66 265 6 C
+port 3 nsew signal input
+rlabel metal1 s 0 -48 368 48 8 VGND
+port 4 nsew ground bidirectional abutment
+rlabel pwell s 30 -17 64 21 6 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s 1 21 367 203 6 VNB
+port 5 nsew ground bidirectional
+rlabel nwell s -38 261 406 582 6 VPB
+port 6 nsew power bidirectional
+rlabel metal1 s 0 496 368 592 6 VPWR
+port 7 nsew power bidirectional abutment
+rlabel locali s 103 51 349 119 6 Y
+port 8 nsew signal output
+rlabel locali s 283 119 349 165 6 Y
+port 8 nsew signal output
+rlabel locali s 103 119 139 299 6 Y
+port 8 nsew signal output
+rlabel locali s 103 299 349 333 6 Y
+port 8 nsew signal output
+rlabel locali s 283 333 349 493 6 Y
+port 8 nsew signal output
+rlabel locali s 103 333 169 493 6 Y
+port 8 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 368 544
+string LEFclass CORE
+string LEFsite unithd
+string LEFsymmetry X Y R90
+string LEFview TRUE
+string GDS_END 1819880
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds
+string GDS_START 1815538
+<< end >>

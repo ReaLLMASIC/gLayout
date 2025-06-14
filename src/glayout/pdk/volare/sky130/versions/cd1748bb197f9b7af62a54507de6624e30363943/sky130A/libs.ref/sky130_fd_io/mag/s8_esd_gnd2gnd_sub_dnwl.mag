@@ -1,0 +1,63 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect 180 180 3856 3260
+<< pwell >>
+rect 0 3260 4036 3440
+rect 0 180 180 3260
+rect 3856 180 4036 3260
+rect 0 0 4036 180
+<< psubdiff >>
+rect 26 3286 4010 3414
+rect 26 154 154 3286
+rect 3882 154 4010 3286
+rect 26 26 4010 154
+<< locali >>
+rect 26 3332 4010 3414
+rect 26 180 108 3332
+rect 3928 180 4010 3332
+rect 26 26 4010 180
+<< metal1 >>
+rect 26 154 108 3087
+rect 3928 154 4010 3087
+use L1M1_CDNS_55959141808684  L1M1_CDNS_55959141808684_0
+timestamp 1701704242
+transform 1 0 3955 0 1 160
+box -12 -6 46 2920
+use L1M1_CDNS_55959141808684  L1M1_CDNS_55959141808684_1
+timestamp 1701704242
+transform 1 0 53 0 1 160
+box -12 -6 46 2920
+use s8_esd_gnd2gnd_diff  s8_esd_gnd2gnd_diff_0
+array 0 3 824 0 0 3052
+timestamp 1701704242
+transform 1 0 632 0 1 220
+box -26 -26 326 3026
+use s8_esd_gnd2gnd_tap  s8_esd_gnd2gnd_tap_0
+array 0 4 824 0 0 3052
+timestamp 1701704242
+transform 1 0 220 0 1 220
+box -26 -26 326 3026
+use TPL1_CDNS_55959141808685  TPL1_CDNS_55959141808685_0
+timestamp 1701704242
+transform 1 0 26 0 1 115
+box -26 -26 108 3236
+use TPL1_CDNS_55959141808685  TPL1_CDNS_55959141808685_1
+timestamp 1701704242
+transform 1 0 3928 0 1 115
+box -26 -26 108 3236
+use TPL1_CDNS_55959141808686  TPL1_CDNS_55959141808686_0
+timestamp 1701704242
+transform -1 0 3942 0 1 26
+box -26 -26 3848 108
+use TPL1_CDNS_55959141808686  TPL1_CDNS_55959141808686_1
+timestamp 1701704242
+transform -1 0 3952 0 1 3332
+box -26 -26 3848 108
+<< properties >>
+string GDS_END 42973108
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 42971606
+<< end >>

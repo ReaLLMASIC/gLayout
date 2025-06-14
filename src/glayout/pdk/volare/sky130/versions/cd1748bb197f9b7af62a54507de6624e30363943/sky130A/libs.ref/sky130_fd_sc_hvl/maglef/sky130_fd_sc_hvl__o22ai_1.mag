@@ -1,0 +1,176 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1701704242
+<< nwell >>
+rect -66 377 834 897
+<< pwell >>
+rect 10 43 764 289
+rect -26 -43 794 43
+<< locali >>
+rect 375 652 409 751
+rect 305 435 409 652
+rect 305 420 359 435
+rect 147 386 359 420
+rect 25 307 110 373
+rect 147 271 181 386
+rect 450 361 551 424
+rect 601 361 743 424
+rect 217 307 319 350
+rect 147 123 254 271
+<< obsli1 >>
+rect 0 797 31 831
+rect 65 797 127 831
+rect 161 797 223 831
+rect 257 797 319 831
+rect 353 797 415 831
+rect 449 797 511 831
+rect 545 797 607 831
+rect 641 797 703 831
+rect 737 797 768 831
+rect 18 735 269 751
+rect 18 701 19 735
+rect 53 701 91 735
+rect 125 701 163 735
+rect 197 701 235 735
+rect 18 456 269 701
+rect 461 735 723 751
+rect 461 701 467 735
+rect 501 701 539 735
+rect 573 701 611 735
+rect 645 701 683 735
+rect 717 701 723 735
+rect 461 460 723 701
+rect 360 291 734 325
+rect 32 87 98 271
+rect 360 87 394 291
+rect 32 53 394 87
+rect 430 113 650 255
+rect 430 79 440 113
+rect 474 79 512 113
+rect 546 79 584 113
+rect 618 79 650 113
+rect 684 105 734 291
+rect 430 73 650 79
+rect 0 -17 31 17
+rect 65 -17 127 17
+rect 161 -17 223 17
+rect 257 -17 319 17
+rect 353 -17 415 17
+rect 449 -17 511 17
+rect 545 -17 607 17
+rect 641 -17 703 17
+rect 737 -17 768 17
+<< obsli1c >>
+rect 31 797 65 831
+rect 127 797 161 831
+rect 223 797 257 831
+rect 319 797 353 831
+rect 415 797 449 831
+rect 511 797 545 831
+rect 607 797 641 831
+rect 703 797 737 831
+rect 19 701 53 735
+rect 91 701 125 735
+rect 163 701 197 735
+rect 235 701 269 735
+rect 467 701 501 735
+rect 539 701 573 735
+rect 611 701 645 735
+rect 683 701 717 735
+rect 440 79 474 113
+rect 512 79 546 113
+rect 584 79 618 113
+rect 31 -17 65 17
+rect 127 -17 161 17
+rect 223 -17 257 17
+rect 319 -17 353 17
+rect 415 -17 449 17
+rect 511 -17 545 17
+rect 607 -17 641 17
+rect 703 -17 737 17
+<< metal1 >>
+rect 0 831 768 837
+rect 0 797 31 831
+rect 65 797 127 831
+rect 161 797 223 831
+rect 257 797 319 831
+rect 353 797 415 831
+rect 449 797 511 831
+rect 545 797 607 831
+rect 641 797 703 831
+rect 737 797 768 831
+rect 0 791 768 797
+rect 0 735 768 763
+rect 0 701 19 735
+rect 53 701 91 735
+rect 125 701 163 735
+rect 197 701 235 735
+rect 269 701 467 735
+rect 501 701 539 735
+rect 573 701 611 735
+rect 645 701 683 735
+rect 717 701 768 735
+rect 0 689 768 701
+rect 0 113 768 125
+rect 0 79 440 113
+rect 474 79 512 113
+rect 546 79 584 113
+rect 618 79 768 113
+rect 0 51 768 79
+rect 0 17 768 23
+rect 0 -17 31 17
+rect 65 -17 127 17
+rect 161 -17 223 17
+rect 257 -17 319 17
+rect 353 -17 415 17
+rect 449 -17 511 17
+rect 545 -17 607 17
+rect 641 -17 703 17
+rect 737 -17 768 17
+rect 0 -23 768 -17
+<< labels >>
+rlabel locali s 601 361 743 424 6 A1
+port 1 nsew signal input
+rlabel locali s 450 361 551 424 6 A2
+port 2 nsew signal input
+rlabel locali s 25 307 110 373 6 B1
+port 3 nsew signal input
+rlabel locali s 217 307 319 350 6 B2
+port 4 nsew signal input
+rlabel metal1 s 0 51 768 125 6 VGND
+port 5 nsew ground bidirectional
+rlabel metal1 s 0 -23 768 23 8 VNB
+port 6 nsew ground bidirectional
+rlabel pwell s -26 -43 794 43 8 VNB
+port 6 nsew ground bidirectional
+rlabel pwell s 10 43 764 289 6 VNB
+port 6 nsew ground bidirectional
+rlabel metal1 s 0 791 768 837 6 VPB
+port 7 nsew power bidirectional
+rlabel nwell s -66 377 834 897 6 VPB
+port 7 nsew power bidirectional
+rlabel metal1 s 0 689 768 763 6 VPWR
+port 8 nsew power bidirectional
+rlabel locali s 147 123 254 271 6 Y
+port 9 nsew signal output
+rlabel locali s 147 271 181 386 6 Y
+port 9 nsew signal output
+rlabel locali s 147 386 359 420 6 Y
+port 9 nsew signal output
+rlabel locali s 305 420 359 435 6 Y
+port 9 nsew signal output
+rlabel locali s 305 435 409 652 6 Y
+port 9 nsew signal output
+rlabel locali s 375 652 409 751 6 Y
+port 9 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 768 814
+string LEFclass CORE
+string LEFsite unithv
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 386136
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 376348
+<< end >>

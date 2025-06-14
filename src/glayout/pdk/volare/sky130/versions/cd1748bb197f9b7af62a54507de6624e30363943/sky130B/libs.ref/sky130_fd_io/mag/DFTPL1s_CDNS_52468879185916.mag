@@ -1,0 +1,49 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1701704242
+<< pwell >>
+rect -26 -26 151 226
+<< ndiff >>
+rect 0 182 60 200
+rect 0 148 11 182
+rect 45 148 60 182
+rect 0 114 60 148
+rect 0 80 11 114
+rect 45 80 60 114
+rect 0 46 60 80
+rect 0 12 11 46
+rect 45 12 60 46
+rect 0 0 60 12
+<< ndiffc >>
+rect 11 148 45 182
+rect 11 80 45 114
+rect 11 12 45 46
+<< psubdiff >>
+rect 60 182 125 200
+rect 60 148 79 182
+rect 113 148 125 182
+rect 60 114 125 148
+rect 60 80 79 114
+rect 113 80 125 114
+rect 60 46 125 80
+rect 60 12 79 46
+rect 113 12 125 46
+rect 60 0 125 12
+<< psubdiffcont >>
+rect 79 148 113 182
+rect 79 80 113 114
+rect 79 12 113 46
+<< locali >>
+rect 11 182 113 198
+rect 45 148 79 182
+rect 11 114 113 148
+rect 45 80 79 114
+rect 11 46 113 80
+rect 45 12 79 46
+rect 11 -4 113 12
+<< properties >>
+string GDS_END 80655396
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+string GDS_START 80654624
+<< end >>
