@@ -193,3 +193,19 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+
+#large pdk files from the sky130 folder, and the magic/netgen folders on my local machine
+# Magic and Netgen folders
+magic/
+netgen/
+
+# PDK folders
+src/glayout/pdk/sky130A/
+src/glayout/pdk/sky130B/
+src/glayout/pdk/volare/
+
+magic/
+netgen/
+src/glayout/pdk/sky130A
+src/glayout/pdk/sky130B
