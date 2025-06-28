@@ -10,8 +10,8 @@ def two_transistor_place(
 	pdk: MappedPDK, 
 	pattern: str, 
 	deviceA: tuple[Callable, dict], 
-	deviceB: tuple[Callable, dict]) 
-	-> Component:
+	deviceB: tuple[Callable, dict]
+    ) -> Component:
     """Place two transitors according to the patter provided
     args:
     pdk = MappedPDK to use

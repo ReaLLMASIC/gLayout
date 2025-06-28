@@ -4,8 +4,8 @@ from typing import Optional, Union
 from gdsfactory import Component, ComponentReference
 from gdsfactory.port import Port
 from glayout.pdk.mappedpdk import MappedPDK
-from glayout.pdk.util.comp_utils import align_comp_to_port, movex
-from glayout.pdk.util.port_utils import (
+from glayout.util.comp_utils import align_comp_to_port, movex
+from glayout.util.port_utils import (
     assert_port_manhattan,
     ports_inline,
     ports_parallel,
