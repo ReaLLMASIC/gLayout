@@ -14,6 +14,7 @@ from glayout.util.port_utils import rename_ports_by_orientation
 from glayout.util.port_utils import add_ports_perimeter
 from gdsfactory.components import text_freetype, rectangle
 from typing import Optional, Union 
+import time
 
 def add_tg_labels(tg_in: Component,
                         pdk: MappedPDK
@@ -134,10 +135,14 @@ if __name__ == "__main__":
     comp = add_tg_labels(comp,sky130)
     comp.name = "TG"
     comp.show()
+    #print(comp.info['netlist'].generate_netlist())
     print("...Running DRC...")
     drc_result = sky130.drc_magic(comp, "TG")
     ## Klayout DRC
     #drc_result = gf180.drc(comp)\n
+    
+    time.sleep(5)
+        
     print("...Running LVS...")
     lvs_res=sky130.lvs_netgen(comp, "TG")
     #print("...Saving GDS...")

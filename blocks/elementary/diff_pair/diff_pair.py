@@ -1,11 +1,15 @@
-from typing import Optional, Union
+from glayout import MappedPDK, sky130,gf180
+from glayout import nmos, pmos, tapring,via_stack
+
+from glayout.spice.netlist import Netlist
+from glayout.routing import c_route,L_route,straight_route
 
 from gdsfactory.cell import cell
 from gdsfactory.component import Component, copy
 from gdsfactory.components.rectangle import rectangle
 from gdsfactory.routing.route_quad import route_quad
 from gdsfactory.routing.route_sharp import route_sharp
-from glayout.pdk.mappedpdk import MappedPDK
+
 from glayout.util.comp_utils import align_comp_to_port, evaluate_bbox, movex, movey
 from glayout.util.port_utils import (
     add_ports_perimeter,
@@ -17,16 +21,10 @@ from glayout.util.port_utils import (
 )
 from glayout.util.snap_to_grid import component_snap_to_grid
 from glayout.placement.common_centroid_ab_ba import common_centroid_ab_ba
-from glayout.primitives.fet import nmos, pmos
-from glayout.primitives.guardring import tapring
-from glayout.primitives.via_gen import via_stack
-from glayout.routing.c_route import c_route
-from glayout.routing.smart_route import smart_route
-from glayout.routing.straight_route import straight_route
-from glayout.spice import Netlist
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk
-from gdsfactory.components import text_freetype
 
+from gdsfactory.components import text_freetype
+from typing import Optional, Union
+import time
 
 def add_df_labels(df_in: Component,
                         pdk: MappedPDK
@@ -92,7 +90,7 @@ def diff_pair(
 	width: float = 3,
 	fingers: int = 4,
 	length: Optional[float] = None,
-	n_or_p_fet: bool = True,
+	device: str = 'nfet',
 	plus_minus_seperation: float = 0,
 	rmult: int = 1,
 	dummy: Union[bool, tuple[bool, bool]] = True,
@@ -108,21 +106,24 @@ def diff_pair(
 	"""
 	# TODO: error checking
 	pdk.activate()
-	diffpair = Component()
+	diffpair = Component("diffpair")
 	# create transistors
 	well = None
 	if isinstance(dummy, bool):
 		dummy = (dummy, dummy)
-	if n_or_p_fet:
+	if device.lower() in ['nmos', 'nfet']:
 		fetL = nmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(dummy[0], False),with_dnwell=False,with_substrate_tap=False,rmult=rmult)
 		fetR = nmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(False,dummy[1]),with_dnwell=False,with_substrate_tap=False,rmult=rmult)
 		min_spacing_x = pdk.get_grule("n+s/d")["min_separation"] - 2*(fetL.xmax - fetL.ports["multiplier_0_plusdoped_E"].center[0])
 		well = "pwell"
-	else:
+	elif device.lower() in ['pmos', 'pfet']:
 		fetL = pmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(dummy[0], False),dnwell=False,with_substrate_tap=False,rmult=rmult)
 		fetR = pmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(False,dummy[1]),dnwell=False,with_substrate_tap=False,rmult=rmult)
 		min_spacing_x = pdk.get_grule("p+s/d")["min_separation"] - 2*(fetL.xmax - fetL.ports["multiplier_0_plusdoped_E"].center[0])
 		well = "nwell"
+	else:
+		raise ValueError(f"device must be either 'nmos' or 'pmos', got {device}")
+
 	# place transistors
 	viam2m3 = via_stack(pdk,"met2","met3",centered=True)
 	metal_min_dim = max(pdk.get_grule("met2")["min_width"],pdk.get_grule("met3")["min_width"])
@@ -160,6 +161,8 @@ def diff_pair(
 	# route sources (short sources)
 	diffpair << route_quad(a_topl.ports["multiplier_0_source_E"], b_topr.ports["multiplier_0_source_W"], layer=pdk.get_glayer("met2"))
 	diffpair << route_quad(b_botl.ports["multiplier_0_source_E"], a_botr.ports["multiplier_0_source_W"], layer=pdk.get_glayer("met2"))
+ 
+ 
 	sextension = b_topr.ports["well_E"].center[0] - b_topr.ports["multiplier_0_source_E"].center[0]
 	source_routeE = diffpair << c_route(pdk, b_topr.ports["multiplier_0_source_E"], a_botr.ports["multiplier_0_source_E"],extension=sextension, viaoffset=False)
 	source_routeW = diffpair << c_route(pdk, a_topl.ports["multiplier_0_source_W"], b_botl.ports["multiplier_0_source_W"],extension=sextension, viaoffset=False)
@@ -198,6 +201,7 @@ def diff_pair(
 	# lay MINUSgate_routeW and PLUSgate_routeE
 	MINUSgate_routeW = diffpair << c_route(pdk, set_port_orientation(b_botl.ports["multiplier_0_gate_E"],"W"), bar_minus.ports["e1"], extension=get_left_extension(bar_minus))
 	PLUSgate_routeE = diffpair << c_route(pdk, set_port_orientation(a_botr.ports["multiplier_0_gate_W"],"E"), bar_plus.ports["e3"], extension=get_right_extension(bar_plus))
+ 
 	# correct pwell place, add ports, flatten, and return
 	diffpair.add_ports(a_topl.get_ports_list(),prefix="tl_")
 	diffpair.add_ports(b_topr.get_ports_list(),prefix="tr_")
@@ -218,8 +222,6 @@ def diff_pair(
 	component.info['netlist'] = diff_pair_netlist(fetL, fetR)
 	return component
 
-
-
 @cell
 def diff_pair_generic(
 	pdk: MappedPDK,
@@ -235,3 +237,20 @@ def diff_pair_generic(
 	diffpair = common_centroid_ab_ba(pdk,width,fingers,length,n_or_p_fet,rmult,dummy,substrate_tap)
 	diffpair << smart_route(pdk,diffpair.ports["A_source_E"],diffpair.ports["B_source_E"],diffpair, diffpair)
 	return diffpair
+
+if __name__ == "__main__":
+    comp =diff_pair(sky130)
+    # comp.pprint_ports()
+    comp =add_df_labels(comp,sky130)
+    comp.name = "DiffPair"
+    comp.show()
+    #print(comp.info['netlist'].generate_netlist())
+    print("...Running DRC...")
+    drc_result = sky130.drc_magic(comp, "DiffPair")
+    ## Klayout DRC
+    #drc_result = gf180.drc(comp)\n
+    time.sleep(5)
+    print("...Running LVS...")
+    lvs_res=sky130.lvs_netgen(comp, "DiffPair")
+    #print("...Saving GDS...")
+    #comp.write_gds('out_CMirror.gds')

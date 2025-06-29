@@ -13,6 +13,7 @@ from glayout.util.port_utils import add_ports_perimeter,rename_ports_by_orientat
 from glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port
 from typing import Optional, Union 
 
+import time
 
 def add_cm_labels(cm_in: Component,
                 pdk: MappedPDK 
@@ -213,15 +214,19 @@ def current_mirror(
     return top_level
 
 if __name__ == "__main__":
-    comp = current_mirror(sky130,numcols=2,device='nmos')
+    comp = current_mirror(sky130)
     # comp.pprint_ports()
     comp = add_cm_labels(comp,sky130)
     comp.name = "CM"
     comp.show()
+    #print(comp.info['netlist'].generate_netlist())
     print("...Running DRC...")
     drc_result = sky130.drc_magic(comp, "CM")
     ## Klayout DRC
     #drc_result = gf180.drc(comp)\n
+    
+    time.sleep(5)
+        
     print("...Running LVS...")
     lvs_res=sky130.lvs_netgen(comp, "CM")
     #print("...Saving GDS...")
