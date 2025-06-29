@@ -1,23 +1,34 @@
-from glayout.pdk.mappedpdk import MappedPDK
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout import MappedPDK, sky130,gf180
+from glayout import nmos, pmos, tapring,via_stack
+
+from glayout.spice.netlist import Netlist
+from glayout.routing import c_route,L_route,straight_route
+
 from gdsfactory.component import Component
 from gdsfactory.component_reference import ComponentReference
 from gdsfactory.cell import cell
 from gdsfactory import Component
 from gdsfactory.components import text_freetype, rectangle
-from glayout.primitives.fet import nmos, pmos, multiplier
+
+
+
 from glayout.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, prec_ref_center
 from glayout.util.snap_to_grid import component_snap_to_grid
 from glayout.util.port_utils import rename_ports_by_orientation
-from glayout.routing.straight_route import straight_route
-from glayout.routing.c_route import c_route
-from glayout.routing.L_route import L_route
-from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter
-from glayout.spice.netlist import Netlist
-from glayout.blocks.composite.FVF.fvf import fvf_netlist, flipped_voltage_follower
+
+########################### relative import of FVF ###########################
+import os
+import sys
+script_dir = os.path.abspath(os.path.dirname(__file__))
+fvf_path = os.path.join(script_dir, "../../elementary/FVF")
+sys.path.append(fvf_path)
+from fvf import fvf_netlist, flipped_voltage_follower
+###############################################################################
+
 from glayout.primitives.via_gen import via_stack
 from typing import Optional
+import time
 
 def add_lvcm_labels(lvcm_in: Component,
                 pdk: MappedPDK
@@ -180,3 +191,22 @@ def  low_voltage_cmirror(
     component.info['netlist'] = low_voltage_cmirr_netlist(bias_fvf, cascode_fvf, fet_1_ref, fet_2_ref, fet_3_ref, fet_4_ref)
     
     return component
+
+if __name__ == "__main__":
+    comp =low_voltage_cmirror(sky130)
+    # comp.pprint_ports()
+    comp =add_lvcm_labels(comp,sky130)
+    comp.name = "LVCM"
+    comp.show()
+    #print(comp.info['netlist'].generate_netlist())
+    print("...Running DRC...")
+    drc_result = sky130.drc_magic(comp, "LVCM")
+    ## Klayout DRC
+    #drc_result = gf180.drc(comp)\n
+    
+    time.sleep(5)
+        
+    print("...Running LVS...")
+    lvs_res=sky130.lvs_netgen(comp, "LVCM")
+    #print("...Saving GDS...")
+    #comp.write_gds('out_LVCM.gds')
