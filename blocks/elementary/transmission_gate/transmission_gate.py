@@ -1,20 +1,19 @@
-from glayout.pdk.mappedpdk import MappedPDK
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout import MappedPDK, sky130,gf180
+from glayout import nmos, pmos, tapring,via_stack
+
+
 from gdsfactory.cell import cell
 from gdsfactory.component import Component
-from gdsfactory import Component
-from glayout.primitives.fet import nmos, pmos, multiplier
+
+from glayout.spice.netlist import Netlist
+from glayout.routing import c_route,L_route,straight_route
+
 from glayout.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, movex, movey
 from glayout.util.snap_to_grid import component_snap_to_grid
 from glayout.util.port_utils import rename_ports_by_orientation
-from glayout.routing.straight_route import straight_route
-from glayout.routing.c_route import c_route
-from glayout.routing.L_route import L_route
-from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter
-from glayout.spice.netlist import Netlist
-from glayout.primitives.via_gen import via_stack
 from gdsfactory.components import text_freetype, rectangle
+from typing import Optional, Union 
 
 def add_tg_labels(tg_in: Component,
                         pdk: MappedPDK
@@ -87,7 +86,7 @@ def  transmission_gate(
     tuples are in (NMOS,PMOS) order
     **kwargs are any kwarg that is supported by nmos and pmos
     """
-   
+    pdk.activate()
     #top level component
     top_level = Component(name="transmission_gate")
 
@@ -127,3 +126,19 @@ def  transmission_gate(
 
 
     return component
+
+
+if __name__ == "__main__":
+    comp = transmission_gate(sky130)
+    # comp.pprint_ports()
+    comp = add_tg_labels(comp,sky130)
+    comp.name = "TG"
+    comp.show()
+    print("...Running DRC...")
+    drc_result = sky130.drc_magic(comp, "TG")
+    ## Klayout DRC
+    #drc_result = gf180.drc(comp)\n
+    print("...Running LVS...")
+    lvs_res=sky130.lvs_netgen(comp, "TG")
+    #print("...Saving GDS...")
+    #comp.write_gds('out_CMirror.gds')

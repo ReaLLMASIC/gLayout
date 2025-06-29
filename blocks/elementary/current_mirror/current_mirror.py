@@ -1,21 +1,18 @@
+from glayout import MappedPDK, sky130,gf180
+from glayout import nmos, pmos, tapring,via_stack
+
 from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized
 from gdsfactory import cell
-from glayout.pdk.mappedpdk import MappedPDK
-from glayout.routing.c_route import c_route
-from glayout.routing.L_route import L_route
-from glayout.routing.straight_route import straight_route
-from glayout.spice.netlist import Netlist
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk as sky130
-from glayout.primitives.fet import nmos, pmos
-from glayout.primitives.guardring import tapring
-from glayout.util.port_utils import add_ports_perimeter,rename_ports_by_orientation
 from gdsfactory.component import Component
+from gdsfactory.components import text_freetype, rectangle
+
+from glayout.routing.c_route import c_route,L_route,straight_route
+from glayout.spice.netlist import Netlist
+
+from glayout.util.port_utils import add_ports_perimeter,rename_ports_by_orientation
 from glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port
 from typing import Optional, Union 
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk
-from glayout.pdk.gf180_mapped import gf180_mapped_pdk
-from glayout.primitives.via_gen import via_stack
-from gdsfactory.components import text_freetype, rectangle
+
 
 def add_cm_labels(cm_in: Component,
                 pdk: MappedPDK 
