@@ -1,4 +1,5 @@
 from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized
+from gdsfactory import cell
 from glayout.pdk.mappedpdk import MappedPDK
 from glayout.routing.c_route import c_route
 from glayout.routing.L_route import L_route
@@ -54,12 +55,12 @@ def add_cm_labels(cm_in: Component,
 
 def current_mirror_netlist(
     pdk: MappedPDK, 
-    width: float,
-    length: float,
-    multipliers: int, 
-    with_dummy: True,
+    width: float = 1,
+    length: float = None,
+    multipliers: int = 1, 
+    with_dummy: bool = True,
     n_or_p_fet: Optional[str] = 'nfet',
-    subckt_only: Optional[bool] = False
+    subckt_only: Optional[bool] = True,
 ) -> Netlist:
     if length is None:
         length = pdk.get_grule('poly')['min_width']
@@ -91,7 +92,7 @@ XB VCOPY VREF VSS VB {model} l={{l}} w={{w}} m={{m}}"""
     )
 
 
-#@cell
+@cell
 def current_mirror(
     pdk: MappedPDK, 
     numcols: int = 3,
@@ -100,6 +101,7 @@ def current_mirror(
     with_substrate_tap: Optional[bool] = False,
     with_tie: Optional[bool] = True,
     tie_layers: tuple[str,str]=("met2","met1"),
+    subckt_only: Optional[bool] = True,
     **kwargs
 ) -> Component:
     """An instantiable current mirror that returns a Component object. The current mirror is a two transistor interdigitized structure with a shorted source and gate. It can be instantiated with either nmos or pmos devices. It can also be instantiated with a dummy device, a substrate tap, and a tie layer, and is centered at the origin. Transistor A acts as the reference and Transistor B acts as the mirror fet
@@ -118,7 +120,7 @@ def current_mirror(
         Component: a current mirror component object
     """
     top_level = Component("current mirror")
-    if device in ['nmos', 'nfet']:
+    if device.lower() in ['nmos', 'nfet']:
         interdigitized_fets = two_nfet_interdigitized(
             pdk, 
             numcols=numcols, 
@@ -127,7 +129,7 @@ def current_mirror(
             with_tie=False, 
             **kwargs
         )
-    elif device in ['pmos', 'pfet']:
+    elif device.lower() in ['pmos', 'pfet']:
         interdigitized_fets = two_pfet_interdigitized(
             pdk, 
             numcols=numcols, 
@@ -136,6 +138,9 @@ def current_mirror(
             with_tie=False, 
             **kwargs
         )
+    else:
+        raise ValueError(f"Device type {device} not recognized. Use 'nfet' or 'pfet'.")
+    
     top_level.add_ports(interdigitized_fets.get_ports_list(), prefix="fet_")
     maxmet_sep = pdk.util_max_metal_seperation()
     # short source of the fets
@@ -147,10 +152,13 @@ def current_mirror(
     
     top_level << interdigitized_fets
     if with_tie:
-        if device in ['nmos','nfet']:
+        if device.lower() in ['nmos','nfet']:
             tap_layer = "p+s/d"
-        if device in ['pmos','pfet']:
+        elif device.lower() in ['pmos','pfet']:
             tap_layer = "n+s/d"
+        else:
+            raise ValueError(f"Device type {device} not recognized. Use 'nfet' or 'pfet'.")
+        
         tap_sep = max(
             pdk.util_max_metal_seperation(),
             pdk.get_grule("active_diff", "active_tap")["min_separation"],
@@ -175,12 +183,14 @@ def current_mirror(
             pass
     
     # add a pwell 
-    if device in ['nmos','nfet']:
+    if device.lower() in ['nmos','nfet']:
         top_level.add_padding(layers = (pdk.get_glayer("pwell"),), default = pdk.get_grule("pwell", "active_tap")["min_enclosure"], )
         top_level = add_ports_perimeter(top_level, layer = pdk.get_glayer("pwell"), prefix="well_")
-    if device in ['pmos','pfet']:
+    elif device.lower() in ['pmos','pfet']:
         top_level.add_padding(layers = (pdk.get_glayer("nwell"),), default = pdk.get_grule("nwell", "active_tap")["min_enclosure"], )
         top_level = add_ports_perimeter(top_level, layer = pdk.get_glayer("nwell"), prefix="well_")
+    else:
+        raise ValueError(f"Device type {device} not recognized. Use 'nfet' or 'pfet'.")
 
  
     # add the substrate tap if specified
@@ -199,9 +209,8 @@ def current_mirror(
     top_level.info['netlist'] = current_mirror_netlist(
         pdk, 
         width=kwargs.get('width', 3), length=kwargs.get('length', 0.15), multipliers=numcols, with_dummy=with_dummy,
-        n_or_p_fet=device,
-        subckt_only=True
+        n_or_p_fet = 'nfet' if device.lower() in ['nmos', 'nfet'] else 'pfet' if device.lower() in ['pmos', 'pfet'] else (_ for _ in ()).throw(ValueError(f"Device type {device} not recognized. Use 'nfet' or 'pfet'.")),
+        subckt_only=subckt_only
     )
- 
     return top_level
 
