@@ -1,21 +1,21 @@
-from glayout.pdk.mappedpdk import MappedPDK
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout import MappedPDK, sky130,gf180
+from glayout import nmos, pmos, tapring,via_stack
+
+from glayout.spice.netlist import Netlist
+from glayout.routing import c_route,L_route,straight_route
+
+
 from gdsfactory.cell import cell
 from gdsfactory.component import Component
 from gdsfactory import Component
-from glayout.primitives.fet import nmos, pmos, multiplier
+
 from glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port
 from glayout.util.snap_to_grid import component_snap_to_grid
 from glayout.util.port_utils import rename_ports_by_orientation
-from glayout.routing.L_route import L_route
-from glayout.routing.straight_route import straight_route
-from glayout.routing.c_route import c_route
-from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter
-from glayout.spice.netlist import Netlist
-from glayout.primitives.via_gen import via_stack
-from gdsfactory.components import text_freetype, rectangle
 
+from gdsfactory.components import text_freetype, rectangle
+import time
 def fvf_netlist(fet_1: Component, fet_2: Component) -> Netlist:
 
          netlist = Netlist(circuit_name='FLIPPED_VOLTAGE_FOLLOWER', nodes=['VIN', 'VBULK', 'VOUT', 'Ib'])
@@ -63,7 +63,7 @@ def add_fvf_labels(fvf_in: Component,
 @cell
 def  flipped_voltage_follower(
         pdk: MappedPDK,
-        device_type: str = "nmos", 
+        device: str = 'nfet',
         placement: str = "horizontal",
         width: tuple[float,float] = (3,3),
         length: tuple[float,float] = (None,None),
@@ -92,9 +92,11 @@ def  flipped_voltage_follower(
     sd_rmult: sd_rmult for both fets
     **kwargs: any kwarg that is supported by nmos and pmos
     """
-   
+    pdk.activate()
     #top level component
     top_level = Component(name="flipped_voltage_follower")
+
+    device_type='nmos' if device.lower() in ['nmos', 'nfet'] else 'pmos' if device.lower() in ['pmos', 'pfet'] else (_ for _ in ()).throw(ValueError(f"Device type {device} not recognized. Use 'nfet' or 'pfet'."))
 
     #two fets
     device_map = {
@@ -156,3 +158,22 @@ def  flipped_voltage_follower(
     component.info['netlist'] = fvf_netlist(fet_1, fet_2)
     
     return component
+
+if __name__ == "__main__":
+    comp = flipped_voltage_follower(sky130)
+    # comp.pprint_ports()
+    comp =  add_fvf_labels(comp,sky130)
+    comp.name = "FVF"
+    comp.show()
+    #print(comp.info['netlist'].generate_netlist())
+    print("...Running DRC...")
+    drc_result = sky130.drc_magic(comp, "FVF")
+    ## Klayout DRC
+    #drc_result = gf180.drc(comp)\n
+    
+    time.sleep(5)
+        
+    print("...Running LVS...")
+    lvs_res=sky130.lvs_netgen(comp, "FVF")
+    #print("...Saving GDS...")
+    #comp.write_gds('out_FVF.gds')

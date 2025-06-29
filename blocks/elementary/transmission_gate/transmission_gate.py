@@ -146,4 +146,4 @@ if __name__ == "__main__":
     print("...Running LVS...")
     lvs_res=sky130.lvs_netgen(comp, "TG")
     #print("...Saving GDS...")
-    #comp.write_gds('out_CMirror.gds')
+    #comp.write_gds('out_TG.gds')
