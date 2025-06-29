@@ -119,6 +119,7 @@ def current_mirror(
     Returns:
         Component: a current mirror component object
     """
+    pdk.activate()
     top_level = Component("current mirror")
     if device.lower() in ['nmos', 'nfet']:
         interdigitized_fets = two_nfet_interdigitized(
@@ -214,3 +215,17 @@ def current_mirror(
     )
     return top_level
 
+if __name__ == "__main__":
+    comp = current_mirror(sky130,numcols=2,device='nmos')
+    # comp.pprint_ports()
+    comp = add_cm_labels(comp,sky130)
+    comp.name = "CM"
+    comp.show()
+    print("...Running DRC...")
+    drc_result = sky130.drc_magic(comp, "CM")
+    ## Klayout DRC
+    #drc_result = gf180.drc(comp)\n
+    print("...Running LVS...")
+    lvs_res=sky130.lvs_netgen(comp, "CM")
+    #print("...Saving GDS...")
+    #comp.write_gds('out_CMirror.gds')
