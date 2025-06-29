@@ -248,7 +248,7 @@ if __name__ == "__main__":
     print("...Running DRC...")
     drc_result = sky130.drc_magic(comp, "DiffPair")
     ## Klayout DRC
-    #drc_result = gf180.drc(comp)\n
+    #drc_result = sky130.drc(comp)\n
     time.sleep(5)
     print("...Running LVS...")
     lvs_res=sky130.lvs_netgen(comp, "DiffPair")
