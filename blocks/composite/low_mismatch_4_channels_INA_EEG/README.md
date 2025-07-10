@@ -26,6 +26,10 @@ This chip is a high-precision, low noise instrumentation amplifier array specifi
 ![Blokdiagram](https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/Blokdiagram.jpg)
 <h4 align="center" style="font-size:16px;">Figure 1. Block Diagram of the System Design</h4>
 
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure2.jpg" alt="Blokdiagram" width="600"/>
+</p>
 <h4 align="center" style="font-size:16px;">Figure 2. Open-Loop Amplifier [1]</h4>
 
 <h4 align="center" style="font-size:16px;">Figure 3. Chopper Switch</h4>
