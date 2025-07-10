@@ -7,7 +7,7 @@
 ## Datasheet
 ### **1. Functionality and Target Specifications**
 
-This chip is a high-precision, low noise instrumentation amplifier array specifically designed for multichannel Electroencephalography (EEG) signal acquisition. This instrumentation amplifier employs a group-chopping technique, in which multiple chopper switches (MOSFETs) are cascaded to sequentially exchange differential input signals across channels. This cyclic routing allows each input to be amplified by every amplifier in the array, effectively averaging out gain mismatches across channels. Additionally, input-referred DC offset is mitigated through chopper modulation and demodulation, which shifts low-frequency noise and offset to higher frequencies where they can be filtered out. As a result, the amplification across all channels becomes uniform and free from bias.
+This chip is a high-precision, low mismatch instrumentation amplifier array specifically designed for multichannel Electroencephalography (EEG) signal measurement. This instrumentation amplifier employs a group-chopping technique, in which multiple chopper switches (MOSFETs) are cascaded to sequentially exchange differential input signals across channels. This cyclic routing allows each input to be amplified by every amplifier in the array, effectively averaging out gain mismatches across channels. Additionally, input-referred DC offset is mitigated through chopper modulation and demodulation, which shifts low-frequency noise and offset to higher frequencies where they can be filtered out. As a result, the amplification across all channels becomes uniform and free from bias. 
 
 <h4 align="center" style="font-size:16px;">Table 1. Target Specification</h4>
 
