@@ -23,7 +23,7 @@ This chip is a high-precision, low noise instrumentation amplifier array specifi
 | Gain Mismatch Between Channels| 400 ppm [1]                | Approximate value                                                        |
 
 ### **2. Block Diagram**
-
+![Blokdiagram](https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/Blokdiagram.jpg)
 <h4 align="center" style="font-size:16px;">Figure 1. Block Diagram of the System Design</h4>
 
 <h4 align="center" style="font-size:16px;">Figure 2. Open-Loop Amplifier [1]</h4>
