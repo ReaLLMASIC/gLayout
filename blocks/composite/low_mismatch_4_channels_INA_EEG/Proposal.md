@@ -109,7 +109,7 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 ### **4. Application Diagram**
 ![Application](../images/Application.jpg)
 
-<h4 align="center" style="font-size:16px;">Figure 7. Example Circuits For Every Channel</h4>
+<h4 align="center" style="font-size:16px;">Figure 7. Example Circuits Application</h4>
 
 The application of the system is to amplify biopotential signals like EEG as inputs from a 4-channel signal source. Each signal receives two analog biopotential signal input. The system gives out the output of analog signal (output signal), which can be observed on an oscilloscope. The block chopper switch receives two analog signals from the source (electrodes), and they will pass through 3-level chopper switches to shift the signal to a higher frequency, avoiding low-frequency (1/f) noise, usually called flicker noise. The first chopper switch stage is also used as a modulator to move the low frequency of input signals to a higher frequency. Note that every level of the chopper switch receives a clock signal (different frequencies for different levels). Clock signals with different frequencies are the result of the frequency divider block on-chip, which receives the clock signal (high frequency) from a clock generator outside the chip.
 
