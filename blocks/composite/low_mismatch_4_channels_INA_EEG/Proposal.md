@@ -23,7 +23,7 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 | Gain Mismatch Between Channels| 400 ppm [1]                | Approximate value                                                        |
 
 ### **2. Block Diagram**
-![Blokdiagram](https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/Blokdiagram.jpg)
+![BlockDiagram](../images/BlockDiagram.jpg)
 <h4 align="center" style="font-size:16px;">Figure 1. Block Diagram of the System Design</h4>
 
 
@@ -34,7 +34,7 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure3.jpg" alt="Blokdiagram" width="200"/>
+  <img src="../images/ChopperSwitch.jpg" alt="ChopperSwitch" width="400"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 3. Chopper Switch</h4>
 
@@ -61,10 +61,8 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 | Clock Generator            | Generate clock signal with specific frequency                                | Low                  | Digital block generating logic level 1 and 0 in a specific frequency range                                                                    |
 
 ### **3. Pin Out**
-<p align="center">
-  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure6.jpg" alt="Blokdiagram" width="1000"/>
-</p>
-<h4 align="center" style="font-size:16px;">Figure 6. Chip Top View</h4>
+![Pin](../images/Pin.jpg)
+<h4 align="center" style="font-size:16px;">Figure 6. Chip Architecture</h4>
 
 <h4 align="center" style="font-size:16px;">Table 3.  External Pin Function</h4>
 
@@ -109,9 +107,8 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 </div>
 
 ### **4. Application Diagram**
-<p align="center">
-  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure7.jpg" alt="Blokdiagram" width="1000"/>
-</p>
+![Application](../images/Application.jpg)
+
 <h4 align="center" style="font-size:16px;">Figure 7. Example Circuits For Every Channel</h4>
 
 The application of the system is to amplify biopotential signals like EEG as inputs from a 4-channel signal source. Each signal receives two analog biopotential signal input. The system gives out the output of analog signal (output signal), which can be observed on an oscilloscope. The block chopper switch receives two analog signals from the source (electrodes), and they will pass through 3-level chopper switches to shift the signal to a higher frequency, avoiding low-frequency (1/f) noise, usually called flicker noise. The first chopper switch stage is also used as a modulator to move the low frequency of input signals to a higher frequency. Note that every level of the chopper switch receives a clock signal (different frequencies for different levels). Clock signals with different frequencies are the result of the frequency divider block on-chip, which receives the clock signal (high frequency) from a clock generator outside the chip.
@@ -204,7 +201,7 @@ After the INA stage, the input signals go to the second stage of the chopper swi
     <tr>
       <th><b>Chipathon Schedule</b></th>
       <th><b>Week</b></th>
-      <th><b>⚙Job Description</b></th>
+      <th><b>Job Description</b></th>
     </tr>
   </thead>
   <tbody>
