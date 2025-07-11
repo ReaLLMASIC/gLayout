@@ -34,21 +34,25 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 
 
 <p align="center">
-  <img src="../images/ChopperSwitch.jpg" alt="ChopperSwitch" width="400"/>
+  <img src="../images/chopperswitchcell.jpg" alt="chopperswithcell" width="400"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 3. Chopper Switch</h4>
+<h4 align="center" style="font-size:16px;">Figure 3. Chopper Switch Cell [4]</h4>
 
+<p align="center">
+  <img src="../images/adoptionchopperswitch.jpg" alt="adoptionchopperswitch" width="400"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 4. Adoption of the Chopper Switch Cell [4]</h4>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure3_2.jpg" alt="Blokdiagram" width="600"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 4. Clocking Scheme [1]</h4>
+<h4 align="center" style="font-size:16px;">Figure 5. Clocking Scheme [1]</h4>
 
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure5.jpg" alt="Blokdiagram" width="600"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 5. Switched-Cap Low-Pass Filter [1]</h4>
+<h4 align="center" style="font-size:16px;">Figure 6. Switched-Cap Low-Pass Filter [1]</h4>
 
 <h4 align="center" style="font-size:16px;">Table 2. Complexity and Functionality of Each Block Diagram</h4>
 
@@ -62,7 +66,7 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 
 ### **3. Pin Out**
 ![Pin](../images/Pin.jpg)
-<h4 align="center" style="font-size:16px;">Figure 6. Chip Architecture</h4>
+<h4 align="center" style="font-size:16px;">Figure 7. Chip Architecture</h4>
 
 <h4 align="center" style="font-size:16px;">Table 3.  External Pin Function</h4>
 
@@ -109,13 +113,57 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 ### **4. Application Diagram**
 ![Application](../images/Application.jpg)
 
-<h4 align="center" style="font-size:16px;">Figure 7. Example Circuits Application</h4>
+<h4 align="center" style="font-size:16px;">Figure 8. Example Circuits Application</h4>
 
-The application of the system is to amplify biopotential signals like EEG as inputs from a 4-channel signal source. Each signal receives two analog biopotential signal input. The system gives out the output of analog signal (output signal), which can be observed on an oscilloscope. The block chopper switch receives two analog signals from the source (electrodes), and they will pass through 3-level chopper switches to shift the signal to a higher frequency, avoiding low-frequency (1/f) noise, usually called flicker noise. The first chopper switch stage is also used as a modulator to move the low frequency of input signals to a higher frequency. Note that every level of the chopper switch receives a clock signal (different frequencies for different levels). Clock signals with different frequencies are the result of the frequency divider block on-chip, which receives the clock signal (high frequency) from a clock generator outside the chip.
+The application of this system is to amplify biopotential signals such as EEG, which are received from a 4-channel signal source. Each channel takes in two analog differential inputs from a pair of electrodes. The circuit outputs an analog signal (output signal), which can be observed on an oscilloscope.
 
-After going through the first stage, the analog signals go to the INA (Instrumentation Amplifier). This analog block amplifies the chopped biopotential signals with high CMRR (Common-Mode Rejection Ratio) and high gain. The INA system is also based on differential amplifiers, which contributes to the low-noise output signals.
+The signal first passes through a chopper switch block, starting with CSa, which is implemented in each individual channel. This stage performs chopper-stabilization to suppress flicker noise (1/f noise) that typically dominates in low-frequency biomedical signals. The technique shifts the baseband signal to a higher frequency, where the noise floor is lower, and then demodulates it back to recover the clean signal.
 
-After the INA stage, the input signals go to the second stage of the chopper switch, which performs demodulation from high frequency back to low frequency (original frequency). The chopped signals then pass through a Low-Pass Filter (LPF), which removes the high-frequency noise and keeps the original EEG signals (amplified and more readable). After all stages and processes, the final clean analog output can be observed by an oscilloscope.
+In addition to CSa, this system includes two additional dynamic switches, CSb and CSc, which are activated in specific clock-controlled phases to perform dynamic offset cancellation and signal path swapping between adjacent channels. These switches improve the matching across channels by ensuring that each amplifier stage processes signals from different input sources over time.
+
+The time-sequenced behavior of the switches is as follows:
+
+![Phase1](../images/Phase1.jpg)
+<h4 align="center" style="font-size:16px;">Figure 9. Three Level Chopper Switches Phase 1</h4>
+
+Phase 1: Only CSa is active. The signal flows straight through its assigned path:
+- Ch1 → INA1
+- Ch2 → INA2
+- Ch3 → INA3
+- Ch4 → INA4
+
+![Phase2](../images/Phase2.jpg)
+<h4 align="center" style="font-size:16px;">Figure 10. Three Level Chopper Switches Phase 2</h4>
+
+Phase 2: CSb is ON, performing the first set of signal path swaps between adjacent channel pairs:
+- Ch1 → INA2
+- Ch2 → INA1
+- Ch3 → INA4
+- Ch4 → INA3
+
+![Phase3](../images/Phase3.jpg)
+<h4 align="center" style="font-size:16px;">Figure 11. Three Level Chopper Switches Phase 3</h4>
+
+Phase 3: CSb turns OFF and CSc turns ON, causing the following routing:
+- Ch1 → INA3
+- Ch2 → INA4
+- Ch3 → INA1
+- Ch4 → INA2
+
+![Phase4](../images/Phase4.jpg)
+<h4 align="center" style="font-size:16px;">Figure 12. Three Level Chopper Switches Phase 4</h4>
+
+Phase 4: CSb and CSc turns ON, causing:
+- Ch1 → INA4
+- Ch2 → INA3
+- Ch3 → INA2
+- Ch4 → INA1
+  
+The Instrumentation Amplifiers (INA1–INA4) then amplify the incoming signals with high gain and excellent Common-Mode Rejection Ratio (CMRR), critical for extracting small EEG signals while rejecting noise and interferences.
+
+Following amplification, a second chopper switch stage (also CSa) demodulates the signal back to its original low-frequency range. The signal then passes through a Low-Pass Filter (LPF) to eliminate residual high-frequency components introduced by the chopping process. The final output is a clean, amplified analog signal representing the original EEG input.
+
+In summary, this example implementation of a 4-channel chopper amplifier system combines conventional chopper-stabilization (CSa) with dynamic signal path-switching (CSb and CSc) across three phases to achieve low-noise, high-accuracy biopotential signal amplification suitable for EEG applications.
 
 ---
 ## Work Distribution 
@@ -264,3 +312,5 @@ After the INA stage, the input signals go to the second stage of the chopper swi
 
 
 [3] S. Yazicioglu, T. Torfs, P. Merken, H. Kim, J. Penders, R. F. Yazicioglu, and C. Van Hoof, “A 0.5 V 2.1 µW EEG acquisition IC with differential and common-mode active DC offset rejection,” IEEE Journal of Solid-State Circuits, vol. 57, no. 4, pp. 1061–1071, Apr. 2022, doi: 10.1109/JSSC.2022.3161704.
+
+[4] Z. Yao, X. Zhou, D. Huang, W. Wu, and M. Je, "A 0.8 μW/Channel Readout IC for Sub-µV/√Hz Noise Scalable EEG Acquisition System With an Analog Accumulator and a Fully Digital Chopper," Sensors, vol. 25, no. 4, p. 1157, Feb. 2025. doi: 10.3390/s25041157
