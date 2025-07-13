@@ -84,7 +84,7 @@ Our design have the design of 2 STAGE AMPLIFIER :
   ```bash
   cd gLayout-genyz-team/NGSpice
   
-- Download and run [testbench](NGSpice/testbench.cir) on ngspice
+- Download and run [testbench](NGSPICE/testbench.cir) on ngspice
   ```bash
   # on ngspice terminal
   ngspice opampchallange.cir
