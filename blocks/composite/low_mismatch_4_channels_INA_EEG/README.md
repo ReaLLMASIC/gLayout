@@ -5,3 +5,8 @@ This chip is a high-precision instrumentation amplifier array for multichannel E
 
 - [Proposal](Proposal.md)
 - [View the presentation - slide 18-20](https://docs.google.com/presentation/d/1PPs22g3QAaJXZ76OtD4wRJLnIo7fuem2/mobilepresent?slide=id.g367eab6aafd_0_32)
+
+---
+# Operational Amplifier Design Challenge 
+Submission for the operational amplifier design challenge:
+- [Github Repo Op-Amp Challenge](https://github.com/aurxdeqo/GenYZ-GlayoutChallenge)
