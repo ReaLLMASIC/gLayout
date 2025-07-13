@@ -1,8 +1,7 @@
 # OPAMP Design Challenge
 
 ## GenYZ Team
-*This is the copy of our [OpAmp Design Challenge from Github repository](https://github.com/aurxdeqo/GenYZ-GlayoutChallenge)
-However, you can also access our design in this repo.*
+*This is the copy of our [OpAmp Design Challenge from Github repository](https://github.com/aurxdeqo/GenYZ-GlayoutChallenge). However, you can also access our design in this repo.*
 
 ## Op Amp Design Using LTSpice
 MODELS OR COMPONENTS USED
