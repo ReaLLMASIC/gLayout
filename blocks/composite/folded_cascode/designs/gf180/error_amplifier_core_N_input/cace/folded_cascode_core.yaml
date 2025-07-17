@@ -1,0 +1,207 @@
+#--------------------------------------------------------------
+# CACE circuit characterization file
+#--------------------------------------------------------------
+
+name:           folded_cascode_core
+description:    Folded cascode's core
+PDK:            sky130A
+
+cace_format:    5.2
+
+authorship:
+  designer:         Ramon Sarmiento
+  company:          OnChip UIS
+  creation_date:    Apr 21, 2025
+  license:          Apache 2.0
+
+paths:
+  root:             ..
+  schematic:        xschem
+  layout:           gds
+  netlist:          netlist
+  documentation:    docs
+
+pins:
+  VDD:
+    description: Positive analog power supply
+    type: power
+    direction: inout
+    Vmin: 1.7
+    Vmax: 1.9
+  VSS:
+    description: Analog ground
+    type: ground
+    direction: inout
+  Vout:
+    description: Output voltage
+    type: signal
+    direction: inout
+  Vcomn:
+    description: Compensation pin
+    type: signal
+    direction: inout
+  V+:
+    description: Non inverting input
+    type: signal
+    direction: input
+  V-:
+    description: Inverting input
+    type: signal
+    direction: input
+  VbiasP2:
+    description: Bias of cascode pmos
+    type: signal
+    direction: input
+  VbiasN2:
+    description: Bias of cascode nmos
+    type: signal
+    direction: input
+  VbiasN1:
+    description: Bias of current mirror nmos
+    type: signal
+    direction: input
+
+default_conditions:
+  vdd:
+    description: Analog power supply voltage
+    display: Vdd
+    unit: V
+    typical: 1.8
+  vref:
+    description: Voltage reference from BandGAP
+    display: VrefBG
+    unit: V
+    typical: 1.2
+  VbiasP2:
+    description: Bias of cascode pmos
+    display: VbiasP2
+    unit: V
+    typical: 0.65
+  VbiasN2:
+    description: Bias of cascode nmos
+    display: VbiasN2
+    unit: V
+    typical: 1.2
+  VbiasN1:
+    description: Bias of current mirror nmos
+    display: VbiasN1
+    unit: V
+    typical: 0.9
+  corner:
+    description: Process corner
+    display: Corner
+    typical: tt
+  temperature:
+    description: Ambient temperature
+    display: Temp
+    unit: °C
+    typical: 27
+
+parameters:
+  dc_params:
+    display: DC Params
+    spec:
+      Ivdd:
+        display: Ivdd
+        description: Currente from power
+        unit: uA
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+      Vout:
+        display: Vout
+        description: Output voltage
+        unit: V
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: dc.sch
+        format: ascii
+        suffix: .data
+        variables: [Vout, Ivdd]
+  
+  magic_area:
+    spec:
+      area:
+        display: Area
+        description: Total circuit layout area
+        unit: µm²
+        maximum:
+          value: any
+      width:
+        display: Width
+        description: Total circuit layout width
+        unit: µm
+        maximum:
+          value: any
+      height:
+        display: Height
+        description: Total circuit layout height
+        unit: µm
+        maximum:
+          value: any
+    tool:
+      magic_area
+      
+  magic_drc:
+    description: Magic DRC
+    display: Magic DRC
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+      magic_drc:
+        gds_flatten: true
+
+  netgen_lvs:
+    description: Netgen LVS
+    display: Netgen LVS
+    spec:
+      lvs_errors:
+        maximum:
+          value: 0
+    tool:
+      netgen_lvs:
+        script: run_project_lvs.tcl
+
+  klayout_drc_feol:
+    description: KLayout DRC feol
+    display: KLayout DRC feol
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+        klayout_drc:
+            args: ['-rd', 'feol=true']
+
+  klayout_drc_beol:
+    description: KLayout DRC beol
+    display: KLayout DRC beol
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+        klayout_drc:
+            args: ['-rd', 'beol=true']
+
+  klayout_drc_full:
+    description: KLayout DRC full
+    display: KLayout DRC full
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+        klayout_drc:
+            args: ['-rd', 'feol=true', '-rd', 'beol=true', '-rd', 'offgrid=true']

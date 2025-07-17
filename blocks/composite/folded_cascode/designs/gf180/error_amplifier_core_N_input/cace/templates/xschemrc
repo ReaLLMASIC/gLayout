@@ -1,0 +1,10 @@
+# Source the PDK xschemrc file
+if {![info exists PDK]} {
+    source $env(PDK_ROOT)/$env(PDK)/libs.tech/xschem/xschemrc
+}
+
+# Add current directory
+append XSCHEM_LIBRARY_PATH :[file dirname [info script]]
+
+# Source project xschemrc
+source [file dirname [info script]]/../../xschem/xschemrc

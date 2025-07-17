@@ -1,0 +1,291 @@
+---
+#--------------------------------------------------------------
+# CACE circuit characterization file
+#--------------------------------------------------------------
+
+name: error_amplifier_N_input
+description: Folded cascode full
+PDK: gf180mcuD
+
+cace_format: 5.2
+
+authorship:
+  designer: Ramon Sarmiento
+  company: OnChip UIS
+  creation_date: July 11th, 2025
+  license: Apache 2.0
+
+paths:
+  root: ..
+  schematic: xschem
+  layout: gds
+  netlist: netlist
+  documentation: docs
+
+pins:
+  VDD:
+    description: Positive analog power supply
+    type: power
+    direction: inout
+    Vmin: 1.7
+    Vmax: 1.9
+  VSS:
+    description: Analog ground
+    type: ground
+    direction: inout
+  Vout:
+    description: Output voltage
+    type: signal
+    direction: inout
+  Vcomn:
+    description: Compensation pin
+    type: signal
+    direction: inout
+  V+:
+    description: Non inverting input
+    type: signal
+    direction: input
+  V-:
+    description: Inverting input
+    type: signal
+    direction: input
+
+default_conditions:
+  vdd:
+    description: Analog power supply voltage
+    display: Vdd
+    unit: V
+    typical: 1.8
+  vref:
+    description: Voltage reference from BandGAP
+    display: VrefBG
+    unit: V
+    typical: 1.2
+  Vy:
+    description: Fix voltage Mode Voltage
+    display: Vy
+    unit: V
+    typical: -0.3
+  Vsweep:
+    description: Voltage to run the dc for Output swing
+    display: Vsweep
+    unit: V
+    typical: 0
+  corner:
+    description: Process corner
+    display: Corner
+    typical: typical
+  temperature:
+    description: Ambient temperature
+    display: Temp
+    unit: °C
+    typical: 27
+
+parameters:
+  dc_params:
+    display: DC Params
+    spec:
+      Ivdd:
+        display: Ivdd
+        description: Currente from power
+        unit: uA
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+      Vout:
+        display: Vout
+        description: Output voltage
+        unit: V
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: op.sch
+        format: ascii
+        suffix: .data
+        variables: [Vout, Ivdd]
+
+  ac_params:
+    display: STB Params
+    spec:
+      # print A0 UGB PM GM BW
+      A0:
+        display: Av
+        description: Opamp's DC Gain
+        unit: dB
+        minimum:
+          value: 70
+        typical:
+          value: any
+        maximum:
+          value: any
+      UGB:
+        display: UGB
+        description: Unitary Gain Bandwidth
+        unit: MHz
+        minimum:
+          value: 10
+        typical:
+          value: any
+        maximum:
+          value: any
+      PM:
+        display: PM
+        description: Opamp's Phase Margin
+        unit: °
+        minimum:
+          value: 45
+        typical:
+          value: any
+        maximum:
+          value: any
+      GM:
+        display: GM
+        description: Opamp's Gain Margin
+        unit: °
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+      BW:
+        display: BW
+        description: Opamp's Bandwidth
+        unit: kHz
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: ac.sch
+        format: ascii
+        suffix: .data
+        variables: [A0, UGB, PM, GM, BW]
+
+  os_params:
+    display: Output Swing Params
+    spec:
+      Output_swing:
+        display: Output_swing
+        description: Output voltage swing.
+        unit: V
+        minimum:
+          value: 1
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: os.sch
+        format: ascii
+        suffix: .data
+        variables: [Output_swing]
+
+  cmrr_params:
+    display: Common Mode Params (Common mode gain CMRR = Acm/Av)
+    spec:
+      Acm:
+        display: Acm
+        description: Common mode gain.
+        unit: dB
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: cmrr.sch
+        format: ascii
+        suffix: .data
+        variables: [Acm]
+
+  magic_area:
+    spec:
+      area:
+        display: Area
+        description: Total circuit layout area
+        unit: µm²
+        maximum:
+          value: any
+      width:
+        display: Width
+        description: Total circuit layout width
+        unit: µm
+        maximum:
+          value: any
+      height:
+        display: Height
+        description: Total circuit layout height
+        unit: µm
+        maximum:
+          value: any
+    tool: magic_area
+
+  magic_drc:
+    description: Magic DRC
+    display: Magic DRC
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+      magic_drc:
+        gds_flatten: true
+
+  netgen_lvs:
+    description: Netgen LVS
+    display: Netgen LVS
+    spec:
+      lvs_errors:
+        maximum:
+          value: 0
+    tool:
+      netgen_lvs:
+        script: run_project_lvs.tcl
+
+  klayout_drc_feol:
+    description: KLayout DRC feol
+    display: KLayout DRC feol
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+      klayout_drc:
+        args: ["-rd", "feol=true"]
+
+  klayout_drc_beol:
+    description: KLayout DRC beol
+    display: KLayout DRC beol
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+      klayout_drc:
+        args: ["-rd", "beol=true"]
+
+  klayout_drc_full:
+    description: KLayout DRC full
+    display: KLayout DRC full
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+      klayout_drc:
+        args: ["-rd", "feol=true", "-rd", "beol=true", "-rd", "offgrid=true"]
