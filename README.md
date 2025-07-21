@@ -54,7 +54,7 @@ transistor.write_gds("transistor.gds")
 
 ## Documentation
 
-For detailed documentation, please visit our [documentation site](https://glayout.readthedocs.io/).
+For detailed documentation, please visit our [documentation site](docs/contributing.md).
 
 ## Features
 
