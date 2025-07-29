@@ -80,7 +80,7 @@ For detailed documentation, please visit our [documentation site](https://glayou
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guide](docs/contributor_guide.md) for details.
 
 ## License
 
