@@ -118,17 +118,17 @@ To validate the functionality and performance of the designed multi-channel EEG 
 <h4 align="center" style="font-size:16px;">Table 6. Characteristic of Dummy EEG Signals</h4>
 
 <div align="center">
-  
-| **Activity**                     | **Dominant Frequency (Hz)** | **Amplitude Range (μV)** |
-|-----------------------------|--------------------------|------------------------|
-| Baseline Eyes Open          | 8 – 13 (Alpha suppression) | 20 – 60               |
-| Closing Left Hand       | 10 – 30 (Beta desync)      | 10 – 50               |
-| Closing Right Hand        | 10 – 30 (Beta desync)      | 10 – 50               |
-| Dorsal flexion of Left Foot        | 10 – 25                    | 15 – 60               |
-| Plantar flexion of Left Foot        | 8 – 20                     | 15 – 50               |
-| Dorsal flexion of Right Foot             | 10 – 30                    | 20 – 70              |
-| Plantar flexion of Right Foot            | 10 – 30                    | 20 – 70              |
 
+| **Activity**                     | **Frequency Range (Hz)** | **Amplitude Range (μV)** |
+|-----------------------------|--------------------------|------------------------|
+| Baseline Eyes Open          | 2.25 – 30.94    | 20.03 – 174.53            |
+| Closing Left Hand       | 2.99 – 12.72     | 1.49 – 8.29               | 
+| Closing Right Hand        | 4.99 – 46.41     | 9.41 – 108.74               | 
+| Dorsal flexion of Left Foot        | 0.50 – 41.17                    | 1.41 – 6.02              | 
+| Plantar flexion of Left Foot        | 4.99 – 29.44                     | 1.52 – 5.40               |                 
+| Dorsal flexion of Right Foot             | 8.98 – 34.43                    | 1.52 – 4.67              |                 
+| Plantar flexion of Right Foot            | 7.98 – 13.97                    | 1.66 – 3.92              |      
+| Resting in Between Tasks          | 0.00 – 40.67                    | 9.86 – 124.15            |      
 </div>
 
 Dataset DOI: 10.17632/x8psbz3f6x.2
