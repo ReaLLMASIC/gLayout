@@ -39,7 +39,7 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 
 *A. Chopper Switch*
 
-The chopper switch is implemented to reduce low-frequency (1/f) noise and input offset voltage that can severely degrade the quality of EEG signals. It operates by modulating the input signal with a square wave, shifting it to a higher frequency band where amplifier noise is more uniform and less intrusive. After amplification, the signal is demodulated back to baseband, effectively canceling out the low-frequency noise and offset introduced by the amplifier. This technique ensures higher signal integrity, especially important when dealing with microvolt-level biosignals.
+The chopper switch is implemented to reduce low-frequency (1/f) noise and input offset voltage that can severely degrade the quality of EEG signals. It operates by modulating the input signal with a square wave, shifting it to a higher frequency band where amplifier noise is more uniform and less intrusive. After amplification, the signal is demodulated back to baseband, effectively canceling out the low-frequency noise and offset introduced by the amplifier. 
 
 <p align="center">
   <img src="../images/chopperswitchcell.jpg" alt="chopperswithcell" width="400"/>
@@ -51,21 +51,18 @@ The chopper switch is implemented to reduce low-frequency (1/f) noise and input 
 </p>
 <h4 align="center" style="font-size:16px;">Figure 3. Adoption of the Chopper Switch Cell [4]</h4>
 
-<h4 align="center" style="font-size:16px;">Table 3. Target Specification of Chopper Switc</h4>
+<h4 align="center" style="font-size:16px;">Table 3. Target Specification of Chopper Switch</h4>
 
 <div align="center">
 
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
-| Chopper A Operating Frequency       | 2              | kHz       |
-| Chopper B Operating Frequency       | 1            | kHz       |
-| Chopper C Operating Frequency       | 500               | Hz       |
-| Ron                                 | TBD                | kΩ       |
+| R<sub>on<sub>                                 | TBD                | kΩ       |
 | Delay tolerance between CLK and CLK̅ | TBD              | ns       |
 
 </div>
 
-🔗**Progress Log**:[Chopper Switch](Chopper%20Switch)
+🔗**Progress Log**: [Chopper Switch](Chopper%20Switch)
 
 *B. Instrumentation Amplifier*
 
@@ -90,7 +87,7 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 
 </div>
 
-🔗**Progress Log**:[Instrumentation Amplifier](Instrumentation%20Amplifier)
+🔗**Progress Log**: [Instrumentation Amplifier](Instrumentation%20Amplifier)
 
 *C. Low Pass Filter*
 
@@ -112,7 +109,7 @@ The switched-capacitor low-pass filter is used to remove high-frequency componen
 
 </div>
 
-🔗**Progress Log**:[Switched-Cap Low Pass Filter](Switched-Cap%20Low%20Pass%20Filter)
+🔗**Progress Log**: [Switched-Cap Low Pass Filter](Switched-Cap%20Low%20Pass%20Filter)
 
 *D. Dummy EEG Signal*
 
@@ -136,7 +133,7 @@ To validate the functionality and performance of the designed multi-channel EEG 
 
 Dataset DOI: 10.17632/x8psbz3f6x.2
 
-🔗**Progress Log**:[EEG Dummy Signal](EEG%20Dummy%20Signal)
+🔗**Progress Log**: [EEG Dummy Signal](EEG%20Dummy%20Signal)
 
 *E. Frequency Divider*
 
@@ -147,13 +144,24 @@ The frequency divider circuit is designed to generate synchronized clock signals
 </p>
 <h4 align="center" style="font-size:16px;">Figure 6. Clocking Scheme [1]</h4>
 
-🔗**Progress Log**:[Frequency Divider](Frequency%20Divider)
+<h4 align="center" style="font-size:16px;">Table 7. Target Specification of Frequency Divider</h4>
+
+<div align="center">
+| **Parameter**                        | **Value / Target** | **Unit** |
+|-------------------------------------|--------------------|----------|
+| Chopper A Operating Frequency       | 2              | kHz       |
+| Chopper B Operating Frequency       | 1            | kHz       |
+| Chopper C Operating Frequency       | 500               | Hz       |
+
+</div>
+
+🔗**Progress Log**: [Frequency Divider](Frequency%20Divider)
 
 *F. Buffer*
 
 An optional unity-gain analog buffer may be inserted at the output stage to maintain signal fidelity when interfacing with external components such as bonding pads, wirebonds, PCB traces, and ADC inputs. Although the buffer does not introduce voltage amplification, it provides high input impedance and low output impedance, effectively isolating the signal source from capacitive and resistive loading effects. This helps prevent signal distortion, such as slow rise/fall times or amplitude attenuation, which could lead to timing inaccuracies in downstream sampling. While not explicitly designed to introduce delay, the buffer can improve signal timing consistency by ensuring that transitions occur cleanly and within expected timing windows.
 
-🔗**Progress Log**:[Buffer](Buffer)
+🔗**Progress Log**: [Buffer](Buffer)
 
 ### **4. Pin Out**
 ![Pin](../images/Pin.jpg)
