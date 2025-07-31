@@ -18,7 +18,10 @@ To validate the functionality and performance of the designed multi-channel EEG 
 | Resting in Between Tasks          | 0.00 – 40.67                    | 9.86 – 124.15            |      
 
 </div>
-About Subject - S1
+
+Dataset DOI: 10.17632/x8psbz3f6x.2
+
+## About Subject - S1
 
 **Basic Information**
 - *Nationality:* Ecuadorian  
@@ -40,8 +43,6 @@ About Subject - S1
 - *Limb Loss:* No  
 - *Neurological Disorder:* No  
 - *COVID-19 History:* No  
-
-Dataset DOI: 10.17632/x8psbz3f6x.2
 
 ## FFT code
 
