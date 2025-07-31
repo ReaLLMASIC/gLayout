@@ -147,6 +147,7 @@ The frequency divider circuit is designed to generate synchronized clock signals
 <h4 align="center" style="font-size:16px;">Table 7. Target Specification of Frequency Divider</h4>
 
 <div align="center">
+  
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
 | Chopper A Operating Frequency       | 2              | kHz       |
