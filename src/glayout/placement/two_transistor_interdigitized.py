@@ -5,16 +5,107 @@ from glayout.primitives.fet import nmos, pmos, multiplier
 from glayout.util.comp_utils import evaluate_bbox
 from typing import Literal, Union
 from glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, create_private_ports
-from glayout.util.comp_utils import prec_ref_center
+from glayout.util.comp_utils import prec_ref_center,evaluate_bbox, prec_center, align_comp_to_port
 from glayout.routing.straight_route import straight_route
 from gdsfactory.functions import transformed
 from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter
 from gdsfactory.cell import clear_cache
-from typing import Literal
-
+from typing import Literal, Optional, Union
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.pdk.gf180_mapped import gf180_mapped_pdk
+from glayout.spice.netlist import Netlist
+from gdsfactory.components import text_freetype, rectangle
+from glayout.primitives.via_gen import via_stack
 #from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized; from glayout.pdk.sky130_mapped import sky130_mapped_pdk as pdk; biasParams=[6,2,4]; rmult=2
+def add_two_int_labels(two_int_in: Component,
+                pdk: MappedPDK 
+                ) -> Component:
+	
+    two_int_in.unlock()
 
+    # list that will contain all port/comp info
+    move_info = list()
+    # create labels and append to info list
+    # vss1
+    vss1label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
+    vss1label.add_label(text="VSS1",layer=pdk.get_glayer("met2_label"))
+    move_info.append((vss1label,two_int_in.ports["A_source_E"],None))
+    # vss2
+    vss2label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
+    vss2label.add_label(text="VSS2",layer=pdk.get_glayer("met2_label"))
+    move_info.append((vss2label,two_int_in.ports["B_source_E"],None))
+    # vdd1
+    vdd1label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
+    vdd1label.add_label(text="VDD1",layer=pdk.get_glayer("met2_label"))
+    move_info.append((vdd1label,two_int_in.ports["A_drain_N"],None))
+    # vdd2
+    vdd2label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
+    vdd2label.add_label(text="VDD2",layer=pdk.get_glayer("met2_label"))
+    move_info.append((vdd2label,two_int_in.ports["B_drain_N"],None))
+    
+    # vg1
+    vg1label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
+    vg1label.add_label(text="VG1",layer=pdk.get_glayer("met2_label"))
+    move_info.append((vg1label,two_int_in.ports["A_gate_S"],None))
+    # vg2
+    vg2label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
+    vg2label.add_label(text="VG2",layer=pdk.get_glayer("met2_label"))
+    move_info.append((vg2label,two_int_in.ports["B_gate_S"],None))
+    
+    # VB
+    vblabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.5,0.5),centered=True).copy()
+    vblabel.add_label(text="VB",layer=pdk.get_glayer("met2_label"))
+    move_info.append((vblabel,two_int_in.ports["welltie_S_top_met_S"], None))
+    
+    # move everything to position
+    for comp, prt, alignment in move_info:
+        alignment = ('c','b') if alignment is None else alignment
+        compref = align_comp_to_port(comp, prt, alignment=alignment)
+        two_int_in.add(compref)
+    return two_int_in.flatten() 
+
+
+def two_tran_interdigitized_netlist(
+    pdk: MappedPDK, 
+    width: float,
+    length: float,
+    fingers: int,
+    multipliers: int, 
+    with_dummy: True,
+    n_or_p_fet: Optional[str] = 'nfet',
+    subckt_only: Optional[bool] = False
+) -> Netlist:
+    if length is None:
+        length = pdk.get_grule('poly')['min_width']
+    if width is None:
+        width = 3 
+    #mtop = multipliers if subckt_only else 1
+    #mtop=1
+    model = pdk.models[n_or_p_fet]
+    mtop = fingers * multipliers
+    
+    source_netlist = """.subckt {circuit_name} {nodes} """ + f'l={length} w={width} m={1} '+ f"""
+XA VDD1 VG1 VSS1 VB {model} l={length} w={width} m={mtop}
+XB VDD2 VG2 VSS2 VB {model} l={length} w={width} m={mtop}"""
+    if with_dummy:
+        source_netlist += f"\nXDUMMY VB VB VB VB {model} l={length} w={width} m={2}"
+    source_netlist += "\n.ends {circuit_name}"
+
+    instance_format = "X{name} {nodes} {circuit_name} l={length} w={width} m={{1}}"
+ 
+    return Netlist(
+        circuit_name='two_trans_interdigitized',
+        nodes=['VDD1', 'VDD2', 'VSS1', 'VSS2', 'VG1', 'VG2', 'VB'], 
+        source_netlist=source_netlist,
+        instance_format=instance_format,
+        parameters={
+            'model': model,
+            'width': width,
+            'length': length,   
+            'mult': multipliers
+        }
+    )
 @validate_arguments
 def macro_two_transistor_interdigitized(
     pdk: MappedPDK,
@@ -172,6 +263,13 @@ def two_nfet_interdigitized(
         tapring_ref = base_multiplier << ringtoadd
         base_multiplier.add_ports(tapring_ref.get_ports_list(),prefix="substratetap_")
     base_multiplier.info["route_genid"] = "two_transistor_interdigitized"
+
+    base_multiplier.info['netlist'] = two_tran_interdigitized_netlist(
+        pdk, 
+        width=kwargs.get('width', 3), length=kwargs.get('length', 0.15), fingers=kwargs.get('fingers', 1), multipliers=numcols, with_dummy=dummy,
+        n_or_p_fet="nfet",
+        subckt_only=True
+    )
     return base_multiplier
 
 
@@ -203,7 +301,7 @@ def two_pfet_interdigitized(
             pdk.util_max_metal_seperation(),
             pdk.get_grule("active_diff", "active_tap")["min_separation"],
         )
-        tap_separation += pdk.get_grule("n+s/d", "active_tap")["min_enclosure"]
+        tap_separation += pdk.get_grule("n+s/d", "active_tap")["min_enclosure"] 
         tap_encloses = (
             2 * (tap_separation + base_multiplier.xmax),
             2 * (tap_separation + base_multiplier.ymax),
@@ -250,6 +348,13 @@ def two_pfet_interdigitized(
         tapring_ref = base_multiplier << ringtoadd
         base_multiplier.add_ports(tapring_ref.get_ports_list(),prefix="substratetap_")
     base_multiplier.info["route_genid"] = "two_transistor_interdigitized"
+
+    base_multiplier.info['netlist'] = two_tran_interdigitized_netlist(
+        pdk, 
+        width=kwargs.get('width', 3), length=kwargs.get('length', 0.15), fingers=kwargs.get('fingers', 1), multipliers=numcols, with_dummy=dummy,
+        n_or_p_fet="pfet",
+        subckt_only=True
+    )
     return base_multiplier
 
 
@@ -269,5 +374,3 @@ def two_transistor_interdigitized(
         return two_nfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,tie_layers=tie_layers,**kwargs)
     else:
         return two_pfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,tie_layers=tie_layers,**kwargs)
-
-
