@@ -14,45 +14,16 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 | **Parameter**                  | **Target Specs**           | **Notes**                                                                 |
 |-------------------------------|----------------------------|---------------------------------------------------------------------------|
 | Number of Channels            | 4                          | Scalable up to 8, 16, or more (depends on functionality of chip)         |
-| Supply Voltage                | 0.5 V (Analog), 1.2 V (Digital) [1] | Analog supply for chopper switches, digital for clocks                    |
-| Input-Referred Noise          | 39 nV/√Hz [1]              | -                                                                         |
-| CMRR                          | 100–135 dB [2]             | For 4 channels, typically at 50–60 Hz                                     |
+| Supply Voltage                | 3.3 V (Analog), 1.2 V (Digital) [1] | Analog supply for chopper switches, digital for clocks                    |
+| Input-Referred Noise          | 39 nV/√Hz [1]              | -                                                                                                           |
 | Area per Channel              | 0.017 mm² [1]              | -                                                                         |
-| Power Consumption per Channel | 2.1 µW [1]                 | At 0.5 V supply                                                           |
+| Power Consumption per Channel | <200uW                | At 3.3 V supply                                                           |
 | NEF (Noise Efficiency Factor) | 2.1 [1]                    | Very low noise relative to power                                          |
 | Gain Mismatch Between Channels| 400 ppm [1]                | Approximate value                                                        |
 
 ### **2. Block Diagram**
 ![BlockDiagram](../images/BlockDiagram.jpg)
 <h4 align="center" style="font-size:16px;">Figure 1. Block Diagram of the System Design</h4>
-
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure2.jpg" alt="Blokdiagram" width="600"/>
-</p>
-<h4 align="center" style="font-size:16px;">Figure 2. Open-Loop Amplifier [1]</h4>
-
-
-<p align="center">
-  <img src="../images/chopperswitchcell.jpg" alt="chopperswithcell" width="400"/>
-</p>
-<h4 align="center" style="font-size:16px;">Figure 3. Chopper Switch Cell [4]</h4>
-
-<p align="center">
-  <img src="../images/adoptionchopperswitch.jpg" alt="adoptionchopperswitch" width="400"/>
-</p>
-<h4 align="center" style="font-size:16px;">Figure 4. Adoption of the Chopper Switch Cell [4]</h4>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure3_2.jpg" alt="Blokdiagram" width="600"/>
-</p>
-<h4 align="center" style="font-size:16px;">Figure 5. Clocking Scheme [1]</h4>
-
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure5.jpg" alt="Blokdiagram" width="600"/>
-</p>
-<h4 align="center" style="font-size:16px;">Figure 6. Switched-Cap Low-Pass Filter [1]</h4>
 
 <h4 align="center" style="font-size:16px;">Table 2. Complexity and Functionality of Each Block Diagram</h4>
 
@@ -64,7 +35,127 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 | Frequency Divider          | Divide clock signal based on required frequencies                            | Moderate (Medium)    | - Converts high-freq clock into clkA, clkB, clkC using sequential logic <br> - Uses flip-flops and handles clock edges <br> - Easily scalable  |
 | Clock Generator            | Generate clock signal with specific frequency                                | Low                  | Digital block generating logic level 1 and 0 in a specific frequency range                                                                    |
 
-### **3. Pin Out**
+### **3. Components Specification**
+
+*A. Chopper Switch*
+
+The chopper switch is implemented to reduce low-frequency (1/f) noise and input offset voltage that can severely degrade the quality of EEG signals. It operates by modulating the input signal with a square wave, shifting it to a higher frequency band where amplifier noise is more uniform and less intrusive. After amplification, the signal is demodulated back to baseband, effectively canceling out the low-frequency noise and offset introduced by the amplifier. This technique ensures higher signal integrity, especially important when dealing with microvolt-level biosignals.
+
+<p align="center">
+  <img src="../images/chopperswitchcell.jpg" alt="chopperswithcell" width="400"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 2. Chopper Switch Cell [4]</h4>
+
+<p align="center">
+  <img src="../images/adoptionchopperswitch.jpg" alt="adoptionchopperswitch" width="400"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 3. Adoption of the Chopper Switch Cell [4]</h4>
+
+<h4 align="center" style="font-size:16px;">Table 3. Target Specification of Chopper Switc</h4>
+
+<div align="center">
+
+| **Parameter**                        | **Value / Target** | **Unit** |
+|-------------------------------------|--------------------|----------|
+| Chopper A Operating Frequency       | 2              | kHz       |
+| Chopper B Operating Frequency       | 1            | kHz       |
+| Chopper C Operating Frequency       | 500               | Hz       |
+| Ron                                 | TBD                | kΩ       |
+| Delay tolerance between CLK and CLK̅ | TBD              | ns       |
+
+</div>
+
+🔗**Progress Log**:[Chopper Switch](Chopper%20Switch)
+
+*B. Instrumentation Amplifier*
+
+An open-loop amplifier is used to provide high gain for low-amplitude EEG signals while minimizing power and silicon area. Unlike closed-loop designs that require additional components such as compensation networks and feedback resistors, open-loop amplifiers offer a simpler architecture with fewer transistors and passive elements. This results in a significantly smaller layout footprint, making it ideal for compact, low-power multi-channel EEG systems where area efficiency is critical.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure2.jpg" alt="Blokdiagram" width="600"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 4. Open-Loop Amplifier [1]</h4>
+
+<h4 align="center" style="font-size:16px;">Table 4. Target Specification of Open-Loop Amplifier</h4>
+
+<div align="center">
+  
+| **Parameter**            | **Typical Value** | **Unit**   |
+|----------------------|----------------|--------|
+| Open-Loop Gain       | TBD            | dB     |
+| Bandwidth            | TBD            | Hz     |
+| Phase Margin         | TBD            | degrees|
+| Power Supply Rejection Ratio (PSRR) | TBD    | dB     |
+| Common-Mode Rejection Ratio (CMRR) | TBD    | dB     |
+
+</div>
+
+🔗**Progress Log**:[Instrumentation Amplifier](Instrumentation%20Amplifier)
+
+*C. Low Pass Filter*
+
+The switched-capacitor low-pass filter is used to remove high-frequency components after chopper demodulation, recovering the clean baseband EEG signal. Instead of relying on physical resistors, which can consume significant area and vary with process, the filter uses capacitor ratios and a clock signal to define its cutoff frequency precisely. This makes it highly area-efficient, tunable, and well-suited for integration in CMOS processes. The switching operation emulates a resistor using charge transfer, allowing for compact, accurate, and fully integrated filtering essential in low-power EEG front-end systems.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure5.jpg" alt="Blokdiagram" width="600"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 5. Switched-Cap Low-Pass Filter [1]</h4>
+
+<h4 align="center" style="font-size:16px;">Table 5. Target Specification of Switched-Cap Low Pass Filter</h4>
+
+<div align="center">
+  
+| **Parameter**           | **Value**      | **Unit**   |
+|-------------------------|-------------|--------|
+| Cutoff Frequency (f<sub>c</sub>)  | 220        | Hz     |
+| Clock Frequency (f<sub>clk</sub>) | 4         | kHz     |
+
+</div>
+
+🔗**Progress Log**:[Switched-Cap Low Pass Filter](Switched-Cap%20Low%20Pass%20Filter)
+
+*D. Dummy EEG Signal*
+
+To validate the functionality and performance of the designed multi-channel EEG front-end system, a realistic dummy EEG signal is required as input for the simulation testbench. This is essential to ensure that each stage of the analog front-end—such as amplification, chopping, filtering, and timing circuits—responds correctly to signals that closely mimic real-world conditions. In this project, a 4-channel EEG signal (comprising 8 nodes for differential input: 4 positive and 4 negative) is constructed using publicly available data from the Mendeley EEG Motor Movement/Imagery Dataset. This dataset provides authentic EEG waveforms that capture typical amplitude, frequency, and noise characteristics encountered in actual biomedical recordings. By applying these signals to the testbench, it becomes possible to evaluate the accuracy, signal integrity, and inter-channel consistency of the system under realistic operating conditions.
+
+<h4 align="center" style="font-size:16px;">Table 6. Characteristic of Dummy EEG Signals</h4>
+
+<div align="center">
+  
+| **Activity**                     | **Dominant Frequency (Hz)** | **Amplitude Range (μV)** |
+|-----------------------------|--------------------------|------------------------|
+| Baseline Eyes Open          | 8 – 13 (Alpha suppression) | 20 – 60               |
+| Closing Left Hand       | 10 – 30 (Beta desync)      | 10 – 50               |
+| Closing Right Hand        | 10 – 30 (Beta desync)      | 10 – 50               |
+| Dorsal flexion of Left Foot        | 10 – 25                    | 15 – 60               |
+| Plantar flexion of Left Foot        | 8 – 20                     | 15 – 50               |
+| Dorsal flexion of Right Foot             | 10 – 30                    | 20 – 70              |
+| Plantar flexion of Right Foot            | 10 – 30                    | 20 – 70              |
+
+</div>
+
+Dataset DOI: 10.17632/x8psbz3f6x.2
+
+🔗**Progress Log**:[EEG Dummy Signal](EEG%20Dummy%20Signal)
+
+*E. Frequency Divider*
+
+The frequency divider circuit is designed to generate synchronized clock signals required by various timing-dependent blocks, such as the switched-capacitor LPF and chopper switch. It operates by dividing an input clock by two at each stage, producing sequentially halved frequencies (e.g., f, f/2, f/4, etc.) suitable for multi-stage operations. To ensure proper timing alignment and avoid glitches, a fixed delay of 500 ns is introduced at each division stage. This controlled delay spacing also helps with phase management and ensures predictable timing between clock signals, which is critical for maintaining accurate sampling and modulation sequences across the system.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aurxdeqo/gLayout-genyz-team/main/blocks/composite/images/figure3_2.jpg" alt="Blokdiagram" width="600"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 6. Clocking Scheme [1]</h4>
+
+🔗**Progress Log**:[Frequency Divider](Frequency%20Divider)
+
+*F. Buffer*
+
+An optional unity-gain analog buffer may be inserted at the output stage to maintain signal fidelity when interfacing with external components such as bonding pads, wirebonds, PCB traces, and ADC inputs. Although the buffer does not introduce voltage amplification, it provides high input impedance and low output impedance, effectively isolating the signal source from capacitive and resistive loading effects. This helps prevent signal distortion, such as slow rise/fall times or amplitude attenuation, which could lead to timing inaccuracies in downstream sampling. While not explicitly designed to introduce delay, the buffer can improve signal timing consistency by ensuring that transitions occur cleanly and within expected timing windows.
+
+🔗**Progress Log**:[Buffer](Buffer)
+
+### **4. Pin Out**
 ![Pin](../images/Pin.jpg)
 <h4 align="center" style="font-size:16px;">Figure 7. Chip Architecture</h4>
 
@@ -110,7 +201,7 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 
 </div>
 
-### **4. Application Diagram**
+### **5. Application Diagram**
 ![Application](../images/Application.jpg)
 
 <h4 align="center" style="font-size:16px;">Figure 8. Example Circuits Application</h4>
