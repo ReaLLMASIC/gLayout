@@ -19,21 +19,26 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 ## Schematic Design
 
 <p align="center">
-  <img src="../../images/INASchem.jpg" alt="SwitchSchem" width="400"/>
+  <img src="../../images/INASchem.jpg" alt=INASchem" width="400"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 1. Individual Instrumentation Amplifier Schematic</h4>
 
 ## Simulation
 
 <p align="center">
-  <img src="../../images/INAFull.jpg" alt="SwitchFull" width="400"/>
+  <img src="../../images/INAFull.jpg" alt="INAFull" width="400"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 2. Instrumentation Amplifier Testbench</h4>
 
 <p align="center">
-  <img src="../../images/INATb.jpg" alt="SwitchTb" width="400"/>
+  <img src="../../images/INATb.jpg" alt="INATb" width="400"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 3. Testbench Result</h4>
+<h4 align="center" style="font-size:16px;">Figure 3. Gain Testbench Result</h4>
+
+<p align="center">
+  <img src="../../images/CMRRTb.jpg" alt="CMRRTb" width="400"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 4. CMRR Testbench Result</h4>
 
 ## Performance of Designed Instrumentation Amplifier
 
