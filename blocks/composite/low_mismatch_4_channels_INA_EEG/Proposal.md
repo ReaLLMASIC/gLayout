@@ -57,8 +57,8 @@ The chopper switch is implemented to reduce low-frequency (1/f) noise and input 
 
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
-| R<sub>on<sub>                                 | TBD                | kΩ       |
-| Delay tolerance between CLK and CLK̅ | TBD              | ns       |
+| R<sub>on<sub>                                 | <1                | kΩ       |
+| Delay tolerance between CLK and CLK̅ | <1              | us       |
 
 </div>
 
