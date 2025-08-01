@@ -8,11 +8,11 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 
 | **Parameter**            | **Typical Value** | **Unit**   |
 |----------------------|----------------|--------|
-| Open-Loop Gain       | TBD            | dB     |
-| Bandwidth            | TBD            | Hz     |
-| Phase Margin         | TBD            | degrees|
-| Power Supply Rejection Ratio (PSRR) | TBD    | dB     |
-| Common-Mode Rejection Ratio (CMRR) | TBD    | dB     |
+| Open-Loop Gain       | >50            | dB     |
+| Bandwidth            | 10K           | Hz     |
+| Phase Margin         | >45            | degrees|
+| Power Supply Rejection Ratio (PSRR) | >= 60  | dB     |
+| Common-Mode Rejection Ratio (CMRR) | >= 80    | dB     |
 
 </div>
 
@@ -41,11 +41,11 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 
 | **Parameter**            | **Typical Value** | **Unit**   |
 |----------------------|----------------|--------|
-| Open-Loop Gain       | TBD            | dB     |
-| Bandwidth            | TBD            | Hz     |
+| Open-Loop Gain       | 52.65            | dB     |
+| Bandwidth            | 10K            | Hz     |
 | Phase Margin         | TBD            | degrees|
 | Power Supply Rejection Ratio (PSRR) | TBD    | dB     |
-| Common-Mode Rejection Ratio (CMRR) | TBD    | dB     |
+| Common-Mode Rejection Ratio (CMRR) | 95    | dB     |
 
 </div>
 
