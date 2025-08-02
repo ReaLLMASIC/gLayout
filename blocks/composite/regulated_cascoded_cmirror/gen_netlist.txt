@@ -1,0 +1,7 @@
+
+
+.subckt CurrentMirror$1 VREF VSS VB VCOPY
+XA VREF VREF VSS VB nfet_03v3 l=0.28 w=1 m=2
+XB VCOPY VREF VSS VB nfet_03v3 l=0.28 w=1 m=2
+XDUMMY VB VB VB VB nfet_03v3 l=0.28 w=1 m=2
+.ends CurrentMirror$1
