@@ -35,6 +35,12 @@ pip install -e ".[dev]"
 pip install -e ".[ml]"
 ```
 
+### LLM Features Installation
+
+```bash
+pip install -e ".[llm]"
+```
+
 ## Quick Start
 
 ```python
@@ -69,7 +75,7 @@ For detailed documentation, please visit our [documentation site](https://glayou
 - Guard ring generation
 - And more...
 
-### Natural Language Processing
+### Natural Language Processing/Large Language Model Framework
 - Convert natural language descriptions to layouts
 - Support for standard components
 - Custom component definitions
