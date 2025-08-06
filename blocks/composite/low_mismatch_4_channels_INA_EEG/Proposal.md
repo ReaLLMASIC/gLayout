@@ -402,6 +402,8 @@ In summary, this example implementation of a 4-channel chopper amplifier system 
 
 </div>
 
+## [GenYZ Team Tracksheet](https://docs.google.com/spreadsheets/d/1Lt7VIuRgg6ifpHQ2P5A1QMIH-cknrxcGIBxvP4BVC10/edit?gid=0#gid=0)
+  
 ---
 ### **Reference**
 
