@@ -1,0 +1,11 @@
+* NGSPICE file created from CM.ext - technology: gf180mcuD
+
+.subckt CM VREF VB VSS VCOPY
+X0 VCOPY VREF VSS VSUBS nfet_03v3 ad=1.92p pd=7.6u as=1.92p ps=7.6u w=3.2u l=1.41u
+X1 a_n2186_n1122# a_n2186_n1122# a_n2186_n1122# VSUBS nfet_03v3 ad=1.856p pd=7.56u as=30.7232p ps=0.15968m w=3.2u l=1.41u
+X2 VCOPY VREF VSS VSUBS nfet_03v3 ad=1.92p pd=7.6u as=1.92p ps=7.6u w=3.2u l=1.41u
+X3 VREF VREF VSS VSUBS nfet_03v3 ad=1.92p pd=7.6u as=1.92p ps=7.6u w=3.2u l=1.41u
+X4 a_n2186_n1122# a_n2186_n1122# a_n2186_n1122# VSUBS nfet_03v3 ad=1.856p pd=7.56u as=0 ps=0 w=3.2u l=1.41u
+X5 VREF VREF VSS VSUBS nfet_03v3 ad=1.92p pd=7.6u as=1.92p ps=7.6u w=3.2u l=1.41u
+.ends
+

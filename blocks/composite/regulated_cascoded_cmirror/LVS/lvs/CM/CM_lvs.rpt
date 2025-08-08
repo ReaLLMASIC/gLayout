@@ -1,0 +1,55 @@
+
+Circuit 1 cell nfet_03v3 and Circuit 2 cell nfet_03v3 are black boxes.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: nfet_03v3                       |Circuit 2: nfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_03v3 and nfet_03v3 are equivalent.
+
+Cell CM (0) disconnected node: VB
+Class CM (0):  Merged 3 parallel devices.
+Cell CM (0) disconnected node: VB
+Subcircuit summary:
+Circuit 1: CM                              |Circuit 2: CM                              
+-------------------------------------------|-------------------------------------------
+nfet_03v3 (6->3)                           |nfet_03v3 (6->3)                           
+Number of devices: 3                       |Number of devices: 3                       
+Number of nets: 5 **Mismatch**             |Number of nets: 4 **Mismatch**             
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: CM                              |Circuit 2: CM                              
+
+---------------------------------------------------------------------------------------
+Net: VSUBS                                 |Net: VB                                    
+  nfet_03v3/4 = 3                          |  nfet_03v3/4 = 3                          
+                                           |  nfet_03v3/(1|3) = 2                      
+                                           |  nfet_03v3/2 = 1                          
+                                           |                                           
+Net: a_n2186_n1122#                        |(no matching net)                          
+  nfet_03v3/(1|3) = 2                      |                                           
+  nfet_03v3/2 = 1                          |                                           
+---------------------------------------------------------------------------------------
+Netlists do not match.
+Port matching may fail to disambiguate symmetries.
+
+Subcircuit pins:
+Circuit 1: CM                              |Circuit 2: CM                              
+-------------------------------------------|-------------------------------------------
+VREF                                       |VREF                                       
+VSS                                        |VSS                                        
+VCOPY                                      |VCOPY                                      
+(no pin, node is a_n2186_n1122#)           |VB                                         
+VB                                         |(no matching pin)                          
+---------------------------------------------------------------------------------------
+Cell pin lists for CM and CM altered to match.
+Device classes CM and CM are equivalent.
+
+Final result: Top level cell failed pin matching.
