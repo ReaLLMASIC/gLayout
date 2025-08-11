@@ -30,6 +30,8 @@ LAYER = {
     "lvpwell": (204, 0),
     "dnwell": (12, 0),
     "CAP_MK": (117, 5),
+    "RES_MK": (110, 5),
+    "SAB": (49, 0),
     # _Label Layer Definations
     "metal5_label": (81,10),
     "metal4_label": (46,10),
@@ -60,6 +62,8 @@ gf180_glayer_mapping = {
     "pwell": "lvpwell",
     "dnwell": "dnwell",
     "capmet": "CAP_MK",
+    "res_mk": "RES_MK",
+    "sab": "SAB",
     # _pin layer ampping
     "met5_pin": "metal5_label",
     "met4_pin": "metal4_label",
