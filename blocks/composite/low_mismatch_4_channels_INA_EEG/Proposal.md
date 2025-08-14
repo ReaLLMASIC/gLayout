@@ -150,9 +150,9 @@ The frequency divider circuit is designed to generate synchronized clock signals
   
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
-| Chopper A Operating Frequency       | 2              | kHz       |
-| Chopper B Operating Frequency       | 1            | kHz       |
-| Chopper C Operating Frequency       | 500               | Hz       |
+| Chopper A Operating Frequency       | 4              | kHz       |
+| Chopper B Operating Frequency       | 2            | kHz       |
+| Chopper C Operating Frequency       | 1               | kHz       |
 
 </div>
 
@@ -165,7 +165,7 @@ An optional unity-gain analog buffer may be inserted at the output stage to main
 🔗**Progress Log**: [Buffer](Buffer)
 
 ### **4. Pin Out**
-![Pin](../images/PinUpdate.jpg)
+![Pin](../images/PinUpdate2.jpg)
 <h4 align="center" style="font-size:16px;">Figure 7. Chip Architecture</h4>
 
 <h4 align="center" style="font-size:16px;">Table 3.  External Pin Function</h4>
@@ -211,7 +211,7 @@ An optional unity-gain analog buffer may be inserted at the output stage to main
 </div>
 
 ### **5. Application Diagram**
-![Application](../images/ApplicationUpdate.jpg)
+![Application](../images/ApplicationUpdate2.jpg)
 
 <h4 align="center" style="font-size:16px;">Figure 8. Example Circuits Application</h4>
 
