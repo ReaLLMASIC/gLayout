@@ -8,9 +8,9 @@ The frequency divider is designed to generate synchronized clock signals require
 
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
-| Chopper A Operating Frequency       | 2              | kHz       |
-| Chopper B Operating Frequency       | 1            | kHz       |
-| Chopper C Operating Frequency       | 500               | Hz       |
+| Chopper A Operating Frequency       | 4              | kHz       |
+| Chopper B Operating Frequency       | 2            | kHz       |
+| Chopper C Operating Frequency       | 1               | kHz       |
 
 </div>
 
