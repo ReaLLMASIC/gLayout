@@ -1,0 +1,241 @@
+#--------------------------------------------------------------
+# CACE circuit characterization file
+#--------------------------------------------------------------
+
+name:           error_amplifier_bias_N_input
+description:    Bias Circuit for the folded cascode
+PDK:            sky130A
+
+cace_format:    5.2
+
+authorship:
+  designer:         Jorge Walter
+  company:          Onchip
+  creation_date:    May 10, 2024
+  license:          Apache 2.0
+
+paths:
+  root:             ..
+  schematic:        xschem
+  layout:           gds
+  netlist:          netlist
+  documentation:    docs
+
+pins:
+  VDD:
+    description: Positive analog power supply
+    type: power
+    direction: inout
+    Vmin: 1.7
+    Vmax: 1.9
+  VSS:
+    description: Analog ground
+    type: ground
+    direction: inout
+  Vref:
+    description: Reference BandGap Voltage
+    type: power
+    direction: inout
+  VbiasP2:
+    description: Output Bias Voltage 1
+    type: power
+    direction: inout  
+  VbiasN2:
+    description: Output Bias Voltage 2
+    type: power
+    direction: inout
+  VbiasN1:
+    description: Output Bias Voltage 3
+    type: power
+    direction: inout
+            
+default_conditions:
+  VDD:
+    description: Analog power supply voltage
+    display: VDD
+    unit: V
+    typical: 1.8
+  Vref:
+    description: Input common mode voltage
+    display: Vref
+    unit: V
+    typical: 1.2
+  corner:
+    description: Process corner
+    display: Corner
+    typical: tt
+  temperature:
+    description: Ambient temperature
+    display: Temp
+    unit: °C
+    typical: 27
+
+parameters:
+  dc_params:
+    display: DC Params
+    spec:
+      VbiasP2:
+        display: VbiasP2
+        description: Voltage of VbiasP2
+        unit: V
+        minimum:
+          value: 0.55
+        typical:
+          value: 0.65
+        maximum:
+          value: 0.75
+      VbiasN2:
+        display: VbiasN2
+        description: Voltage of VbiasN2
+        unit: V
+        minimum:
+          value: 1.1
+        typical:
+          value: 1.2
+        maximum:
+          value: 1.3
+      VbiasN1:
+        display: VbiasN1
+        description: Voltage of VbiasN1
+        unit: V
+        minimum:
+          value: 0.8
+        typical:
+          value: 0.9
+        maximum:
+          value: 1         
+          
+    tool:
+      ngspice:
+        template: folded_cascode_bias_OP_CACE.sch
+        format: ascii
+        suffix: .data
+        variables: [VbiasP2, VbiasN2, VbiasN1]
+
+    plot:
+      VbiasP2_vs_temp:
+        type: xyplot
+        xaxis: temperature
+        yaxis: VbiasP2
+      VbiasP2_vs_corner:
+        type: xyplot
+        xaxis: corner
+        yaxis: VbiasP2
+      VbiasP2_vs_vdd:
+        type: xyplot
+        xaxis: VDD
+        yaxis: VbiasP2
+      VbiasN2_vs_temp:
+        type: xyplot
+        xaxis: temperature
+        yaxis: VbiasN2
+      VbiasN2_vs_corner:
+        type: xyplot
+        xaxis: corner
+        yaxis: VbiasN2
+      VbiasN2_vs_vdd:
+        type: xyplot
+        xaxis: VDD
+        yaxis: VbiasN2  
+      VbiasN1_vs_temp:
+        type: xyplot
+        xaxis: temperature
+        yaxis: VbiasN1
+      VbiasN1_vs_corner:
+        type: xyplot
+        xaxis: corner
+        yaxis: VbiasN1
+      VbiasN1_vs_vdd:
+        type: xyplot
+        xaxis: VDD
+        yaxis: VbiasN1    
+         
+    conditions:
+      corner:
+        enumerate: [ss, tt, ff, fs, sf]
+      VDD:
+        minimum: 1.7
+        typical: 1.8
+        maximum: 1.9
+      temperature:
+        minimum: -40
+        typical: 27
+        maximum: 125
+
+  magic_area:
+    spec:
+      area:
+        display: Area
+        description: Total circuit layout area
+        unit: um2
+        maximum:
+          value: any
+      width:
+        display: Width
+        description: Total circuit layout width
+        unit: um
+        maximum:
+          value: any
+      height:
+        display: Height
+        description: Total circuit layout height
+        unit: um
+        maximum:
+          value: any
+    tool:
+      magic_area
+
+  magic_drc:
+    description: Magic DRC
+    display: Magic DRC
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+      magic_drc:
+        gds_flatten: true
+
+  netgen_lvs:
+    description: Netgen LVS
+    display: Netgen LVS
+    spec:
+      lvs_errors:
+        maximum:
+          value: 0
+    tool:
+      netgen_lvs:
+        script: run_project_lvs.tcl
+
+  klayout_drc_feol:
+    description: KLayout DRC feol
+    display: KLayout DRC feol
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+        klayout_drc:
+            args: ['-rd', 'feol=true']
+
+  klayout_drc_beol:
+    description: KLayout DRC beol
+    display: KLayout DRC beol
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+        klayout_drc:
+            args: ['-rd', 'beol=true']
+
+  klayout_drc_full:
+    description: KLayout DRC full
+    display: KLayout DRC full
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+        klayout_drc:
+            args: ['-rd', 'feol=true', '-rd', 'beol=true', '-rd', 'offgrid=true']
