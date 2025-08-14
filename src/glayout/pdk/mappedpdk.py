@@ -259,6 +259,8 @@ class MappedPDK(Pdk):
         "via4",
         "met5",
         "capmet",
+        "res_mk",
+        "sab",
         # _pin layers
         "met5_pin",
         "met4_pin",
@@ -284,7 +286,11 @@ class MappedPDK(Pdk):
     models: dict = {
         "nfet": "",
         "pfet": "",
-        "mimcap": ""
+        "mimcap": "",
+        "polyres_n_s": "",
+        "polyres_n_u": "",
+        "polyres_p_s": "",
+        "polyres_p_u": ""
     }
 
     glayers: dict[StrictStr, Union[StrictStr, tuple[int,int]]]
