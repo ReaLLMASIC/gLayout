@@ -15,6 +15,7 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 | Power Supply Rejection Ratio (PSRR) | +/- 60  | dB     |
 | Common-Mode Rejection Ratio (CMRR) | >= 80    | dB     |
 | Power | < 500 | uW
+| Input range (INA) | <=350 | uV |
 
 </div>
 
