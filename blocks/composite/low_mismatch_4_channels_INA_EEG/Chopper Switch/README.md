@@ -10,7 +10,7 @@ The chopper switch is implemented to reduce low-frequency (1/f) noise and input 
 |-------------------------------------|--------------------|----------|
 | Stage 1 : Chopper A Operating Frequency       | 4              | kHz       |
 | Stage 2 : Chopper B Operating Frequency       | 2            | kHz       |
-| Stage 3 : Chopper C Operating Frequency       | 1               | Hz       |
+| Stage 3 : Chopper C Operating Frequency       | 1               | kHz       |
 | R<sub>on</sub>                                 | <1                | kΩ       |
 | Delay Time Between stages | +/-500              | ns       |
 | Off Leakage Current | <0.1 | uA
