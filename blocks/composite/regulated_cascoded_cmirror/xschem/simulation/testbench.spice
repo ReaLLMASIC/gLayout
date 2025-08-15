@@ -1,0 +1,123 @@
+** sch_path: /foss/designs/gLayout-mahowalders/blocks/composite/regulated_cascoded_cmirror/xschem/testbench.sch
+**.subckt testbench
+V1 VDD GND 3.3
+XM7 v_in v_in VDD VDD pfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+I_in v_in GND 1u
+x1 VDD v_in net1 GND vanilla_cm
+v_vanilla net1 GND 1.65
+.save i(v_vanilla)
+x2 VDD v_in net2 GND biased_cm
+v_biased net2 GND 1.65
+.save i(v_biased)
+x3 v_aux VDD v_in net3 GND cascode_cm
+v_cascode net3 GND 1.65
+.save i(v_cascode)
+XM1 v_aux v_aux VDD VDD pfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+I_aux v_aux GND 1n
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+
+
+
+.option savecurrent
+
+.control
+
+save all
+
+* --- Run vanilla sweep ---
+dc v_vanilla 0 3.3 0.01
+let i_vanilla = -i(v_vanilla)
+wrdata vanilla.txt i_vanilla
+
+* --- Run biased sweep ---
+reset
+dc v_biased 0 3.3 0.01
+let i_biased = -i(v_biased)
+wrdata biased.txt i_biased
+
+* --- Run cascode sweep ---
+reset
+dc v_cascode 0 3.3 0.01
+let i_cascode = -i(v_cascode)
+wrdata cascode.txt i_cascode
+
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  vanilla_cm.sym # of pins=4
+** sym_path: /foss/designs/gLayout-mahowalders/blocks/composite/regulated_cascoded_cmirror/xschem/vanilla_cm.sym
+** sch_path: /foss/designs/gLayout-mahowalders/blocks/composite/regulated_cascoded_cmirror/xschem/vanilla_cm.sch
+.subckt vanilla_cm vdd v_in v_out vss
+*.ipin v_in
+*.ipin vdd
+*.ipin vss
+*.iopin v_out
+XM1 v_out net1 vss vss nfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM2 net1 net1 vss vss nfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM9 net1 v_in vdd vdd pfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+.ends
+
+
+* expanding   symbol:  biased_cm.sym # of pins=4
+** sym_path: /foss/designs/gLayout-mahowalders/blocks/composite/regulated_cascoded_cmirror/xschem/biased_cm.sym
+** sch_path: /foss/designs/gLayout-mahowalders/blocks/composite/regulated_cascoded_cmirror/xschem/biased_cm.sch
+.subckt biased_cm vdd v_in v_out vss
+*.ipin v_in
+*.ipin vdd
+*.ipin vss
+*.iopin v_out
+XM3 net2 net1 vss vss nfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM4 net1 net1 vss vss nfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM5 v_out net3 net2 net2 nfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM6 net3 net3 net1 net1 nfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM15 net3 v_in vdd vdd pfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+.ends
+
+
+* expanding   symbol:  cascode_cm.sym # of pins=5
+** sym_path: /foss/designs/gLayout-mahowalders/blocks/composite/regulated_cascoded_cmirror/xschem/cascode_cm.sym
+** sch_path: /foss/designs/gLayout-mahowalders/blocks/composite/regulated_cascoded_cmirror/xschem/cascode_cm.sch
+.subckt cascode_cm v_aux vdd v_in v_out vss
+*.ipin v_in
+*.ipin vdd
+*.ipin vss
+*.ipin v_aux
+*.iopin v_out
+XM10 net2 net1 vss vss nfet_03v3 L=0.9u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM8 net4 net2 net1 net1 nfet_03v3 L=0.9u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM11 net1 net4 vss vss nfet_03v3 L=0.9u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM12 net2 net3 vss vss nfet_03v3 L=0.9u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM13 net3 net4 vss vss nfet_03v3 L=0.9u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM14 v_out net2 net3 net3 nfet_03v3 L=0.9u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM16 net4 v_in vdd vdd pfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+XM18 net2 v_aux vdd vdd pfet_03v3 L=0.9u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=1
+.ends
+
+.GLOBAL VDD
+.GLOBAL GND
+.end
