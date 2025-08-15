@@ -165,7 +165,7 @@ An optional unity-gain analog buffer may be inserted at the output stage to main
 🔗**Progress Log**: [Buffer](Buffer)
 
 ### **4. Pin Out**
-![Pin](../images/PinUpdate3.jpg)
+![Pin](../images/PinUpdate4.jpg)
 <h4 align="center" style="font-size:16px;">Figure 7. Chip Architecture</h4>
 
 <h4 align="center" style="font-size:16px;">Table 3.  External Pin Function</h4>
@@ -183,7 +183,7 @@ An optional unity-gain analog buffer may be inserted at the output stage to main
     </tr>
   </thead>
   <tbody>
-    <tr><td align="center">1</td><td>AVDD</td><td>3V Power</td><td>Bidirectional</td><td>Analog Supply Voltage</td></tr>
+    <tr><td align="center">1</td><td>AVDD</td><td>3V3 Power</td><td>Bidirectional</td><td>Analog Supply Voltage</td></tr>
     <tr><td align="center">2</td><td>AVSS</td><td>Ground</td><td>Bidirectional</td><td>Analog Ground</td></tr>
     <tr><td align="center">3</td><td>VDD</td><td>5V Power</td><td>Bidirectional</td><td>Digital Supply Voltage</td></tr>
     <tr><td align="center">4</td><td>VSS</td><td>Ground</td><td>Bidirectional</td><td>Digital Ground</td></tr>
@@ -212,7 +212,7 @@ An optional unity-gain analog buffer may be inserted at the output stage to main
 </div>
 
 ### **5. Application Diagram**
-![Application](../images/ApplicationUpdate3.jpg)
+![Application](../images/ApplicationUpdate4.jpg)
 
 <h4 align="center" style="font-size:16px;">Figure 8. Example Circuits Application</h4>
 
