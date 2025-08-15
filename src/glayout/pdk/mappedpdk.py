@@ -42,28 +42,32 @@ class SetupPDKFiles:
                     raise ValueError("The file must be provided as a Path object or string")
                 else:
                     self.klayout_drc_file = klayout_drc_file
-            
-            
-            if magic_drc_file is None:
-                raise ValueError("Please provide a magic DRC file")
+            if pdk == 'ihp130':
+                self.klayout_drc_file = klayout_drc_file
+                self.lvs_schematic_ref_file = None
+                self.lvs_setup_tcl_file = None
+                self.magic_drc_file = None    
             else:
-                if not isinstance(magic_drc_file, PathType):
-                    raise ValueError("The files must be provided as Path objects or strings")
+                if magic_drc_file is None:
+                    raise ValueError("Please provide a magic DRC file")
                 else:
-                    self.magic_drc_file = magic_drc_file
-            
-            if lvs_schematic_ref_file is None or lvs_setup_tcl_file is None or magic_drc_file is None:
-                raise ValueError(f"""Please provide the following files:
-                      - a spice file with subckt references(lvs_schematic_ref_file)
-                      - a tcl file with setup commands(lvs_setup_tcl_file)
-                      - a magic DRC file(magic_drc_file)""")
-            else:
-                if not isinstance(lvs_schematic_ref_file, PathType) or not isinstance(lvs_setup_tcl_file, PathType):
-                    raise ValueError("The files must be provided as Path objects or strings")
+                    if not isinstance(magic_drc_file, PathType):
+                        raise ValueError("The files must be provided as Path objects or strings")
+                    else:
+                        self.magic_drc_file = magic_drc_file
+                
+                if lvs_schematic_ref_file is None or lvs_setup_tcl_file is None or magic_drc_file is None:
+                    raise ValueError(f"""Please provide the following files:
+                          - a spice file with subckt references(lvs_schematic_ref_file)
+                          - a tcl file with setup commands(lvs_setup_tcl_file)
+                          - a magic DRC file(magic_drc_file)""")
                 else:
-                    self.lvs_schematic_ref_file = lvs_schematic_ref_file
-                    self.lvs_setup_tcl_file = lvs_setup_tcl_file
-                    self.magic_drc_file = magic_drc_file
+                    if not isinstance(lvs_schematic_ref_file, PathType) or not isinstance(lvs_setup_tcl_file, PathType):
+                        raise ValueError("The files must be provided as Path objects or strings")
+                    else:
+                        self.lvs_schematic_ref_file = lvs_schematic_ref_file
+                        self.lvs_setup_tcl_file = lvs_setup_tcl_file
+                        self.magic_drc_file = magic_drc_file
         else:
             if not isinstance(pdk_root, PathType):
             # condition for pdk_root not being a Path object
@@ -80,32 +84,43 @@ class SetupPDKFiles:
                     ## It is supplied along with glayout package (at /pdk/gf180_mapped/), so we can use it from gLayout repo-root
                 else:
                     raise ValueError("pdk must be either 'sky130' or 'gf180', others not supported!")
-            
-                
-            if lvs_schematic_ref_file is None:
-                if pdk == 'gf180':
-                    ## It is supplied along with glayout package (at /pdk/gf180_mapped/), so we can use it from gLayout base
-                    raise NotImplementedError("LVS is not supported for gf180 PDK")
-                
-                lvs_spice_file = Path(pdk_root) / "sky130A" / "libs.ref" / "sky130_fd_sc_hd" / "spice" / "sky130_fd_sc_hd.spice"
-                lvs_schematic_ref_file = temp_dir / "sky130_fd_sc_hd.spice"
-                self.write_custom_spice_to_file(lvs_spice_file, lvs_schematic_ref_file)
-            
-            if lvs_setup_tcl_file is None:
-                if pdk == 'gf180':
-                    raise NotImplementedError("LVS is not supported for gf180 PDK")
-                    ## It is supplied along with glayout package (at /pdk/gf180_mapped/), so we can use it from gLayout base
-                dest_lvs_setup_tcl = temp_dir / "sky130A_setup.tcl"
-                lvs_setup_tcl_file = self.magic_netgen_file_exists(dest_lvs_setup_tcl, pdk_root)
-                
-            if magic_drc_file is None:
-                if pdk == "sky130":
-                    dest_magic_drc = temp_dir / f"{pdk}A.magicrc"     
-                elif pdk == "gf180": 
-                    dest_magic_drc = temp_dir / f"{pdk}mcuC.magicrc"
+            if pdk == 'ihp130':
+                lvs_schematic_ref_file= None
+                lvs_setup_tcl_file = None
+                magic_drc_file = None    
+            else:
+                if lvs_schematic_ref_file is None:
+                    if pdk == 'gf180':
+                        ## It is supplied along with glayout package (at /pdk/gf180_mapped/), so we can use it from gLayout base
+                        raise NotImplementedError("LVS is not supported for gf180 PDK")
+                    if pdk == 'ihp130':
+                        raise NotImplementedError("LVS is not supported for IHP130 PDK")
                     
-                magic_drc_file = self.magic_netgen_file_exists(dest_magic_drc, pdk_root)
+                    lvs_spice_file = Path(pdk_root) / "sky130A" / "libs.ref" / "sky130_fd_sc_hd" / "spice" / "sky130_fd_sc_hd.spice"
+                    lvs_schematic_ref_file = Path(temp_dir) / "sky130_fd_sc_hd.spice"
+                    self.write_custom_spice_to_file(lvs_spice_file, lvs_schematic_ref_file)
                 
+                if lvs_setup_tcl_file is None:
+                    if pdk == 'gf180':
+                        raise NotImplementedError("LVS is not supported for gf180 PDK")
+                        ## It is supplied along with glayout package (at /pdk/gf180_mapped/), so we can use it from gLayout base
+                    if pdk == 'ihp130':
+                        raise NotImplementedError("LVS is not supported for IHP130 PDK")
+                        
+                    dest_lvs_setup_tcl = temp_dir / "sky130A_setup.tcl"
+                    lvs_setup_tcl_file = self.magic_netgen_file_exists(dest_lvs_setup_tcl, pdk_root)
+                    
+                if magic_drc_file is None:
+                    if pdk == "sky130":
+                        dest_magic_drc = temp_dir / f"{pdk}A.magicrc"     
+                    elif pdk == "gf180": 
+                        dest_magic_drc = temp_dir / f"{pdk}mcuC.magicrc"
+                    elif pdk == 'ihp130':
+                        raise NotImplementedError("LVS is not supported for IHP130 PDK")
+                        
+                    magic_drc_file = self.magic_netgen_file_exists(dest_magic_drc, pdk_root)
+                    
+            
             self.klayout_drc_file = klayout_drc_file
             self.lvs_schematic_ref_file = lvs_schematic_ref_file
             self.lvs_setup_tcl_file = lvs_setup_tcl_file
@@ -402,7 +417,9 @@ class MappedPDK(Pdk):
                     - a file containing magic commands to be executed for DRC (magic_commands.tcl) 
                     - the .magicrc file for your PDK of choice
         """
-        
+        if self.name == 'ihp130':
+            raise NotImplementedError("LVS not implemented yet for IHP-130 PDK")
+                 
         def create_magic_commands_file(temp_dir):
             # magic commands file creation
             print("Defaulting to stale magic_commands.tcl")
@@ -612,8 +629,8 @@ custom_drc_save_report $::env(DESIGN_NAME) $::env(REPORTS_DIR)/$::env(DESIGN_NAM
         Returns:
             dict: a dictionary containing the result string and the subprocess code
         """
-        # if not self.name == 'sky130':
-        #     raise NotImplementedError("LVS only supported for sky130 PDK")
+        if self.name == 'ihp130':
+            raise NotImplementedError("LVS not implemented yet for IHP-130 PDK")
         
         def check_if_path_or_net_string(netlist: PathType):
             cdl_suffix = ".cdl"
