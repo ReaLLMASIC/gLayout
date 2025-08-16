@@ -60,4 +60,4 @@ Note* : Capacitors have the size of 1u x 1u (m = 3)
 
 </div>
 
-**Last Updated: 1st August**
+**Last Updated: 16th August**
