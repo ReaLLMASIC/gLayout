@@ -43,9 +43,14 @@ The chopper switch is implemented to reduce low-frequency (1/f) noise and input 
 
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
-| R<sub>on</sub>                                 | TBD                | kΩ       |
-| Delay tolerance between CLK and CLK̅ | 0.107              | us       |
+| Stage 1 : Chopper A Operating Frequency       | 4              | kHz       |
+| Stage 2 : Chopper B Operating Frequency       | 2            | kHz       |
+| Stage 3 : Chopper C Operating Frequency       | 1               | kHz       |
+| R<sub>on</sub>                                 | 894 (3 ways)                | kΩ       |
+| Delay Time Between stages | +/-500              | ns       |
+| Off Leakage Current | +/- 4 | pA
+| Clock divider (to _Clk and Clk) delay | 0.000101512 | s
 
 </div>
 
-**Last Updated: 1st August**
+**Last Updated: 16th August**
