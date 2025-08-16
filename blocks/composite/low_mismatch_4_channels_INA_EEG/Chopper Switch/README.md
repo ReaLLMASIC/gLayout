@@ -21,21 +21,47 @@ The chopper switch is implemented to reduce low-frequency (1/f) noise and input 
 ## Schematic Design
 
 <p align="center">
-  <img src="../../images/SwitchSchem.jpg" alt="SwitchSchem" width="400"/>
+  <img src="../../images/CSchematic.jpg" alt="SwitchSchem" width="800"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 1. Individual Chopper Switch Schematic</h4>
+<h4 align="center" style="font-size:16px;">Figure 1. Chopper Switch Schematic</h4>
+
 
 ## Simulation
 
 <p align="center">
-  <img src="../../images/SwitchFull.jpg" alt="SwitchFull" width="400"/>
+  <img src="../../images/CSA_Tb.jpg" alt="SwitchSchem" width="600"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 2. Individual Chopper Switch Testbench</h4>
+<h4 align="center" style="font-size:16px;">Figure 2. Chopper Switch A Simulation</h4>
 
 <p align="center">
-  <img src="../../images/SwitchTb.jpg" alt="SwitchTb" width="400"/>
+  <img src="../../images/CSB_TB.jpg" alt="SwitchFull" width="600"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 3. Testbench Result</h4>
+<h4 align="center" style="font-size:16px;">Figure 3. Chopper Switch B Simulation</h4>
+
+<p align="center">
+  <img src="../../images/CSC_Schematic.jpg" alt="SwitchTb" width="600"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 4. Chopper Switch C Schematic</h4>
+
+<p align="center">
+  <img src="../../images/CSC_Tb.jpg" alt="SwitchTb" width="400"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 5. Chopper Switch C Testbench</h4>
+
+<p align="center">
+  <img src="../../images/CSC_Tb_Res1.jpg" alt="SwitchTb" width="600"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 6. Chopper Switch C Simulation 1</h4>
+
+<p align="center">
+  <img src="../../images/CSC_Tb_Res2.jpg" alt="SwitchTb" width="450"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 7. Chopper Switch C Simulation 2</h4>
+
+<p align="center">
+  <img src="../../images/CS_Spec.jpg" alt="SwitchTb" width="800"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 8. Chopper Switch Specification</h4>
 
 ## Performance of Designed Chopper Switch 
 
