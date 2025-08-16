@@ -112,7 +112,7 @@ The switched-capacitor low-pass filter is used to remove high-frequency componen
   
 | **Parameter**           | **Value**      | **Unit**   |
 |-------------------------|-------------|--------|
-| Cutoff Frequency (f<sub>c</sub>)  | 220        | Hz     |
+| Cutoff Frequency (f<sub>c</sub>)  | <250        | Hz     |
 | Clock Frequency (f<sub>clk</sub>) | 4         | kHz     |
 
 </div>
