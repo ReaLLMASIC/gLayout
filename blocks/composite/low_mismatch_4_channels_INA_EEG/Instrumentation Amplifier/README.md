@@ -13,7 +13,7 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 | Phase Margin         | >60           | degrees|
 | UGF | 10 - 40 | MHz | 
 | Power Supply Rejection Ratio (PSRR) | +/- 60  | dB     |
-| Common-Mode Rejection Ratio (CMRR) | >= 80    | dB     |
+| Common-Mode Rejection Ratio (CMRR) | >= 70    | dB     |
 | Power | < 500 | uW
 | Input range (INA) | <=350 | uV |
 
@@ -22,24 +22,24 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 ## Schematic Design
 
 <p align="center">
-  <img src="../../images/INASchem.jpg" alt=INASchem" width="400"/>
+  <img src="../../images/SCHEM_INA.jpg" alt=SCHEM_INA" width="1000"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 1. Individual Instrumentation Amplifier Schematic</h4>
 
 ## Simulation
 
 <p align="center">
-  <img src="../../images/INAFull.jpg" alt="INAFull" width="400"/>
+  <img src="../../images/TSB_INA1.jpg" alt="TSB_INA1" width="1000"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 2. Instrumentation Amplifier Testbench</h4>
 
 <p align="center">
-  <img src="../../images/INATb.jpg" alt="INATb" width="400"/>
+  <img src="../../images/TSB_INA2.jpg" alt="TSB_INA2" width="1000"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 3. Gain Testbench Result</h4>
 
 <p align="center">
-  <img src="../../images/CMRRTb.jpg" alt="CMRRTb" width="400"/>
+  <img src="../../images/TSB_INA3.jpg" alt="TSB_INA3" width="1000"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 4. CMRR Testbench Result</h4>
 
@@ -49,13 +49,15 @@ An open-loop amplifier is used to provide high gain for low-amplitude EEG signal
 
 | **Parameter**            | **Typical Value** | **Unit**   |
 |----------------------|----------------|--------|
-| Open-Loop Gain       | 52.65            | dB     |
-| Bandwidth            | 10            | kHz     |
-| Phase Margin         | TBD            | degrees|
-| Power Supply Rejection Ratio (PSRR) | TBD    | dB     |
-| Common-Mode Rejection Ratio (CMRR) | 95    | dB     |
+| Open-Loop Gain       | >53.9            | dB     |
+| Bandwidth            | +/-10           | kHz     |
+| Phase Margin         | >60           | degrees|
+| UGF | 33 | MHz | 
+| Power Supply Rejection Ratio (PSRR) | 58.17  | dB     |
+| Common-Mode Rejection Ratio (CMRR) | 75.71    | dB     |
+| Power | +/- 50 | uW
+| Input range (INA) | <=350 | uV |
 
-Note* : PSRR, PM, and UGF Simulations are on-going simulations. Will be added later.
 </div>
 
-**Last Updated: 1st August**
+**Last Updated: 16th August**
