@@ -22,7 +22,7 @@ This chip is a high-precision, low mismatch instrumentation amplifier array spec
 | Gain Mismatch Between Channels| 400 ppm [1]                | Approximate value                                                        |
 
 ### **2. Block Diagram**
-![BlockDiagram](../images/BlockDiagram.jpg)
+![BlockDiagram](../images/BlockDiagramUpdate.jpg)
 <h4 align="center" style="font-size:16px;">Figure 1. Block Diagram of the System Design</h4>
 
 <h4 align="center" style="font-size:16px;">Table 2. Complexity and Functionality of Each Block Diagram</h4>
@@ -57,8 +57,13 @@ The chopper switch is implemented to reduce low-frequency (1/f) noise and input 
 
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
-| R<sub>on<sub>                                 | <1                | kΩ       |
-| Delay tolerance between CLK and CLK̅ | <1              | us       |
+| Stage 1 : Chopper A Operating Frequency       | 4              | kHz       |
+| Stage 2 : Chopper B Operating Frequency       | 2            | kHz       |
+| Stage 3 : Chopper C Operating Frequency       | 1               | kHz       |
+| R<sub>on</sub>                                 | <1                | kΩ       |
+| Delay Time Between stages | +/-500              | ns       |
+| Off Leakage Current | <0.1 | uA
+| Clock divider (to _Clk and Clk) delay | <1 | ms |
 
 </div>
 
