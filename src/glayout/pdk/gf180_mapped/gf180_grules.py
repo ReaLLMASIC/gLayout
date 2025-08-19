@@ -69,7 +69,7 @@ grulesobj["p+s/d"]["n+s/d"] = {}
 grulesobj["p+s/d"]["active_diff"] = {'min_enclosure': 0.23}
 grulesobj["p+s/d"]["active_tap"] = {'min_enclosure': 0.16}
 grulesobj["p+s/d"]["poly"] = {"min_enclosure": 0.3,}
-grulesobj["p+s/d"]["mcon"] = {}
+grulesobj["p+s/d"]["mcon"] = {"min_enclosure": 0.2}
 grulesobj["p+s/d"]["met1"] = {}
 grulesobj["p+s/d"]["via1"] = {}
 grulesobj["p+s/d"]["met2"] = {}
@@ -144,7 +144,7 @@ grulesobj["poly"]["p+s/d"] = {}
 grulesobj["poly"]["n+s/d"] = {}
 grulesobj["poly"]["active_diff"] = {"min_separation": 0.6,}
 grulesobj["poly"]["active_tap"] = {}
-grulesobj["poly"]["poly"] = {"min_width": 0.8, "min_separation": 0.4}
+grulesobj["poly"]["poly"] = {"min_width": 1, "min_separation": 0.4}
 grulesobj["poly"]["mcon"] = {'min_enclosure': 0.07, 'min_separation': 0.17}
 grulesobj["poly"]["met1"] = {}
 grulesobj["poly"]["via1"] = {}
@@ -369,4 +369,8 @@ grulesobj["sab"]["poly"] = {"min_enclosure": 0.28}
 grulesobj["sab"]["mcon"] = {"min_separation": 0.22}
 grulesobj["res_mk"]["poly"] = {"min_enclosure": 0.0}
 grulesobj["res_mk"]["res_mk"] = {"min_separation": 20.0}
+grulesobj["resistor"]["poly"] = {"min_enclosure": 0.4}
+grulesobj["resistor"]["poly"]  |= {"min_separation": 0.3}
+grulesobj["resistor"]["active_diff"] = {"min_separation": 0.3}
+
 

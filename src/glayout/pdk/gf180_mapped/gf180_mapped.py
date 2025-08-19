@@ -114,7 +114,8 @@ gf180_mapped_pdk = MappedPDK(
         'ppolyf_s': 'ppolyf_s',
         'ppolyf_u': 'ppolyf_u',
         'npolyf_s': 'npolyf_s',
-        'npolyf_u': 'npolyf_u'
+        'npolyf_u': 'npolyf_u',
+        "ppolyf_u_1k": "ppolyf_u_1k"
     },
     layers=LAYER,
     pdk_files=pdk_files,
