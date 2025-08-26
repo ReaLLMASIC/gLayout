@@ -2,6 +2,7 @@
 
 The top-level integration connects the EEG front-end signal path through three stages of chopper switches (CsA, CsB, and CsB_) feeding into an instrumentation amplifier (INA), followed by another three-stage chopper switch set (CsC, CsB, CsA) and finally a switched-capacitor low-pass filter (LPF). Complementary clocks drive all chopper switches to ensure proper modulation and demodulation, suppressing low-frequency offsets and 1/f noise, while the INA amplifies the differential signal with high input impedance and low noise. The fully integrated digital clocks and precise timing enable a compact, low-power CMOS implementation that delivers a clean baseband EEG output ready for further processing.
 
+**NOTE** : You can run full integration analog circuit netlist (CS-INA-CS-LPF, complementary clk) + digital circuit netlist (Frequency divider) by accessing the .spice from the **Top Integration .spice Folder**. Both result, using PULSE as alternative from digital and using PWL from csv provided from the digital (OpenLane) netlist give the same gain result & waveforms.
 
 ## Schematic Design of 3 Chopper Switches Integration
 
@@ -47,5 +48,5 @@ The top-level integration connects the EEG front-end signal path through three s
 </p>
 <h4 align="center" style="font-size:16px;">Figure 8. Simulation Prefrontal Cortex Probes (Input and Output)</h4>
 
-**Last Updated: 16th August**
+**Last Updated: 27th August**
 
