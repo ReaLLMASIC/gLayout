@@ -92,13 +92,17 @@ end
 endmodule
 </pre>
 
-
 ## RTL Simulation Result 
 
 <p align="center">
-  <img src="../../images/FreqDiv.jpg" alt="FreqDiv" width="400"/>
+  <img src="../../images/FreqDiv.jpg" alt="FreqDiv" width="700"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 1. Frequency Divider Testbench Result</h4>
+<h4 align="center" style="font-size:16px;">Figure 1(a). Frequency Divider Testbench Result on OpenLane </h4>
+<p align="center">
+  <img src="../../images/FD_Itg.jpg" alt="FD_Itg" width="400"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 1(b). Frequency Divider Testbench Result on NGSPICE </h4>
+Note : rst_n are active low. For 2 clock cycle, it will be LOW, then always HIGH. All HIGH value for Clk is 5V. You might see 10, 15, or 20 on the graph ONLY* to avoid overlap view for every clock divided.
 
 ## Performance of Designed Clock Divider
 
@@ -106,9 +110,9 @@ endmodule
 
 | **Parameter**                        | **Value / Target** | **Unit** |
 |-------------------------------------|--------------------|----------|
-| Chopper A Operating Frequency       | 2              | kHz       |
-| Chopper B Operating Frequency       | 1            | kHz       |
-| Chopper C Operating Frequency       | 500               | Hz       |
+| Chopper A Operating Frequency       | 4              | kHz       |
+| Chopper B Operating Frequency       | 2            | kHz       |
+| Chopper C Operating Frequency       | 1               | kHz       |
 
 </div>
 
@@ -117,6 +121,10 @@ endmodule
 <p align="center">
   <img src="../../images/FreqDivLayout.jpg" alt="FreqDivLayout" width="400"/>
 </p>
-<h4 align="center" style="font-size:16px;">Figure 1. Frequency Divider Layout</h4>
+<h4 align="center" style="font-size:16px;">Figure 2(a). Frequency Divider Layout</h4>
+<p align="center">
+  <img src="../../images/FD_Ly.jpg" alt="FD_Ly" width="400"/>
+</p>
+<h4 align="center" style="font-size:16px;">Figure 2(b). Frequency Divider Layout (Full) </h4>
 
 **Last Updated: 27st August**
