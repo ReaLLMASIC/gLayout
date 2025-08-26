@@ -100,7 +100,7 @@ endmodule
 </p>
 <h4 align="center" style="font-size:16px;">Figure 1. Frequency Divider Testbench Result</h4>
 
-## Performance of Designed Chopper Switch 
+## Performance of Designed Clock Divider
 
 <div align="center">
 
@@ -112,11 +112,11 @@ endmodule
 
 </div>
 
-## Layout of Designed Chopper Switch (in progress)
+## Layout of Designed Clock Divider
 
 <p align="center">
   <img src="../../images/FreqDivLayout.jpg" alt="FreqDivLayout" width="400"/>
 </p>
 <h4 align="center" style="font-size:16px;">Figure 1. Frequency Divider Layout</h4>
 
-**Last Updated: 1st August**
+**Last Updated: 27st August**
