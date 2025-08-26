@@ -127,4 +127,4 @@ Note : rst_n are active low. For 2 clock cycle, it will be LOW, then always HIGH
 </p>
 <h4 align="center" style="font-size:16px;">Figure 2(b). Frequency Divider Layout (Full) </h4>
 
-**Last Updated: 27st August**
+**Last Updated: 27th August**
