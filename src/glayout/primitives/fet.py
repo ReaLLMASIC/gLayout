@@ -106,7 +106,7 @@ XMAIN   D G S B {model} l={{l}} w={{w}} m={{m}}"""
             'model': model,
             'length': ltop,
             'width': wtop,
-            'mult': mtop / 2,
+            'mult': mtop,
             'dummy_mult': dmtop
         }
     )
