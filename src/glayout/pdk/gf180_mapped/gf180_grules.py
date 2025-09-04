@@ -369,8 +369,8 @@ grulesobj["sab"]["poly"] = {"min_enclosure": 0.28}
 grulesobj["sab"]["mcon"] = {"min_separation": 0.22}
 grulesobj["res_mk"]["poly"] = {"min_enclosure": 0.0}
 grulesobj["res_mk"]["res_mk"] = {"min_separation": 20.0}
-grulesobj["resistor"]["poly"] = {"min_enclosure": 0.4}
-grulesobj["resistor"]["poly"]  |= {"min_separation": 0.3}
-grulesobj["resistor"]["active_diff"] = {"min_separation": 0.3}
+grulesobj["res_mk"]["poly"] = {"min_enclosure": 0.4}
+grulesobj["res_mk"]["poly"]  |= {"min_separation": 0.3}
+grulesobj["res_mk"]["active_diff"] = {"min_separation": 0.3}
 
 

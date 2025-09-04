@@ -6,7 +6,7 @@ from typing import Callable, Union, Optional
 from decimal import Decimal
 from pathlib import Path
 import pickle
-from PrettyPrint import PrettyPrintTree
+# from PrettyPrint import PrettyPrintTree
 import math
 
 
@@ -466,8 +466,9 @@ class PortTree:
 		if savetofile:
 			extra_kwargs.update({"return_instead_of_print":savetofile, "color":None, "border":True, "default_orientation": True})
 		extra_kwargs.update(kwargs)
-		pt = PrettyPrintTree(self.get_children, self.get_val, max_depth=depth, **extra_kwargs)
-		rtrstr = pt(self)
+		# pt = PrettyPrintTree(self.get_children, self.get_val, max_depth=depth, **extra_kwargs)
+		# rtrstr = pt(self)
+		rtrstr = "PrettyPrintTree disabled"
 		if rtrstr:
 			outfile_name = "outputtree.txt" if outfile_name is None else outfile_name
 			with open(outfile_name,"w") as outputfile:
