@@ -560,9 +560,6 @@ def __mult_2dim_array_macro(
     """create a multiplier array with multiplier_0 at the bottom
     The array is correctly centered
     """
-    c_pdk_domain = pdk.domain
-    pdk.set_domain(domain)
-
     # check the validy of the pattern if exists
     if check_pattern_level(pattern) != 2:
         raise ValueError("Pattern level not valid for this function")
@@ -573,6 +570,8 @@ def __mult_2dim_array_macro(
 
     # create multiplier array
     pdk.activate()
+    c_pdk_domain = pdk.domain
+    pdk.set_domain(domain)
     # TODO: error checking
     multiplier_2dim_arr = Component("temp multiplier array")
 
