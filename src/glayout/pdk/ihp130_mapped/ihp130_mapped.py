@@ -2,7 +2,7 @@
 usage: from ihp130_mapped import ihp130_mapped_pdk
 """
 
-from ..ihp130_mapped.ihp130_grules import grulesobj
+from ..ihp130_mapped.ihp130_grules import grulesobj, grulesobj_5p0
 from ..mappedpdk import MappedPDK, SetupPDKFiles
 from pathlib import Path
 import os
@@ -146,7 +146,10 @@ ihp130_mapped_pdk = MappedPDK(
     layers=LAYER,
     pdk_files=pdk_files,
     grules=grulesobj,
-    valid_bjt_sizes=ip130_valid_bjt_sizes
+    grules_3p3=grulesobj,
+    grules_5p0=grulesobj_5p0,
+    valid_bjt_sizes=ip130_valid_bjt_sizes,
+    domain="3p3"
 )
 
 # Configure GDS write precision and cell decorator cache
