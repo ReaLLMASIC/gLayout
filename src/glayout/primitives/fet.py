@@ -19,8 +19,13 @@ from glayout.spice import Netlist
 
 
 @validate_arguments
-def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float, width: float, poly_height: float, sdlayer: str, inter_finger_topmet: str) -> Component:
+def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length:
+                        float, width: float, poly_height: float, sdlayer: str,
+                        inter_finger_topmet: str, domain: str = "3p3") -> Component:
     """internal use: returns an array of fingers"""
+    c_pdk_domain = pdk.domain
+    pdk.set_domain(domain)
+
     length = pdk.snap_to_2xgrid(length)
     width = pdk.snap_to_2xgrid(width)
     poly_height = pdk.snap_to_2xgrid(poly_height)
@@ -61,6 +66,8 @@ def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float,
     sdlayer_ref = multiplier << rectangle(size=sdlayer_dims, layer=pdk.get_glayer(sdlayer),centered=True)
     multiplier.add_ports(sdlayer_ref.get_ports_list(),prefix="plusdoped_")
     multiplier.add_ports(diff.get_ports_list(),prefix="diff_")
+
+    pdk.set_domain(c_pdk_domain)
     return component_snap_to_grid(rename_ports_by_orientation(multiplier))
 
 def fet_netlist(
@@ -117,6 +124,7 @@ XMAIN   D G S B {model} l={{l}} w={{w}} m={{m}}"""
 def multiplier(
     pdk: MappedPDK,
     sdlayer: str,
+    domain: str = "3p3",
     width: Optional[float] = 3,
     length: Optional[float] = None,
     fingers: int = 1,
@@ -163,6 +171,9 @@ def multiplier(
     leftsd_...all ports associated with the left most via array
     dummy_L,R_N,E,S,W ports if dummy_routes=True
     """
+
+    c_pdk_domain = pdk.domain
+    pdk.set_domain(domain)
     # error checking
     if "+s/d" not in sdlayer:
         raise ValueError("specify + doped region for multiplier")
@@ -187,7 +198,9 @@ def multiplier(
     width = pdk.snap_to_2xgrid(width)
     poly_height = width + 2 * pdk.get_grule("poly", "active_diff")["overhang"]
     # call finger array
-    multiplier = __gen_fingers_macro(pdk, interfinger_rmult, fingers, length, width, poly_height, sdlayer, inter_finger_topmet)
+    multiplier = __gen_fingers_macro(pdk, interfinger_rmult, fingers, length,
+                                     width, poly_height, sdlayer,
+                                     inter_finger_topmet,domain=domain)
     # route all drains/ gates/ sources
     if routing:
         # place vias, then straight route from top port to via-botmet_N
@@ -259,6 +272,7 @@ def multiplier(
             dummy_ref.movex(side * (dummy_space + multiplier.xmax))
             multiplier.add_ports(dummy_ref.get_ports_list(),prefix=name)
     # ensure correct port names and return
+    pdk.set_domain(c_pdk_domain)
     return component_snap_to_grid(rename_ports_by_orientation(multiplier))
 
 
@@ -266,6 +280,7 @@ def multiplier(
 def __mult_array_macro(
     pdk: MappedPDK,
     sdlayer: str,
+    domain: str = "3p3",
     width: Optional[float] = 3,
     fingers: Optional[int] = 1,
     multipliers: Optional[int] = 1,
@@ -300,11 +315,14 @@ def __mult_array_macro(
 
     # create multiplier array
     pdk.activate()
+    c_pdk_domain = pdk.domain
+    pdk.set_domain(domain)
     # TODO: error checking
     multiplier_arr = Component("temp multiplier array")
     multiplier_comp = multiplier(
         pdk,
         sdlayer,
+        domain=domain,
         width=width,
         fingers=fingers,
         dummy=dummy,
@@ -512,6 +530,7 @@ def __mult_array_macro(
         correctionxy = prec_center(marrref)
         marrref.movex(correctionxy[0]).movey(correctionxy[1])
     final_arr.add_ports(marrref.get_ports_list())
+    pdk.set_domain(c_pdk_domain)
     return component_snap_to_grid(rename_ports_by_orientation(final_arr))
 
 
@@ -519,6 +538,7 @@ def __mult_array_macro(
 def __mult_2dim_array_macro(
     pdk: MappedPDK,
     sdlayer: str,
+    domain: str = "3p3",
     width: Optional[float] = 3,
     fingers: Optional[int] = 1,
     multipliers: Union[tuple[int,int], int] = (1,1),
@@ -540,6 +560,8 @@ def __mult_2dim_array_macro(
     """create a multiplier array with multiplier_0 at the bottom
     The array is correctly centered
     """
+    c_pdk_domain = pdk.domain
+    pdk.set_domain(domain)
 
     # check the validy of the pattern if exists
     if check_pattern_level(pattern) != 2:
@@ -563,6 +585,7 @@ def __mult_2dim_array_macro(
         multiplier_arr = __mult_array_macro(
             pdk,
             sdlayer,
+            domain,
             width,
             fingers,
             len(column_pattern),
@@ -590,6 +613,7 @@ def __mult_2dim_array_macro(
     multiplier_ref = multiplier(
                 pdk,
                 sdlayer,
+                domain=domain,
                 width=width,
                 fingers=fingers,
                 dummy=False,
@@ -617,6 +641,7 @@ def __mult_2dim_array_macro(
         dummy_L = __mult_array_macro(
                     pdk,
                     sdlayer,
+                    domain,
                     width,
                     fingers,
                     len(t_pattern[0]),
@@ -641,6 +666,7 @@ def __mult_2dim_array_macro(
         dummy_R = __mult_array_macro(
                     pdk,
                     sdlayer,
+                    domain,
                     width,
                     fingers,
                     len(t_pattern[-1]),
@@ -797,11 +823,13 @@ def __mult_2dim_array_macro(
                                                                str(l_positions[i_pos]),
                                                                pin]))
 
+    pdk.set_domain(c_pdk_domain)
     return multiplier_2dim_arr
 
 #@cell
 def nmos(
     pdk,
+    domain = "3p3",
     width: float = 3,
     fingers: Optional[int] = 1,
     multipliers: Optional[int] = 1,
@@ -848,6 +876,8 @@ def nmos(
     """
     # TODO: glayer checks
     pdk.activate()
+    c_pdk_domain = pdk.domain
+    pdk.set_domain(domain)
     nfet = Component()
     if rmult:
         if rmult<1:
@@ -865,6 +895,7 @@ def nmos(
     multiplier_arr = __macro(
         pdk,
         "n+s/d",
+        domain,
         width,
         fingers,
         multipliers,
@@ -953,6 +984,21 @@ def nmos(
         tapring_ref = nfet << ringtoadd
         nfet.add_ports(tapring_ref.get_ports_list(),prefix="guardring_")
 
+
+    if domain=="5p0":
+
+        padding = pdk.get_grule("dualgate", "dnwell")["min_enclosure"]
+
+        nfet.add_padding(
+            layers=(pdk.get_glayer("dualgate"),),
+            default=padding,
+        )
+
+        nfet.add_padding(
+            layers=(pdk.get_glayer("v5_xtor"),),
+            default=0,
+        )
+
     component = rename_ports_by_orientation(nfet).flatten()
 
     component.info['netlist'] = fet_netlist(
@@ -966,12 +1012,14 @@ def nmos(
         with_dummy=with_dummy
     )
 
+    pdk.set_domain(c_pdk_domain)
     return component
 
 
 #@cell
 def pmos(
     pdk,
+    domain: str = "3p3",
     width: float = 3,
     fingers: Optional[int] = 1,
     multipliers: Optional[int] = 1,
@@ -1018,6 +1066,8 @@ def pmos(
     """
     # TODO: glayer checks
     pdk.activate()
+    c_pdk_domain = pdk.domain
+    pdk.set_domain(domain)
     pfet = Component()
     if rmult:
         if rmult<1:
@@ -1035,6 +1085,7 @@ def pmos(
     multiplier_arr = __macro(
         pdk,
         "p+s/d",
+        domain,
         width,
         fingers,
         multipliers,
@@ -1116,6 +1167,21 @@ def pmos(
             horizontal_glayer=substrate_tap_layers[0],
             vertical_glayer=substrate_tap_layers[1],
         )
+
+    if domain=="5p0":
+
+        padding = pdk.get_grule("dualgate", "dnwell")["min_enclosure"]
+
+        pfet.add_padding(
+            layers=(pdk.get_glayer("dualgate"),),
+            default=padding,
+        )
+
+        pfet.add_padding(
+            layers=(pdk.get_glayer("v5_xtor"),),
+            default=0,
+        )
+
     component =  rename_ports_by_orientation(pfet).flatten()
 
     component.info['netlist'] = fet_netlist(
@@ -1129,6 +1195,7 @@ def pmos(
         with_dummy=with_dummy
     )
 
+    pdk.set_domain(c_pdk_domain)
     return component
 
 
