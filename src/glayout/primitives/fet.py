@@ -353,8 +353,8 @@ def __mult_array_macro(
 
     dimension_wo_routing = evaluate_bbox(multiplier_arr)
 
-    if routing and multipliers > 1:
-        if pattern is None:
+    if routing:
+        if pattern is None  and multipliers > 1:
             for rownum in range(multipliers-1):
                 thismult = "multiplier_" + str(rownum) + "_"
                 nextmult = "multiplier_" + str(rownum+1) + "_"
@@ -377,7 +377,7 @@ def __mult_array_macro(
                 gate_ref = multiplier_arr << c_route(pdk, this_gate, next_gate, viaoffset=(True,False), extension=to_float(src_extension))
                 multiplier_arr.add_ports(gate_ref.get_ports_list(), prefix=gatepfx)
 
-        else:
+        elif pattern is not None:
             for rownum in range(len(unique_elements)):
                 this_id_pfx = unique_elements[rownum] + "_"
 
