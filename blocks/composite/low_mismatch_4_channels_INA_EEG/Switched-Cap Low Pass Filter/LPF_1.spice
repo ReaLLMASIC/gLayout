@@ -1,0 +1,29 @@
+** sch_path: /foss/designs/DESIGN_ONLY/FULL_SCH_FILE/LPF/lpf.sch
+.subckt LPF_1 _CLK CLK1 VSS Vin1 Vout1 VDD CLK _CLK1 Vout2 Vin2
+*.PININFO VSS:I VDD:I _CLK:I CLK:I Vin1:I Vin2:I CLK1:I _CLK1:I Vout1:O Vout2:O
+XM3 net1 _CLK Vin1 VSS nfet_03v3 L=0.5u W=10u nf=6 m=1
+XM4 net1 CLK Vin1 VDD pfet_03v3 L=0.5u W=10u nf=6 m=1
+XM7 Vin2 _CLK net2 VSS nfet_03v3 L=0.5u W=10u nf=6 m=1
+XM8 Vin2 CLK net2 VDD pfet_03v3 L=0.5u W=10u nf=6 m=1
+XM19 Vout1 CLK1 net1 VSS nfet_03v3 L=0.5u W=10u nf=6 m=1
+XM20 Vout1 _CLK1 net1 VDD pfet_03v3 L=0.5u W=10u nf=6 m=1
+XM23 net2 CLK1 Vout2 VSS nfet_03v3 L=0.5u W=10u nf=6 m=1
+XM24 net2 _CLK1 Vout2 VDD pfet_03v3 L=0.5u W=10u nf=6 m=1
+XC2 net3 net4 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC4 net1 net3 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC1 net4 net2 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC3 net5 net6 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC5 net1 net5 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC6 net6 net2 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC7 net7 net8 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC8 Vout1 net7 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+XC9 net8 Vout2 cap_mim_2f0fF c_width=10e-6 c_length=10e-6 m=1
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice mimcap_typical
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice cap_mim
+
+**** end user architecture code
+.ends
