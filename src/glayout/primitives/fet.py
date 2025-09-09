@@ -275,12 +275,14 @@ def __mult_array_macro(
     sd_route_topmet: Optional[str] = "met2",
     gate_route_topmet: Optional[str] = "met2",
     sd_route_left: Optional[bool] = True,
-    gd_route_bottom: Optional[bool] = True,
+    gd_route_bottom: Optional[bool] = True, #not used in this function but required to pass validation
     sd_rmult: int = 1,
     gate_rmult: int=1,
     interfinger_rmult: int=1,
     dummy_routes: bool=True,
     pattern: Union[list[str], list[int], None] = None,
+    is_gate_shared: bool = False,
+    is_src_shared: bool = False,
     centered: bool = True,
     dummy_separation_rmult: int = 0
 ) -> Component:
@@ -343,9 +345,20 @@ def __mult_array_macro(
     drain_extension = to_decimal(to_float(src_extension)+ distance )
 
     if pattern is not None:
-        sd_pattern_distances = [distance*2*n for n in range(len(unique_elements))]
+        drain_pattern_distances = [distance*2*n for n in range(len(unique_elements))]
+        src_pattern_distances = drain_pattern_distances
         gate_pattern_distances = [distance*n for n in range(len(unique_elements))]
-        sd_distances_by_element = dict(zip(unique_elements,sd_pattern_distances))
+
+        if is_gate_shared:
+            gate_pattern_distances = [0]*len(unique_elements)
+        if is_src_shared:
+            drain_pattern_distances = [distance*n for n in
+                                    range(len(unique_elements))]
+            src_pattern_distances = [0]*len(unique_elements)
+
+
+        drain_distances_by_element = dict(zip(unique_elements,drain_pattern_distances))
+        src_distances_by_element = dict(zip(unique_elements,src_pattern_distances))
         gate_distances_by_element = dict(zip(unique_elements,gate_pattern_distances))
 
     sd_side = "W" if sd_route_left else "E"
@@ -395,15 +408,15 @@ def __mult_array_macro(
 
                 nref_port_drain= move(ref_port_drain,
                                      destination=(ref_port_drain.center[0] -
-                                                  sd_distances_by_element[unique_elements[rownum]]
-                                                  - to_float(src_extension),
+                                                  drain_distances_by_element[unique_elements[rownum]]
+                                                  - to_float(drain_extension),
                                                   (multiplier_arr.ymax +
                                                       multiplier_arr.ymin)/2))
 
                 nref_port_source= move(ref_port_source,
                                      destination=(ref_port_source.center[0] -
-                                                  sd_distances_by_element[unique_elements[rownum]]
-                                                  - to_float(drain_extension),
+                                                  src_distances_by_element[unique_elements[rownum]]
+                                                  - to_float(src_extension),
                                                   (multiplier_arr.ymax +
                                                       multiplier_arr.ymin)/2))
 
@@ -426,19 +439,25 @@ def __mult_array_macro(
                 multiplier_arr.add_ports(drain_route_ref.get_ports_list(),
                                          prefix=this_drain_pfx)
 
-                source_route_ref = align_comp_to_port(sample_route.copy(),
-                                       nref_port_source,
-                                       alignment=("l",'c'))
-                multiplier_arr.add(source_route_ref)
-                multiplier_arr.add_ports(source_route_ref.get_ports_list(),
-                                             prefix=this_source_pfx)
+                if not is_src_shared or rownum<1:
+                    source_route_ref = align_comp_to_port(sample_route.copy(),
+                                           nref_port_source,
+                                           alignment=("l",'c'))
+                    multiplier_arr.add(source_route_ref)
+                    if is_src_shared:
+                        this_source_pfx= "source_"
+                    multiplier_arr.add_ports(source_route_ref.get_ports_list(),
+                                                 prefix=this_source_pfx)
 
-                gate_route_ref = align_comp_to_port(sample_route.copy(),
-                                       nref_port_gate,
-                                       alignment=("r",'c'))
-                multiplier_arr.add(gate_route_ref)
-                multiplier_arr.add_ports(gate_route_ref.get_ports_list(),
-                                         prefix=this_gate_pfx)
+                if not is_gate_shared or rownum<1:
+                    gate_route_ref = align_comp_to_port(sample_route.copy(),
+                                           nref_port_gate,
+                                           alignment=("r",'c'))
+                    multiplier_arr.add(gate_route_ref)
+                    if is_gate_shared:
+                        this_gate_pfx= "gate_"
+                    multiplier_arr.add_ports(gate_route_ref.get_ports_list(),
+                                             prefix=this_gate_pfx)
 
                 multiplier_arr = rename_ports_by_orientation(multiplier_arr)
 
@@ -456,8 +475,17 @@ def __mult_array_macro(
                 this_gate = multiplier_arr.ports[gatepfx+gate_side]
 
                 drain_route=multiplier_arr.ports[str(pat)+"_drain_"+gate_side]
-                source_route=multiplier_arr.ports[str(pat)+"_source_"+gate_side]
-                gate_route=multiplier_arr.ports[str(pat)+"_gate_"+sd_side]
+
+                if not is_src_shared:
+                    source_route=multiplier_arr.ports[str(pat)+"_source_"+gate_side]
+                else:
+                    source_route=multiplier_arr.ports["source_"+gate_side]
+
+
+                if not is_gate_shared:
+                    gate_route=multiplier_arr.ports[str(pat)+"_gate_"+sd_side]
+                else:
+                    gate_route = multiplier_arr.ports["gate_"+sd_side]
 
                 # creating the connections from each of the ports to the
                 # corresponding routes
@@ -471,11 +499,12 @@ def __mult_array_macro(
                                                                  gate_route)
     multiplier_arr = component_snap_to_grid(rename_ports_by_orientation(multiplier_arr))
     # add port redirects for shortcut names (source,drain,gate N,E,S,W)
-    for pin in ["source","drain","gate"]:
-        for side in ["N","E","S","W"]:
-            aliasport = pin + "_" + side
-            actualport = "multiplier_0_" + aliasport
-            multiplier_arr.add_port(port=multiplier_arr.ports[actualport],name=aliasport)
+    if pattern is None:
+        for pin in ["source","drain","gate"]:
+            for side in ["N","E","S","W"]:
+                aliasport = pin + "_" + side
+                actualport = "multiplier_0_" + aliasport
+                multiplier_arr.add_port(port=multiplier_arr.ports[actualport],name=aliasport)
     # recenter
     final_arr = Component()
     marrref = final_arr << multiplier_arr
@@ -505,6 +534,8 @@ def __mult_2dim_array_macro(
     interfinger_rmult: int=1,
     dummy_routes: bool=True,
     pattern: Union[list[list[str]], list[list[int]], list[str], list[int], None] = None,
+    is_gate_shared: bool = False,
+    is_src_shared: bool = False,
 ) -> Component:
     """create a multiplier array with multiplier_0 at the bottom
     The array is correctly centered
@@ -545,6 +576,8 @@ def __mult_2dim_array_macro(
             interfinger_rmult=interfinger_rmult,
             dummy_routes=dummy_routes,
             pattern=column_pattern,
+            is_gate_shared=is_gate_shared,
+            is_src_shared=is_src_shared,
             centered=False
         )
         l_cols.append(multiplier_arr)
@@ -597,6 +630,8 @@ def __mult_2dim_array_macro(
                     interfinger_rmult=interfinger_rmult,
                     dummy_routes=dummy_routes,
                     pattern=t_pattern[0],
+                    is_gate_shared=is_gate_shared,
+                    is_src_shared=is_src_shared,
                     centered=False,
                dummy_separation_rmult=dummy_separation_rmult
             )
@@ -619,6 +654,8 @@ def __mult_2dim_array_macro(
                     interfinger_rmult=interfinger_rmult,
                     dummy_routes=dummy_routes,
                     pattern=t_pattern[0],
+                    is_gate_shared=is_gate_shared,
+                    is_src_shared=is_src_shared,
                     centered=False,
                    dummy_separation_rmult=dummy_separation_rmult
             )
@@ -650,26 +687,82 @@ def __mult_2dim_array_macro(
     # then we can check the width for it and add the required space accordingly
     # we assume the width is the same in west as the east
 
+    # Here we placed gate and drain to the same side (bottom or top)
     sample_element = list(element_positions.keys())[0]
     sample_col=element_positions[sample_element][0]
-    sample_gate_port="col_"+ str(sample_col) +"_" + sample_element + "_gate_S"
+    if not is_gate_shared:
+        sample_gate_port="col_"+ str(sample_col) +"_" + sample_element + "_gate_S"
+    else:
+        sample_gate_port="col_"+ str(sample_col) +"_gate_S"
+
     sample_drain_port=( "col_"+ str(sample_col)+"_" + sample_element +
                            "_drain_S" )
-    base_port_width= multiplier_2dim_arr[sample_gate_port].width
-    collector_port_width = multiplier_2dim_arr[sample_drain_port].width
-    gd_distance = base_port_width/2 + collector_port_width/2 + 2*pdk.get_grule("met4")["min_separation"]
+    gate_port_width= multiplier_2dim_arr[sample_gate_port].width
+    drain_port_width = multiplier_2dim_arr[sample_drain_port].width
+    gd_distance = gate_port_width/2 + drain_port_width/2 + 2*pdk.get_grule("met4")["min_separation"]
 
     print(sample_gate_port)
     print(sample_drain_port)
     print(gd_distance)
 
     gd_side = "S" if gd_route_bottom else "N"
-    gate_side = "N" if gd_route_bottom else "S"
+    src_side = "N" if gd_route_bottom else "S"
 
     pins = ["drain", "gate", "source"]
-    sides = [gd_side, gd_side, gate_side]
-    distances = [0, gd_distance, 0]
+    sides = [gd_side, gd_side, src_side]
+    distances = [gd_distance, 0, 0]
     shift_factors = [2, 2, 1]
+
+    if is_src_shared:
+        src_idx = pins.index("source")
+        pins.pop(src_idx)
+        sides.pop(src_idx)
+        distances.pop(src_idx)
+        shift_factors.pop(src_idx)
+
+    if is_gate_shared:
+        gate_idx = pins.index("gate")
+        pins.pop(gate_idx)
+        sides.pop(gate_idx)
+        distances.pop(gate_idx)
+        shift_factors.pop(gate_idx)
+        drain_idx = pins.index("drain")
+        shift_factors[drain_idx]=1
+
+
+    if is_src_shared:
+        for n in range(len(pattern[0])-1):
+            this_portpfx = "col_" + str(n) + "_"
+            next_portpfx = "col_" + str(n+1) + "_"
+            this_port = this_portpfx + "source_" + src_side
+            next_port = next_portpfx + "source_" + src_side
+
+            ref = multiplier_2dim_arr << c_route(pdk,
+                                                      multiplier_2dim_arr.ports[this_port],
+                                                      multiplier_2dim_arr.ports[next_port],
+                                                  viaoffset=(True,False),
+                                                  extension=0)
+            multiplier_2dim_arr.add_ports(ref.get_ports_list(),
+                                          prefix="_".join(["route",
+                                                           str(n),
+                                                           "source"]))
+
+    if is_gate_shared:
+        for n in range(len(pattern[0])-1):
+            this_portpfx = "col_" + str(n) + "_"
+            next_portpfx = "col_" + str(n+1) + "_"
+            this_port = this_portpfx + "gate_" + gd_side
+            next_port = next_portpfx + "gate_" + gd_side
+
+            ref = multiplier_2dim_arr << c_route(pdk,
+                                                      multiplier_2dim_arr.ports[this_port],
+                                                      multiplier_2dim_arr.ports[next_port],
+                                                  viaoffset=(True,False),
+                                                  extension=0)
+            multiplier_2dim_arr.add_ports(ref.get_ports_list(),
+                                          prefix="_".join(["route",
+                                                           str(n),
+                                                           "gate"]))
 
     correction_factor=0
     for n, element in enumerate(element_positions.keys()):
@@ -728,6 +821,8 @@ def nmos(
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
     dummy_routes: bool=True,
     pattern: Union[list[str], list[int], None] = None,
+    is_gate_shared: bool = False,
+    is_src_shared: bool = False,
 ) -> Component:
     """Generic NMOS generator
     pdk: mapped pdk to use
@@ -783,7 +878,9 @@ def nmos(
         gate_rmult=gate_rmult,
         interfinger_rmult=interfinger_rmult,
         dummy_routes=dummy_routes,
-        pattern=pattern
+        pattern=pattern,
+        is_gate_shared=is_gate_shared,
+        is_src_shared=is_src_shared,
     )
     multiplier_arr_ref = multiplier_arr.ref()
     nfet.add(multiplier_arr_ref)
@@ -894,6 +991,8 @@ def pmos(
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
     dummy_routes: bool=True,
     pattern: Union[list[str], list[int], None] = None,
+    is_gate_shared: bool = False,
+    is_src_shared: bool = False,
 ) -> Component:
     """Generic PMOS generator
     pdk: mapped pdk to use
@@ -949,7 +1048,9 @@ def pmos(
         interfinger_rmult=interfinger_rmult,
         sd_rmult=sd_rmult,
         dummy_routes=dummy_routes,
-        pattern=pattern
+        pattern=pattern,
+        is_gate_shared=is_gate_shared,
+        is_src_shared=is_src_shared,
     )
     multiplier_arr_ref = multiplier_arr.ref()
     pfet.add(multiplier_arr_ref)
