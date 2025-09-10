@@ -1023,7 +1023,7 @@ def pmos(
     fingers: Optional[int] = 1,
     multipliers: Optional[int] = 1,
     with_tie: Optional[bool] = True,
-    dnwell: Optional[bool] = False,
+    with_dnwell: Optional[bool] = False,
     with_dummy: Optional[Union[bool, tuple[bool, bool]]] = True,
     with_substrate_tap: Optional[bool] = True,
     length: Optional[float] = None,
@@ -1144,7 +1144,7 @@ def pmos(
                     dummy_port_name = "col_" + str(multipliers[0]-1) + "_" + dummy_port_name
                 pfet<<straight_route(pdk,pfet.ports[dummy_port_name],pfet.ports[f"tie_E_top_met_E"],glayer2="met1")
     # add nwell
-    nwell_glayer = "dnwell" if dnwell else "nwell"
+    nwell_glayer = "dnwell" if with_dnwell else "nwell"
     pfet.add_padding(
         layers=(pdk.get_glayer(nwell_glayer),),
         default=pdk.get_grule("active_tap", nwell_glayer)["min_enclosure"],
