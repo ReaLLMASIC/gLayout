@@ -307,7 +307,7 @@ grulesobj["met4"]["via3"] = {}
 grulesobj["met4"]["met4"] = {'min_width': 0.28, 'min_separation': 0.3}
 grulesobj["met4"]["via4"] = {'min_enclosure': 0.12}
 grulesobj["met4"]["met5"] = {}
-grulesobj["met4"]["capmet"] = {}
+grulesobj["met4"]["capmet"] = {'min_enclosure': 0.6}
 grulesobj["via4"]["dnwell"] = {}
 grulesobj["via4"]["pwell"] = {}
 grulesobj["via4"]["nwell"] = {}
@@ -364,7 +364,7 @@ grulesobj["capmet"]["via3"] = {}
 grulesobj["capmet"]["met4"] = {}
 grulesobj["capmet"]["via4"] = {}
 grulesobj["capmet"]["met5"] = {}
-grulesobj["capmet"]["capmet"] = {'capmettop': (42, 0), 'capmetbottom': (36, 0), 'min_separation': 1.2}
+grulesobj["capmet"]["capmet"] = {'capmettop': (81, 0), 'capmetbottom': (46, 0), 'min_separation': 1.2}
 
 grulesobj_5p0 = dict()
 for glayer in MappedPDK.valid_glayers["5p0"]:
@@ -458,7 +458,8 @@ grulesobj_5p0["via3"]["via3"] = {'width': 0.26, 'min_separation': 0.36}
 grulesobj_5p0["via3"]["met4"] = {'min_enclosure': 0.12}
 grulesobj_5p0["met4"]["met4"] = {'min_width': 0.28, 'min_separation': 0.3}
 grulesobj_5p0["met4"]["via4"] = {'min_enclosure': 0.12}
+grulesobj_5p0["met4"]["capmet"] = {'min_enclosure': 0.6}
 grulesobj_5p0["via4"]["via4"] = {'width': 0.26, 'min_separation': 0.36}
 grulesobj_5p0["via4"]["met5"] = {'min_enclosure': 0.12}
 grulesobj_5p0["met5"]["met5"] = {'min_width': 0.28, 'min_separation': 0.3}
-grulesobj_5p0["capmet"]["capmet"] = {'capmettop': (42, 0), 'capmetbottom': (36, 0), 'min_separation': 1.2}
+grulesobj_5p0["capmet"]["capmet"] = {'capmettop': (81, 0), 'capmetbottom': (46, 0), 'min_separation': 1.2}
