@@ -106,6 +106,13 @@ sky130_glayer_mapping = {
     
 }
 
+# Add valid BJT sizes
+
+sky130_valid_bjt_sizes = {
+    "npn" : [ ],
+    "pnp" : [ ],
+}
+
 # openfasoc_dir = Path(__file__).resolve().parent.parent.parent.parent.parent.parent.parent
 
 klayout_drc_file = Path(__file__).resolve().parent / "sky130.lydrc"
@@ -139,7 +146,8 @@ sky130_mapped_pdk = MappedPDK(
     layers=LAYER,
     grules=grulesobj,
     pdk_files=pdk_files,
-    default_decorator=sky130_add_npc
+    default_decorator=sky130_add_npc,
+    valid_bjt_sizes=sky130_valid_bjt_sizes
 )
 # set the grid size
 sky130_mapped_pdk.gds_write_settings.precision = 5*10**-9
