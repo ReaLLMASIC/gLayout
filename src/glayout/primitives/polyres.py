@@ -257,19 +257,20 @@ def add_polyres_labels(pdk: MappedPDK, p_res: Component, length, width, fingers)
 
 # Test different configurations - commented out to avoid execution during import
 # Uncomment the following lines to run tests manually:
-# print("Testing P-type, unsilicided polyresistor...")
-# resistor = add_polyres_labels(gf180_mapped_pdk, poly_resistor(gf180_mapped_pdk, width=1.0, fingers=1, is_snake=True, n_type=False, silicided=False), 1.65, 1.0, 1) 
-# resistor.show()
-# resistor.name = "POLY_RES_P_UNSAL"
-# magic_drc_result = gf180_mapped_pdk.drc_magic(resistor, resistor.name)
-# lvs_result = gf180_mapped_pdk.lvs_netgen(resistor,resistor.name,copy_intermediate_files=True)
-# print("P-type, unsilicided netlist:")
-# print(resistor.info['netlist'].generate_netlist())
-
-# # Test N-type, silicided
-# print("\nTesting N-type, silicided polyresistor...")
-# resistor_n_sal = add_polyres_labels(gf180_mapped_pdk, poly_resistor(gf180_mapped_pdk, width=1.0, fingers=1, is_snake=True, n_type=True, silicided=True), 1.65, 1.0, 1)
-# resistor_n_sal.show()
-# resistor_n_sal.name = "POLY_RES_N_SAL"
-# print("N-type, silicided netlist:")
-# print(resistor_n_sal.info['netlist'].generate_netlist())
+if __name__ == "__main__":
+    print("Testing P-type, unsilicided polyresistor...")
+    resistor = add_polyres_labels(gf180_mapped_pdk, poly_resistor(gf180_mapped_pdk, width=1.0, fingers=1, is_snake=True, n_type=False, silicided=False), 1.65, 1.0, 1) 
+    resistor.show()
+    resistor.name = "POLY_RES_P_UNSAL"
+    magic_drc_result = gf180_mapped_pdk.drc_magic(resistor, resistor.name)
+    lvs_result = gf180_mapped_pdk.lvs_netgen(resistor,resistor.name,copy_intermediate_files=True)
+    print("P-type, unsilicided netlist:")
+    print(resistor.info['netlist'].generate_netlist())
+    
+    # Test N-type, silicided
+    print("\nTesting N-type, silicided polyresistor...")
+    resistor_n_sal = add_polyres_labels(gf180_mapped_pdk, poly_resistor(gf180_mapped_pdk, width=1.0, fingers=1, is_snake=True, n_type=True, silicided=True), 1.65, 1.0, 1)
+    resistor_n_sal.show()
+    resistor_n_sal.name = "POLY_RES_N_SAL"
+    print("N-type, silicided netlist:")
+    print(resistor_n_sal.info['netlist'].generate_netlist())
