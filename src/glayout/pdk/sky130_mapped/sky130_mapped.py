@@ -3,7 +3,7 @@ usage: from sky130_mapped import sky130_mapped_pdk
 """
 
 from ..mappedpdk import MappedPDK, SetupPDKFiles
-from ..sky130_mapped.sky130_grules import grulesobj
+from ..sky130_mapped.sky130_grules import grulesobj, grulesobj_5p0
 from pathlib import Path
 from ..sky130_mapped.sky130_add_npc import sky130_add_npc
 import os
@@ -106,6 +106,13 @@ sky130_glayer_mapping = {
     
 }
 
+# Add valid BJT sizes
+
+sky130_valid_bjt_sizes = {
+    "npn" : [ ],
+    "pnp" : [ ],
+}
+
 # openfasoc_dir = Path(__file__).resolve().parent.parent.parent.parent.parent.parent.parent
 
 klayout_drc_file = Path(__file__).resolve().parent / "sky130.lydrc"
@@ -138,8 +145,12 @@ sky130_mapped_pdk = MappedPDK(
     },
     layers=LAYER,
     grules=grulesobj,
+    grules_3p3=grulesobj,
+    grules_5p0=grulesobj_5p0,
     pdk_files=pdk_files,
-    default_decorator=sky130_add_npc
+    default_decorator=sky130_add_npc,
+    valid_bjt_sizes=sky130_valid_bjt_sizes,
+    domain="3p3"
 )
 # set the grid size
 sky130_mapped_pdk.gds_write_settings.precision = 5*10**-9

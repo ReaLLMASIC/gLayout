@@ -2,7 +2,7 @@
 usage: from gf180_mapped import gf180_mapped_pdk
 """
 
-from ..gf180_mapped.gf180_grules import grulesobj
+from ..gf180_mapped.gf180_grules import grulesobj, grulesobj_5p0
 from ..mappedpdk import MappedPDK, SetupPDKFiles
 from pathlib import Path
 import os
@@ -30,6 +30,12 @@ LAYER = {
     "lvpwell": (204, 0),
     "dnwell": (12, 0),
     "CAP_MK": (117, 5),
+    # BJT layers
+    "drc_bjt": (127, 5),
+    "lvs_bjt": (118, 5),
+    # 5V layers
+    "dualgate": (55,0),
+    "v5_xtor": (112,1),
     # _Label Layer Definations
     "metal5_label": (81,10),
     "metal4_label": (46,10),
@@ -60,6 +66,12 @@ gf180_glayer_mapping = {
     "pwell": "lvpwell",
     "dnwell": "dnwell",
     "capmet": "CAP_MK",
+    # bjt layer
+    "drc_bjt": "drc_bjt",
+    "lvs_bjt": "lvs_bjt",
+    # 5V layer
+    "dualgate": "dualgate",
+    "v5_xtor": "v5_xtor",
     # _pin layer ampping
     "met5_pin": "metal5_label",
     "met4_pin": "metal4_label",
@@ -76,6 +88,25 @@ gf180_glayer_mapping = {
     "met1_label": "metal1_label",
     "poly_label": "poly2_label",
     "active_diff_label": "comp_label",
+}
+
+# Add valid BJT sizes
+
+gf180_valid_bjt_sizes = {
+    "npn" : [
+        (0.54, 2.0),
+        (0.54, 4.0),
+        (0.54, 8.0),
+        (0.54, 16.0),
+        (5.0, 5.0),
+        (10.0, 10.0),
+    ],
+    "pnp" : [
+        (5.0, 0.42),
+        (5.0, 5.0),
+        (10.0, 0.42),
+        (10.0, 10.0),
+    ],
 }
 
 # note for DRC, there is mim_option 'A'. This is the one configured for use
@@ -111,6 +142,10 @@ gf180_mapped_pdk = MappedPDK(
     layers=LAYER,
     pdk_files=pdk_files,
     grules=grulesobj,
+    grules_3p3=grulesobj,
+    grules_5p0=grulesobj_5p0,
+    valid_bjt_sizes=gf180_valid_bjt_sizes,
+    domain="3p3"
 )
 
 # configure the grid size and other settings

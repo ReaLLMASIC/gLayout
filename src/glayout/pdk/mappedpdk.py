@@ -239,7 +239,7 @@ class MappedPDK(Pdk):
     has_required_glayers(list[str]) is used to verify all required generic layers are
     present"""
 
-    valid_glayers: ClassVar[tuple[str]] = (
+    valid_glayers_3p3: tuple[str] = (
         "dnwell",
         "pwell",
         "nwell",
@@ -259,6 +259,8 @@ class MappedPDK(Pdk):
         "via4",
         "met5",
         "capmet",
+        "lvs_bjt",
+        "drc_bjt",
         # _pin layers
         "met5_pin",
         "met4_pin",
@@ -281,6 +283,22 @@ class MappedPDK(Pdk):
         #"pwell_label",
     )
 
+    valid_glayers_5p0: list[str]=list(valid_glayers_3p3)
+    valid_glayers_5p0.extend([
+        "dualgate",
+        "v5_xtor"
+    ])
+
+    valid_domains: ClassVar[tuple] = (
+        "3p3",
+        "5p0"
+    )
+
+    valid_glayers: ClassVar[dict[str,list[str]]] = {
+        "3p3": valid_glayers_3p3,
+        "5p0": valid_glayers_5p0,
+    }
+
     models: dict = {
         "nfet": "",
         "pfet": "",
@@ -290,7 +308,14 @@ class MappedPDK(Pdk):
     glayers: dict[StrictStr, Union[StrictStr, tuple[int,int]]]
     # friendly way to implement a graph
     grules: dict[StrictStr, dict[StrictStr, Optional[dict[StrictStr, Any]]]]
+    grules_3p3: dict[StrictStr, dict[StrictStr, Optional[dict[StrictStr, Any]]]]
+    grules_5p0: dict[StrictStr, dict[StrictStr, Optional[dict[StrictStr, Any]]]]
+
     pdk_files: dict[StrictStr, Union[PathType, None]]
+
+    domain: str
+
+    valid_bjt_sizes: dict[StrictStr,  list[tuple[float,float]]]
 
     @validator("models")
     def models_check(cls, models_obj: dict[StrictStr, StrictStr]):
@@ -298,6 +323,13 @@ class MappedPDK(Pdk):
             if not model in ["nfet","pfet","mimcap"]:
                 raise ValueError(f"specify nfet, pfet, or mimcap models only")
         return models_obj
+
+
+    @validator("domain")
+    def domain_check(cls, domain:str):
+        if domain not in cls.valid_domains:
+            raise ValueError("Domain set is not currently supported."
+                             f"Available options: {cls.valid_domains}")
 
     @validator("glayers")
     def glayers_check_keys(cls, glayers_obj: dict[StrictStr, Union[StrictStr, tuple[int,int]]]):
@@ -307,9 +339,10 @@ class MappedPDK(Pdk):
         for glayer, mapped_layer in glayers_obj.items():
             if (not isinstance(glayer, str)) or (not isinstance(mapped_layer, Union[str, tuple])):
                 raise TypeError("glayers should be passed as dict[str, Union[StrictStr, tuple[int,int]]]")
-            if glayer not in cls.valid_glayers:
+            if glayer not in cls.valid_glayers["5p0"]:
                 raise ValueError(
                     "glayers keys must be one of generic layers listed in class variable valid_glayers"
+                    " for selected domain."
                 )
         return glayers_obj
 
@@ -989,18 +1022,27 @@ exit
         else:
             return self.get_layer(direct_mapping)
 
+
+    @validate_arguments
+    def set_domain(self, domain):
+        if domain not in MappedPDK.valid_domains:
+            raise ValueError("Not a supported domain"
+                             f"Available options: {MappedPDK.valid_domains}")
+        self.domain = domain
+        self.grules = self.grules_3p3 if self.domain == "3p3" else self.grules_5p0
+
     @validate_arguments
     def get_grule(
         self, glayer1: str, glayer2: Optional[str] = None, return_decimal = False
     ) -> dict[StrictStr, Union[float,Decimal]]:
         """Returns a dictionary describing the relationship between two layers
         If one layer is specified, returns a dictionary with all intra layer rules"""
-        if glayer1 not in MappedPDK.valid_glayers:
+        if glayer1 not in MappedPDK.valid_glayers[self.domain]:
             raise ValueError("get_grule, " + str(glayer1) + " not valid glayer")
         # decide if two or one inputs and set rules_dict accordingly
         rules_dict = None
         if glayer2 is not None:
-            if glayer2 not in MappedPDK.valid_glayers:
+            if glayer2 not in MappedPDK.valid_glayers[self.domain]:
                 raise ValueError("get_grule, " + str(glayer2) + " not valid glayer")
             rules_dict = self.grules.get(glayer1, dict()).get(glayer2)
             if rules_dict is None or rules_dict == {}:
