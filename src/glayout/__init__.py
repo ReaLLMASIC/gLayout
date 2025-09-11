@@ -12,6 +12,7 @@ from .primitives.fet import nmos, pmos, multiplier
 from .primitives.guardring import tapring
 from .primitives.mimcap import mimcap, mimcap_array
 from .primitives.resistor import resistor
+from .primitives.polyres import poly_resistor, add_polyres_labels
 
 from .spice import Netlist
 
@@ -38,6 +39,8 @@ __all__ = [
     "mimcap",
     "mimcap_array",
     "resistor",
+    "poly_resistor", 
+    "add_polyres_labels",
     "evaluate_bbox",
     "center_to_edge_distance",
     "to_float",

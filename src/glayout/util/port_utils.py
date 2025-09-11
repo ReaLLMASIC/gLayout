@@ -468,6 +468,7 @@ class PortTree:
 		extra_kwargs.update(kwargs)
 		pt = PrettyPrintTree(self.get_children, self.get_val, max_depth=depth, **extra_kwargs)
 		rtrstr = pt(self)
+		#rtrstr = "PrettyPrintTree disabled"
 		if rtrstr:
 			outfile_name = "outputtree.txt" if outfile_name is None else outfile_name
 			with open(outfile_name,"w") as outputfile:
