@@ -588,7 +588,7 @@ def __mult_2dim_array_macro(
             width,
             fingers,
             len(column_pattern),
-            dummy=False,
+            dummy=False if len(t_pattern)>1 else dummy,
             length=length,
             sd_route_topmet=sd_route_topmet,
             gate_route_topmet=gate_route_topmet,
@@ -636,7 +636,7 @@ def __mult_2dim_array_macro(
     else:
         dummyl, dummyr = dummy
 
-    if dummyl:
+    if dummyl and len(t_pattern)>1:
         dummy_L = __mult_array_macro(
                     pdk,
                     sdlayer,
@@ -661,7 +661,7 @@ def __mult_2dim_array_macro(
             )
         l_cols[0]=dummy_L
 
-    if dummyr:
+    if dummyr and len(t_pattern)>1:
         dummy_R = __mult_array_macro(
                     pdk,
                     sdlayer,
@@ -685,6 +685,7 @@ def __mult_2dim_array_macro(
                    dummy_separation_rmult=dummy_separation_rmult
             )
         l_cols[-1]=dummy_R
+
 
 
     _max_metal_separation_ps = max([pdk.get_grule("met"+str(i))["min_separation"] for i in range(1,5)])
@@ -1135,12 +1136,12 @@ def pmos(
         for row in range(n_dummies):
             if dummyl:
                 dummy_port_name = f"multiplier_{row}_dummy_L_gsdcon_top_met_W"
-                if level >1:
+                if level >1 or pattern is not None:
                     dummy_port_name = "col_0_" + dummy_port_name
                 pfet<<straight_route(pdk,pfet.ports[dummy_port_name],pfet.ports[f"tie_W_top_met_W"],glayer2="met1")
             if dummyr:
                 dummy_port_name = f"multiplier_{row}_dummy_R_gsdcon_top_met_E"
-                if level >1:
+                if level >1 or pattern is not None:
                     dummy_port_name = "col_" + str(multipliers[0]-1) + "_" + dummy_port_name
                 pfet<<straight_route(pdk,pfet.ports[dummy_port_name],pfet.ports[f"tie_E_top_met_E"],glayer2="met1")
     # add nwell
