@@ -4,7 +4,7 @@ from gdsfactory.components.rectangle import rectangle
 from glayout.pdk.mappedpdk import MappedPDK
 from typing import Optional
 from glayout.primitives.via_gen import via_array
-from glayout.util.comp_utils import prec_array, to_decimal, to_float
+from glayout.util.comp_utils import prec_array, to_decimal, to_float, evaluate_bbox
 from glayout.util.port_utils import rename_ports_by_orientation, add_ports_perimeter, print_ports
 from pydantic import validate_arguments
 from glayout.routing.straight_route import straight_route
@@ -55,28 +55,98 @@ def __generate_mimcap_array_netlist(mimcap_netlist: Netlist, num_caps: int) -> N
 def mimcap(
     pdk: MappedPDK, size: tuple[float,float]=(5.0, 5.0)
 ) -> Component:
-    """create a mimcap
+    """create a MIM capacitor according to GF180MCU Option B
+    
+    MIM Option B structure (from GF180MCU documentation):
+    - FuseTop layer defines the top plate area
+    - Metal5 (top metal) forms the actual top plate 
+    - CAP_MK defines the dielectric
+    - Metal4 (bottom metal) forms the bottom plate
+    - MIM_L_MK marks the capacitor's length dimension
+    
+    Note: Option B is for MIM between "Top metal" & "Top metal-1" (Met5 & Met4)
+    
     args:
     pdk=pdk to use
-    size=tuple(float,float) size of cap
-    ****Note: size is the size of the capmet layer
+    size=tuple(float,float) size of cap (this will be the FuseTop area)
+    
     ports:
-    top_met_...all edges, this is the metal over the capmet
-    bottom_met_...all edges, this is the metal below capmet
+    top_met_...all edges, this is the metal5 (top plate)
+    bottom_met_...all edges, this is the metal4 (bottom plate)
     """
     size = pdk.snap_to_2xgrid(size)
-    # error checking and
+    
+    # Minimum area check per MIMTM.8a (5*5 um2)
+    min_area = 25.0  # 5*5 um2
+    if size[0] * size[1] < min_area:
+        print(f"Warning: MIM cap area {size[0]*size[1]:.2f} um2 is below minimum {min_area} um2")
+    
+    # Maximum area check per MIMTM.8b (100*100 um2)
+    max_area = 10000.0  # 100*100 um2
+    if size[0] * size[1] > max_area:
+        raise ValueError(f"MIM cap area {size[0]*size[1]:.2f} um2 exceeds maximum {max_area} um2")
+    
+    # Get layer construction info - for Option B this should be met5 (top) and met4 (bottom)
     capmettop, capmetbottom = __get_mimcap_layerconstruction_info(pdk)
-    # create top component
+    
+    # Verify we have the correct layers for Option B
+    assert capmettop == "met5", f"Expected met5 for top layer, got {capmettop}"
+    assert capmetbottom == "met4", f"Expected met4 for bottom layer, got {capmetbottom}"
+    
+    # Create main component
     mim_cap = Component()
-    mim_cap << rectangle(size=size, layer=pdk.get_glayer("capmet"), centered=True)
+    
+    # 1. Create FuseTop layer - this defines the MIM area according to MIMTM rules
+    fusetop_ref = mim_cap << rectangle(
+        size=size, 
+        layer=pdk.layers["fusetop"], 
+        centered=True
+    )
+    
+    # 2. Create CAP_MK layer - dielectric layer
+    # Per MIMTM.7: Min FuseTop enclosure by CAP_MK = 0 (CAP_MK can be same size as FuseTop)
+    cap_mk_ref = mim_cap << rectangle(
+        size=size, 
+        layer=pdk.get_glayer("capmet"), 
+        centered=True
+    )
+    
+    # 3. Create top metal plate (metal5) with via connections to metal4
     top_met_ref = mim_cap << via_array(
         pdk, capmetbottom, capmettop, size=size, minus1=True, lay_bottom=False
     )
-    bottom_met_enclosure = pdk.get_grule(capmetbottom,"capmet")["min_enclosure"]
-    mim_cap.add_padding(layers=(pdk.get_glayer(capmetbottom),),default=bottom_met_enclosure)
-    # flatten and create ports
-    mim_cap = add_ports_perimeter(mim_cap, layer=pdk.get_glayer(capmetbottom), prefix="bottom_met_")
+    
+    # 4. Create bottom metal plate (metal4) with proper enclosure
+    # Per MIMTM.3: Minimum MiM bottom plate overlap of Top plate = 0.6um
+    bottom_met_enclosure = max(
+        pdk.get_grule(capmetbottom, "capmet")["min_enclosure"],
+        0.6  # MIMTM.3 rule
+    )
+    mim_cap.add_padding(
+        layers=(pdk.get_glayer(capmetbottom),), 
+        default=bottom_met_enclosure
+    )
+    
+    # 5. Add MIM_L_MK layer - marks the capacitor length
+    # This should encircle the entire design with some margin
+    current_size = evaluate_bbox(mim_cap)
+    mim_l_mk_size = (
+        current_size[0] + 0.2,  # Add 0.1um margin on each side
+        current_size[1] + 0.2
+    )
+    
+    mim_l_mk_ref = mim_cap << rectangle(
+        size=mim_l_mk_size,
+        layer=pdk.layers["MIM_L_MK"],
+        centered=True
+    )
+    
+    # Create ports
+    mim_cap = add_ports_perimeter(
+        mim_cap, 
+        layer=pdk.get_glayer(capmetbottom), 
+        prefix="bottom_met_"
+    )
     mim_cap.add_ports(top_met_ref.get_ports_list())
 
     component = rename_ports_by_orientation(mim_cap).flatten()
