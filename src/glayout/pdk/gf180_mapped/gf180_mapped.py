@@ -33,6 +33,8 @@ LAYER = {
     # BJT layers
     "drc_bjt": (127, 5),
     "lvs_bjt": (118, 5),
+    "MIM_L_MK": (117, 10),
+    "fusetop": (75, 0),
     # _Label Layer Definations
     "metal5_label": (81,10),
     "metal4_label": (46,10),
@@ -103,7 +105,7 @@ gf180_valid_bjt_sizes = {
     ],
 }
 
-# note for DRC, there is mim_option 'A'. This is the one configured for use
+# note for DRC, there is mim_option 'B'. This is the one configured for use
 
 gf180_lydrc_file_path = Path(__file__).resolve().parent / "gf180mcu_drc_wrapper.drc"
 # openfasoc_dir = Path(__file__).resolve().parent.parent.parent.parent.parent.parent.parent
