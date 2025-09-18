@@ -275,14 +275,8 @@ def wide_swing_current_mirror(pdk, fet_type="nmos", domain="3p3",
                           short_gate_drain_cascode=short_gate_drain_cascode
     )
 
-    generator = nmos if fet_type=="nmos" else pmos
-
-
-    if len(multipliers_cascode_ref )>1:
-        pattern_cascode_ref = [["casref"]*multipliers_cascode_ref[0]]*multipliers_cascode_ref[1]
-    else:
-        pattern_cascode_ref = None
-    cascode_ref = generator(pdk,
+    cascode_ref = fet_unit(pdk,
+                     fet_type=fet_type,
                      domain=domain,
                      width= width_cascode_ref,
                      length=length_cascode_ref,
@@ -291,9 +285,9 @@ def wide_swing_current_mirror(pdk, fet_type="nmos", domain="3p3",
                      with_dnwell=with_dnwell,
                      with_tie=with_tie,
                      with_substrate_tap=with_substrate_tap,
-                     pattern=pattern_cascode_ref,
-                     is_gate_shared=True,
-                     is_src_shared=True)
+                     with_dummy = True,
+                     is_bs_connected=True,
+                     is_diode_connected=True)
 
     height_wo_ref = component.ymax
     cascode_ref_height = cascode_ref.ymax
@@ -307,39 +301,7 @@ def wide_swing_current_mirror(pdk, fet_type="nmos", domain="3p3",
 
     component.add_ports(ref.get_ports_list(), prefix="cref_")
 
-    sside = "S" if fet_type == "nmos" else "N"
-    bside = "N" if fet_type == "nmos" else "S"
     dside = "N" if fet_type == "nmos" else "S"
-
-    ref_bulk_port = ("cref_tie_" + sside + "_array_row0_col0_top_met_"
-                     + bside)
-
-    for index in range(len(pattern_cascode_ref[0])):
-        src_port_name = ("cref_col_" + str(index)
-                         +"_source_" + sside)
-
-        bs_route_ref = component << straight_route(pdk,
-                                                   component.ports[src_port_name],
-                                                   component.ports[ref_bulk_port])
-
-        component.add_ports(bs_route_ref.get_ports_list(),
-                            prefix="cref_bs_route_"+str(index)+"_")
-
-
-        drain_port_name = ("cref_col_" + str(index) + "_" +
-                           pattern_cascode_ref[0][index] + "_drain_" + dside)
-        gate_port_name = "cref_col_" + str(index) + "_gate_" + dside
-
-        ref= component << c_route(pdk,
-                             component.ports[drain_port_name],
-                             component.ports[gate_port_name],
-                             viaoffset=(True,False),
-                             extension=0
-                             )
-        component.add_ports(ref.get_ports_list(),
-                                          prefix="_".join(["cref_route",
-                                                           str(index),
-                                                           "diode"]))
 
     port_gate_cref = "cref_col_" + str(0) + "_gate_" + dside
     port_gate_c = "c_route_0_gatecon_W"
