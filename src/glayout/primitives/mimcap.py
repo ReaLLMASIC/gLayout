@@ -137,8 +137,9 @@ def mimcap(
     )
     
     # 3. Create top metal plate with via connections
+    # Use minus1=False to get maximum via coverage like KLayout generator
     top_met_ref = mim_cap << via_array(
-        pdk, capmetbottom, capmettop, size=size, minus1=True, lay_bottom=False
+        pdk, capmetbottom, capmettop, size=size, minus1=False, lay_bottom=False
     )
     
     # 4. Add FuseTop layer - required for both options (defines the MIM area)
