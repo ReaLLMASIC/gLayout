@@ -53,28 +53,40 @@ def __generate_mimcap_array_netlist(mimcap_netlist: Netlist, num_caps: int) -> N
 
 #@cell
 def mimcap(
-    pdk: MappedPDK, size: tuple[float,float]=(5.0, 5.0)
+    pdk: MappedPDK, size: tuple[float,float]=(5.0, 5.0), option: str = "B"
 ) -> Component:
-    """create a MIM capacitor according to GF180MCU Option B
+    """create a MIM capacitor according to GF180MCU Option A or Option B
     
-    MIM Option B structure (from GF180MCU documentation):
+    MIM Option A structure (Metal3-Metal2 stack):
+    - FuseTop layer defines the top plate of MIM capacitor
+    - Metal3 forms the actual top plate 
+    - CAP_MK defines the dielectric layer
+    - Metal2 forms the bottom plate
+    - For 3 metal layer processes
+    
+    MIM Option B structure (Metal5-Metal4 stack):
     - FuseTop layer defines the top plate area
     - Metal5 (top metal) forms the actual top plate 
     - CAP_MK defines the dielectric
     - Metal4 (bottom metal) forms the bottom plate
     - MIM_L_MK marks the capacitor's length dimension
-    
-    Note: Option B is for MIM between "Top metal" & "Top metal-1" (Met5 & Met4)
+    - For 4+ metal layer processes
     
     args:
     pdk=pdk to use
-    size=tuple(float,float) size of cap (this will be the FuseTop area)
+    size=tuple(float,float) size of cap
+    option=str either "A" for Metal3-Metal2 or "B" for Metal5-Metal4 (default: "B")
     
     ports:
-    top_met_...all edges, this is the metal5 (top plate)
-    bottom_met_...all edges, this is the metal4 (bottom plate)
+    top_met_...all edges, this is the top metal plate
+    bottom_met_...all edges, this is the bottom metal plate
     """
     size = pdk.snap_to_2xgrid(size)
+    
+    # Validate option parameter - default to Option B if invalid
+    if option not in ["A", "B"]:
+        print(f"Warning: Invalid option '{option}'. Defaulting to Option B")
+        option = "B"
     
     # Minimum area check per MIMTM.8a (5*5 um2)
     min_area = 25.0  # 5*5 um2
@@ -86,60 +98,67 @@ def mimcap(
     if size[0] * size[1] > max_area:
         raise ValueError(f"MIM cap area {size[0]*size[1]:.2f} um2 exceeds maximum {max_area} um2")
     
-    # Get layer construction info - for Option B this should be met5 (top) and met4 (bottom)
-    capmettop, capmetbottom = __get_mimcap_layerconstruction_info(pdk)
-    
-    # Verify we have the correct layers for Option B
-    assert capmettop == "met5", f"Expected met5 for top layer, got {capmettop}"
-    assert capmetbottom == "met4", f"Expected met4 for bottom layer, got {capmetbottom}"
+    # Set layer construction based on option
+    if option == "A":
+        # Option A: Metal3-Metal2 stack (for 3 metal layer processes)
+        capmettop = "met3"
+        capmetbottom = "met2"
+    else:  # option == "B"
+        # Option B: Metal5-Metal4 stack (for 4+ metal layer processes)
+        capmettop = "met5" 
+        capmetbottom = "met4"
     
     # Create main component
     mim_cap = Component()
     
-    # 1. Create FuseTop layer - this defines the MIM area according to MIMTM rules
-    fusetop_ref = mim_cap << rectangle(
-        size=size, 
-        layer=pdk.layers["fusetop"], 
-        centered=True
-    )
-    
-    # 2. Create CAP_MK layer - dielectric layer
-    # Per MIMTM.7: Min FuseTop enclosure by CAP_MK = 0 (CAP_MK can be same size as FuseTop)
+    # 1. Create CAP_MK layer - dielectric layer (common to both options)
     cap_mk_ref = mim_cap << rectangle(
         size=size, 
         layer=pdk.get_glayer("capmet"), 
         centered=True
     )
     
-    # 3. Create top metal plate (metal5) with via connections to metal4
+    # 2. Create top and bottom metal plates with via connections
     top_met_ref = mim_cap << via_array(
         pdk, capmetbottom, capmettop, size=size, minus1=True, lay_bottom=False
     )
     
-    # 4. Create bottom metal plate (metal4) with proper enclosure
-    # Per MIMTM.3: Minimum MiM bottom plate overlap of Top plate = 0.6um
-    bottom_met_enclosure = max(
-        pdk.get_grule(capmetbottom, "capmet")["min_enclosure"],
-        0.6  # MIMTM.3 rule
-    )
+    # 3. Create bottom metal plate with proper enclosure
+    # Per design rules: Minimum bottom plate overlap of top plate = 0.6um
+    try:
+        bottom_met_enclosure = pdk.get_grule(capmetbottom, "capmet")["min_enclosure"]
+    except (KeyError, NotImplementedError):
+        bottom_met_enclosure = 0.6  # Default fallback
+    
+    bottom_met_enclosure = max(bottom_met_enclosure, 0.6)  # Ensure minimum 0.6um
+    
     mim_cap.add_padding(
         layers=(pdk.get_glayer(capmetbottom),), 
         default=bottom_met_enclosure
     )
     
-    # 5. Add MIM_L_MK layer - marks the capacitor length
-    # This should encircle the entire design with some margin
-    current_size = evaluate_bbox(mim_cap)
-    mim_l_mk_size = (
-        current_size[0] + 0.2,  # Add 0.1um margin on each side
-        current_size[1] + 0.2
-    )
-    
-    mim_l_mk_ref = mim_cap << rectangle(
-        size=mim_l_mk_size,
-        layer=pdk.layers["MIM_L_MK"],
+    # 4. Add FuseTop layer - required for both options (defines the MIM area)
+    fusetop_ref = mim_cap << rectangle(
+        size=size, 
+        layer=pdk.layers["fusetop"], 
         centered=True
     )
+    
+    # 5. Add option-specific layers
+    if option == "B":
+        # Option B specific: Add MIM_L_MK layer (marks the capacitor length)
+        current_size = evaluate_bbox(mim_cap)
+        mim_l_mk_size = (
+            current_size[0] + 0.2,  # Add 0.1um margin on each side
+            current_size[1] + 0.2
+        )
+        
+        mim_l_mk_ref = mim_cap << rectangle(
+            size=mim_l_mk_size,
+            layer=pdk.layers["MIM_L_MK"],
+            centered=True
+        )
+    # Option A: Only needs FuseTop, CAP_MK, and metal layers (no MIM_L_MK)
     
     # Create ports
     mim_cap = add_ports_perimeter(
@@ -157,20 +176,31 @@ def mimcap(
     return component
 
 #@cell
-def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,float] = (5.0,5.0), rmult: Optional[int]=1) -> Component:
+def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,float] = (5.0,5.0), rmult: Optional[int]=1, option: str = "B") -> Component:
 	"""create mimcap array
 	args:
 	pdk to use
+	rows = number of rows
+	columns = number of columns  
 	size = tuple(float,float) size of a single cap
+	rmult = routing multiplier
+	option = "A" for Metal3-Metal2 or "B" for Metal5-Metal4 (default: "B")
 	****Note: size is the size of the capmet layer
 	ports:
 	cap_x_y_top_met_...all edges, this is the metal over the capmet in row x, col y
 	cap_x_y_bottom_met_...all edges, this is the metal below capmet in row x, col y
 	"""
-	capmettop, capmetbottom = __get_mimcap_layerconstruction_info(pdk)
+	# Set layer construction based on option
+	if option == "A":
+		capmettop = "met3"
+		capmetbottom = "met2"
+	else:  # option == "B"
+		capmettop = "met5" 
+		capmetbottom = "met4"
+		
 	mimcap_arr = Component()
 	# create the mimcap array
-	mimcap_single = mimcap(pdk, size)
+	mimcap_single = mimcap(pdk, size, option=option)
 	mimcap_space = pdk.get_grule("capmet")["min_separation"] #+ evaluate_bbox(mimcap_single)[0]
 	array_ref = mimcap_arr << prec_array(mimcap_single, rows, columns, spacing=2*[mimcap_space])
 	mimcap_arr.add_ports(array_ref.get_ports_list())
