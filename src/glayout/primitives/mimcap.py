@@ -4,7 +4,7 @@ from gdsfactory.components.rectangle import rectangle
 from glayout.pdk.mappedpdk import MappedPDK
 from typing import Optional
 from glayout.primitives.via_gen import via_array
-from glayout.util.comp_utils import prec_array, to_decimal, to_float, evaluate_bbox
+from glayout.util.comp_utils import prec_array, to_decimal, to_float, evaluate_bbox, align_comp_to_port
 from glayout.util.port_utils import rename_ports_by_orientation, add_ports_perimeter, print_ports
 from pydantic import validate_arguments
 from glayout.routing.straight_route import straight_route
@@ -111,19 +111,7 @@ def mimcap(
     # Create main component
     mim_cap = Component()
     
-    # 1. Create CAP_MK layer - dielectric layer (common to both options)
-    cap_mk_ref = mim_cap << rectangle(
-        size=size, 
-        layer=pdk.get_glayer("capmet"), 
-        centered=True
-    )
-    
-    # 2. Create top and bottom metal plates with via connections
-    top_met_ref = mim_cap << via_array(
-        pdk, capmetbottom, capmettop, size=size, minus1=True, lay_bottom=False
-    )
-    
-    # 3. Create bottom metal plate with proper enclosure
+    # 1. Create bottom metal plate with proper enclosure first
     # Per design rules: Minimum bottom plate overlap of top plate = 0.6um
     try:
         bottom_met_enclosure = pdk.get_grule(capmetbottom, "capmet")["min_enclosure"]
@@ -131,26 +119,48 @@ def mimcap(
         bottom_met_enclosure = 0.6  # Default fallback
     
     bottom_met_enclosure = max(bottom_met_enclosure, 0.6)  # Ensure minimum 0.6um
+    bottom_plate_size = (size[0] + 2*bottom_met_enclosure, size[1] + 2*bottom_met_enclosure)
     
-    mim_cap.add_padding(
-        layers=(pdk.get_glayer(capmetbottom),), 
-        default=bottom_met_enclosure
+    bottom_met_ref = mim_cap << rectangle(
+        size=bottom_plate_size,
+        layer=pdk.get_glayer(capmetbottom),
+        centered=True
+    )
+    
+    # 2. Create CAP_MK layer - dielectric layer (with 0.6um overhang to match KLayout generator)
+    cap_mk_overhang = 0.6  # 0.6um overhang on each side to match KLayout standard
+    cap_mk_size = (size[0] + 2*cap_mk_overhang, size[1] + 2*cap_mk_overhang)
+    cap_mk_ref = mim_cap << rectangle(
+        size=cap_mk_size, 
+        layer=pdk.get_glayer("capmet"), 
+        centered=True
+    )
+    
+    # 3. Create top metal plate with via connections
+    top_met_ref = mim_cap << via_array(
+        pdk, capmetbottom, capmettop, size=size, minus1=True, lay_bottom=False
     )
     
     # 4. Add FuseTop layer - required for both options (defines the MIM area)
-    fusetop_ref = mim_cap << rectangle(
+    fusetop_comp = rectangle(
         size=size, 
         layer=pdk.layers["fusetop"], 
         centered=True
     )
     
+    # Add ports to FuseTop for alignment purposes
+    fusetop_comp = add_ports_perimeter(fusetop_comp, layer=pdk.layers["fusetop"], prefix="fusetop_")
+    
+    # Add the FuseTop component to the main component
+    fusetop_ref = mim_cap << fusetop_comp
+    
     # 5. Add option-specific layers
     if option == "B":
         # Option B specific: Add MIM_L_MK layer (marks the capacitor length)
-        current_size = evaluate_bbox(mim_cap)
+        # MIM_L_MK should have height of 0.1um and denote the length of the capacitor
         mim_l_mk_size = (
-            current_size[0] + 0.2,  # Add 0.1um margin on each side
-            current_size[1] + 0.2
+            size[0],  # x = length of capacitor (same as FuseTop)
+            0.1       # y = 0.1um height as specified
         )
         
         mim_l_mk_ref = mim_cap << rectangle(
@@ -158,6 +168,10 @@ def mimcap(
             layer=pdk.layers["MIM_L_MK"],
             centered=True
         )
+        
+        # Align MIM_L_MK to the south border of the MIM capacitor
+        # MIM_L_MK center aligned horizontally, top edge aligned to MIM cap south edge
+        align_comp_to_port(mim_l_mk_ref, fusetop_ref.ports["fusetop_S"], alignment=('c', 't'))
     # Option A: Only needs FuseTop, CAP_MK, and metal layers (no MIM_L_MK)
     
     # Create ports
