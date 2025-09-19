@@ -69,7 +69,10 @@ def poly_resistor(
     res_mk = (110,5)
     p_res = Component()
     contact_length = 2.2
-    separation = pdk.get_grule("poly", "poly")["min_separation"] + width  # Use grules for spacing
+    # Use larger separation to meet PRES/LRES.4 rule (0.6μm spacing to unrelated poly)
+    min_poly_separation = pdk.get_grule("poly", "poly")["min_separation"]
+    unrelated_poly_separation = 0.6  # PRES/LRES.4 rule
+    separation = max(min_poly_separation, unrelated_poly_separation) + width
     #Extend poly for contacts with proper spacing from SAB (use grules for spacing)
     sab_contact_spacing = pdk.get_grule("sab", "mcon")["min_separation"]
     ex_length = length + 2*contact_length + 2*sab_contact_spacing
@@ -94,64 +97,115 @@ def poly_resistor(
 
         # SAB and RES_MK layers will be added after the loop for proper coverage
 
-        #Place poly to li via contact
-        licon1 = via_array(pdk, "poly", "met1", size=(width,contact_length))
-        licon1_ref = prec_ref_center(licon1)
-        #p_res.add(licon1_ref)
-        #movey(licon1_ref, contact_length/2 + length/2)
+        #Place poly to met1 contacts with proper overlap (CO.3 rule: 0.07μm poly overlap)
+        # Create contacts directly to ensure proper overlap
+        contact_size = 0.22  # Standard contact size
+        poly_overlap = 0.07  # CO.3 rule requirement
+        
+        # Top contact
+        top_contact = rectangle(size=(contact_size, contact_size), layer=pdk.get_glayer("mcon"), centered=True)
+        top_contact_ref = prec_ref_center(top_contact)
+        p_res.add(top_contact_ref)
+        movey(top_contact_ref, contact_length/2 + length/2 + sab_contact_spacing)
+        movex(top_contact_ref, (i)*separation)
+        
+        # Bottom contact
+        bot_contact = rectangle(size=(contact_size, contact_size), layer=pdk.get_glayer("mcon"), centered=True)
+        bot_contact_ref = prec_ref_center(bot_contact)
+        p_res.add(bot_contact_ref)
+        movey(bot_contact_ref, - contact_length/2 - length/2 - sab_contact_spacing)
+        movex(bot_contact_ref, (i)*separation)
+        
+        # Extend poly to ensure proper overlap with contacts
+        poly_extension = poly_overlap + contact_size/2
+        top_poly_ext = rectangle(size=(width + 2*poly_extension, 2*poly_extension), layer=pdk.get_glayer("poly"), centered=True)
+        top_poly_ext_ref = prec_ref_center(top_poly_ext)
+        p_res.add(top_poly_ext_ref)
+        movey(top_poly_ext_ref, contact_length/2 + length/2 + sab_contact_spacing)
+        movex(top_poly_ext_ref, (i)*separation)
+        
+        bot_poly_ext = rectangle(size=(width + 2*poly_extension, 2*poly_extension), layer=pdk.get_glayer("poly"), centered=True)
+        bot_poly_ext_ref = prec_ref_center(bot_poly_ext)
+        p_res.add(bot_poly_ext_ref)
+        movey(bot_poly_ext_ref, - contact_length/2 - length/2 - sab_contact_spacing)
+        movex(bot_poly_ext_ref, (i)*separation)
 
-        licon2 = via_array(pdk, "poly", "met1", size=(width,contact_length))
-        licon2_ref = prec_ref_center(licon2)
-        p_res.add(licon2_ref)
-        movey(licon2_ref, - contact_length/2 - length/2 - sab_contact_spacing)
-        movex(licon2_ref, (i)*separation)
-
-        licon3 = via_array(pdk, "poly", "met1", size=(width,contact_length))
-        licon3_ref = prec_ref_center(licon3)
-        p_res.add(licon3_ref)
-        movey(licon3_ref, contact_length/2 + length/2 + sab_contact_spacing)
-        movex(licon3_ref, (i)*separation)
-
-        # place metal 1 layer on contacts
-        met1_top = rectangle(size=(width,contact_length), layer=pdk.get_glayer("met2"), centered=True)
+        # place metal 1 layer on contacts with proper overlap (CO.6 rule: 0.005μm metal overlap)
+        metal_overlap = 0.12  # CO.6 rule requirement
+        met1_size = contact_size + 2 * metal_overlap
+        
+        met1_top = rectangle(size=(met1_size, met1_size), layer=pdk.get_glayer("met1"), centered=True)
         met1_top_ref = prec_ref_center(met1_top)
         p_res.add(met1_top_ref)
         movey(met1_top_ref, contact_length/2 + length/2 + sab_contact_spacing)
         movex(met1_top_ref, (i)*separation)
 
-        met1_bot = rectangle(size=(width,contact_length), layer=pdk.get_glayer("met2"), centered=True)
+        met1_bot = rectangle(size=(met1_size, met1_size), layer=pdk.get_glayer("met1"), centered=True)
         met1_bot_ref = prec_ref_center(met1_bot)
         p_res.add(met1_bot_ref)
         movey(met1_bot_ref, - contact_length/2 - length/2 - sab_contact_spacing)
         movex(met1_bot_ref, (i)*separation)
-        #place li to metal vias
-        met1con1 = via_array(pdk, "met1", "met2", size=(width,contact_length))
-        met1con1_ref = prec_ref_center(met1con1)
-        p_res.add(met1con1_ref)
-        movey(met1con1_ref, contact_length/2 + length/2 + sab_contact_spacing)
-        movex(met1con1_ref, (i)*separation)
+        #place met1 to met2 vias
+        via_size = 0.26  # Standard via size
+        via_overlap = 0.12  # Via enclosure requirement
+        
+        # Top via
+        top_via = rectangle(size=(via_size, via_size), layer=pdk.get_glayer("via1"), centered=True)
+        top_via_ref = prec_ref_center(top_via)
+        p_res.add(top_via_ref)
+        movey(top_via_ref, contact_length/2 + length/2 + sab_contact_spacing)
+        movex(top_via_ref, (i)*separation)
 
-        met1con2 = via_array(pdk, "met1", "met2", size=(width,contact_length))
-        met1con2_ref = prec_ref_center(met1con2)
-        p_res.add(met1con2_ref)
-        movey(met1con2_ref, - contact_length/2 - length/2 - sab_contact_spacing)
-        movex(met1con2_ref, (i)*separation)
+        # Bottom via
+        bot_via = rectangle(size=(via_size, via_size), layer=pdk.get_glayer("via1"), centered=True)
+        bot_via_ref = prec_ref_center(bot_via)
+        p_res.add(bot_via_ref)
+        movey(bot_via_ref, - contact_length/2 - length/2 - sab_contact_spacing)
+        movex(bot_via_ref, (i)*separation)
+        
+        # Extend met1 to ensure proper overlap with vias
+        met1_via_ext = via_size + 2 * via_overlap
+        top_met1_ext = rectangle(size=(met1_via_ext, met1_via_ext), layer=pdk.get_glayer("met1"), centered=True)
+        top_met1_ext_ref = prec_ref_center(top_met1_ext)
+        p_res.add(top_met1_ext_ref)
+        movey(top_met1_ext_ref, contact_length/2 + length/2 + sab_contact_spacing)
+        movex(top_met1_ext_ref, (i)*separation)
+        
+        bot_met1_ext = rectangle(size=(met1_via_ext, met1_via_ext), layer=pdk.get_glayer("met1"), centered=True)
+        bot_met1_ext_ref = prec_ref_center(bot_met1_ext)
+        p_res.add(bot_met1_ext_ref)
+        movey(bot_met1_ext_ref, - contact_length/2 - length/2 - sab_contact_spacing)
+        movex(bot_met1_ext_ref, (i)*separation)
+
+        # Add met2 layer for top-level routing
+        met2_size = via_size + 2 * via_overlap
+        met2_top = rectangle(size=(met2_size, met2_size), layer=pdk.get_glayer("met2"), centered=True)
+        met2_top_ref = prec_ref_center(met2_top)
+        p_res.add(met2_top_ref)
+        movey(met2_top_ref, contact_length/2 + length/2 + sab_contact_spacing)
+        movex(met2_top_ref, (i)*separation)
+
+        met2_bot = rectangle(size=(met2_size, met2_size), layer=pdk.get_glayer("met2"), centered=True)
+        met2_bot_ref = prec_ref_center(met2_bot)
+        p_res.add(met2_bot_ref)
+        movey(met2_bot_ref, - contact_length/2 - length/2 - sab_contact_spacing)
+        movex(met2_bot_ref, (i)*separation)
 
         con_offset = (separation)/2
         if is_snake == True:
             if i > 0:
-                met1_connect = rectangle(size=(width+separation,contact_length), layer=pdk.get_glayer("met2"),centered= True)
-                met1_con_ref = prec_ref_center(met1_connect)
-                p_res.add(met1_con_ref)
+                met2_connect = rectangle(size=(width+separation,contact_length), layer=pdk.get_glayer("met2"),centered= True)
+                met2_con_ref = prec_ref_center(met2_connect)
+                p_res.add(met2_con_ref)
                 if i%2 == 0:
-                    movey(met1_con_ref, - contact_length/2 - length/2 - sab_contact_spacing)
-                    movex(met1_con_ref, (i-1)*separation+con_offset)
+                    movey(met2_con_ref, - contact_length/2 - length/2 - sab_contact_spacing)
+                    movex(met2_con_ref, (i-1)*separation+con_offset)
                 else:
-                    movey(met1_con_ref, contact_length/2 + length/2 + sab_contact_spacing)
-                    movex(met1_con_ref, (i-1)*separation+con_offset)
+                    movey(met2_con_ref, contact_length/2 + length/2 + sab_contact_spacing)
+                    movex(met2_con_ref, (i-1)*separation+con_offset)
 
         if i == 0:
-            p_res.add_ports(met1_bot_ref.get_ports_list(), prefix="MINUS_")
+            p_res.add_ports(met2_bot_ref.get_ports_list(), prefix="MINUS_")
 
 
     tap_separation = max(
@@ -211,9 +265,9 @@ def poly_resistor(
 
     #print(i)
     if i%2 == 0:
-        p_res.add_ports(met1_top_ref.get_ports_list(), prefix="PLUS_")
+        p_res.add_ports(met2_top_ref.get_ports_list(), prefix="PLUS_")
     else:
-        p_res.add_ports(met1_bot_ref.get_ports_list(), prefix="PLUS_")
+        p_res.add_ports(met2_bot_ref.get_ports_list(), prefix="PLUS_")
 
     # Select model based on type and silicidation
     if n_type:
