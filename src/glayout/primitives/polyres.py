@@ -62,7 +62,8 @@ def poly_resistor(
     # Validate width against minimum requirements
     min_width = pdk.get_grule("poly", "poly")["min_width"]
     if width < min_width:
-        raise ValueError(f"Poly resistor width {width} must be >= {min_width} (minimum from grules)")
+        print(f"Warning: Poly resistor width {width} is less than minimum {min_width}, adjusting to minimum width")
+        width = min_width
     
     #poly_res = (66, 13)
     sab = (49,0)
@@ -77,19 +78,21 @@ def poly_resistor(
     sab_contact_spacing = pdk.get_grule("sab", "mcon")["min_separation"]
     ex_length = length + 2*contact_length + 2*sab_contact_spacing
     for i in range(0,fingers):
-        #poly resistor rectangle
-        p_rect = rectangle(size=(width,ex_length), layer=pdk.get_glayer("poly"), centered=True)
+        #poly resistor rectangle - ensure minimum width
+        poly_width = max(width, pdk.get_grule("poly", "poly")["min_width"])
+        p_rect = rectangle(size=(poly_width,ex_length), layer=pdk.get_glayer("poly"), centered=True)
         p_rect_ref = prec_ref_center(p_rect)
         p_res.add(p_rect_ref)
         movex(p_rect_ref, (i)*separation)
         #Add li layer on top and bottom contacts (positioned outside SAB area)
-        li_top = rectangle(size=(width,contact_length), layer=pdk.get_glayer("met1"), centered=True)
+        # Use poly_width to ensure consistency
+        li_top = rectangle(size=(poly_width,contact_length), layer=pdk.get_glayer("met1"), centered=True)
         li_top_ref = prec_ref_center(li_top)
         p_res.add(li_top_ref)
         movey(li_top_ref, contact_length/2 + length/2 + sab_contact_spacing)
         movex(li_top_ref, (i)*separation)
 
-        li_bot = rectangle(size=(width,contact_length), layer=pdk.get_glayer("met1"), centered=True)
+        li_bot = rectangle(size=(poly_width,contact_length), layer=pdk.get_glayer("met1"), centered=True)
         li_bot_ref = prec_ref_center(li_bot)
         p_res.add(li_bot_ref)
         movey(li_bot_ref, - contact_length/2 - length/2 - sab_contact_spacing)
@@ -117,14 +120,19 @@ def poly_resistor(
         movex(bot_contact_ref, (i)*separation)
         
         # Extend poly to ensure proper overlap with contacts
+        # Ensure poly extension width meets minimum width requirement
         poly_extension = poly_overlap + contact_size/2
-        top_poly_ext = rectangle(size=(width + 2*poly_extension, 2*poly_extension), layer=pdk.get_glayer("poly"), centered=True)
+        # Use the same poly_width as the main resistor for consistency
+        ext_width = poly_width
+        # Ensure extension height also meets minimum width requirement
+        ext_height = max(2*poly_extension, pdk.get_grule("poly", "poly")["min_width"])
+        top_poly_ext = rectangle(size=(ext_width + 2*poly_extension, ext_height), layer=pdk.get_glayer("poly"), centered=True)
         top_poly_ext_ref = prec_ref_center(top_poly_ext)
         p_res.add(top_poly_ext_ref)
         movey(top_poly_ext_ref, contact_length/2 + length/2 + sab_contact_spacing)
         movex(top_poly_ext_ref, (i)*separation)
         
-        bot_poly_ext = rectangle(size=(width + 2*poly_extension, 2*poly_extension), layer=pdk.get_glayer("poly"), centered=True)
+        bot_poly_ext = rectangle(size=(ext_width + 2*poly_extension, ext_height), layer=pdk.get_glayer("poly"), centered=True)
         bot_poly_ext_ref = prec_ref_center(bot_poly_ext)
         p_res.add(bot_poly_ext_ref)
         movey(bot_poly_ext_ref, - contact_length/2 - length/2 - sab_contact_spacing)
