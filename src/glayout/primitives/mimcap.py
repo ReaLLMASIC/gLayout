@@ -155,7 +155,58 @@ def mimcap(
     # Add the FuseTop component to the main component
     fusetop_ref = mim_cap << fusetop_comp
     
-    # 5. Add option-specific layers
+    # 5. Add south extension to bottom metal plate with via array and top metal coverage
+    # Extension has height 0.4u and same width as bottom plate
+    extension_height = 0.5
+    extension_width = bottom_plate_size[0]  # Same width as bottom plate
+    extension_size = (extension_width, extension_height)
+    
+    # Create south extension rectangle on bottom metal layer
+    south_extension_bottom_met_ref = mim_cap << rectangle(
+        size=extension_size,
+        layer=pdk.get_glayer(capmetbottom),
+        centered=True
+    )
+    # Create south extension rectangle on top metal layer
+    # First create the component with ports, then add it to the main component
+    south_extension_top_met_comp = rectangle(
+        size=extension_size,
+        layer=pdk.get_glayer(capmettop),
+        centered=True
+    )
+    
+    # Add perimeter ports to the top metal extension component
+    south_extension_top_met_comp = add_ports_perimeter(
+        south_extension_top_met_comp, 
+        layer=pdk.get_glayer(capmettop), 
+        prefix="ext_top_met_"
+    )
+    
+    # Now add the component with ports to the main component
+    south_extension_top_met_ref = mim_cap << south_extension_top_met_comp
+    
+    # Position the extension at the south edge of the bottom plate
+    # The extension should be centered horizontally and positioned south of the bottom plate
+    extension_y_offset = -(bottom_plate_size[1]/2 + extension_height/2)
+    south_extension_bottom_met_ref.move((0, extension_y_offset))
+    south_extension_top_met_ref.move((0, extension_y_offset))
+
+    # Create via array covering the south extension from bottom_met to top_met
+    via_array_ref = mim_cap << via_array(
+        pdk, capmetbottom, capmettop, 
+        size=extension_size, 
+    )
+    
+    # Position the via array at the same location as the south extension
+    via_array_ref.move((0, extension_y_offset))
+    
+    # Add the S port from the south edge of the top metal extension
+    s_port_candidates = [port for port in south_extension_top_met_ref.get_ports_list() if "ext_top_met_S" in port.name]
+    if s_port_candidates:
+        s_port = s_port_candidates[0]
+        mim_cap.add_port(name="S", center=s_port.center, width=s_port.width, orientation=s_port.orientation, layer=s_port.layer)
+    
+    # 6. Add option-specific layers
     if option == "B":
         # Option B specific: Add MIM_L_MK layer (marks the capacitor length)
         # MIM_L_MK should have height of 0.1um and denote the length of the capacitor
