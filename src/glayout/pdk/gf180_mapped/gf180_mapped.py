@@ -30,6 +30,8 @@ LAYER = {
     "lvpwell": (204, 0),
     "dnwell": (12, 0),
     "CAP_MK": (117, 5),
+    "MIM_L_MK": (117, 10),
+    "fusetop": (75, 0),
     # _Label Layer Definations
     "metal5_label": (81,10),
     "metal4_label": (46,10),
@@ -78,7 +80,7 @@ gf180_glayer_mapping = {
     "active_diff_label": "comp_label",
 }
 
-# note for DRC, there is mim_option 'A'. This is the one configured for use
+# note for DRC, there is mim_option 'B'. This is the one configured for use
 
 gf180_lydrc_file_path = Path(__file__).resolve().parent / "gf180mcu_drc.lydrc"
 # openfasoc_dir = Path(__file__).resolve().parent.parent.parent.parent.parent.parent.parent
