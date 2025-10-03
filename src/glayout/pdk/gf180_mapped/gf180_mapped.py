@@ -78,7 +78,11 @@ gf180_glayer_mapping = {
     "active_diff_label": "comp_label",
 }
 
-# note for DRC, there is mim_option 'A'. This is the one configured for use
+# NOTE: MIMCAP configuration - there are two options (A and B) with redundant DRC rules
+# Option A: Uses metal2-metal3 (original implementation)
+# Option B: Uses metal4-metal5 (added in PR#54 continuation for gf180mcuD)
+# Both options have duplicate DRC rules but different metal layers
+# Default behavior varies by process variant - see gf180mcu_drc.lydrc for variant-specific settings
 
 gf180_lydrc_file_path = Path(__file__).resolve().parent / "gf180mcu_drc.lydrc"
 # openfasoc_dir = Path(__file__).resolve().parent.parent.parent.parent.parent.parent.parent
