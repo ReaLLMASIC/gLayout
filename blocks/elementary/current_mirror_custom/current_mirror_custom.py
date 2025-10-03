@@ -292,8 +292,14 @@ def wide_swing_current_mirror(pdk, fet_type="nmos", domain="3p3",
     height_wo_ref = component.ymax
     cascode_ref_height = cascode_ref.ymax
 
+    cascode_align = component.ports["c_tie_W_array_row0_col0_top_met_W"]
+    reference_align = component.ports["m_tie_W_array_row0_col0_top_met_W"]
+
+    selected_align = (cascode_align if cascode_align.center[0] <
+                    reference_align.center[0] else reference_align)
+
     ref = component <<align_comp_to_port(cascode_ref,
-                       component.ports["c_tie_W_array_row0_col0_top_met_W"],
+                       selected_align,
                        alignment=("l",None),rtr_comp_ref=False)
 
     ref.movex(-pdk.util_max_metal_seperation()- pdk.snap_to_2xgrid(distance_ref))
