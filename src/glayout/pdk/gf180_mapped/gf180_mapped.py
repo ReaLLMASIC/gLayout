@@ -30,6 +30,8 @@ LAYER = {
     "lvpwell": (204, 0),
     "dnwell": (12, 0),
     "CAP_MK": (117, 5),
+    "RES_MK": (110, 5),
+    "SAB": (49, 0),
     # _Label Layer Definations
     "metal5_label": (81,10),
     "metal4_label": (46,10),
@@ -60,6 +62,8 @@ gf180_glayer_mapping = {
     "pwell": "lvpwell",
     "dnwell": "dnwell",
     "capmet": "CAP_MK",
+    "res_mk": "RES_MK",
+    "sab": "SAB",
     # _pin layer ampping
     "met5_pin": "metal5_label",
     "met4_pin": "metal4_label",
@@ -106,7 +110,12 @@ gf180_mapped_pdk = MappedPDK(
 	models={
         'nfet': 'nfet_03v3',
 		'pfet': 'pfet_03v3',
-		'mimcap': 'mimcap_1p0fF'
+		'mimcap': 'mimcap_1p0fF',
+        'ppolyf_s': 'ppolyf_s',
+        'ppolyf_u': 'ppolyf_u',
+        'npolyf_s': 'npolyf_s',
+        'npolyf_u': 'npolyf_u',
+        "ppolyf_u_1k": "ppolyf_u_1k"
     },
     layers=LAYER,
     pdk_files=pdk_files,
