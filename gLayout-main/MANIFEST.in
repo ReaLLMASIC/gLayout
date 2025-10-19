@@ -1,0 +1,2 @@
+recursive-include src/glayout/pdk/gf180_mapped *.spice *.lydrc *.drc
+recursive-include src/glayout/pdk/sky130_mapped *.spice *.lydrc
