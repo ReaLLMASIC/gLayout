@@ -1,0 +1,45 @@
+v {xschem version=3.4.7 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 50 -70 70 -70 {}
+L 4 50 -20 70 -20 {}
+L 4 50 0 70 0 {}
+L 4 50 20 70 20 {}
+L 4 50 -50 70 -50 {}
+L 4 50 60 70 60 {}
+L 4 50 120 70 120 {}
+L 4 50 100 70 100 {}
+L 4 50 80 70 80 {}
+L 7 50 -120 70 -120 {}
+L 7 50 -100 70 -100 {}
+B 5 67.5 -72.5 72.5 -67.5 {name=VIN dir=in}
+B 5 67.5 -22.5 72.5 -17.5 {name=EN dir=in}
+B 5 67.5 -122.5 72.5 -117.5 {name=VDD dir=inout}
+B 5 67.5 -102.5 72.5 -97.5 {name=VSS dir=inout}
+B 5 67.5 -2.5 72.5 2.5 {name=PD dir=in}
+B 5 67.5 17.5 72.5 22.5 {name=PU dir=in}
+B 5 67.5 -52.5 72.5 -47.5 {name=VBIAS dir=in}
+B 5 67.5 57.5 72.5 62.5 {name=VIN_OUT dir=out}
+B 5 67.5 117.5 72.5 122.5 {name=VCM_OUT dir=out}
+B 5 67.5 97.5 72.5 102.5 {name=BCM_OUT dir=out}
+B 5 67.5 77.5 72.5 82.5 {name=CCM_OUT dir=out}
+P 4 5 50 -140 -50 -140 -50 140 50 140 50 -140 {}
+T {@symname} -14 -51.5 1 0 0.3 0.3 {}
+T {@name} 5 -162 0 0 0.2 0.2 {}
+T {VIN} 45 -74 0 1 0.2 0.2 {}
+T {EN} 45 -24 0 1 0.2 0.2 {}
+T {VDD} 45 -124 0 1 0.2 0.2 {}
+T {VSS} 45 -104 0 1 0.2 0.2 {}
+T {PD} 45 -4 0 1 0.2 0.2 {}
+T {PU} 45 16 0 1 0.2 0.2 {}
+T {VBIAS} 45 -54 0 1 0.2 0.2 {}
+T {VIN_OUT} 45 56 0 1 0.2 0.2 {}
+T {VCM_OUT} 45 116 0 1 0.2 0.2 {}
+T {BCM_OUT} 45 96 0 1 0.2 0.2 {}
+T {CCM_OUT} 45 76 0 1 0.2 0.2 {}

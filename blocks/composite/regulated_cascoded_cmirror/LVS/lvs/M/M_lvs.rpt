@@ -1,0 +1,66 @@
+
+Circuit 1 cell pfet_03v3 and Circuit 2 cell pfet_03v3 are black boxes.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: pfet_03v3                       |Circuit 2: pfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_03v3 and pfet_03v3 are equivalent.
+
+Circuit 1 cell nfet_03v3 and Circuit 2 cell nfet_03v3 are black boxes.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: nfet_03v3                       |Circuit 2: nfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_03v3 and nfet_03v3 are equivalent.
+Flattening unmatched subcell INPUT in circuit M (1)(1 instance)
+Flattening unmatched subcell BIAS in circuit M (1)(1 instance)
+Flattening unmatched subcell VCM in circuit M (1)(1 instance)
+Flattening unmatched subcell SBCM in circuit M (1)(1 instance)
+Flattening unmatched subcell RCCM in circuit M (1)(1 instance)
+
+Class M (0):  Merged 95 parallel devices.
+Class M (1):  Merged 9 parallel devices.
+Subcircuit summary:
+Circuit 1: M                               |Circuit 2: M                               
+-------------------------------------------|-------------------------------------------
+pfet_03v3 (78->22)                         |pfet_03v3 (78->22)                         
+nfet_03v3 (56->17)                         |nfet_03v3 (56->17)                         
+Number of devices: 39                      |Number of devices: 39                      
+Number of nets: 30                         |Number of nets: 30                         
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: M                               |Circuit 2: M                               
+-------------------------------------------|-------------------------------------------
+VOUT_VIN                                   |VOUT_VIN                                   
+VOUT_VCM                                   |VOUT_VCM                                   
+VOUT_SBCM                                  |VOUT_SBCM                                  
+VOUT_RCCM                                  |VOUT_RCCM                                  
+EN                                         |EN                                         
+VAUX                                       |VAUX                                       
+VIN                                        |VIN                                        
+VSS                                        |VSS                                        
+VDD                                        |VDD                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes M and M are equivalent.
+
+Final result: Circuits match uniquely.
+.
