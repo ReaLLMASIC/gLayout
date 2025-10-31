@@ -99,6 +99,13 @@ ihp130_glayer_mapping = {
     "active_diff_label": "activ_pin",
 }
 
+# Add valid BJT sizes
+
+ip130_valid_bjt_sizes = {
+    "npn" : [ ],
+    "pnp" : [ ],
+}
+
 ip130_lydrc_file_path = Path(__file__).resolve().parent / "ihp130_drc.lydrc"
 
 if os.getenv('PDK_ROOT') is None:
@@ -139,6 +146,7 @@ ihp130_mapped_pdk = MappedPDK(
     layers=LAYER,
     pdk_files=pdk_files,
     grules=grulesobj,
+    valid_bjt_sizes=ip130_valid_bjt_sizes
 )
 
 # Configure GDS write precision and cell decorator cache
