@@ -262,6 +262,8 @@ class MappedPDK(Pdk):
         "capmet",
         "sab",
         "res_mk",
+        "lvs_bjt",
+        "drc_bjt",
         # _pin layers
         "met5_pin",
         "met4_pin",
@@ -294,6 +296,8 @@ class MappedPDK(Pdk):
     # friendly way to implement a graph
     grules: dict[StrictStr, dict[StrictStr, Optional[dict[StrictStr, Any]]]]
     pdk_files: dict[StrictStr, Union[PathType, None]]
+
+    valid_bjt_sizes: dict[StrictStr,  list[tuple[float,float]]]
 
     @validator("models")
     def models_check(cls, models_obj: dict[StrictStr, StrictStr]):

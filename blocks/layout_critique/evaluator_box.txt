@@ -1,1 +1,0 @@
-The code for the evaluator framework (ATLAS) is being maintained locally.
