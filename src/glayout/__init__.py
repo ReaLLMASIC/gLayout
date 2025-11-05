@@ -5,8 +5,15 @@ Glayout - A PDK-agnostic layout automation framework for analog circuit design
 try:
     from .pdk.mappedpdk import MappedPDK
 except ImportError as e:
-    print(f"[WARN] Could not import MappedPDK (skipping gdsfactory dependency): {e}")
-    MappedPDK = None
+    print(f"[WARN] gdsfactory import failed — switching to a minimal DummyPdk ({e})")
+
+    class DummyPdk:
+        """Basic fallback to keep flow running if gdsfactory is missing."""
+
+        def activate(self):
+            print("[INFO] DummyPdk active. Limited functionality only.")
+
+    MappedPDK = DummyPdk()
 
 # Other PDKs
 try:
