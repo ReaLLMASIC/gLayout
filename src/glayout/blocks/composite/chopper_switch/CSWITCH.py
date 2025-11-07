@@ -76,10 +76,10 @@ def add_cswitch_labels(
     # input
     inputplabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=psize,centered=True).copy()
     inputplabel.add_label(text="VINN",layer=pdk.get_glayer("met2_pin"))
-    move_info.append((inputplabel,component.ports["INP_top_met_W"], None))
+    move_info.append((inputplabel,cswitch_in.ports["INP_top_met_W"], None))
     inputnlabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=psize,centered=True).copy()
     inputnlabel.add_label(text="VINP",layer=pdk.get_glayer("met2_pin"))
-    move_info.append((inputnlabel,component.ports["INN_top_met_W"], None))
+    move_info.append((inputnlabel,cswitch_in.ports["INN_top_met_W"], None))
     #ip_ref = top_level << inputlabel;
 
     # CLK
