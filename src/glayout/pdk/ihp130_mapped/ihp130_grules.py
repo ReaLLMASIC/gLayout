@@ -1,8 +1,8 @@
 from ..mappedpdk import MappedPDK
 
 grulesobj = dict()
-for glayer in MappedPDK.valid_glayers:
-    grulesobj[glayer] = dict((x, None) for x in MappedPDK.valid_glayers)
+for glayer in MappedPDK.valid_glayers["3p3"]:
+    grulesobj[glayer] = dict((x, None) for x in MappedPDK.valid_glayers["3p3"])
 
 grulesobj["dnwell"]["dnwell"] = {"min_width": 3.0, "min_separation": 6.3}
 grulesobj["dnwell"]["pwell"] = {"min_enclosure": 0.0}
@@ -369,3 +369,5 @@ grulesobj["capmet"]["met4"] = {}
 grulesobj["capmet"]["via4"] = {}
 grulesobj["capmet"]["met5"] = {}
 grulesobj["capmet"]["capmet"] = {"capmettop": (71, 20), "capmetbottom": (70, 20), "min_separation": 1.2}
+
+grulesobj_5p0 = grulesobj.copy()
