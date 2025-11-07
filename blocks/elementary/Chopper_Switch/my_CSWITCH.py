@@ -32,9 +32,9 @@ os.environ.update(env_vars)
 
 import sys
 from pathlib import Path
-sys.path.append(os.path.abspath("../../TGSW"))
+sys.path.append(os.path.abspath("../elementary/TGSW"))
 
-from my_TGSW import tgswitch
+from TGSW import tgswitch
 
 def add_cswitch_labels(
     cswitch_in: Component,
