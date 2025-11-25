@@ -8,6 +8,19 @@ GenYZ Team: Oct 17 2025
 A transmission switch (tgswitch) contains one PMOS and one NMOS transistor. Their source terminals are connected together to form the input (IN), and their drain terminals are connected together to form the output (OUT), as seen in the schematic.
 
 ## Parametrizing the TG Switch block
+- **pdk:** Which PDK to use.
+- **placement:** TG layout orientation, either "vertical" or "horizontal".
+- **width:** Width per finger (µm), in a tuple for PFET and NFET respectively.
+- **length:** Length per finger (µm), in a tuple for PFET and NFET respectively.
+- **fingers:** Number of fingers per transistor, in a tuple for PFET and NFET respectively.
+- **multipliers:** Parallel device multiplier (m-factor), in a tuple for PFET and NFET respectively.
+- **dummy_1:** Enable PFET dummy gates, in a tuple for left and right dummy respectively.
+- **dummy_2:** Enable NFET dummy gates, in a tuple for left and right dummy respectively.
+- **tie_layers1:** PFET body-tie routing layers, in a tuple (X metal, Y metal).
+- **tie_layers2:** NFET body-tie routing layers, in a tuple (X metal, Y metal).
+- **sd_rmult:** Integer multiplier for source/drain contact routing width (reduces on-resistance).
+- **kwargs:** Additional parameters passed directly to pdk.nmos() and pdk.pmos().
+
 ```
 def tgswitch(
         pdk: MappedPDK,
@@ -23,20 +36,6 @@ def tgswitch(
         sd_rmult: int=1,
         **kwargs
         ) -> Component:
-    """
-    creates a tgswitch
-    pdk: pdk to use
-    placement: either "horizontal" or "vertical"
-    width: (pfet, nfet)
-    length: (pfet, nfet)
-    fingers: (pfet, nfet)
-    multipliers: (pfet, nfet)
-    dummy_1: dummy for pfet
-    dummy_2: dummy for nfet
-    tie_layers1: tie layers for pfet
-    tie_layers2: tie layers for nfet
-    sd_rmult: sd_rmult for both fets
-    **kwargs: any kwarg that is supported by nmos and pmos
 ```
 
 ### GDS generated
