@@ -181,6 +181,8 @@ def multiplier(
     sd_route_extension = float, how far extra to extend the source/drain connections (default=0)
     gate_route_extension = float, how far extra to extend the gate connection (default=0)
     dummy_routes: bool default=True, if true add add vias and short dummy poly,source,drain
+    dummy_separation_rmult: float, how far extra to separate the dummies either
+            on the left or on the right
 
     ports (one port for each edge),
     ****NOTE: source is below drain:
