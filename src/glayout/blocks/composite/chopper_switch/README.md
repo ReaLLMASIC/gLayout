@@ -8,6 +8,18 @@ GenYZ Team: Oct 17 2025
 This circuit is a differential chopper switch. It alternates the signal polarity between the differential inputs (IN+, IN-) and outputs (OUT+, OUT-). This implementation is constructed using pre-designed tgswitch components as the core switching elements. The opposing control signals, CLK and CLKB, determine which tgswitch path is active, selecting either a straight-through or a crossover connection.
 
 ## Parametrizing the Chopper Switch Block
+**Parameters:**
+- **pdk:** Which PDK to use.
+- **width:** Width per finger (µm), in a tuple for PFET and NFET respectively.
+- **length:** Length per finger (µm), in a tuple for PFET and NFET respectively.
+- **fingers:** Number of fingers per transistor, in a tuple for PFET and NFET respectively.
+- **multipliers:** Parallel device multiplier (m-factor), in a tuple for PFET and NFET respectively.
+- **dummy_1:** Enable PFET dummy gates, in a tuple for left and right dummy respectively.
+- **dummy_2:** Enable NFET dummy gates, in a tuple for left and right dummy respectively.
+- **tie_layers1:** PFET body-tie routing layers, in a tuple (X metal, Y metal).
+- **tie_layers2:** NFET body-tie routing layers, in a tuple (X metal, Y metal).
+- **sd_rmult:** Integer multiplier for source/drain contact routing width (reduces on-resistance).
+- **kwargs:** Additional parameters passed directly to pdk.nmos() and pdk.pmos().
 ```
 def cswitch(
         pdk: MappedPDK,
@@ -22,20 +34,9 @@ def cswitch(
         sd_rmult: int=1,
         **kwargs
         ) -> Component:
-    """
-    creates a Chopper Switch
-    pdk: pdk to use
-    width: (pfet, nfet)
-    length: (pfet, nfet)
-    fingers: (pfet, nfet)
-    multipliers: (pfet, nfet)
-    dummy_1: dummy for pfet
-    dummy_2: dummy for nfet
-    tie_layers1: tie layers for pfet
-    tie_layers2: tie layers for nfet
-    sd_rmult: sd_rmult for both fets
-    **kwargs: any kwarg that is supported by nmos and pmos
 ```
+
+### 
 
 ### GDS generated
 <img width="389" height="497" alt="Image" src="https://github.com/user-attachments/assets/37e56806-cb81-4b77-a27a-7d2d7c746779" />
