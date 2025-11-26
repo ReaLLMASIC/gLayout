@@ -38,15 +38,15 @@ This schematic illustrates a **high-performance, multi-output current mirroring 
 * **Inputs:** The circuit accepts several primary inputs:
     * **VDD:** The main power supply rail.
     * **EN (Enable):** A digital control signal to power-gate the entire system.
-    * **V\_IN:** The primary **Analog Input** voltage or current source that the system is designed to replicate.
-    * **V\_AUX\_CCM:** An auxiliary analog input specifically used to establish the control voltage for the **Regulated Cascode Current Mirror**.
-* **Bias Generation (1/1000x Bias):** A dedicated sub-circuit generates a highly stable, low-current **reference bias** ($\text{bias\_out}$). This reference current is scaled (indicated as $1/1000\times$) and distributed to set the accurate operational point for all three current mirror stages, ensuring robust current matching and temperature stability.
+    * **V_IN:** The primary **Analog Input** voltage or current source that the system is designed to replicate.
+    * **V_AUX_CCM:** An auxiliary analog input specifically used to establish the control voltage for the **Regulated Cascode Current Mirror**.
+* **Bias Generation (1/1000x Bias):** A dedicated sub-circuit generates a highly stable, low-current **reference bias** (bias_out}). This reference current is scaled (indicated as $1/1000\times$) and distributed to set the accurate operational point for all three current mirror stages, ensuring robust current matching and temperature stability.
 
 ---
 
 ### Current Distribution Array (Top Section)
 
-The components connected to the VDD and EN lines, labeled with instances like $\text{R}M\text{K}1$ through $\text{R}M\text{K}5$, form a current distribution or steering array. This section likely consists of matched transistors and resistors ($1 \times 10.0\Omega / 2.0\text{u}$ and $1 \times 10.0\Omega / 2.0\text{u}$ labels) that use **V\_IN** and the main current path to generate the input currents for the mirroring stages below. The matching of these components is crucial for the subsequent accuracy of the mirrored currents.
+The components connected to the VDD and EN lines, labeled with instances, form a current distribution or steering array. This section likely consists of matched transistors and resistors that use **V_IN** and the main current path to generate the input currents for the mirroring stages below. The matching of these components is crucial for the subsequent accuracy of the mirrored currents.
 
 ---
 
@@ -54,17 +54,17 @@ The components connected to the VDD and EN lines, labeled with instances like $\
 
 The design incorporates three parallel current mirror blocks, each providing a different level of performance and complexity:
 
-1.  **Vanilla Current Mirror ($\text{vanilla\_cm}$):**
+1.  **Vanilla Current Mirror (vanilla\_cm):**
     * **Function:** This is the most basic implementation, providing a simple, proportional replication of the input current.
     * **Output:** **V\_OUT\_VCM**.
     * **Characteristics:** Moderate output impedance and matching, suitable where lower complexity is prioritized.
 
-2.  **Self-Biased Current Mirror ($\text{biased\_cm}$):**
+2.  **Self-Biased Current Mirror (biased\_cm):**
     * **Function:** Features an internal feedback mechanism (self-biasing) to make the output current more immune to variations in the supply voltage (**VDD**) and less sensitive to transistor channel length modulation.
     * **Output:** **V\_OUT\_BCM**.
     * **Characteristics:** Improved current regulation and better current matching compared to the Vanilla type.
 
-3.  **Regulated Cascode Current Mirror ($\text{cascode\_cm}$):**
+3.  **Regulated Cascode Current Mirror (cascode\_cm):**
     * **Function:** This is the highest-precision stage. It uses a cascode transistor driven by an operational amplifier (or similar regulating circuit, potentially fed by **V\_AUX\_CCM**) to create an extremely high output impedance.
     * **Output:** **V\_OUT\_CCM**.
     * **Characteristics:** Provides the **highest accuracy** and regulation of the mirrored current, minimizing the impact of load voltage changes.
