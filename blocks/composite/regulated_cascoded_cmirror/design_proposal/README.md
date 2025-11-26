@@ -42,7 +42,7 @@ The self-biased common-source current mirror uses a feedback mechanism to improv
 The regulated cascode current mirror shown uses an auxiliary biasing loop to significantly boost output impedance and current stability. Q26 and Q27 form a standard current mirror, while Q28 and Q30 act as cascode transistors, shielding the mirroring devices from output voltage swings. Q29 senses the drain voltage of Q28 and regulates it via Q31, creating a feedback loop that stabilizes the cascode node. This regulation ensures minimal variation in output current despite changes in output voltage, making the design ideal for precision analog applications demanding high output resistance and improved bias accuracy.
 
 ### **Diagram: Proposed Top Integration and Pinout:**   
-![](./_images/4.png)  
+![](./_images/finalS.png)  
 ![](./_images/5.png)  
 
 ### **Pinlist:**
