@@ -1,8 +1,8 @@
 ## Team Mahowalders Open-Source Silicon Project, Chipathon 2025
 ### Project: Towards Precision Current Mirrors
 
-![](./_images/Full.jpg)  
-![](./_images/Top.png)  
+![](././design_proposal/_images/Full.jpg)  
+![](./design_proposal/_images//Top.png)  
 
 **Motivation:** With the rise of analog computation for low-power edge intelligence and sensor systems, the demand for robust bias generation circuits has significantly increased. Bias current sources are fundamental to analog and mixed-signal designs, enabling precise control in amplifiers, comparators, sensor front-ends, and a wide range of other analog building blocks. Ideally, current sources deliver a quasi-constant current when transistors operate in the saturation region, where the output current is largely independent of the drain-to-source voltage. Achieving bias current sources that closely approximate this ideal behaviour is essential to ensure proper circuit operation. However, traditional current mirrors, though widely used, exhibit poor output impedance and limited voltage headroom, which can result in unstable biasing under varying conditions. When the output voltage exceeds the linear range, the current mirror output continues to increase linearly in the saturation region instead of reaching a plateau. This non-ideal behaviour makes such mirrors unsuitable for delivering stable bias currents, often leading to degraded performance in circuits that rely on precise biasing.
 
@@ -28,14 +28,9 @@ The proposed IP targets analog designs where stable biasing is critical, such as
 
 ### **Full Design Schematic:**  
 
-![](./_images/finalS.png) 
-
-## 📐 Detailed Description of the Current Mirror Schematic
+![](./design_proposal/_images/finalS.png) 
 
 This schematic illustrates a **high-performance, multi-output current mirroring system** designed for precision analog applications. The design centers on replicating and regulating an input current, utilizing a reference bias network to set the operational parameters for three distinct current mirror topologies. 
-
-[Image of Current Mirror Circuit Diagram]
-
 
 ---
 
@@ -91,20 +86,20 @@ The circuit provides four outputs:
 Would you like a separate section for your Readme detailing the pin-out table and pin functionalities?
 
 ### **Block: Vanilla Current Mirror (VCM)**  
-![](./_images/vcm.png)  
+![](./design_proposal/_images/vcm.png)  
 A classical current mirror consists of two transistors: the first Q20 has its drain and gate connected (forming a diode-connected structure) and receives the input current, while the second transistor Q21 mirrors this current at its output. The output current is ideally a scaled replica of the input, determined by the ratio of the transistors' width-to-length (W/L) dimensions.
 
 ### **Block: Self-biased Common Source Current Mirror**  
-![](./_images/sbcm.png)  
+![](./design_proposal/_images/sbcm.png)  
 The self-biased common-source current mirror uses a feedback mechanism to improve current stability and output impedance. Q22 receives the reference current through a diode connection, setting the gate voltage shared with Q24, which mirrors the current. Q23 and Q25, connected in a common-source configuration, form a self-biasing loop that regulates the source voltage of the upper transistors. This feedback stabilises the gate-source voltage, reducing output current variation and enhancing performance compared to a basic current mirror.
 
 ### **Block: Regulated Cascoded Current Mirror**  
-![](./_images/rccm.png)  
+![](./design_proposal/_images/rccm.png)  
 The regulated cascode current mirror shown uses an auxiliary biasing loop to significantly boost output impedance and current stability. Q26 and Q27 form a standard current mirror, while Q28 and Q30 act as cascode transistors, shielding the mirroring devices from output voltage swings. Q29 senses the drain voltage of Q28 and regulates it via Q31, creating a feedback loop that stabilizes the cascode node. This regulation ensures minimal variation in output current despite changes in output voltage, making the design ideal for precision analog applications demanding high output resistance and improved bias accuracy.
 
 ### **Diagram: Top Integration and Expected Behaviour:**   
-![](./_images/tops.png)  
-![](./_images/sim.png)  
+![](./design_proposal/_images/tops.png)  
+![](./design_proposal/_images/sim.png)  
  
 
 ### **Pinlist:**
@@ -123,14 +118,14 @@ The regulated cascode current mirror shown uses an auxiliary biasing loop to sig
 | 56| VDD_3V3   | 3V Power   | Bidirectional | A3 Mahowalders | gr180mcu_fd_io_dvd       |
 #### **Layout:** 
 
-![](./_images/l1.png)  
-![](./_images/l2.png)
-![](./_images/l3.png)  
-![](./_images/l4.png)
+![](./design_proposal/_images/l1.png)  
+![](./design_proposal/_images/l2.png)
+![](./design_proposal/_images/l3.png)  
+![](./design_proposal/_images/l4.png)
 
 
 ### **Current Status:**
-![](./_images/status.png) 
+![](./design_proposal/_images/status.png) 
 
 ### Reference:
 
