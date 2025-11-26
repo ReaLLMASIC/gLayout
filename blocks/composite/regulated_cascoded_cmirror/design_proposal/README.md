@@ -1,5 +1,7 @@
 ## Team Mahowalders Project proposal, Chipathon 2025
-### Project: Towards Biasgen
+### Project: Towards Precision Current Mirrors
+
+:point_right: Tapeout Design [Here](https://docs.google.com/presentation/d/1KF9h7LAYK9whPO62wzKPA4DEyUEtzbTsQ4-uteLiDPU/edit?slide=id.p1#slide=id.p1)
 
 :point_right: progress @ Google Sheets [Here](https://docs.google.com/spreadsheets/d/1k9veHdDh-e81fpdIpsUblsUgEMs8aU_Jj_eBLXmVOYY/edit?usp=sharing)
 
