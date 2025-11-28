@@ -1,0 +1,38 @@
+
+Circuit 1 cell nfet_03v3 and Circuit 2 cell nfet_03v3 are black boxes.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: nfet_03v3                       |Circuit 2: nfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_03v3 and nfet_03v3 are equivalent.
+
+Class SCM (0):  Merged 3 parallel devices.
+Subcircuit summary:
+Circuit 1: SCM                             |Circuit 2: SCM                             
+-------------------------------------------|-------------------------------------------
+nfet_03v3 (8->5)                           |nfet_03v3 (8->5)                           
+Number of devices: 5                       |Number of devices: 5                       
+Number of nets: 5                          |Number of nets: 5                          
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: SCM                             |Circuit 2: SCM                             
+-------------------------------------------|-------------------------------------------
+VIN                                        |VIN                                        
+VOUT                                       |VOUT                                       
+VSS                                        |VSS                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes SCM and SCM are equivalent.
+
+Final result: Circuits match uniquely.
+.

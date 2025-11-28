@@ -1,0 +1,45 @@
+
+Circuit 1 cell pfet_03v3 and Circuit 2 cell pfet_03v3 are black boxes.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: pfet_03v3                       |Circuit 2: pfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_03v3 and pfet_03v3 are equivalent.
+
+Class INPUT_STAGE (0):  Merged 8 parallel devices.
+Class INPUT_STAGE (1):  Merged 3 parallel devices.
+Subcircuit summary:
+Circuit 1: INPUT_STAGE                     |Circuit 2: INPUT_STAGE                     
+-------------------------------------------|-------------------------------------------
+pfet_03v3 (20->12)                         |pfet_03v3 (20->12)                         
+Number of devices: 12                      |Number of devices: 12                      
+Number of nets: 12                         |Number of nets: 12                         
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: INPUT_STAGE                     |Circuit 2: INPUT_STAGE                     
+-------------------------------------------|-------------------------------------------
+VIN                                        |VIN                                        
+EN                                         |EN                                         
+VOUT_CCM                                   |VOUT_CCM                                   
+VOUT_BCM                                   |VOUT_BCM                                   
+VOUT_VIN                                   |VOUT_VIN                                   
+VOUT_VCM                                   |VOUT_VCM                                   
+VDD                                        |VDD                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes INPUT_STAGE and INPUT_STAGE are equivalent.
+
+Final result: Circuits match uniquely.
+.

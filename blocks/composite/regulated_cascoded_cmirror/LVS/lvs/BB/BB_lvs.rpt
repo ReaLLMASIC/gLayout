@@ -1,0 +1,38 @@
+
+Circuit 1 cell pfet_03v3 and Circuit 2 cell pfet_03v3 are black boxes.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: pfet_03v3                       |Circuit 2: pfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_03v3 and pfet_03v3 are equivalent.
+
+Class BB (0):  Merged 21 parallel devices.
+Subcircuit summary:
+Circuit 1: BB                              |Circuit 2: BB                              
+-------------------------------------------|-------------------------------------------
+pfet_03v3 (26->5)                          |pfet_03v3 (26->5)                          
+Number of devices: 5                       |Number of devices: 5                       
+Number of nets: 5                          |Number of nets: 5                          
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: BB                              |Circuit 2: BB                              
+-------------------------------------------|-------------------------------------------
+VOUT                                       |VOUT                                       
+VIN                                        |VIN                                        
+VDD                                        |VDD                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes BB and BB are equivalent.
+
+Final result: Circuits match uniquely.
+.

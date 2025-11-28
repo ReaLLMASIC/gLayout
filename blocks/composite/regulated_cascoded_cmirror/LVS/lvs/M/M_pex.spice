@@ -1,0 +1,286 @@
+* NGSPICE file created from M.ext - technology: gf180mcuD
+
+.subckt M VIN VSS VDD VOUT_VIN VOUT_RCCM VOUT_SBCM VOUT_VCM VAUX EN
+X0 a_n1900_n6686# a_n1900_n6686# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X1 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X2 a_990_n6686# VIN a_470_n6686# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X3 a_n1900_n6686# EN VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X4 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0.1744n ps=0.65672m w=4u l=1u
+X5 VSS VSS VSS VSS nfet_03v3 ad=4.64p pd=17.16u as=0 ps=0 w=8u l=1u
+X6 a_6447_5389# a_990_n6686# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X7 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X8 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0.4068n ps=1.46136m w=10u l=2u
+X9 a_7083_483# a_7083_483# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X10 a_6447_5389# a_990_n6686# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X11 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X12 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X13 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X14 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X15 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X16 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X17 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X18 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X19 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X20 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X21 VSS VSS VSS VSS nfet_03v3 ad=4.64p pd=17.16u as=0 ps=0 w=8u l=1u
+X22 a_n590_n6686# VIN a_n1110_n6686# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X23 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X24 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X25 a_n1900_n6686# EN VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X26 a_n16059_8045# EN VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X27 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X28 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X29 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X30 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X31 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X32 VSS VSS VSS VSS nfet_03v3 ad=4.64p pd=17.16u as=0 ps=0 w=8u l=1u
+X33 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X34 a_n7369_8045# a_n19111_10951# a_n7889_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X35 a_n37343_8045# EN VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X36 a_n590_n6686# a_n590_n6686# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X37 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X38 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X39 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X40 VSS VSS VSS VSS nfet_03v3 ad=4.64p pd=17.16u as=0 ps=0 w=8u l=1u
+X41 a_470_n6686# a_n1900_n6686# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X42 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X43 VOUT_VIN VIN a_1260_n6686# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X44 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X45 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X46 a_n1900_n6686# EN VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X47 VOUT_RCCM a_n7369_8045# a_6447_5389# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X48 a_n19431_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X49 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X50 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X51 VOUT_RCCM a_n7369_8045# a_6447_5389# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X52 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X53 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X54 a_7673_483# a_7083_483# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X55 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X56 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X57 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X58 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X59 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X60 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X61 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X62 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X63 a_n1110_n6686# a_n1900_n6686# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X64 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X65 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X66 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X67 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X68 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X69 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X70 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X71 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X72 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X73 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X74 a_n7369_8045# a_6447_5389# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X75 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X76 a_n7369_8045# a_6567_9285# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X77 a_n7369_8045# a_6447_5389# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X78 a_n7369_8045# a_6567_9285# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X79 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X80 VOUT_VCM a_n590_n6686# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X81 a_n1900_n6686# EN VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X82 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X83 a_1260_n6686# a_n1900_n6686# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X84 a_n7889_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X85 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X86 a_n28653_8045# VAUX a_n29173_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X87 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X88 a_n29173_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X89 a_200_n6686# VIN a_n320_n6686# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X90 VIN VIN a_n1900_n6686# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X91 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X92 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X93 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X94 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X95 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X96 a_n19111_10951# a_n28653_8045# a_n19431_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X97 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X98 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X99 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X100 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X101 a_200_n6686# a_200_n6686# a_7083_483# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X102 a_990_n6686# a_n7369_8045# a_6567_9285# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X103 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X104 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X105 a_990_n6686# a_n7369_8045# a_6567_9285# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X106 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X107 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X108 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X109 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X110 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X111 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X112 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X113 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X114 VAUX VAUX a_n37343_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X115 a_6567_9285# a_990_n6686# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X116 a_n28653_8045# a_n28653_8045# a_n25601_10951# VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X117 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X118 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X119 a_6567_9285# a_990_n6686# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X120 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X121 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X122 a_n16059_8045# a_n16059_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X123 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X124 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X125 a_n19111_10951# a_n19111_10951# a_n16059_8045# VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X126 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X127 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X128 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X129 a_n37343_8045# a_n37343_8045# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+X130 a_n25601_10951# a_n25601_10951# VSS VSS nfet_03v3 ad=4.8p pd=17.2u as=4.8p ps=17.2u w=8u l=1u
+X131 VOUT_SBCM a_200_n6686# a_7673_483# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X132 VDD VDD VDD VDD pfet_03v3 ad=5.8p pd=21.16u as=0 ps=0 w=10u l=2u
+X133 a_n320_n6686# a_n1900_n6686# VDD VDD pfet_03v3 ad=6p pd=21.2u as=6p ps=21.2u w=10u l=2u
+C0 a_470_n6686# a_990_n6686# 2.39829f
+C1 a_n590_n6686# a_990_n6686# 0.10021f
+C2 a_6567_9285# a_6447_5389# 0.36393f
+C3 a_n28653_8045# a_n37343_8045# 0.07017f
+C4 VIN VDD 14.5927f
+C5 a_990_n6686# a_n7369_8045# 1.5128f
+C6 VDD a_200_n6686# 1.12778f
+C7 VIN EN 0.08902f
+C8 a_n7889_8045# a_n7369_8045# 0.8533f
+C9 VDD VAUX 16.3092f
+C10 VOUT_VIN a_n1110_n6686# 0.13684f
+C11 EN VAUX 0.00331f
+C12 a_n19111_10951# a_n7369_8045# 0.50349f
+C13 a_990_n6686# a_n1900_n6686# 0.59986f
+C14 a_1260_n6686# a_n320_n6686# 0.30154f
+C15 a_470_n6686# VOUT_VIN 0.13662f
+C16 a_470_n6686# a_n1110_n6686# 0.34178f
+C17 a_n19431_10951# a_n19111_10951# 1.13981f
+C18 a_n590_n6686# VOUT_VIN 0.08091f
+C19 a_n590_n6686# a_n1110_n6686# 2.41261f
+C20 VAUX a_n29173_8045# 0.99903f
+C21 VIN a_990_n6686# 0.62193f
+C22 a_200_n6686# a_990_n6686# 0.33183f
+C23 VOUT_VIN a_n7369_8045# 0.2166f
+C24 VDD a_n37343_8045# 48.8544f
+C25 a_990_n6686# a_6447_5389# 0.85546f
+C26 a_6567_9285# VOUT_RCCM 0.0136f
+C27 EN a_n37343_8045# 0.74385f
+C28 a_470_n6686# a_n590_n6686# 0.10043f
+C29 VDD a_n320_n6686# 7.43186f
+C30 EN a_n320_n6686# 0.0069f
+C31 VOUT_SBCM a_7083_483# 0.0849f
+C32 VOUT_VIN a_n1900_n6686# 0.98673f
+C33 a_n1110_n6686# a_n1900_n6686# 1.80913f
+C34 a_200_n6686# a_7083_483# 1.85176f
+C35 VDD a_n28653_8045# 1.76606f
+C36 EN a_n28653_8045# 0.01878f
+C37 a_n29173_8045# a_n37343_8045# 0.98664f
+C38 a_470_n6686# a_n1900_n6686# 1.46461f
+C39 VIN VOUT_VIN 0.63897f
+C40 VIN a_n1110_n6686# 2.86501f
+C41 a_n590_n6686# a_n1900_n6686# 0.13364f
+C42 a_200_n6686# VOUT_VIN 0.08038f
+C43 a_200_n6686# a_n1110_n6686# 0.17152f
+C44 a_990_n6686# a_n320_n6686# 0.17025f
+C45 a_1260_n6686# VDD 6.35462f
+C46 VDD a_n16059_8045# 48.8285f
+C47 a_n28653_8045# a_n29173_8045# 0.91714f
+C48 a_1260_n6686# EN 0.28741f
+C49 a_470_n6686# VIN 0.62333f
+C50 a_990_n6686# VOUT_RCCM 0.00933f
+C51 a_470_n6686# a_200_n6686# 2.29847f
+C52 VIN a_n590_n6686# 0.63416f
+C53 EN a_n16059_8045# 0.7554f
+C54 a_n590_n6686# a_200_n6686# 0.58599f
+C55 VOUT_VCM a_n590_n6686# 0.20751f
+C56 a_n28653_8045# a_n19111_10951# 0.28491f
+C57 a_6447_5389# a_n7369_8045# 3.29507f
+C58 VDD EN 19.3145f
+C59 VIN a_n1900_n6686# 3.41485f
+C60 a_7673_483# a_7083_483# 0.36588f
+C61 VOUT_VIN a_n320_n6686# 0.13558f
+C62 a_n1110_n6686# a_n320_n6686# 0.84535f
+C63 a_1260_n6686# a_990_n6686# 2.29591f
+C64 a_200_n6686# a_n1900_n6686# 0.13521f
+C65 a_n7889_8045# a_n16059_8045# 0.98664f
+C66 a_6567_9285# a_990_n6686# 3.00275f
+C67 VDD a_n29173_8045# 3.05677f
+C68 a_n19431_10951# a_n25601_10951# 0.52252f
+C69 a_n19111_10951# a_n16059_8045# 29.4825f
+C70 a_470_n6686# a_n320_n6686# 0.84407f
+C71 VIN VOUT_SBCM 0.09167f
+C72 EN a_n29173_8045# 0
+C73 a_200_n6686# VOUT_SBCM 0.2042f
+C74 a_n590_n6686# a_n320_n6686# 2.30103f
+C75 VIN a_200_n6686# 0.62309f
+C76 VDD a_990_n6686# 1.72336f
+C77 VIN VAUX 0.04936f
+C78 VDD a_n7889_8045# 3.05677f
+C79 EN a_n7889_8045# 0
+C80 VIN VOUT_VCM 0.09167f
+C81 VDD a_n19111_10951# 15.504f
+C82 EN a_n19111_10951# 0.01792f
+C83 a_1260_n6686# a_n1110_n6686# 0.30103f
+C84 a_1260_n6686# VOUT_VIN 2.35844f
+C85 VOUT_RCCM a_n7369_8045# 0.57687f
+C86 a_n1900_n6686# a_n320_n6686# 1.46427f
+C87 a_6567_9285# VOUT_VIN 0
+C88 a_1260_n6686# a_470_n6686# 0.80509f
+C89 a_1260_n6686# a_n590_n6686# 0.10003f
+C90 VDD VOUT_VIN 2.87066f
+C91 VDD a_n1110_n6686# 7.43338f
+C92 a_n19431_10951# a_n28653_8045# 0.86502f
+C93 VIN a_n320_n6686# 0.63243f
+C94 EN a_n1110_n6686# 0.00563f
+C95 VAUX a_n37343_8045# 29.489f
+C96 a_200_n6686# a_n320_n6686# 2.40482f
+C97 a_n7889_8045# a_n19111_10951# 0.99903f
+C98 a_n7369_8045# a_n16059_8045# 0.06706f
+C99 VIN VOUT_RCCM 0.09259f
+C100 a_6567_9285# a_n7369_8045# 3.58908f
+C101 a_470_n6686# VDD 7.51371f
+C102 VDD a_n590_n6686# 1.21291f
+C103 a_6447_5389# VOUT_RCCM 2.17202f
+C104 a_470_n6686# EN 0.00915f
+C105 a_7673_483# VOUT_SBCM 1.15251f
+C106 a_1260_n6686# a_n1900_n6686# 2.37681f
+C107 a_7673_483# a_200_n6686# 1.45997f
+C108 VAUX a_n28653_8045# 0.50349f
+C109 VDD a_n7369_8045# 1.56533f
+C110 EN a_n7369_8045# 0.04936f
+C111 a_n28653_8045# a_n25601_10951# 36.6185f
+C112 a_990_n6686# VOUT_VIN 2.48301f
+C113 a_990_n6686# a_n1110_n6686# 0.17047f
+C114 a_1260_n6686# VIN 0.62105f
+C115 a_1260_n6686# a_200_n6686# 0.10042f
+C116 VDD a_n1900_n6686# 44.8668f
+C117 EN a_n1900_n6686# 2.15734f
+C118 VOUT_VCM VSS 6.08797f
+C119 VOUT_SBCM VSS 4.73981f
+C120 VOUT_RCCM VSS 5.9534f
+C121 VOUT_VIN VSS 10.4914f
+C122 VIN VSS 33.1407f
+C123 VAUX VSS 25.3616f
+C124 EN VSS 24.0789f
+C125 VDD VSS 0.95p
+C126 a_7673_483# VSS 2.90137f
+C127 a_7083_483# VSS 6.39712f
+C128 a_6447_5389# VSS 8.54632f
+C129 a_6567_9285# VSS 7.6582f
+C130 a_990_n6686# VSS 11.5475f
+C131 a_200_n6686# VSS 5.05938f
+C132 a_n590_n6686# VSS 7.97268f
+C133 a_1260_n6686# VSS 0.15844f
+C134 a_470_n6686# VSS 0.03326f
+C135 a_n320_n6686# VSS 0.03284f
+C136 a_n1110_n6686# VSS 0.03295f
+C137 a_n1900_n6686# VSS 2.60775f
+C138 a_n7369_8045# VSS 18.1527f
+C139 a_n7889_8045# VSS 0.29295f
+C140 a_n19111_10951# VSS 4.92556f
+C141 a_n19431_10951# VSS 2.7563f
+C142 a_n25601_10951# VSS 40.1477f
+C143 a_n28653_8045# VSS 12.9247f
+C144 a_n29173_8045# VSS 0.20081f
+C145 a_n16059_8045# VSS 3.24753f
+C146 a_n37343_8045# VSS 3.20723f
+.ends
+

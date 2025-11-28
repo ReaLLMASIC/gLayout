@@ -1,0 +1,45 @@
+v {xschem version=3.4.7 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 130 -20 150 -20 {}
+L 4 -150 -40 -130 -40 {}
+L 4 130 10 150 10 {}
+L 4 130 40 150 40 {}
+L 4 -150 0 -130 0 {}
+L 4 -150 40 -130 40 {}
+L 4 130 -50 150 -50 {}
+L 7 -30 60 -30 80 {}
+L 7 -40 -80 -40 -60 {}
+L 7 30 -80 30 -60 {}
+L 7 40 60 40 80 {}
+B 5 147.5 -22.5 152.5 -17.5 {name=VCM_OUT dir=out}
+B 5 -152.5 -42.5 -147.5 -37.5 {name=EN dir=in}
+B 5 147.5 7.5 152.5 12.5 {name=BCM_OUT dir=out}
+B 5 147.5 37.5 152.5 42.5 {name=CCM_OUT dir=out}
+B 5 -152.5 -2.5 -147.5 2.5 {name=VIN dir=in}
+B 5 -32.5 77.5 -27.5 82.5 {name=DVSS dir=inout}
+B 5 -42.5 -82.5 -37.5 -77.5 {name=DVDD dir=inout}
+B 5 27.5 -82.5 32.5 -77.5 {name=VDD dir=inout}
+B 5 37.5 77.5 42.5 82.5 {name=VSS dir=inout}
+B 5 -152.5 37.5 -147.5 42.5 {name=VBIAS dir=in}
+B 5 147.5 -52.5 152.5 -47.5 {name=VIN_OUT dir=out}
+P 4 5 130 -70 -130 -70 -130 70 130 70 130 -70 {}
+T {@symname} -63 -6 0 0 0.3 0.3 {}
+T {@name} 135 -82 0 0 0.2 0.2 {}
+T {VCM_OUT} 125 -24 0 1 0.2 0.2 {}
+T {EN} -125 -44 0 0 0.2 0.2 {}
+T {BCM_OUT} 125 6 0 1 0.2 0.2 {}
+T {CCM_OUT} 125 36 0 1 0.2 0.2 {}
+T {VIN} -125 -4 0 0 0.2 0.2 {}
+T {DVSS} -26 55 1 1 0.2 0.2 {}
+T {DVDD} -44 -55 3 1 0.2 0.2 {}
+T {VDD} 26 -55 3 1 0.2 0.2 {}
+T {VSS} 44 55 1 1 0.2 0.2 {}
+T {VBIAS} -125 36 0 0 0.2 0.2 {}
+T {VIN_OUT} 125 -54 0 1 0.2 0.2 {}

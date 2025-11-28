@@ -1,0 +1,9 @@
+* NGSPICE file created from CM.ext - technology: gf180mcuD
+
+.subckt CM VIN VSS VOUT
+X0 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=14.08p ps=55.04u w=4u l=1u
+X1 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X2 VIN VIN VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X3 VOUT VIN VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+.ends
+
