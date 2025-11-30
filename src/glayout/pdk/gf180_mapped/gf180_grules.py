@@ -1,8 +1,8 @@
 from ..mappedpdk import MappedPDK
 
 grulesobj = dict()
-for glayer in MappedPDK.valid_glayers:
-    grulesobj[glayer] = dict((x, None) for x in MappedPDK.valid_glayers)
+for glayer in MappedPDK.valid_glayers["3p3"]:
+    grulesobj[glayer] = dict((x, None) for x in MappedPDK.valid_glayers["3p3"])
 
 grulesobj["dnwell"]["dnwell"] = {'min_width': 1.7, 'min_separation': 5.42}
 grulesobj["dnwell"]["pwell"] = {'min_enclosure': 2.5}
@@ -366,3 +366,99 @@ grulesobj["capmet"]["via4"] = {}
 grulesobj["capmet"]["met5"] = {}
 grulesobj["capmet"]["capmet"] = {'capmettop': (42, 0), 'capmetbottom': (36, 0), 'min_separation': 1.2}
 
+grulesobj_5p0 = dict()
+for glayer in MappedPDK.valid_glayers["5p0"]:
+    grulesobj_5p0[glayer] = dict((x, None) for x in
+                                 MappedPDK.valid_glayers["5p0"])
+
+# DN.1 DN2b
+grulesobj_5p0["dnwell"]["dnwell"] = {'min_width': 1.7, 'min_separation': 5.42}
+# DN.2a
+grulesobj_5p0["dnwell"]["pwell"] = {'min_enclosure': 2.5}
+
+# LVW.2a LVW.1
+grulesobj_5p0["pwell"]["pwell"] = {'min_width': 0.74, 'min_separation': 1.7}
+
+# NW.1a NW.2b
+grulesobj_5p0["nwell"]["nwell"] = {'min_width': 0.86, 'min_separation': 1.7}
+# NW.3 NW.5
+grulesobj_5p0["dnwell"]["nwell"] = {'min_separation': 3.1, 'min_enclosure': 0.5}
+# NW.4
+grulesobj_5p0["pwell"]["nwell"] = {'min_separation': 0.0}
+
+
+# DF.1a DF.3a
+grulesobj_5p0["active_diff"]["active_diff"] = {'min_width': 0.3,
+                                               'min_separation': 0.36}
+grulesobj_5p0["active_tap"]["active_tap"] = {'min_width': 0.3,
+                                             'min_separation': 0.36}
+# DF.3a DF.13
+grulesobj_5p0["active_diff"]["active_tap"] = {'min_separation': 0.36,
+                                              'max_separation': 15.0}
+# DF.4b
+grulesobj_5p0["dnwell"]["active_tap"] = {'min_enclosure': 0.66, 'min_separation': 2.5}
+# DF.4c
+grulesobj_5p0["nwell"]["active_diff"] = {'min_enclosure': 0.6}
+# DF.4d
+grulesobj_5p0["nwell"]["active_tap"] = {'min_enclosure': 0.16}
+# DF.4e
+grulesobj_5p0["dnwell"]["active_diff"] = {'min_enclosure': 1.1}
+# DF.5
+grulesobj_5p0["pwell"]["active_tap"] = {'min_enclosure': 0.16}
+# DF.8, DF.7
+grulesobj_5p0["pwell"]["active_diff"] = {'min_enclosure': 0.6}
+
+
+# DV.1
+grulesobj_5p0["dualgate"]["dnwell"] = {'min_enclosure': 0.5}
+# DV.2 DV.5
+grulesobj_5p0["dualgate"]["dualgate"] = {'min_width':0.7,'min_separation': 0.44}
+# DV.3
+grulesobj_5p0["dualgate"]["active_diff"] = {'min_separation': 0.24}
+# DV.8
+grulesobj_5p0["dualgate"]["poly"] = {"min_enclosure": 0.4}
+
+
+
+# PL.2
+grulesobj_5p0["poly"]["poly"] = {'min_width': 0.5}
+# PL.3a PL.5b
+grulesobj_5p0["active_diff"]["poly"] = {'overhang': 0.24, 'min_separation': 0.3}
+# PL.5a
+grulesobj_5p0["active_tap"]["poly"] = {'min_separation': 0.3}
+
+
+# Rules bellow for  difussions and contacts doesn't change for 5V in GF180
+grulesobj_5p0["n+s/d"]["n+s/d"] = {'min_width': 0.4, 'min_separation': 0.4}
+grulesobj_5p0["n+s/d"]["active_diff"] = {'min_enclosure': 0.23}
+grulesobj_5p0["n+s/d"]["active_tap"] = {'min_enclosure': 0.16}
+
+grulesobj_5p0["p+s/d"]["p+s/d"] = {'min_width': 0.4, 'min_separation': 0.4}
+grulesobj_5p0["p+s/d"]["active_diff"] = {'min_enclosure': 0.23}
+grulesobj_5p0["p+s/d"]["active_tap"] = {'min_enclosure': 0.16}
+
+grulesobj_5p0["active_diff"]["mcon"] = {'min_enclosure': 0.07}
+grulesobj_5p0["active_tap"]["mcon"] = {'min_enclosure': 0.07}
+grulesobj_5p0["poly"]["mcon"] = {'min_enclosure': 0.07, 'min_separation': 0.17}
+grulesobj_5p0["mcon"]["mcon"] = {'min_separation': 0.28, 'width': 0.22}
+
+grulesobj_5p0["mcon"]["met1"] = {'min_enclosure': 0.12}
+grulesobj_5p0["met1"]["met1"] = {'min_width': 0.23, 'min_separation': 0.3}
+grulesobj_5p0["met1"]["via1"] = {'min_enclosure': 0.12}
+grulesobj_5p0["via1"]["via1"] = {'width': 0.26, 'min_separation': 0.36}
+grulesobj_5p0["via1"]["met2"] = {'min_enclosure': 0.12}
+grulesobj_5p0["met2"]["met2"] = {'min_width': 0.28, 'min_separation': 0.3}
+grulesobj_5p0["met2"]["via2"] = {'min_enclosure': 0.12}
+grulesobj_5p0["met2"]["capmet"] = {'min_enclosure': 0.6}
+grulesobj_5p0["via2"]["via2"] = {'width': 0.26, 'min_separation': 0.36}
+grulesobj_5p0["via2"]["met3"] = {'min_enclosure': 0.12}
+grulesobj_5p0["met3"]["met3"] = {'min_width': 0.28, 'min_separation': 0.3}
+grulesobj_5p0["met3"]["via3"] = {'min_enclosure': 0.12}
+grulesobj_5p0["via3"]["via3"] = {'width': 0.26, 'min_separation': 0.36}
+grulesobj_5p0["via3"]["met4"] = {'min_enclosure': 0.12}
+grulesobj_5p0["met4"]["met4"] = {'min_width': 0.28, 'min_separation': 0.3}
+grulesobj_5p0["met4"]["via4"] = {'min_enclosure': 0.12}
+grulesobj_5p0["via4"]["via4"] = {'width': 0.26, 'min_separation': 0.36}
+grulesobj_5p0["via4"]["met5"] = {'min_enclosure': 0.12}
+grulesobj_5p0["met5"]["met5"] = {'min_width': 0.28, 'min_separation': 0.3}
+grulesobj_5p0["capmet"]["capmet"] = {'capmettop': (42, 0), 'capmetbottom': (36, 0), 'min_separation': 1.2}
