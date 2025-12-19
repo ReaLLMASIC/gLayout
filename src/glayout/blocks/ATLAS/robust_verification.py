@@ -45,14 +45,25 @@ def ensure_pdk_environment():
     if not pdk_root:
         # Fall back to the PDK bundled inside the current conda environment
         conda_prefix = os.environ.get('CONDA_PREFIX', '')
-        if not conda_prefix or 'miniconda3' in conda_prefix:
-            # Hard-code the *known* GLDev env path as a robust fallback
-            conda_prefix = "/home/adityakak/.conda/envs/GLDev"
-
-        pdk_root = os.path.join(conda_prefix, 'share', 'pdk')
-        if not os.path.isdir(pdk_root):
+        if conda_prefix:
+            pdk_root = os.path.join(conda_prefix, 'share', 'pdk')
+        
+        # If still not found, try common locations
+        if not pdk_root or not os.path.isdir(pdk_root):
+            # Try OpenFASOC location and other common paths
+            possible_paths = [
+                "/home/erinhua/OpenFASOC/openfasoc/generators/glayout/tapeout/tapeout_and_RL",
+                os.path.join(os.path.expanduser("~"), ".conda/envs/GLDev/share/pdk"),
+                "/usr/local/share/pdk",
+            ]
+            for path in possible_paths:
+                if os.path.isdir(path):
+                    pdk_root = path
+                    break
+        
+        if not pdk_root or not os.path.isdir(pdk_root):
             raise RuntimeError(
-                f"Derived PDK_ROOT '{pdk_root}' does not exist; please set the PDK_ROOT env variable"
+                f"Could not find PDK_ROOT. Tried: {possible_paths}. Please set the PDK_ROOT env variable"
             )
 
     # Build a consistent set of environment variables
