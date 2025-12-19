@@ -30,6 +30,9 @@ LAYER = {
     "lvpwell": (204, 0),
     "dnwell": (12, 0),
     "CAP_MK": (117, 5),
+    # BJT layers
+    "drc_bjt": (127, 5),
+    "lvs_bjt": (118, 5),
     # _Label Layer Definations
     "metal5_label": (81,10),
     "metal4_label": (46,10),
@@ -60,6 +63,9 @@ gf180_glayer_mapping = {
     "pwell": "lvpwell",
     "dnwell": "dnwell",
     "capmet": "CAP_MK",
+    # bjt layer
+    "drc_bjt": "drc_bjt",
+    "lvs_bjt": "lvs_bjt",
     # _pin layer ampping
     "met5_pin": "metal5_label",
     "met4_pin": "metal4_label",
@@ -83,6 +89,26 @@ gf180_glayer_mapping = {
 # Option B: Uses metal4-metal5 (added in PR#54 continuation for gf180mcuD)
 # Both options have duplicate DRC rules but different metal layers
 # Default behavior varies by process variant - see gf180mcu_drc.lydrc for variant-specific settings
+# Add valid BJT sizes
+
+gf180_valid_bjt_sizes = {
+    "npn" : [
+        (0.54, 2.0),
+        (0.54, 4.0),
+        (0.54, 8.0),
+        (0.54, 16.0),
+        (5.0, 5.0),
+        (10.0, 10.0),
+    ],
+    "pnp" : [
+        (5.0, 0.42),
+        (5.0, 5.0),
+        (10.0, 0.42),
+        (10.0, 10.0),
+    ],
+}
+
+# note for DRC, there is mim_option 'A'. This is the one configured for use
 
 gf180_lydrc_file_path = Path(__file__).resolve().parent / "gf180mcu_drc.lydrc"
 # openfasoc_dir = Path(__file__).resolve().parent.parent.parent.parent.parent.parent.parent
@@ -115,6 +141,7 @@ gf180_mapped_pdk = MappedPDK(
     layers=LAYER,
     pdk_files=pdk_files,
     grules=grulesobj,
+    valid_bjt_sizes=gf180_valid_bjt_sizes
 )
 
 # configure the grid size and other settings
