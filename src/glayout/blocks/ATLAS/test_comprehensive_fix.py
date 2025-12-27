@@ -80,7 +80,7 @@ def main():
     print("🧪 Comprehensive Netlist Serialization Test")
     print("=" * 60)
     
-    from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+    from glayout.pdk.sky130_mapped import sky130_mapped_pdk
     pdk = sky130_mapped_pdk
     
     test_results = []
@@ -88,7 +88,7 @@ def main():
     # Test 1: Basic FETs
     try:
         print("\n📋 Testing Basic Components...")
-        from glayout.flow.primitives.fet import nmos, pmos
+        from glayout.primitives.fet import nmos, pmos
         
         nfet = nmos(pdk, width=1.0, length=0.15, fingers=1)
         test_results.append(("NMOS", test_component_info_serialization(nfet, "NMOS")))
@@ -137,7 +137,7 @@ def main():
     # Test 4: MIM Capacitor (if available)
     try:
         print("\n📋 Testing MIM Capacitor...")
-        from glayout.flow.primitives.mimcap import mimcap
+        from glayout.primitives.mimcap import mimcap
         
         cap = mimcap(pdk=pdk, size=(5.0, 5.0))
         test_results.append(("MIM Cap", test_component_info_serialization(cap, "MIM Capacitor")))

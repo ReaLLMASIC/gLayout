@@ -283,7 +283,7 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
     
     # Import sky130_mapped_pdk *after* the environment is guaranteed sane so
     # that gdsfactory/PDK initialization picks up the correct PDK_ROOT.
-    from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+    from glayout.pdk.sky130_mapped import sky130_mapped_pdk
     
     # DRC Check
     drc_report_path = os.path.abspath(f"./{component_name}.drc.rpt")

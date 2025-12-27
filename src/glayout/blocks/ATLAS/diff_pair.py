@@ -5,9 +5,9 @@ from gdsfactory.component import Component, copy
 from gdsfactory.components.rectangle import rectangle
 from gdsfactory.routing.route_quad import route_quad
 from gdsfactory.routing.route_sharp import route_sharp
-from glayout.flow.pdk.mappedpdk import MappedPDK
-from glayout.flow.pdk.util.comp_utils import align_comp_to_port, evaluate_bbox, movex, movey
-from glayout.flow.pdk.util.port_utils import (
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.util.comp_utils import align_comp_to_port, evaluate_bbox, movex, movey
+from glayout.util.port_utils import (
     add_ports_perimeter,
     get_orientation,
     print_ports,
@@ -15,16 +15,16 @@ from glayout.flow.pdk.util.port_utils import (
     rename_ports_by_orientation,
     set_port_orientation,
 )
-from glayout.flow.pdk.util.snap_to_grid import component_snap_to_grid
-from glayout.flow.placement.common_centroid_ab_ba import common_centroid_ab_ba
-from glayout.flow.primitives.fet import nmos, pmos
-from glayout.flow.primitives.guardring import tapring
-from glayout.flow.primitives.via_gen import via_stack
-from glayout.flow.routing.c_route import c_route
-from glayout.flow.routing.smart_route import smart_route
-from glayout.flow.routing.straight_route import straight_route
-from glayout.flow.spice import Netlist
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.util.snap_to_grid import component_snap_to_grid
+from glayout.placement.common_centroid_ab_ba import common_centroid_ab_ba
+from glayout.primitives.fet import nmos, pmos
+from glayout.primitives.guardring import tapring
+from glayout.primitives.via_gen import via_stack
+from glayout.routing.c_route import c_route
+from glayout.routing.smart_route import smart_route
+from glayout.routing.straight_route import straight_route
+from glayout.spice import Netlist
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from gdsfactory.components import text_freetype
 try:
     from evaluator_wrapper import run_evaluation

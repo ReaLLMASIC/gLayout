@@ -19,7 +19,7 @@ def debug_netlist_storage():
     """Debug what's actually being stored in component.info"""
     print("🔍 Debugging Netlist Storage...")
     
-    from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+    from glayout.pdk.sky130_mapped import sky130_mapped_pdk
     from transmission_gate import transmission_gate
     
     pdk = sky130_mapped_pdk
@@ -43,7 +43,7 @@ def debug_netlist_storage():
     # Test reconstruction
     print("\n🔧 Testing Reconstruction...")
     if 'netlist_data' in tg.info:
-        from glayout.flow.spice.netlist import Netlist
+        from glayout.spice.netlist import Netlist
         data = tg.info['netlist_data']
         print(f"Netlist data: {data}")
         

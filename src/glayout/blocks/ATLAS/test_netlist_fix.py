@@ -16,7 +16,7 @@ if glayout_path not in sys.path:
 os.environ['PDK_ROOT'] = '/opt/conda/envs/GLdev/share/pdk'
 os.environ['PDK'] = 'sky130A'
 
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from transmission_gate import transmission_gate, add_tg_labels
 
 def test_netlist_serialization():

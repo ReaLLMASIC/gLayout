@@ -6,7 +6,7 @@ import shutil
 import tempfile
 import sys
 from pathlib import Path
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from gdsfactory.typings import Component
 
 def parse_drc_report(report_content: str) -> dict:

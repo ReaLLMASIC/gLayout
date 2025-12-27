@@ -65,7 +65,7 @@ def get_global_pdk():
     """Return a *stable* sky130_mapped_pdk instance (cached)."""
     global GLOBAL_SKY130_PDK
     if GLOBAL_SKY130_PDK is None:
-        from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk as _pdk
+        from glayout.pdk.sky130_mapped import sky130_mapped_pdk as _pdk
         GLOBAL_SKY130_PDK = _pdk
     return GLOBAL_SKY130_PDK
 
@@ -130,7 +130,7 @@ def robust_transmission_gate(_, **params):
     """Return a transmission_gate with a *fresh* MappedPDK every call.
 
     We sidestep all pydantic ValidationErrors by importing/reloading
-    ``glayout.flow.pdk.sky130_mapped`` each time and passing that brand-new
+    ``glayout.pdk.sky130_mapped`` each time and passing that brand-new
     ``sky130_mapped_pdk`` instance to the circuit generator.
     """
     from transmission_gate import transmission_gate, add_tg_labels
@@ -260,9 +260,9 @@ def run_single_evaluation(trial_num, params, output_dir):
 
             # Fresh PDK import per trial/process
             import importlib, sys
-            if 'glayout.flow.pdk.sky130_mapped' in sys.modules:
-                importlib.reload(sys.modules['glayout.flow.pdk.sky130_mapped'])
-            from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+            if 'glayout.pdk.sky130_mapped' in sys.modules:
+                importlib.reload(sys.modules['glayout.pdk.sky130_mapped'])
+            from glayout.pdk.sky130_mapped import sky130_mapped_pdk
             pdk = sky130_mapped_pdk
 
             # Create and name component

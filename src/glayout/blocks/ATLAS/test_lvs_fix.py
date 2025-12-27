@@ -22,7 +22,7 @@ def test_lvs_netlist_generation():
     print("🧪 Testing LVS Netlist Generation Fix...")
     
     try:
-        from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+        from glayout.pdk.sky130_mapped import sky130_mapped_pdk
         from transmission_gate import transmission_gate, add_tg_labels
         
         pdk = sky130_mapped_pdk
@@ -43,7 +43,7 @@ def test_lvs_netlist_generation():
         print("📋 Testing netlist generation in LVS context...")
         
         # Test the netlist generation logic from mappedpdk.py
-        from glayout.flow.spice.netlist import Netlist
+        from glayout.spice.netlist import Netlist
         
         # Simulate what happens in lvs_netgen when netlist is None
         layout = tg_labeled
@@ -117,7 +117,7 @@ def test_actual_lvs_call():
     print("\n🧪 Testing Actual LVS Functionality...")
     
     try:
-        from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+        from glayout.pdk.sky130_mapped import sky130_mapped_pdk
         from transmission_gate import transmission_gate, add_tg_labels
         
         pdk = sky130_mapped_pdk

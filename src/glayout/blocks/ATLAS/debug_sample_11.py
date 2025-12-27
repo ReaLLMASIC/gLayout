@@ -13,8 +13,8 @@ _here = Path(__file__).resolve()
 _root_dir = _here.parent.parent.parent.parent.parent
 sys.path.insert(0, str(_root_dir))
 
-from glayout.flow.blocks.elementary.LHS.transmission_gate import transmission_gate, add_tg_labels
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.blocks.elementary.LHS.transmission_gate import transmission_gate, add_tg_labels
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 
 def test_sample_11():
     """Test the specific parameters that are causing sample 11 to hang"""
