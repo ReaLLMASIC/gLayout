@@ -1,8 +1,25 @@
 #!/usr/bin/env python3
 """
-Transmission Gate Dataset Generator - 100 Samples Version
+Generic Dataset Generator - Supports Multiple Cell Types
 Based on the proven approach from generate_fvf_360_robust_fixed.py.
-Generates dataset using 100 parameter combinations from txgate_parameters.json and monitors runtime.
+
+This script generates datasets for various cell types using parameter combinations
+from JSON files and performs comprehensive evaluation (DRC, LVS, PEX, Geometry).
+
+Supported cell types:
+- txgate: Transmission Gate
+- fvf: Flipped Voltage Follower
+- lvcm: Low Voltage Current Mirror
+- current_mirror: Current Mirror
+- diff_pair: Differential Pair
+- opamp: Operational Amplifier
+
+Usage:
+    python run_dataset_multiprocess.py <params.json> --cell_type <type> --n_cores <n>
+
+Example:
+    python run_dataset_multiprocess.py txgate_params.json --cell_type txgate --n_cores 8
+    python run_dataset_multiprocess.py fvf_params.json --cell_type fvf --n_cores 8
 """
 import logging
 import os
@@ -126,53 +143,133 @@ def setup_environment():
     logger.info(f"Environment refreshed: PDK_ROOT={pdk_root}")
     return pdk_root
 
-def robust_transmission_gate(_, **params):
-    """Return a transmission_gate with a *fresh* MappedPDK every call.
-
-    We sidestep all pydantic ValidationErrors by importing/reloading
-    ``glayout.pdk.sky130_mapped`` each time and passing that brand-new
-    ``sky130_mapped_pdk`` instance to the circuit generator.
+def robust_cell_generator(cell_type, **params):
+    """Return a cell component with a *fresh* MappedPDK every call.
+    
+    This function dynamically loads the appropriate cell module and function
+    based on cell_type from the cell registry, then generates the component.
+    
+    Args:
+        cell_type: String identifier for cell type (e.g., "txgate", "fvf")
+        **params: Cell-specific parameters (width, length, fingers, etc.)
+    
+    Returns:
+        gdsfactory Component with the generated cell
     """
-    from transmission_gate import transmission_gate, add_tg_labels
+    from cell_registry import get_cell_config
+    
+    config = get_cell_config(cell_type)
+    
+    # Dynamic module import
+    module = __import__(config["module"], fromlist=[config["function"]])
+    cell_func = getattr(module, config["function"])
+    
     # Use a *stable* PDK instance across all trials to avoid Pydantic class mismatch
     pdk = get_global_pdk()
-    comp = transmission_gate(pdk=pdk, **params)
-    # Add physical pin shapes so Magic extracts a correct pin list for LVS
-    try:
-        comp = add_tg_labels(comp, pdk)
-    except Exception as e:
-        logger.warning(f"Failed to add pin labels to TG: {e}")
+    
+    # Generate the cell component
+    comp = cell_func(pdk=pdk, **params)
+    
+    # Add physical pin shapes/labels if label function is defined
+    if config["label_function"]:
+        try:
+            label_func = getattr(module, config["label_function"])
+            comp = label_func(comp, pdk)
+        except Exception as e:
+            logger.warning(f"Failed to add pin labels to {config['display_name']}: {e}")
+    
     return comp
 
-def load_tg_parameters_from_json(json_file=""):
-    """Load transmission gate parameters from the generated JSON file"""
+def load_cell_parameters_from_json(json_file, cell_type):
+    """Load cell parameters from the generated JSON file.
+    
+    Args:
+        json_file: Path to JSON file containing parameter combinations
+        cell_type: Cell type identifier (e.g., "txgate", "fvf")
+    
+    Returns:
+        List of parameter dictionaries
+    """
+    from cell_registry import get_cell_config
+    
+    config = get_cell_config(cell_type)
     json_path = Path(json_file)
+    
     if not json_path.exists():
         raise FileNotFoundError(f"Parameter file not found: {json_file}")
+    
     with open(json_path, 'r') as f:
         parameters = json.load(f)
-    logger.info(f"Loaded {len(parameters)} transmission gate parameter combinations from {json_file}")
-    # Log parameter distribution statistics
-    widths_nmos = [p["width"][0] for p in parameters]
-    widths_pmos = [p["width"][1] for p in parameters]
-    lengths_nmos = [p["length"][0] for p in parameters]
-    lengths_pmos = [p["length"][1] for p in parameters]
-    logger.info(f"Parameter ranges:")
-    logger.info(f"  NMOS width: {min(widths_nmos):.2f} - {max(widths_nmos):.2f} μm")
-    logger.info(f"  PMOS width: {min(widths_pmos):.2f} - {max(widths_pmos):.2f} μm")
-    logger.info(f"  NMOS length: {min(lengths_nmos):.3f} - {max(lengths_nmos):.3f} μm")
-    logger.info(f"  PMOS length: {min(lengths_pmos):.3f} - {max(lengths_pmos):.3f} μm")
-    # Show first few parameter examples
-    logger.info(f"First 3 parameter combinations:")
-    for i, params in enumerate(parameters[:3], 1):
-        nmos_w, pmos_w = params["width"]
-        nmos_l, pmos_l = params["length"]
-        nmos_f, pmos_f = params["fingers"]
-        nmos_m, pmos_m = params["multipliers"]
-        
-        logger.info(f"  Sample {i}: NMOS({nmos_w:.2f}μm/{nmos_l:.3f}μm, {nmos_f}f×{nmos_m}), "
-                   f"PMOS({pmos_w:.2f}μm/{pmos_l:.3f}μm, {pmos_f}f×{pmos_m})")
+    
+    logger.info(f"Loaded {len(parameters)} {config['display_name']} parameter combinations from {json_file}")
+    
+    # Log parameter distribution statistics (generic approach)
+    if parameters:
+        log_parameter_statistics(parameters, config)
+    
     return parameters
+
+
+def log_parameter_statistics(parameters, config):
+    """Log statistics about parameter distribution based on cell type.
+    
+    Args:
+        parameters: List of parameter dictionaries
+        config: Cell configuration from registry
+    """
+    param_format = config.get('param_format', 'single')
+    
+    # Handle complementary parameters (NMOS/PMOS tuples)
+    if param_format == 'complementary':
+        if 'width' in parameters[0]:
+            widths_nmos = [p["width"][0] for p in parameters]
+            widths_pmos = [p["width"][1] for p in parameters]
+            logger.info(f"Parameter ranges:")
+            logger.info(f"  NMOS width: {min(widths_nmos):.2f} - {max(widths_nmos):.2f} μm")
+            logger.info(f"  PMOS width: {min(widths_pmos):.2f} - {max(widths_pmos):.2f} μm")
+        
+        if 'length' in parameters[0]:
+            lengths_nmos = [p["length"][0] for p in parameters]
+            lengths_pmos = [p["length"][1] for p in parameters]
+            logger.info(f"  NMOS length: {min(lengths_nmos):.3f} - {max(lengths_nmos):.3f} μm")
+            logger.info(f"  PMOS length: {min(lengths_pmos):.3f} - {max(lengths_pmos):.3f} μm")
+        
+        # Show first few examples
+        logger.info(f"First 3 parameter combinations:")
+        for i, params in enumerate(parameters[:3], 1):
+            nmos_w, pmos_w = params.get("width", (0, 0))
+            nmos_l, pmos_l = params.get("length", (0, 0))
+            nmos_f, pmos_f = params.get("fingers", (0, 0))
+            nmos_m, pmos_m = params.get("multipliers", (1, 1))
+            
+            logger.info(f"  Sample {i}: NMOS({nmos_w:.2f}μm/{nmos_l:.3f}μm, {nmos_f}f×{nmos_m}), "
+                       f"PMOS({pmos_w:.2f}μm/{pmos_l:.3f}μm, {pmos_f}f×{pmos_m})")
+    
+    # Handle mixed parameters (LVCM: width tuple, length scalar)
+    elif param_format == 'mixed':
+        if 'width' in parameters[0]:
+            widths_0 = [p["width"][0] for p in parameters]
+            widths_1 = [p["width"][1] for p in parameters]
+            logger.info(f"Parameter ranges:")
+            logger.info(f"  Width[0]: {min(widths_0):.2f} - {max(widths_0):.2f} μm")
+            logger.info(f"  Width[1]: {min(widths_1):.2f} - {max(widths_1):.2f} μm")
+        
+        if 'length' in parameters[0]:
+            lengths = [p["length"] for p in parameters]
+            logger.info(f"  Length: {min(lengths):.3f} - {max(lengths):.3f} μm")
+    
+    # Handle single scalar parameters
+    elif param_format == 'single':
+        logger.info(f"Parameter ranges:")
+        for key in ['width', 'length']:
+            if key in parameters[0]:
+                values = [p[key] for p in parameters]
+                logger.info(f"  {key.capitalize()}: {min(values):.2f} - {max(values):.2f} μm")
+    
+    # Handle complex parameters (opamp)
+    elif param_format == 'complex':
+        logger.info(f"Complex parameter structure with {len(parameters[0])} top-level keys")
+        logger.info(f"Keys: {list(parameters[0].keys())}")
 
 def cleanup_files():
     """Clean up generated files in working directory"""
@@ -213,9 +310,22 @@ def make_json_serializable(obj):
         except (TypeError, ValueError):
             return str(obj)
 # Parallelized
-def run_single_evaluation(trial_num, params, output_dir):
-    """Run a single TG evaluation in its own isolated working directory."""
+def run_single_evaluation(trial_num, params, output_dir, cell_type):
+    """Run a single cell evaluation in its own isolated working directory.
+    
+    Args:
+        trial_num: Trial number (used for seeding and naming)
+        params: Parameter dictionary for this trial
+        output_dir: Base output directory
+        cell_type: Cell type identifier (e.g., "txgate", "fvf")
+    
+    Returns:
+        Dictionary with evaluation results
+    """
+    from cell_registry import get_cell_config
+    
     trial_start = time.time()
+    config = get_cell_config(cell_type)
 
     # Per-trial working dir (all scratch files live here)
     trial_work_dir = Path(output_dir) / "_work" / f"sample_{trial_num:04d}"
@@ -265,9 +375,9 @@ def run_single_evaluation(trial_num, params, output_dir):
             from glayout.pdk.sky130_mapped import sky130_mapped_pdk
             pdk = sky130_mapped_pdk
 
-            # Create and name component
-            component_name = f"tg_sample_{trial_num:04d}"
-            comp = robust_transmission_gate(pdk, **params)
+            # Create and name component (dynamic naming based on cell type)
+            component_name = f"{config['prefix']}_sample_{trial_num:04d}"
+            comp = robust_cell_generator(cell_type, **params)
             comp.name = component_name
 
             # Write GDS into the trial's **work** dir
@@ -308,6 +418,7 @@ def run_single_evaluation(trial_num, params, output_dir):
             result = {
                 "sample_id": trial_num,
                 "component_name": component_name,
+                "cell_type": cell_type,
                 "success": success_flag,
                 "drc_pass": drc_result,
                 "lvs_pass": lvs_result,
@@ -324,10 +435,10 @@ def run_single_evaluation(trial_num, params, output_dir):
                 "symmetry_vertical": geometry_data.get("symmetry_score_vertical", 0.0),
             }
 
+            # Generic parameter summary (handle different param formats)
+            param_summary = format_param_summary(params, config)
             pex_status_short = "✓" if pex_data.get("status") == "PEX Complete" else "✗"
-            nmos_w, pmos_w = params["width"]
-            nmos_f, pmos_f = params["fingers"]
-            param_summary = f"NMOS:{nmos_w:.1f}μm×{nmos_f}f, PMOS:{pmos_w:.1f}μm×{pmos_f}f"
+            
             logger.info(
                 f"✅ Sample {trial_num:04d} completed in {trial_time:.1f}s "
                 f"(DRC: {'✓' if drc_result else '✗'}, LVS: {'✓' if lvs_result else '✗'}, PEX: {pex_status_short}) "
@@ -340,7 +451,8 @@ def run_single_evaluation(trial_num, params, output_dir):
         logger.error(f"❌ Sample {trial_num:04d} failed: {e}")
         return {
             "sample_id": trial_num,
-            "component_name": f"tg_sample_{trial_num:04d}",
+            "component_name": f"{config['prefix']}_sample_{trial_num:04d}",
+            "cell_type": cell_type,
             "success": False,
             "error": str(e),
             "execution_time": trial_time,
@@ -360,13 +472,65 @@ def run_single_evaluation(trial_num, params, output_dir):
             if hasattr(gf, 'clear_cell_cache'):
                 gf.clear_cell_cache()
 
+
+def format_param_summary(params, config):
+    """Format parameter summary string based on parameter format.
+    
+    Args:
+        params: Parameter dictionary
+        config: Cell configuration from registry
+    
+    Returns:
+        Formatted string summarizing key parameters
+    """
+    param_format = config.get('param_format', 'single')
+    
+    try:
+        if param_format == 'complementary':
+            nmos_w, pmos_w = params.get("width", (0, 0))
+            nmos_f, pmos_f = params.get("fingers", (0, 0))
+            return f"NMOS:{nmos_w:.1f}μm×{nmos_f}f, PMOS:{pmos_w:.1f}μm×{pmos_f}f"
+        
+        elif param_format == 'mixed':
+            w0, w1 = params.get("width", (0, 0))
+            length = params.get("length", 0)
+            return f"W:[{w0:.1f},{w1:.1f}]μm, L:{length:.3f}μm"
+        
+        elif param_format == 'single':
+            width = params.get("width", 0)
+            length = params.get("length", 0)
+            fingers = params.get("fingers", 0)
+            return f"W:{width:.1f}μm, L:{length:.3f}μm, F:{fingers}"
+        
+        elif param_format == 'complex':
+            # For opamp, just show number of parameters
+            return f"{len(params)} params"
+        
+        else:
+            return str(params)[:50]
+    except Exception:
+        return "params"
+
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
 # Parallelized
-def run_dataset_generation(parameters, output_dir, max_workers=1):
-    """Run the dataset generation for all parameters (in parallel, per-trial isolation)."""
+def run_dataset_generation(parameters, output_dir, cell_type, max_workers=1):
+    """Run the dataset generation for all parameters (in parallel, per-trial isolation).
+    
+    Args:
+        parameters: List of parameter dictionaries
+        output_dir: Output directory path
+        cell_type: Cell type identifier (e.g., "txgate", "fvf")
+        max_workers: Number of parallel workers
+    
+    Returns:
+        Tuple of (success, passed_count, total_count)
+    """
+    from cell_registry import get_cell_config
+    
+    config = get_cell_config(cell_type)
     n_samples = len(parameters)
-    logger.info(f"🚀 Starting Transmission Gate Dataset Generation for {n_samples} samples")
+    logger.info(f"🚀 Starting {config['display_name']} Dataset Generation for {n_samples} samples")
 
     # Prepare top-level dirs
     out_dir = Path(output_dir)
@@ -375,18 +539,19 @@ def run_dataset_generation(parameters, output_dir, max_workers=1):
     work_root.mkdir(exist_ok=True)
 
     # Save parameter configuration
-    with open(out_dir / "tg_parameters.json", 'w') as f:
+    param_file = out_dir / f"{config['prefix']}_parameters.json"
+    with open(param_file, 'w') as f:
         json.dump(parameters, f, indent=2)
 
     results = []
     total_start = time.time()
-    logger.info(f"📊 Processing {n_samples} transmission gate samples in parallel...")
+    logger.info(f"📊 Processing {n_samples} {config['display_name']} samples in parallel...")
     logger.info(f"Using {max_workers} parallel workers")
 
     futures = []
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         for i, params in enumerate(parameters, start=1):
-            futures.append(executor.submit(run_single_evaluation, i, params, output_dir))
+            futures.append(executor.submit(run_single_evaluation, i, params, output_dir, cell_type))
 
         completed = 0
         for future in as_completed(futures):
@@ -415,7 +580,7 @@ def run_dataset_generation(parameters, output_dir, max_workers=1):
     successful = [r for r in results if r.get("success")]
     success_rate = (len(successful) / len(results) * 100) if results else 0.0
 
-    logger.info(f"\n🎉 Transmission Gate Dataset Generation Complete!")
+    logger.info(f"\n🎉 {config['display_name']} Dataset Generation Complete!")
     logger.info(f"📊 Total time: {total_time:.1f} seconds ({total_time/60:.1f} minutes)")
     logger.info(f"📈 Success rate: {len(successful)}/{len(results)} ({success_rate:.1f}%)")
 
@@ -446,8 +611,8 @@ def run_dataset_generation(parameters, output_dir, max_workers=1):
         for error, count in sorted(error_counts.items(), key=lambda x: x[1], reverse=True):
             logger.info(f"   {count}x: {error}")
 
-    # Persist results/summary (same as before)
-    results_file = out_dir / "tg_results.json"
+    # Persist results/summary (with dynamic naming)
+    results_file = out_dir / f"{config['prefix']}_results.json"
     try:
         serializable_results = make_json_serializable(results)
         with open(results_file, 'w') as f:
@@ -457,7 +622,7 @@ def run_dataset_generation(parameters, output_dir, max_workers=1):
         logger.error(f"Failed to save JSON results: {e}")
 
     df_results = pd.DataFrame(results)
-    summary_file = out_dir / "tg_summary.csv"
+    summary_file = out_dir / f"{config['prefix']}_summary.csv"
     df_results.to_csv(summary_file, index=False)
     logger.info(f"📄 Summary saved to: {summary_file}")
 
@@ -467,29 +632,40 @@ def run_dataset_generation(parameters, output_dir, max_workers=1):
 import argparse
 def main():
     """Main function for Dataset generation"""
+    from cell_registry import list_supported_cells
 
     # Argument parsing
-    parser = argparse.ArgumentParser(description="Dataset Generator - 100 Samples")
+    parser = argparse.ArgumentParser(description="Generic Dataset Generator - Supports Multiple Cell Types")
     parser.add_argument("json_file",    type=str,                   help="Path to the JSON file containing parameters")
+    parser.add_argument("--cell_type",  type=str, required=True,    
+                       choices=list_supported_cells(),
+                       help="Cell type to generate (txgate, fvf, lvcm, current_mirror, diff_pair, opamp)")
     parser.add_argument("--n_cores",    type=int, default=1,        help="Number of CPU cores to use") # Number of CPU cores to use, default=1
     parser.add_argument("--output_dir", type=str, default="result", help="Output directory for the generated dataset")
     parser.add_argument("-y", "--yes", action="store_true", help="Automatic yes to prompts")
     args = parser.parse_args()
     json_file = Path(args.json_file).resolve()
     output_dir = args.output_dir
+    cell_type = args.cell_type
     n_cores = args.n_cores if args.n_cores > 0 else 1
     if n_cores > (os.cpu_count()):
         n_cores = os.cpu_count()
+    
+    # Get cell configuration
+    from cell_registry import get_cell_config
+    config = get_cell_config(cell_type)
+    
     print("="*30+" Arguments "+"="*30)
+    print(f"Cell Type: {config['display_name']} ({cell_type})")
     print(f"Using {n_cores} CPU cores for parallel processing")
     print(f"Input file: {json_file}")
     print(f"Output will be saved to: {output_dir}")
+    print(f"Output prefix: {config['prefix']}_*")
     print("="*70)
     
     # Load parameters from JSON
-    # Todo: make this work with other kind of cells
     try:
-        parameters = load_tg_parameters_from_json(json_file)
+        parameters = load_cell_parameters_from_json(json_file, cell_type)
         n_samples = len(parameters)
         print(f"Loaded {n_samples} parameter combinations")
     except FileNotFoundError as e:
@@ -500,36 +676,47 @@ def main():
         print(f"❌ Error loading parameters: {e}")
         return False
     
-    # Show parameter distribution
-    widths_nmos = [p["width"][0] for p in parameters]
-    widths_pmos = [p["width"][1] for p in parameters]
-    print(f"\n📋 Parameter Distribution:")
-    print(f"   NMOS width range: {min(widths_nmos):.2f} - {max(widths_nmos):.2f} μm")
-    print(f"   PMOS width range: {min(widths_pmos):.2f} - {max(widths_pmos):.2f} μm")
-    print(f"   Finger combinations: {len(set(tuple(p['fingers']) for p in parameters))} unique")
-    print(f"   Multiplier combinations: {len(set(tuple(p['multipliers']) for p in parameters))} unique")
-    print(f"\n📋 Sample Parameter Examples:")
-    for i, params in enumerate(parameters[:3], 1):
-        nmos_w, pmos_w = params["width"]
-        nmos_l, pmos_l = params["length"]
-        nmos_f, pmos_f = params["fingers"]
-        nmos_m, pmos_m = params["multipliers"]
-        print(f"   {i}. NMOS: {nmos_w:.2f}μm/{nmos_l:.3f}μm×{nmos_f}f×{nmos_m} | "
-              f"PMOS: {pmos_w:.2f}μm/{pmos_l:.3f}μm×{pmos_f}f×{pmos_m}")
+    # Show parameter distribution (generic)
+    param_format = config.get('param_format', 'single')
+    if param_format == 'complementary' and 'width' in parameters[0]:
+        widths_nmos = [p["width"][0] for p in parameters]
+        widths_pmos = [p["width"][1] for p in parameters]
+        print(f"\n📋 Parameter Distribution:")
+        print(f"   NMOS width range: {min(widths_nmos):.2f} - {max(widths_nmos):.2f} μm")
+        print(f"   PMOS width range: {min(widths_pmos):.2f} - {max(widths_pmos):.2f} μm")
+        if 'fingers' in parameters[0]:
+            print(f"   Finger combinations: {len(set(tuple(p['fingers']) for p in parameters))} unique")
+        if 'multipliers' in parameters[0]:
+            print(f"   Multiplier combinations: {len(set(tuple(p['multipliers']) for p in parameters))} unique")
+        
+        # Show examples
+        print(f"\n📋 Sample Parameter Examples:")
+        for i, params in enumerate(parameters[:3], 1):
+            nmos_w, pmos_w = params["width"]
+            nmos_l, pmos_l = params["length"]
+            nmos_f, pmos_f = params.get("fingers", (0, 0))
+            nmos_m, pmos_m = params.get("multipliers", (1, 1))
+            print(f"   {i}. NMOS: {nmos_w:.2f}μm/{nmos_l:.3f}μm×{nmos_f}f×{nmos_m} | "
+                  f"PMOS: {pmos_w:.2f}μm/{pmos_l:.3f}μm×{pmos_f}f×{pmos_m}")
+    else:
+        print(f"\n📋 Parameter Distribution:")
+        print(f"   {n_samples} parameter combinations loaded")
+        print(f"   Parameter keys: {list(parameters[0].keys())}")
     
     # Prompt user to continue
-    print(f"\nContinue with transmission gate dataset generation for {n_samples} samples? (y/n): ", end="")
-    response = input().lower().strip()
-    if response != 'y':
-        print("Stopping as requested.")
-        return True
+    if not args.yes:
+        print(f"\nContinue with {config['display_name']} dataset generation for {n_samples} samples? (y/n): ", end="")
+        response = input().lower().strip()
+        if response != 'y':
+            print("Stopping as requested.")
+            return True
     
     # Generate dataset
-    print(f"\nStarting generation of {n_samples} transmission gate samples...")
-    success, passed, total = run_dataset_generation(parameters, output_dir, max_workers=n_cores)
+    print(f"\nStarting generation of {n_samples} {config['display_name']} samples...")
+    success, passed, total = run_dataset_generation(parameters, output_dir, cell_type, max_workers=n_cores)
     
     if success:
-        print(f"\n🎉 Transmission gate dataset generation completed successfully!")
+        print(f"\n🎉 {config['display_name']} dataset generation completed successfully!")
     else:
         print(f"\n⚠️ Dataset generation completed with issues")
     print(f"📊 Final results: {passed}/{total} samples successful")
