@@ -18,8 +18,14 @@ Usage:
     python run_dataset_multiprocess.py <params.json> --cell_type <type> --n_cores <n>
 
 Example:
+    # Run all samples
     python run_dataset_multiprocess.py txgate_params.json --cell_type txgate --n_cores 8
-    python run_dataset_multiprocess.py fvf_params.json --cell_type fvf --n_cores 8
+    
+    # Run only first 10 samples (for testing)
+    python run_dataset_multiprocess.py txgate_params.json --cell_type txgate --n_cores 2 --max_samples 10
+    
+    # Run FVF with 100 samples
+    python run_dataset_multiprocess.py fvf_params.json --cell_type fvf --n_cores 8 --max_samples 100
 """
 import logging
 import os
@@ -157,11 +163,43 @@ def robust_cell_generator(cell_type, **params):
         gdsfactory Component with the generated cell
     """
     from cell_registry import get_cell_config
+    import importlib.util
+    import sys
+    from pathlib import Path
     
     config = get_cell_config(cell_type)
     
-    # Dynamic module import
-    module = __import__(config["module"], fromlist=[config["function"]])
+    # DEBUG: Print what we're trying to import
+    logger.info(f"DEBUG: Importing from module='{config['module']}', "
+                f"function='{config['function']}', "
+                f"label_function='{config.get('label_function')}'")
+    
+    # For ATLAS local modules, use direct file import to avoid glayout package init issues
+    if config['module'].startswith('glayout.blocks.ATLAS.'):
+        module_name = config['module'].split('.')[-1]  # e.g., 'fvf'
+        module_path = Path(__file__).parent / f"{module_name}.py"
+        
+        if module_path.exists():
+            logger.info(f"DEBUG: Using direct file import for {module_path}")
+            spec = importlib.util.spec_from_file_location(module_name, module_path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[module_name] = module
+            spec.loader.exec_module(module)
+        else:
+            # Fallback to regular import
+            module = __import__(config["module"], fromlist=[config["function"]])
+    else:
+        # Regular package import for non-ATLAS modules
+        imports_needed = [config["function"]]
+        if config["label_function"]:
+            imports_needed.append(config["label_function"])
+        
+        logger.info(f"DEBUG: imports_needed={imports_needed}")
+        module = __import__(config["module"], fromlist=imports_needed)
+    
+    logger.info(f"DEBUG: Successfully imported module: {module.__file__ if hasattr(module, '__file__') else module}")
+    logger.info(f"DEBUG: Module has these attributes: {[attr for attr in dir(module) if 'fvf' in attr.lower() or 'label' in attr.lower()]}")
+    
     cell_func = getattr(module, config["function"])
     
     # Use a *stable* PDK instance across all trials to avoid Pydantic class mismatch
@@ -642,11 +680,13 @@ def main():
                        help="Cell type to generate (txgate, fvf, lvcm, current_mirror, diff_pair, opamp)")
     parser.add_argument("--n_cores",    type=int, default=1,        help="Number of CPU cores to use") # Number of CPU cores to use, default=1
     parser.add_argument("--output_dir", type=str, default="result", help="Output directory for the generated dataset")
+    parser.add_argument("--max_samples", type=int, default=None,    help="Maximum number of samples to process (default: all samples in JSON)")
     parser.add_argument("-y", "--yes", action="store_true", help="Automatic yes to prompts")
     args = parser.parse_args()
     json_file = Path(args.json_file).resolve()
     output_dir = args.output_dir
     cell_type = args.cell_type
+    max_samples = args.max_samples
     n_cores = args.n_cores if args.n_cores > 0 else 1
     if n_cores > (os.cpu_count()):
         n_cores = os.cpu_count()
@@ -661,11 +701,20 @@ def main():
     print(f"Input file: {json_file}")
     print(f"Output will be saved to: {output_dir}")
     print(f"Output prefix: {config['prefix']}_*")
+    if max_samples is not None:
+        print(f"Max samples: {max_samples} (limiting from JSON file)")
     print("="*70)
     
     # Load parameters from JSON
     try:
         parameters = load_cell_parameters_from_json(json_file, cell_type)
+        
+        # Limit number of samples if max_samples is specified
+        if max_samples is not None and max_samples > 0:
+            original_count = len(parameters)
+            parameters = parameters[:max_samples]
+            print(f"⚠️  Limiting to first {len(parameters)} samples (out of {original_count} total)")
+        
         n_samples = len(parameters)
         print(f"Loaded {n_samples} parameter combinations")
     except FileNotFoundError as e:

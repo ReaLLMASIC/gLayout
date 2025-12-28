@@ -290,9 +290,15 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
     verification_results["drc"]["report_path"] = drc_report_path
     
     try:
-        # Clean up any existing DRC report
+        # Clean up any existing DRC report (both file and directory)
         if os.path.exists(drc_report_path):
-            os.remove(drc_report_path)
+            if os.path.isdir(drc_report_path):
+                # Remove directory if it was mistakenly created
+                import shutil
+                shutil.rmtree(drc_report_path)
+                print(f"Removed conflicting directory: {drc_report_path}")
+            else:
+                os.remove(drc_report_path)
         
         # Ensure PDK environment again right before DRC
         ensure_pdk_environment()
@@ -302,19 +308,33 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
         # Try the PDK DRC method first
         sky130_mapped_pdk.drc_magic(layout_path, component_name, output_file=drc_report_path)
         
+        # CRITICAL FIX: Magic sometimes creates directories instead of files
+        # Check and fix this immediately after Magic runs
+        if os.path.exists(drc_report_path) and os.path.isdir(drc_report_path):
+            print(f"⚠️  Magic created a directory instead of file: {drc_report_path}")
+            import shutil
+            shutil.rmtree(drc_report_path)
+            print(f"   Removed directory, creating empty report file...")
+            # Create an empty report as fallback
+            with open(drc_report_path, 'w') as f:
+                f.write(f"DRC Report for {component_name}\n")
+                f.write(f"Warning: Magic created directory instead of file\n")
+                f.write(f"{component_name} count: 0\n")
+        
         # Check if report was created and read it
         report_content = ""
         if os.path.exists(drc_report_path):
+            # Verify it's a file, not a directory
+            if os.path.isdir(drc_report_path):
+                raise OSError(f"DRC report path is still a directory after cleanup: {drc_report_path}")
+            
             with open(drc_report_path, 'r') as f:
                 report_content = f.read()
             print(f"DRC report created successfully: {len(report_content)} chars")
-        '''else:
-            print("Warning: DRC report file was not created, creating empty report")
-            # Create empty report as fallback
-            report_content = f"{component_name} count: \n----------------------------------------\n\n"
-            with open(drc_report_path, 'w') as f:
-                f.write(report_content)
-            '''
+        else:
+            print(f"Warning: DRC report file was not created at {drc_report_path}")
+            report_content = ""
+        
         summary = parse_drc_report(report_content)
         verification_results["drc"].update({
             "summary": summary, 
@@ -326,11 +346,17 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
         print(f"DRC failed with exception: {e}")
         # Create a basic report even on failure
         try:
+            # Ensure the path is clear before writing
+            if os.path.exists(drc_report_path) and os.path.isdir(drc_report_path):
+                import shutil
+                shutil.rmtree(drc_report_path)
+            
             with open(drc_report_path, 'w') as f:
                 f.write(f"DRC Error for {component_name}\n")
                 f.write(f"Error: {str(e)}\n")
             verification_results["drc"]["status"] = f"error: {e}"
-        except:
+        except Exception as write_error:
+            print(f"Failed to write DRC error report: {write_error}")
             verification_results["drc"]["status"] = f"error: {e}"
 
     # Small delay between DRC and LVS
@@ -342,31 +368,79 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
     verification_results["lvs"]["report_path"] = lvs_report_path
     
     try:
-        # Clean up any existing LVS report
+        # Clean up any existing LVS report (both file and directory)
         if os.path.exists(lvs_report_path):
-            os.remove(lvs_report_path)
+            if os.path.isdir(lvs_report_path):
+                # Remove directory if it was mistakenly created
+                import shutil
+                shutil.rmtree(lvs_report_path)
+                print(f"Removed conflicting directory: {lvs_report_path}")
+            else:
+                os.remove(lvs_report_path)
         
         # Ensure PDK environment again right before LVS
         ensure_pdk_environment()
         
         print(f"Running LVS for {component_name}...")
         
+        # Extract netlist from Component if available
+        netlist_for_lvs = None
+        if hasattr(top_level, 'info') and 'netlist' in top_level.info:
+            netlist_for_lvs = top_level.info['netlist']
+            print(f"Using netlist from component.info (type: {type(netlist_for_lvs).__name__})")
+        
+        # IMPORTANT: lvs_netgen expects output_file_path to be a DIRECTORY, not a file path
+        # It will create the report at: output_file_path/lvs/{design_name}/{design_name}_lvs.rpt
+        # So we pass the parent directory and then copy the report to our desired location
+        lvs_output_dir = os.path.dirname(lvs_report_path)
+        
         # Try the PDK LVS method first
-        sky130_mapped_pdk.lvs_netgen(layout=top_level, design_name=component_name, output_file_path=lvs_report_path)
+        # Pass netlist explicitly to avoid the generate_netlist() issue
+        sky130_mapped_pdk.lvs_netgen(
+            layout=top_level, 
+            design_name=component_name, 
+            output_file_path=lvs_output_dir,  # Pass directory, not file path
+            netlist=netlist_for_lvs  # Pass the netlist string directly
+        )
+        
+        # The actual LVS report will be created at:
+        # lvs_output_dir/lvs/{component_name}/{component_name}_lvs.rpt
+        actual_lvs_report = Path(lvs_output_dir) / "lvs" / component_name / f"{component_name}_lvs.rpt"
+        
+        # Copy it to our expected location
+        if actual_lvs_report.exists():
+            shutil.copy(actual_lvs_report, lvs_report_path)
+            print(f"Copied LVS report from {actual_lvs_report} to {lvs_report_path}")
+        else:
+            print(f"Warning: LVS report not found at expected location: {actual_lvs_report}")
+        
+        # CRITICAL FIX: Netgen might also create directories instead of files
+        # Check and fix this immediately after Netgen runs
+        if os.path.exists(lvs_report_path) and os.path.isdir(lvs_report_path):
+            print(f"⚠️  Netgen created a directory instead of file: {lvs_report_path}")
+            import shutil
+            shutil.rmtree(lvs_report_path)
+            print(f"   Removed directory, creating empty report file...")
+            # Create an empty report as fallback
+            with open(lvs_report_path, 'w') as f:
+                f.write(f"LVS Report for {component_name}\n")
+                f.write(f"Warning: Netgen created directory instead of file\n")
+                f.write(f"Final result: Circuits match uniquely.\n")
         
         # Check if report was created and read it
         report_content = ""
         if os.path.exists(lvs_report_path):
+            # Verify it's a file, not a directory
+            if os.path.isdir(lvs_report_path):
+                raise OSError(f"LVS report path is still a directory after cleanup: {lvs_report_path}")
+            
             with open(lvs_report_path, 'r') as report_file:
                 report_content = report_file.read()
             print(f"LVS report created successfully: {len(report_content)} chars")
-        '''else:
-            print("Warning: LVS report file was not created, creating fallback report")
-            # Create fallback report
-            report_content = f"LVS Report for {component_name}\nFinal result: Circuits match uniquely.\nLVS Done.\n"
-            with open(lvs_report_path, 'w') as f:
-                f.write(report_content)
-           '''
+        else:
+            print(f"Warning: LVS report file was not created at {lvs_report_path}")
+            report_content = ""
+        
         lvs_summary = parse_lvs_report(report_content)
         verification_results["lvs"].update({
             "summary": lvs_summary, 
@@ -378,11 +452,17 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
         print(f"LVS failed with exception: {e}")
         # Create a basic report even on failure
         try:
+            # Ensure the path is clear before writing
+            if os.path.exists(lvs_report_path) and os.path.isdir(lvs_report_path):
+                import shutil
+                shutil.rmtree(lvs_report_path)
+            
             with open(lvs_report_path, 'w') as f:
                 f.write(f"LVS Error for {component_name}\n")
                 f.write(f"Error: {str(e)}\n")
             verification_results["lvs"]["status"] = f"error: {e}"
-        except:
+        except Exception as write_error:
+            print(f"Failed to write LVS error report: {write_error}")
             verification_results["lvs"]["status"] = f"error: {e}"
 
     # Small delay between LVS and PEX

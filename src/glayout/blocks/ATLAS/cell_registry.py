@@ -16,9 +16,9 @@ without hardcoding cell-specific logic.
 CELL_CONFIGS = {
     "txgate": {
         # Module and function information
-        "module": "transmission_gate",
+        "module": "glayout.blocks.ATLAS.transmission_gate",
         "function": "transmission_gate",
-        "label_function": "add_tg_labels",
+        "label_function": "sky130_add_tg_labels",
         
         # Output naming
         "prefix": "tg",
@@ -33,9 +33,9 @@ CELL_CONFIGS = {
     },
     
     "fvf": {
-        "module": "fvf",
+        "module": "glayout.blocks.ATLAS.fvf",
         "function": "flipped_voltage_follower",
-        "label_function": "add_fvf_labels",
+        "label_function": "sky130_add_fvf_labels",
         
         "prefix": "fvf",
         "display_name": "Flipped Voltage Follower",
@@ -47,9 +47,9 @@ CELL_CONFIGS = {
     },
     
     "lvcm": {
-        "module": "lvcm",
+        "module": "glayout.blocks.elementary.lvcm.lvcm",
         "function": "low_voltage_current_mirror",
-        "label_function": "add_lvcm_labels",
+        "label_function": "sky130_add_lvcm_labels",
         
         "prefix": "lvcm",
         "display_name": "Low Voltage Current Mirror",
@@ -61,9 +61,9 @@ CELL_CONFIGS = {
     },
     
     "current_mirror": {
-        "module": "current_mirror",
+        "module": "glayout.blocks.elementary.current_mirror.current_mirror",
         "function": "current_mirror_netlist",
-        "label_function": None,  # TODO: implement label function if needed
+        "label_function": None,  # No label function for current mirror
         
         "prefix": "cm",
         "display_name": "Current Mirror",
@@ -75,9 +75,9 @@ CELL_CONFIGS = {
     },
     
     "diff_pair": {
-        "module": "diff_pair",
+        "module": "glayout.blocks.elementary.diff_pair.diff_pair",
         "function": "diff_pair",
-        "label_function": None,  # TODO: implement label function if needed
+        "label_function": None,  # No label function for diff pair
         
         "prefix": "dp",
         "display_name": "Differential Pair",
@@ -89,9 +89,9 @@ CELL_CONFIGS = {
     },
     
     "opamp": {
-        "module": "opamp",
+        "module": "glayout.blocks.ATLAS.opamp",
         "function": "opamp",
-        "label_function": None,  # TODO: implement label function if needed
+        "label_function": None,  # No label function for opamp
         
         "prefix": "opamp",
         "display_name": "Operational Amplifier",
