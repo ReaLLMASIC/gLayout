@@ -31,7 +31,12 @@ except ImportError:
     ihp130 = None
 
 # Primitive components
-from .primitives.via_gen import via_stack, via_array
+try:
+    from .primitives.via_gen import via_stack, via_array
+except ModuleNotFoundError:
+    # Allow JSON-only workflows (dataset analysis / netlisting)
+    via_stack = None
+    via_array = None
 from .primitives.fet import nmos, pmos, multiplier
 from .primitives.guardring import tapring
 from .primitives.mimcap import mimcap, mimcap_array
