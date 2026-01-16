@@ -1,189 +1,331 @@
 from glayout import MappedPDK, sky130,gf180
-from glayout import nmos, pmos, tapring,via_stack
-
-from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized
-from gdsfactory import cell
-from gdsfactory.component import Component
-from gdsfactory.components import text_freetype, rectangle
-
 from glayout.routing import c_route,L_route,straight_route
 from glayout.spice.netlist import Netlist
-
+from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized, two_tran_interdigitized_netlist
+from glayout.spice.netlist import Netlist
+from glayout.primitives.fet import nmos, pmos
+from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter,rename_ports_by_orientation
+from gdsfactory.component import Component
+from gdsfactory.cell import cell
 from glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port
 from typing import Optional, Union 
+from glayout.primitives.via_gen import via_stack
+from gdsfactory.components import text_freetype, rectangle
 
-import time
 
-def add_cm_labels(cm_in: Component, pdk: MappedPDK) -> Component:
+try:
+    from evaluator_wrapper import run_evaluation
+except ImportError:
+    print("Warning: evaluator_wrapper not found. Evaluation will be skipped.")
+    run_evaluation = None
+
+def sky130_add_cm_labels(cm_in: Component) -> Component:
+	
     cm_in.unlock()
-
+    
+    # define layers`
+    met1_pin = (68,16)
+    met1_label = (68,5)
+    met2_pin = (69,16)
+    met2_label = (69,5)
     # list that will contain all port/comp info
-    move_info = []
+    move_info = list()
+    # create labels and append to info list
+    # vss
+    vsslabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()
+    vsslabel.add_label(text="VSS",layer=met1_label)
+    move_info.append((vsslabel,cm_in.ports["fet_A_source_E"],None))
+    
+    # vref
+    vreflabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()
+    vreflabel.add_label(text="VREF",layer=met1_label)
+    move_info.append((vreflabel,cm_in.ports["fet_A_drain_N"],None))
+    
+    # vcopy
+    vcopylabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()
+    vcopylabel.add_label(text="VCOPY",layer=met1_label)
+    move_info.append((vcopylabel,cm_in.ports["fet_B_drain_N"],None))
+    
+    # VB
+    vblabel = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()
+    vblabel.add_label(text="VB",layer=met1_label)
+    move_info.append((vblabel,cm_in.ports["welltie_S_top_met_S"], None))
+    
+    # move everything to position
+    for comp, prt, alignment in move_info:
+        alignment = ('c','b') if alignment is None else alignment
+        compref = align_comp_to_port(comp, prt, alignment=alignment)
+        cm_in.add(compref)
+    return cm_in.flatten() 
 
-    # VSS
-    vsslabel = rectangle(layer=pdk.get_glayer("met2_pin"), size=(0.27, 0.27), centered=True).copy()
-    vsslabel.add_label(text="VSS",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vsslabel, cm_in.ports["ref_multiplier_0_source_E"]))
+def current_mirror_interdigitized_netlist(
+    pdk: MappedPDK,
+    width: float,
+    length: float,
+    fingers: int,
+    multipliers: int,
+    with_dummy: bool,
+    device: str,
+) -> Netlist:
+    """
+    Current mirror netlist built from a two-transistor interdigitized primitive
+    """
 
-    # VREF
-    vreflabel = rectangle(layer=pdk.get_glayer("met2_pin"), size=(0.27, 0.27), centered=True).copy()
-    vreflabel.add_label(text="VREF",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vreflabel, cm_in.ports["ref_multiplier_0_drain_N"]))
+    current_mirror_netlist = Netlist(circuit_name="CMIRROR", nodes=["VREF", "VOUT", "VSS", "B"])
 
-    # VCOPY
-    vcopylabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27, 0.27),  centered=True).copy()
-    vcopylabel.add_label(text="VCOPY",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vcopylabel, cm_in.ports["out_multiplier_0_drain_N"]))
+    current_mirror_netlist.connect_netlist(
+        two_tran_interdigitized_netlist(
+            pdk=pdk,
+            width=width,
+            length=length,
+            fingers=fingers,
+            multipliers=multipliers,
+            with_dummy=with_dummy,
+            n_or_p_fet=device,
+        ),
+        [
+            ("VDD1", "VREF"),   # reference drain
+            ("VG1",  "VREF"),   # reference gate (diode-connected)
+            ("VDD2", "VOUT"),   # mirror drain
+            ("VG2",  "VREF"),   # mirror gate
+            ("VSS1", "VSS"),    # shared source
+            ("VSS2", "VSS"),
+            ("VB",   "B"),      # bulk
+        ],
+    )
 
-    # VB (well tie)
-    vb_port = next(p for n, p in cm_in.ports.items() if n.startswith("well_"))
-    vblabel = rectangle(layer=pdk.get_glayer("met2_pin"), size=(0.5, 0.5), centered=True).copy()
-    vblabel.add_label(text="VB",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vblabel, vb_port))
+    return current_mirror_netlist
 
-    for label, port in move_info:
-        cm_in.add(align_comp_to_port(label, port, alignment=("c", "b")))
-
-    return cm_in.flatten()
-
-def current_mirror_netlist(fetL: Component, fetR: Component) -> Netlist:
-	current_mirror_netlist = Netlist(circuit_name='CMIRROR', nodes=['VREF', 'VOUT', 'VSS', 'B'])
-	current_mirror_netlist.connect_netlist(
-		fetL.info['netlist'],
-		[('D', 'VREF'), ('G', 'VREF'), ('S', 'VSS'), ('B', 'B')]
-	)
-	current_mirror_netlist.connect_netlist(
-		fetR.info['netlist'],
-		[('D', 'VOUT'), ('G', 'VREF'), ('S', 'VSS'), ('B', 'B')]
-	)
-	return current_mirror_netlist
 
 @cell
 def current_mirror(
     pdk: MappedPDK, 
     numcols: int = 3,
     device: str = 'nfet',
-    width: float = 3,
-    fingers: int = 1,
-    length: Optional[float] = None,
-    rmult: int = 1,
-    dummy: Union[bool, tuple[bool, bool]] = True,
+    with_dummy: Optional[bool] = True,
     with_substrate_tap: Optional[bool] = False,
     with_tie: Optional[bool] = True,
-    tie_layers: tuple[str, str] = ("met2", "met1"),
-    subckt_only: Optional[bool] = True,
+    tie_layers: tuple[str,str]=("met2","met1"),
     **kwargs
 ) -> Component:
-    """
-    An instantiable current mirror that returns a Component object.
-
-    The current mirror is a two-transistor structure with shorted
-    source and gate. It can be instantiated with either NMOS or PMOS
-    devices. Optional dummy devices, substrate tap, and tie ring
-    are supported. The layout is centered at the origin.
-
-    Transistor A acts as the reference device,
-    Transistor B acts as the mirror device.
+    """An instantiable current mirror that returns a Component object. The current mirror is a two transistor interdigitized structure with a shorted source and gate. It can be instantiated with either nmos or pmos devices. It can also be instantiated with a dummy device, a substrate tap, and a tie layer, and is centered at the origin. Transistor A acts as the reference and Transistor B acts as the mirror fet
 
     Args:
-        pdk (MappedPDK): Process design kit
-        numcols (int): Number of columns
-        device (str): 'nfet' or 'pfet'
-        width (float): Device width
-        fingers (int): Number of fingers
-        length (float): Channel length
-        rmult (int): Multiplier
-        dummy (bool | tuple): Dummy devices
-        with_substrate_tap (bool): Add substrate tap
-        with_tie (bool): Add well tie
-        tie_layers (tuple): Tie metal layers
-        subckt_only (bool): Netlist control
-        **kwargs: Passed to device generator
+        pdk (MappedPDK): the process design kit to use
+        numcols (int): number of columns of the interdigitized fets
+        device (str): nfet or pfet (can only interdigitize one at a time with this option)
+        with_dummy (bool): True places dummies on either side of the interdigitized fets
+        with_substrate_tap (bool): boolean to decide whether to place a substrate tapring
+        with_tie (bool): boolean to decide whether to place a tapring for tielayer
+        tie_layers (tuple[str,str], optional): the layers to use for the tie. Defaults to ("met2","met1").
+        **kwargs: The keyword arguments are passed to the two_nfet_interdigitized or two_pfet_interdigitized functions and need to be valid arguments that can be accepted by the multiplier function
 
     Returns:
-        Component: Current mirror layout
+        Component: a current mirror component object
     """
-    pdk.activate()
-    cmirror = Component("current_mirror")
-
-    # Handle dummy specification
-    if isinstance(dummy, bool):
-        dummy = (dummy, dummy)
-    well = None
-    if device.lower() in ["nmos", "nfet"]:
-        fetL = nmos(pdk, width=width, fingers=fingers, length=length, multipliers=1, with_tie=False, with_dummy=(dummy[0], False), with_dnwell=False, with_substrate_tap=False, rmult=rmult)
-        fetR = nmos(pdk, width=width, fingers=fingers, length=length, multipliers=1, with_tie=False, with_dummy=(False, dummy[1]), with_dnwell=False, with_substrate_tap=False, rmult=rmult)
-        min_spacing_x = (pdk.get_grule("n+s/d")["min_separation"] - 2 * (fetL.xmax - fetL.ports["multiplier_0_plusdoped_E"].center[0]))
-        well = "pwell"
-
-    elif device.lower() in ["pmos", "pfet"]:
-        fetL = pmos(pdk, width=width, fingers=fingers, length=length, multipliers=1, with_tie=False, with_dummy=(dummy[0], False), dnwell=False, with_substrate_tap=False, rmult=rmult)
-        fetR = pmos(pdk, width=width, fingers=fingers, length=length, multipliers=1, with_tie=False, with_dummy=(False, dummy[1]), dnwell=False, with_substrate_tap=False, rmult=rmult)
-        min_spacing_x = (pdk.get_grule("p+s/d")["min_separation"] - 2 * (fetL.xmax - fetL.ports["multiplier_0_plusdoped_E"].center[0]))
-        well = "nwell"
-
-    else:
-        raise ValueError(f"device must be either 'nmos' or 'pmos', got {device}")
-
-    viam2m3 = via_stack(pdk, "met2", "met3", centered=True)
-    metal_min_dim = max(pdk.get_grule("met2")["min_width"], pdk.get_grule("met3")["min_width"])
-    metal_space = max(pdk.get_grule("met2")["min_separation"], pdk.get_grule("met3")["min_separation"], metal_min_dim)
-    gate_route_os = (evaluate_bbox(viam2m3)[0] - fetL.ports["multiplier_0_gate_W"].width + metal_space)
-    min_spacing_y = metal_space + 2 * gate_route_os 
-    min_spacing_y -= 2 * abs(fetL.ports["well_S"].center[1] - fetL.ports["multiplier_0_gate_S"].center[1])
-    ref_top = (cmirror << fetL).movey(fetL.ymax + min_spacing_y / 2).movex(-fetL.xmax)
-    # Output device (bottom, mirrored)
-    out_bot = (cmirror << fetR)
-    out_bot.mirror_y()
-    out_bot.movey(-fetR.ymax - min_spacing_y / 2).movex(-fetR.xmax)
-    cmirror.add_ports(ref_top.get_ports_list(), prefix="ref_")
-    cmirror.add_ports(out_bot.get_ports_list(), prefix="out_")
-    if with_substrate_tap:
-        tapref = cmirror << tapring(pdk, evaluate_bbox(cmirror, padding=1), horizontal_glayer="met1")
-        cmirror.add_ports(tapref.get_ports_list(), prefix="tap_")
-
-        for inst in [ref_top, out_bot]:
-            try:
-                cmirror << straight_route(pdk, inst.ports["multiplier_0_dummy_L_gsdcon_top_met_W"], cmirror.ports["tap_W_top_met_W"],glayer2="met1")
-            except KeyError:
-                pass
-    source_bar = cmirror << c_route(pdk, ref_top.ports["multiplier_0_source_E"], out_bot.ports["multiplier_0_source_E"], viaoffset=False)
-    cmirror.add_ports(source_bar.get_ports_list(), prefix="VSS_")
-    gate_bar = cmirror << c_route(pdk, ref_top.ports["multiplier_0_gate_W"], out_bot.ports["multiplier_0_gate_W"], viaoffset=False)
-    ref_drain = (ref_top.ports.get("multiplier_0_drain_W") or ref_top.ports.get("multiplier_0_drain_E"))
-    cmirror << L_route(pdk, ref_drain, gate_bar.ports["con_N"], viaoffset=False, fullbottom=False)
-    cmirror.add_ports([out_bot.ports["multiplier_0_drain_N"]], prefix="VOUT_")
-
+    top_level = Component("current mirror")
+    if device in ['nmos', 'nfet']:
+        interdigitized_fets = two_nfet_interdigitized(
+            pdk, 
+            numcols=numcols, 
+            dummy=with_dummy, 
+            with_substrate_tap=False, 
+            with_tie=False, 
+            **kwargs
+        )
+    elif device in ['pmos', 'pfet']:
+        interdigitized_fets = two_pfet_interdigitized(
+            pdk, 
+            numcols=numcols, 
+            dummy=with_dummy, 
+            with_substrate_tap=False, 
+            with_tie=False, 
+            **kwargs
+        )
+    top_level.add_ports(interdigitized_fets.get_ports_list(), prefix="fet_")
+    maxmet_sep = pdk.util_max_metal_seperation()
+    # short source of the fets
+    source_short = interdigitized_fets << c_route(pdk, interdigitized_fets.ports['A_source_E'], interdigitized_fets.ports['B_source_E'], extension=3*maxmet_sep, viaoffset=False)
+    # short gates of the fets
+    gate_short = interdigitized_fets << c_route(pdk, interdigitized_fets.ports['A_gate_W'], interdigitized_fets.ports['B_gate_W'], extension=3*maxmet_sep, viaoffset=False)
+    # short gate and drain of one of the reference 
+    interdigitized_fets << L_route(pdk, interdigitized_fets.ports['A_drain_W'], gate_short.ports['con_N'], viaoffset=False, fullbottom=False)
+    
+    top_level << interdigitized_fets
+    if with_tie:
+        if device in ['nmos','nfet']:
+            tap_layer = "p+s/d"
+        if device in ['pmos','pfet']:
+            tap_layer = "n+s/d"
+        tap_sep = max(
+            pdk.util_max_metal_seperation(),
+            pdk.get_grule("active_diff", "active_tap")["min_separation"],
+        )
+        tap_sep += pdk.get_grule(tap_layer, "active_tap")["min_enclosure"]
+        tap_encloses = (
+        2 * (tap_sep + interdigitized_fets.xmax),
+        2 * (tap_sep + interdigitized_fets.ymax),
+        )
+        tie_ref = top_level << tapring(pdk, enclosed_rectangle = tap_encloses, sdlayer = tap_layer, horizontal_glayer = tie_layers[0], vertical_glayer = tie_layers[1])
+        top_level.add_ports(tie_ref.get_ports_list(), prefix="welltie_")
+        try:
+            top_level << straight_route(pdk, top_level.ports[f"fet_B_{numcols - 1}_dummy_R_gsdcon_top_met_E"],top_level.ports["welltie_E_top_met_E"],glayer2="met1")
+            top_level << straight_route(pdk, top_level.ports["fet_A_0_dummy_L_gsdcon_top_met_W"],top_level.ports["welltie_W_top_met_W"],glayer2="met1")
+        except KeyError:
+            pass
+        try:
+            end_col = numcols - 1
+            port1 = f'B_{end_col}_dummy_R_gdscon_top_met_E'
+            top_level << straight_route(pdk, top_level.ports[port1], top_level.ports["welltie_E_top_met_E"], glayer2="met1")
+        except KeyError:
+            pass
     # add a pwell 
-    if device.lower() in ['nmos','nfet']:
-        cmirror.add_padding(layers = (pdk.get_glayer("pwell"),), default = pdk.get_grule("pwell", "active_tap")["min_enclosure"], )
-        cmirror = add_ports_perimeter(cmirror, layer = pdk.get_glayer("pwell"), prefix="well_")
-    elif device.lower() in ['pmos','pfet']:
-        cmirror.add_padding(layers = (pdk.get_glayer("nwell"),), default = pdk.get_grule("nwell", "active_tap")["min_enclosure"], )
-        cmirror = add_ports_perimeter(cmirror, layer = pdk.get_glayer("nwell"), prefix="well_")
-    else:
-        raise ValueError(f"Device type {device} not recognized. Use 'nfet' or 'pfet'.")
-    cmirror.info['netlist'] = current_mirror_netlist(fetL, fetR)
-    return cmirror
+    if device in ['nmos','nfet']:
+        top_level.add_padding(layers = (pdk.get_glayer("pwell"),), default = pdk.get_grule("pwell", "active_tap")["min_enclosure"], )
+        top_level = add_ports_perimeter(top_level, layer = pdk.get_glayer("pwell"), prefix="well_")
+    if device in ['pmos','pfet']:
+        top_level.add_padding(layers = (pdk.get_glayer("nwell"),), default = pdk.get_grule("nwell", "active_tap")["min_enclosure"], )
+        top_level = add_ports_perimeter(top_level, layer = pdk.get_glayer("nwell"), prefix="well_")
 
-import time
+ 
+    # add the substrate tap if specified
+    if with_substrate_tap:
+        subtap_sep = pdk.get_grule("dnwell", "active_tap")["min_separation"]
+        subtap_enclosure = (
+            2.5 * (subtap_sep + interdigitized_fets.xmax),
+            2.5 * (subtap_sep + interdigitized_fets.ymax),
+        )
+        subtap_ring = top_level << tapring(pdk, enclosed_rectangle = subtap_enclosure, sdlayer = "p+s/d", horizontal_glayer = "met2", vertical_glayer = "met1")
+        top_level.add_ports(subtap_ring.get_ports_list(), prefix="substrate_tap_")
+  
+    top_level.add_ports(source_short.get_ports_list(), prefix='purposegndports')
+
+    top_level.info["netlist"] = current_mirror_interdigitized_netlist(
+        pdk=pdk,
+        width=kwargs.get("width", 3),
+        length=kwargs.get("length", 0.15),
+        fingers=kwargs.get("fingers", 1),
+        multipliers=numcols,
+        with_dummy=with_dummy,
+        device=device,
+    )
+ 
+    return top_level
+
+
+def sky130_add_current_mirror_labels(current_mirror_in: Component) -> Component:
+    """
+    Add labels to current mirror component for simulation and testing
+    """
+    current_mirror_in.unlock()
+    # define layers
+    met1_pin = (68,16)
+    met1_label = (68,5)
+    met2_pin = (69,16)
+    met2_label = (69,5)
+    # list that will contain all port/comp info
+    move_info = list()
+    
+    # Reference voltage (drain of reference transistor)
+    vref_label = rectangle(layer=met1_pin, size=(0.5,0.5), centered=True).copy()
+    vref_label.add_label(text="VREF", layer=met1_label)
+    
+    # Copy current output (drain of mirror transistor)  
+    vcopy_label = rectangle(layer=met1_pin, size=(0.5,0.5), centered=True).copy()
+    vcopy_label.add_label(text="VCOPY", layer=met1_label)
+    
+    # Ground/VSS (source connections)
+    vss_label = rectangle(layer=met1_pin, size=(0.5,0.5), centered=True).copy()
+    vss_label.add_label(text="VSS", layer=met1_label)
+    
+    # Bulk/VB (bulk/body connections)
+    vb_label = rectangle(layer=met1_pin, size=(0.5,0.5), centered=True).copy()
+    vb_label.add_label(text="VB", layer=met1_label)
+    
+    # Try to find appropriate ports and add labels
+    try:
+        # Look for drain ports for VREF and VCOPY
+        ref_drain_ports = [p for p in current_mirror_in.ports.keys() if 'A_drain' in p and 'met' in p]
+        copy_drain_ports = [p for p in current_mirror_in.ports.keys() if 'B_drain' in p and 'met' in p]
+        source_ports = [p for p in current_mirror_in.ports.keys() if 'source' in p and 'met' in p]
+        bulk_ports = [p for p in current_mirror_in.ports.keys() if ('tie' in p or 'well' in p) and 'met' in p]
+        
+        if ref_drain_ports:
+            move_info.append((vref_label, current_mirror_in.ports[ref_drain_ports[0]], None))
+        if copy_drain_ports:
+            move_info.append((vcopy_label, current_mirror_in.ports[copy_drain_ports[0]], None))
+        if source_ports:
+            move_info.append((vss_label, current_mirror_in.ports[source_ports[0]], None))
+        if bulk_ports:
+            move_info.append((vb_label, current_mirror_in.ports[bulk_ports[0]], None))
+            
+    except (KeyError, IndexError):
+        # Fallback - just add labels at component center
+        print("Warning: Could not find specific ports for labels, using fallback positioning")
+        move_info = [
+            (vref_label, None, None),
+            (vcopy_label, None, None), 
+            (vss_label, None, None),
+            (vb_label, None, None)
+        ]
+    
+    # move everything to position
+    for comp, prt, alignment in move_info:
+        alignment = ('c','b') if alignment is None else alignment
+        if prt is not None:
+            compref = align_comp_to_port(comp, prt, alignment=alignment)
+        else:
+            compref = comp
+        current_mirror_in.add(compref)
+    
+    return current_mirror_in.flatten()
+#import time
 if __name__ == "__main__":
-    comp =current_mirror(sky130)
-    # comp.pprint_ports()
-    comp =add_cm_labels(comp,sky130)
-    comp.name = "CM"
-    nl = comp.info["netlist"]
-    print(nl)
-    print(nl.generate_netlist())
-    print("...Running DRC...")
-    drc_result = sky130.drc_magic(comp, "CM")
-    print(drc_result)
-    ## Klayout DRC
-    #drc_result = sky130.drc(comp)\n
-    time.sleep(5)
-    print("...Running LVS...")
-    lvs_res=sky130.lvs_netgen(comp, "CM", copy_intermediate_files=True, show_scripts=True)
-    print(lvs_res)
-    #print("...Saving GDS...")
-    #comp.write_gds('out_current_mirror.gds')
+    # OLD EVAL CODE
+    # comp = current_mirror(sky130)
+    # # comp.pprint_ports()
+    # comp = sky130_add_current_mirror_labels(comp)
+    # comp.name = "CM"
+    # comp.show()
+    # #print(comp.info['netlist'].generate_netlist())
+    # print("...Running DRC...")
+    # drc_result = sky130.drc_magic(comp, "CM")
+    # ## Klayout DRC
+    # #drc_result = sky130.drc(comp)\n
+    
+    # time.sleep(5)
+        
+    # print("...Running LVS...")
+    # lvs_res=sky130.lvs_netgen(comp, "CM")
+    # #print("...Saving GDS...")
+    # #comp.write_gds('out_CMirror.gds')
+
+    # NEW EVAL CODE
+    # Create current mirror with labels
+    cm = sky130_add_current_mirror_labels(
+        current_mirror(
+            pdk=sky130, 
+            numcols=3, 
+            device='nfet', 
+            width=3, 
+            length=1, 
+            with_dummy=True,
+            with_tie=True
+        )
+    )
+    
+    # Show the layout
+    cm.show()
+    cm.name = "current_mirror"
+    
+    # Write GDS file
+    cm_gds = cm.write_gds("current_mirror.gds")
+    
+    # Run evaluation if available
+    if run_evaluation is not None:
+        result = run_evaluation("current_mirror.gds", cm.name, cm)
+        print(result)
+    else:
+        print("Evaluation skipped - evaluator_wrapper not available")
+    
