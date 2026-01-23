@@ -15,6 +15,12 @@ from glayout.spice import Netlist
 def __get_mimcap_layerconstruction_info(pdk: MappedPDK) -> tuple[str,str]:
 	"""returns the glayer metal below and glayer metal above capmet
 	args: pdk
+	
+	NOTE: This function determines metal layers based on PDK configuration.
+	For gf180mcu, there are two MIMCAP options (A and B) with redundant implementations:
+	- Option A: metal2-metal3 (original)
+	- Option B: metal4-metal5 (added in PR#54 continuation)
+	The actual metal layers used depend on the PDK's grules configuration.
 	"""
 	capmettop = pdk.layer_to_glayer(pdk.get_grule("capmet")["capmettop"])
 	capmetbottom = pdk.layer_to_glayer(pdk.get_grule("capmet")["capmetbottom"])

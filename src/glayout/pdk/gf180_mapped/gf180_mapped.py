@@ -84,6 +84,11 @@ gf180_glayer_mapping = {
     "active_diff_label": "comp_label",
 }
 
+# NOTE: MIMCAP configuration - there are two options (A and B) with redundant DRC rules
+# Option A: Uses metal2-metal3 (original implementation)
+# Option B: Uses metal4-metal5 (added in PR#54 continuation for gf180mcuD)
+# Both options have duplicate DRC rules but different metal layers
+# Default behavior varies by process variant - see gf180mcu_drc.lydrc for variant-specific settings
 # Add valid BJT sizes
 
 gf180_valid_bjt_sizes = {

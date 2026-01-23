@@ -65,22 +65,25 @@ drc_res = `#{cmd}`
 ## pass options to main.drc
 $run_mode = options["run_mode"]
 
+# NOTE: MIMCAP option configuration for different gf180mcu variants
+# Both Option A and B have redundant DRC rules but use different metal layers
+# This creates duplication but allows process-specific metal stack usage
 if options["variant"] == "A" 
   $metal_top = "30K"
   $metal_level = "3LM"
-  $mim_option = "A"
+  $mim_option = "A"  # Uses metal2-metal3
 elsif options["variant"] == "B"
   $metal_top = "11K"
   $metal_level = "4LM"
-  $mim_option = "B"
+  $mim_option = "B"  # Uses metal3-metal4
 elsif options["variant"] == "C"
   $metal_top = "9K"
   $metal_level = "5LM"
-  $mim_option = "B"
+  $mim_option = "B"  # Uses metal4-metal5
 elsif options["variant"] == "D"
   $metal_top = "11K"
   $metal_level = "5LM"
-  $mim_option = "B"
+  $mim_option = "B"  # Uses metal4-metal5 (gf180mcuD - PR#54 continuation)
 end
 
 $topcell = options["top_cell_name"]

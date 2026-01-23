@@ -3462,6 +3462,11 @@ hres_poly.forget
 #================================================
 #------------MIM CAPACITOR OPTION A -------------
 #================================================
+# NOTE: This section implements MIM capacitor Option A (metal2-metal3 based)
+# This was the original implementation before Option B was added
+# Both options share similar DRC rules but use different metal layers
+# Option A: Uses metal2 (bottom) + via2 + fusetop (top)
+# Related to PR that changed mimcap from A to B - see Option B section below
 
 if MIM_OPTION == "A"
 logger.info("MIM Capacitor Option A section")
@@ -3571,6 +3576,13 @@ mim11_large_metal2_violation.forget
 #================================================
 #-------------MIM CAPACITOR OPTION B-------------
 #================================================
+# NOTE: This section implements MIM capacitor Option B (metal4-metal5 based)
+# This was added as continuation of @LuighiV's PR#54 for gf180mcuD process
+# Both Option A and B have redundant/duplicate DRC rules - they follow same pattern
+# but use different metal layers:
+# Option B: Uses topmin1_metal (metal4) + top_via (via4) + fusetop (top)
+# Rules MIMTM.1-MIMTM.11 mirror MIM.1-MIM.11 but with different metal layers
+# This creates redundancy but allows different process variants to use appropriate metal stack
 
 elsif MIM_OPTION == "B"
 logger.info("MIM Capacitor Option B section")
