@@ -272,24 +272,27 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
     
     # Import sky130_mapped_pdk *after* the environment is guaranteed sane so
     # that gdsfactory/PDK initialization picks up the correct PDK_ROOT.
-    from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+    from glayout.pdk.sky130_mapped import sky130_mapped_pdk
     
     # DRC Check
-    drc_report_path = os.path.abspath(f"./{component_name}.drc.rpt")
+    # drc_magic expects a directory and creates: {output_dir}/drc/{design_name}/{design_name}.rpt
+    drc_output_dir = os.path.abspath(".")
+    drc_report_path = os.path.join(drc_output_dir, "drc", component_name, f"{component_name}.rpt")
     verification_results["drc"]["report_path"] = drc_report_path
     
     try:
-        # Clean up any existing DRC report
-        if os.path.exists(drc_report_path):
-            os.remove(drc_report_path)
+        # Clean up any existing DRC report directory
+        drc_dir = os.path.join(drc_output_dir, "drc", component_name)
+        if os.path.exists(drc_dir):
+            shutil.rmtree(drc_dir)
         
         # Ensure PDK environment again right before DRC
         ensure_pdk_environment()
         
         print(f"Running DRC for {component_name}...")
         
-        # Try the PDK DRC method first
-        sky130_mapped_pdk.drc_magic(layout_path, component_name, output_file=drc_report_path)
+        # Pass directory as output_file, not the file path
+        sky130_mapped_pdk.drc_magic(layout_path, component_name, output_file=drc_output_dir)
         
         # Check if report was created and read it
         report_content = ""
@@ -297,13 +300,9 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
             with open(drc_report_path, 'r') as f:
                 report_content = f.read()
             print(f"DRC report created successfully: {len(report_content)} chars")
-        '''else:
-            print("Warning: DRC report file was not created, creating empty report")
-            # Create empty report as fallback
-            report_content = f"{component_name} count: \n----------------------------------------\n\n"
-            with open(drc_report_path, 'w') as f:
-                f.write(report_content)
-            '''
+        else:
+            print(f"Warning: DRC report not found at {drc_report_path}")
+            
         summary = parse_drc_report(report_content)
         verification_results["drc"].update({
             "summary": summary, 
@@ -313,35 +312,31 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
         
     except Exception as e:
         print(f"DRC failed with exception: {e}")
-        # Create a basic report even on failure
-        try:
-            with open(drc_report_path, 'w') as f:
-                f.write(f"DRC Error for {component_name}\n")
-                f.write(f"Error: {str(e)}\n")
-            verification_results["drc"]["status"] = f"error: {e}"
-        except:
-            verification_results["drc"]["status"] = f"error: {e}"
+        verification_results["drc"]["status"] = f"error: {e}"
 
     # Small delay between DRC and LVS
     import time
     time.sleep(1)
 
     # LVS Check
-    lvs_report_path = os.path.abspath(f"./{component_name}.lvs.rpt")
+    # lvs_netgen expects a directory and creates: {output_dir}/lvs/{design_name}/{design_name}_lvs.rpt
+    lvs_output_dir = os.path.abspath(".")
+    lvs_report_path = os.path.join(lvs_output_dir, "lvs", component_name, f"{component_name}_lvs.rpt")
     verification_results["lvs"]["report_path"] = lvs_report_path
     
     try:
-        # Clean up any existing LVS report
-        if os.path.exists(lvs_report_path):
-            os.remove(lvs_report_path)
+        # Clean up any existing LVS report directory
+        lvs_dir = os.path.join(lvs_output_dir, "lvs", component_name)
+        if os.path.exists(lvs_dir):
+            shutil.rmtree(lvs_dir)
         
         # Ensure PDK environment again right before LVS
         ensure_pdk_environment()
         
         print(f"Running LVS for {component_name}...")
         
-        # Try the PDK LVS method first
-        sky130_mapped_pdk.lvs_netgen(layout=top_level, design_name=component_name, output_file_path=lvs_report_path)
+        # Pass directory as output_file_path, not the file path
+        sky130_mapped_pdk.lvs_netgen(layout=top_level, design_name=component_name, output_file_path=lvs_output_dir)
         
         # Check if report was created and read it
         report_content = ""
@@ -349,13 +344,9 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
             with open(lvs_report_path, 'r') as report_file:
                 report_content = report_file.read()
             print(f"LVS report created successfully: {len(report_content)} chars")
-        '''else:
-            print("Warning: LVS report file was not created, creating fallback report")
-            # Create fallback report
-            report_content = f"LVS Report for {component_name}\nFinal result: Circuits match uniquely.\nLVS Done.\n"
-            with open(lvs_report_path, 'w') as f:
-                f.write(report_content)
-           '''
+        else:
+            print(f"Warning: LVS report not found at {lvs_report_path}")
+            
         lvs_summary = parse_lvs_report(report_content)
         verification_results["lvs"].update({
             "summary": lvs_summary, 
@@ -365,14 +356,7 @@ def run_robust_verification(layout_path: str, component_name: str, top_level: Co
         
     except Exception as e:
         print(f"LVS failed with exception: {e}")
-        # Create a basic report even on failure
-        try:
-            with open(lvs_report_path, 'w') as f:
-                f.write(f"LVS Error for {component_name}\n")
-                f.write(f"Error: {str(e)}\n")
-            verification_results["lvs"]["status"] = f"error: {e}"
-        except:
-            verification_results["lvs"]["status"] = f"error: {e}"
+        verification_results["lvs"]["status"] = f"error: {e}"
 
     # Small delay between LVS and PEX
     time.sleep(1)

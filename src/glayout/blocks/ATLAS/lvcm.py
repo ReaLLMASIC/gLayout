@@ -1,22 +1,22 @@
-from glayout.flow.pdk.mappedpdk import MappedPDK
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from gdsfactory.component import Component
 from gdsfactory.component_reference import ComponentReference
 from gdsfactory.cell import cell
 from gdsfactory import Component
 from gdsfactory.components import text_freetype, rectangle
-from glayout.flow.primitives.fet import nmos, pmos, multiplier
-from glayout.flow.pdk.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, prec_ref_center
-from glayout.flow.pdk.util.snap_to_grid import component_snap_to_grid
-from glayout.flow.pdk.util.port_utils import rename_ports_by_orientation
-from glayout.flow.routing.straight_route import straight_route
-from glayout.flow.routing.c_route import c_route
-from glayout.flow.routing.L_route import L_route
-from glayout.flow.primitives.guardring import tapring
-from glayout.flow.pdk.util.port_utils import add_ports_perimeter
-from glayout.flow.spice.netlist import Netlist
-from glayout.flow.blocks.elementary.LHS.fvf import fvf_netlist, flipped_voltage_follower
-from glayout.flow.primitives.via_gen import via_stack
+from glayout.primitives.fet import nmos, pmos, multiplier
+from glayout.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, prec_ref_center
+from glayout.util.snap_to_grid import component_snap_to_grid
+from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.routing.straight_route import straight_route
+from glayout.routing.c_route import c_route
+from glayout.routing.L_route import L_route
+from glayout.primitives.guardring import tapring
+from glayout.util.port_utils import add_ports_perimeter
+from glayout.spice.netlist import Netlist
+from fvf import fvf_netlist, flipped_voltage_follower  # Import from local ATLAS fvf.py
+from glayout.primitives.via_gen import via_stack
 from typing import Optional
 from evaluator_wrapper import run_evaluation
 
@@ -67,8 +67,9 @@ def add_lvcm_labels(lvcm_in: Component,
 def low_voltage_cmirr_netlist(bias_fvf: Component, cascode_fvf: Component, fet_1_ref: ComponentReference, fet_2_ref: ComponentReference, fet_3_ref: ComponentReference, fet_4_ref: ComponentReference) -> Netlist:
     
         netlist = Netlist(circuit_name='Low_voltage_current_mirror', nodes=['IBIAS1', 'IBIAS2', 'GND', 'IOUT1', 'IOUT2'])
-        netlist.connect_netlist(bias_fvf.info['netlist'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib','IBIAS1'),('VOUT','local_net_1')])
-        netlist.connect_netlist(cascode_fvf.info['netlist'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib', 'IBIAS2'),('VOUT','local_net_2')])
+        # Use netlist_obj for hierarchical netlist building
+        netlist.connect_netlist(bias_fvf.info['netlist_obj'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib','IBIAS1'),('VOUT','local_net_1')])
+        netlist.connect_netlist(cascode_fvf.info['netlist_obj'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib', 'IBIAS2'),('VOUT','local_net_2')])
         fet_1A_ref=netlist.connect_netlist(fet_2_ref.info['netlist'], [('D', 'IOUT1'),('G','IBIAS1'),('B','GND')])
         fet_2A_ref=netlist.connect_netlist(fet_4_ref.info['netlist'], [('D', 'IOUT2'),('G','IBIAS1'),('B','GND')])
         fet_1B_ref=netlist.connect_netlist(fet_1_ref.info['netlist'], [('G','IBIAS2'),('S', 'GND'),('B','GND')])
@@ -184,7 +185,8 @@ def  low_voltage_cmirror(
     top_level.add_ports(fet_4_ref.get_ports_list(), prefix="M_4_A_")
     
     component = component_snap_to_grid(rename_ports_by_orientation(top_level))
-    component.info['netlist'] = low_voltage_cmirr_netlist(bias_fvf, cascode_fvf, fet_1_ref, fet_2_ref, fet_3_ref, fet_4_ref)
+    netlist_obj = low_voltage_cmirr_netlist(bias_fvf, cascode_fvf, fet_1_ref, fet_2_ref, fet_3_ref, fet_4_ref)
+    component.info['netlist'] = netlist_obj.generate_netlist()
     
     return component
 

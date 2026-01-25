@@ -1,19 +1,19 @@
-from glayout.flow.pdk.mappedpdk import MappedPDK
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from gdsfactory.cell import cell
 from gdsfactory.component import Component
 from gdsfactory import Component
-from glayout.flow.primitives.fet import nmos, pmos, multiplier
-from glayout.flow.pdk.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, movex, movey
-from glayout.flow.pdk.util.snap_to_grid import component_snap_to_grid
-from glayout.flow.pdk.util.port_utils import rename_ports_by_orientation
-from glayout.flow.routing.straight_route import straight_route
-from glayout.flow.routing.c_route import c_route
-from glayout.flow.routing.L_route import L_route
-from glayout.flow.primitives.guardring import tapring
-from glayout.flow.pdk.util.port_utils import add_ports_perimeter
-from glayout.flow.spice.netlist import Netlist
-from glayout.flow.primitives.via_gen import via_stack
+from glayout.primitives.fet import nmos, pmos, multiplier
+from glayout.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, movex, movey
+from glayout.util.snap_to_grid import component_snap_to_grid
+from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.routing.straight_route import straight_route
+from glayout.routing.c_route import c_route
+from glayout.routing.L_route import L_route
+from glayout.primitives.guardring import tapring
+from glayout.util.port_utils import add_ports_perimeter
+from glayout.spice.netlist import Netlist
+from glayout.primitives.via_gen import via_stack
 from gdsfactory.components import text_freetype, rectangle
 try:
     from evaluator_wrapper import run_evaluation # pyright: ignore[reportMissingImports]
@@ -86,30 +86,21 @@ def get_component_netlist(component) -> Netlist:
     # Fallback: return empty netlist
     return Netlist()
 
-def tg_netlist(nfet_comp, pfet_comp) -> str:
-    """Generate SPICE netlist string for transmission gate - gymnasium compatible"""
+def tg_netlist(nfet: Component, pfet: Component) -> Netlist:
+    """Generate SPICE netlist for transmission gate using proper Netlist class"""
     
-    # Get the SPICE netlists directly from components
-    nmos_spice = nfet_comp.info.get('netlist', '')
-    pmos_spice = pfet_comp.info.get('netlist', '')
+    netlist = Netlist(circuit_name='Transmission_Gate', nodes=['VIN', 'VSS', 'VOUT', 'VCC', 'VGP', 'VGN'])
     
-    if not nmos_spice or not pmos_spice:
-        raise ValueError("Component netlists not found")
+    # Get netlist objects from FET components
+    nfet_netlist = get_component_netlist(nfet)
+    pfet_netlist = get_component_netlist(pfet)
     
-    # Create the transmission gate SPICE netlist by combining the primitives
-    tg_spice = f"""{nmos_spice}
+    # Connect NMOS: D->VOUT, G->VGN, S->VIN, B->VSS
+    netlist.connect_netlist(nfet_netlist, [('D', 'VOUT'), ('G', 'VGN'), ('S', 'VIN'), ('B', 'VSS')])
+    # Connect PMOS: D->VOUT, G->VGP, S->VIN, B->VCC
+    netlist.connect_netlist(pfet_netlist, [('D', 'VOUT'), ('G', 'VGP'), ('S', 'VIN'), ('B', 'VCC')])
 
-{pmos_spice}
-
-.subckt transmission_gate D G S VDD VSS
-* PMOS: connects D to S when G is low (G_n is high)  
-X0 D G_n S VDD PMOS
-* NMOS: connects D to S when G is high
-X1 D G S VSS NMOS
-.ends transmission_gate
-"""
-    
-    return tg_spice
+    return netlist
 
 @cell
 def transmission_gate(
@@ -163,12 +154,12 @@ def transmission_gate(
             top_level.add_ports(guardring_ref.get_ports_list(),prefix="tap_")
     
     component = component_snap_to_grid(rename_ports_by_orientation(top_level)) 
-    # Generate netlist as SPICE string for gymnasium compatibility
-    netlist_string = tg_netlist(nfet, pfet)
     
-    # Store as string for gymnasium compatibility - LVS method supports this directly
-    component.info['netlist'] = netlist_string
-
+    # Generate netlist using proper Netlist class
+    netlist_obj = tg_netlist(nfet, pfet)
+    
+    # Store netlist - LVS method handles both string and Netlist objects
+    component.info['netlist'] = netlist_obj
 
     return component
 
