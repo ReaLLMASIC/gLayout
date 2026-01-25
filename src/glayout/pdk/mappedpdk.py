@@ -259,8 +259,6 @@ class MappedPDK(Pdk):
         "via4",
         "met5",
         "capmet",
-        "lvs_bjt",
-        "drc_bjt",
         # _pin layers
         "met5_pin",
         "met4_pin",
@@ -293,8 +291,6 @@ class MappedPDK(Pdk):
     # friendly way to implement a graph
     grules: dict[StrictStr, dict[StrictStr, Optional[dict[StrictStr, Any]]]]
     pdk_files: dict[StrictStr, Union[PathType, None]]
-
-    valid_bjt_sizes: dict[StrictStr,  list[tuple[float,float]]]
 
     @validator("models")
     def models_check(cls, models_obj: dict[StrictStr, StrictStr]):
@@ -764,7 +760,14 @@ custom_drc_save_report $::env(DESIGN_NAME) $::env(REPORTS_DIR)/$::env(DESIGN_NAM
                 layout.write_gds(str(gds_path))
                 
                 if netlist is None:
-                    netlist = layout.info['netlist'].generate_netlist()
+                    # Handle both string netlists and Netlist objects
+                    netlist_info = layout.info['netlist']
+                    if isinstance(netlist_info, str):
+                        # Already a string, use directly
+                        netlist = netlist_info
+                    else:
+                        # Netlist object, call generate_netlist()
+                        netlist = netlist_info.generate_netlist()
                     with open(str(netlist_from_comp), 'w') as f:
                         f.write(netlist)
                 else: 
