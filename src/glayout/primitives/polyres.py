@@ -309,18 +309,3 @@ def add_polyres_labels(pdk: MappedPDK, p_res: Component, length, width, fingers)
         compref = align_comp_to_port(comp, prt, alignment=alignment)
         p_res.add(compref)
     return p_res.flatten()
-
-# # Test multi-finger configuration (M1.2a spacing fix)
-print("\nTesting multi-finger polyresistor (width=0.8, fingers=5)...")
-resistor_multi = add_polyres_labels(
-     gf180_mapped_pdk, 
-     poly_resistor(gf180_mapped_pdk, width=0.8, length=1.5, fingers=5, is_snake=True, n_type=False, silicided=False), 
-     1.5, 0.8, 5
- )
-resistor_multi.name = "polyres_multifinger_w0.8_f5"
-print(f"Created resistor with {5} fingers, width=0.8µm")
-print(f"GDS file will be saved as: {resistor_multi.name}.gds")
-resistor_multi.show()
-print("Running DRC check...")
-drc_result = gf180_mapped_pdk.drc(resistor_multi)
-print(f"DRC Result: {drc_result}")
