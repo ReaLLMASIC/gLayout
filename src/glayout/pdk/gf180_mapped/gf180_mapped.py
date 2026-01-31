@@ -2,7 +2,7 @@
 usage: from gf180_mapped import gf180_mapped_pdk
 """
 
-from ..gf180_mapped.gf180_grules import grulesobj
+from ..gf180_mapped.gf180_grules import grulesobj, grulesobj_5p0
 from ..mappedpdk import MappedPDK, SetupPDKFiles
 from pathlib import Path
 import os
@@ -33,6 +33,9 @@ LAYER = {
     # BJT layers
     "drc_bjt": (127, 5),
     "lvs_bjt": (118, 5),
+    # 5V layers
+    "dualgate": (55,0),
+    "v5_xtor": (112,1),
     # _Label Layer Definations
     "metal5_label": (81,10),
     "metal4_label": (46,10),
@@ -66,6 +69,9 @@ gf180_glayer_mapping = {
     # bjt layer
     "drc_bjt": "drc_bjt",
     "lvs_bjt": "lvs_bjt",
+    # 5V layer
+    "dualgate": "dualgate",
+    "v5_xtor": "v5_xtor",
     # _pin layer ampping
     "met5_pin": "metal5_label",
     "met4_pin": "metal4_label",
@@ -136,7 +142,10 @@ gf180_mapped_pdk = MappedPDK(
     layers=LAYER,
     pdk_files=pdk_files,
     grules=grulesobj,
-    valid_bjt_sizes=gf180_valid_bjt_sizes
+    grules_3p3=grulesobj,
+    grules_5p0=grulesobj_5p0,
+    valid_bjt_sizes=gf180_valid_bjt_sizes,
+    domain="3p3"
 )
 
 # configure the grid size and other settings
