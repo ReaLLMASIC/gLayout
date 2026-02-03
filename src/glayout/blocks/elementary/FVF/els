@@ -1,0 +1,20 @@
+| units: 500000 tech: sky130A format: MIT
+x VOUT VOUT VOUT VOUT d=15600,556 l=394 w=200 x=1683 y=-663 sky130_fd_pr__nfet_01v8
+x VOUT VOUT VOUT VOUT d=15600,556 l=394 w=200 x=3039 y=248 sky130_fd_pr__nfet_01v8
+x VOUT VOUT VOUT VOUT d=15600,556 l=394 w=200 x=3039 y=-663 sky130_fd_pr__nfet_01v8
+x Ib VOUT VOUT VOUT d=15600,556 l=394 w=200 x=2361 y=248 sky130_fd_pr__nfet_01v8
+x VOUT VOUT VOUT VOUT d=31200,956 l=474 w=400 x=521 y=-863 sky130_fd_pr__nfet_01v8
+x VIN VOUT Ib VOUT s=31200,956 d=31200,956 l=474 w=400 x=-236 y=-863 sky130_fd_pr__nfet_01v8
+x VOUT VOUT VOUT VOUT d=31200,956 l=474 w=400 x=-994 y=-863 sky130_fd_pr__nfet_01v8
+x VOUT VOUT VOUT VOUT d=31200,956 l=474 w=400 x=-994 y=248 sky130_fd_pr__nfet_01v8
+x VIN VOUT Ib VOUT s=31200,956 d=31200,956 l=474 w=400 x=-236 y=248 sky130_fd_pr__nfet_01v8
+x VOUT VOUT VOUT VOUT d=15600,556 l=394 w=200 x=1683 y=248 sky130_fd_pr__nfet_01v8
+x Ib VOUT VOUT VOUT d=15600,556 l=394 w=200 x=2361 y=-663 sky130_fd_pr__nfet_01v8
+x VOUT VOUT VOUT VOUT d=31200,956 l=474 w=400 x=521 y=248 sky130_fd_pr__nfet_01v8
+C Ib VIN 0.7
+C Ib0 11.7
+R Ib 2390
+C VIN0 3.9
+R VIN 679
+R VOUT 67459
+= VOUT VBULK

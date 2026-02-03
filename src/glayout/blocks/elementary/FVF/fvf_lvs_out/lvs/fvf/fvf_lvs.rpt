@@ -1,0 +1,58 @@
+
+Circuit 1 cell sky130_fd_pr__nfet_01v8 and Circuit 2 cell sky130_fd_pr__nfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__nfet_01v8         |Circuit 2: sky130_fd_pr__nfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__nfet_01v8 and sky130_fd_pr__nfet_01v8 are equivalent.
+Flattening unmatched subcell NMOS in circuit fvf (1)(2 instances)
+Flattening unmatched subcell NMOS_1 in circuit fvf (1)(2 instances)
+
+Cell fvf (0) disconnected node: VBULK
+Class fvf (0):  Merged 9 parallel devices.
+Class fvf (1):  Merged 9 parallel devices.
+Cell fvf (0) disconnected node: VBULK
+Subcircuit summary:
+Circuit 1: fvf                             |Circuit 2: fvf                             
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__nfet_01v8 (12->3)            |sky130_fd_pr__nfet_01v8 (24->3)            
+Number of devices: 3                       |Number of devices: 3                       
+Number of nets: 3 **Mismatch**             |Number of nets: 4 **Mismatch**             
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: fvf                             |Circuit 2: fvf                             
+
+---------------------------------------------------------------------------------------
+Net: VOUT                                  |Net: VOUT                                  
+  sky130_fd_pr__nfet_01v8/(1|3) = 5        |  sky130_fd_pr__nfet_01v8/(1|3) = 2        
+  sky130_fd_pr__nfet_01v8/2 = 1            |                                           
+  sky130_fd_pr__nfet_01v8/4 = 3            |                                           
+                                           |                                           
+(no matching net)                          |Net: VBULK                                 
+                                           |  sky130_fd_pr__nfet_01v8/4 = 3            
+                                           |  sky130_fd_pr__nfet_01v8/(1|3) = 3        
+                                           |  sky130_fd_pr__nfet_01v8/2 = 1            
+---------------------------------------------------------------------------------------
+Netlists do not match.
+
+Subcircuit pins:
+Circuit 1: fvf                             |Circuit 2: fvf                             
+-------------------------------------------|-------------------------------------------
+VOUT                                       |VOUT                                       
+Ib                                         |Ib                                         
+VIN                                        |VIN                                        
+(no matching pin)                          |VBULK                                      
+VBULK                                      |(no matching pin)                          
+---------------------------------------------------------------------------------------
+Cell pin lists for fvf and fvf altered to match.
+Device classes fvf and fvf are equivalent.
+
+Final result: Top level cell failed pin matching.

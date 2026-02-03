@@ -1,0 +1,1873 @@
+scale 1000 1 500000
+rnode "VIN.t1" 0 0 0 448 0
+rnode "VIN.t0" 0 0 0 -664 0
+rnode "VIN.n0" 0 0 0 -864 0
+rnode "VIN" 0 0 100 -1098 0
+resist "VIN" "VIN.n0" 0.0144903
+resist "VIN.n0" "VIN.t0" 69.7708
+resist "VIN.n0" "VIN.t1" 81.827
+rnode "Ib.t2" 0 0 2558 348 0
+rnode "Ib.t3" 0 0 2558 -564 0
+rnode "Ib.n0" 0 0 2918 -858 0
+rnode "Ib.n1" 0 0 270 -562 0
+rnode "Ib.n2" 0 0 270 -664 0
+rnode "Ib.t0" 0 0 237 -664 0
+rnode "Ib.n3" 0 0 270 -630 0
+rnode "Ib.n4" 0 0 270 -630 0
+rnode "Ib.n5" 0 0 270 -592 0
+rnode "Ib.n6" 0 0 270 -592 0
+rnode "Ib.n7" 0 0 270 -520 0
+rnode "Ib.n8" 0 0 270 550 0
+rnode "Ib.n9" 0 0 270 448 0
+rnode "Ib.t1" 0 0 237 448 0
+rnode "Ib.n10" 0 0 270 482 0
+rnode "Ib.n11" 0 0 270 482 0
+rnode "Ib.n12" 0 0 270 520 0
+rnode "Ib.n13" 0 0 270 520 0
+rnode "Ib.n14" 0 0 270 592 0
+rnode "Ib.n15" 0 0 -702 -162 0
+rnode "Ib" 0 0 -1681 -175 0
+resist "Ib.n13" "Ib.n9" 3.44721
+resist "Ib.n6" "Ib.n2" 3.44721
+resist "Ib" "Ib.n15" 5.27024
+resist "Ib.n12" "Ib.n8" 5.81818
+resist "Ib.n5" "Ib.n1" 5.81818
+resist "Ib.n12" "Ib.n11" 7.3697
+resist "Ib.n5" "Ib.n4" 7.3697
+resist "Ib.n14" "Ib.n8" 8.14545
+resist "Ib.n7" "Ib.n1" 8.14545
+resist "Ib.n13" "Ib.n12" 9.3
+resist "Ib.n6" "Ib.n5" 9.3
+resist "Ib.n14" "Ib.n13" 9.45517
+resist "Ib.n7" "Ib.n6" 9.45517
+resist "Ib.n11" "Ib.n9" 9.71124
+resist "Ib.n4" "Ib.n2" 9.71124
+resist "Ib" "Ib.n0" 20.9418
+resist "Ib.n10" "Ib.t1" 52.3077
+resist "Ib.n3" "Ib.t0" 52.3077
+resist "Ib.n0" "Ib.t3" 73.2946
+resist "Ib.n0" "Ib.t2" 77.952
+resist "Ib.n15" "Ib.n7" 87.9619
+resist "Ib.n15" "Ib.n14" 97.7608
+resist "Ib.t1" "Ib.n9" 167.116
+resist "Ib.t0" "Ib.n2" 167.116
+resist "Ib.n11" "Ib.n10" 185
+resist "Ib.n4" "Ib.n3" 185
+resist "Ib.n10" "Ib.n8" 289.615
+resist "Ib.n3" "Ib.n1" 289.615
+rnode "VOUT.n0" 0 0 2608 1029 0
+rnode "VOUT.n1" 0 0 2508 1029 0
+rnode "VOUT.n2" 0 0 2308 1029 0
+rnode "VOUT.n3" 0 0 2408 1029 0
+rnode "VOUT.n4" 0 0 2308 1029 0
+rnode "VOUT.n5" 0 0 2208 1029 0
+rnode "VOUT.n6" 0 0 2108 1029 0
+rnode "VOUT.n7" 0 0 1908 1029 0
+rnode "VOUT.n8" 0 0 2008 1029 0
+rnode "VOUT.n9" 0 0 1908 1029 0
+rnode "VOUT.n10" 0 0 1808 1029 0
+rnode "VOUT.n11" 0 0 1708 1029 0
+rnode "VOUT.n12" 0 0 1432 918 0
+rnode "VOUT.n13" 0 0 1708 1029 0
+rnode "VOUT.n14" 0 0 1432 918 0
+rnode "VOUT.n15" 0 0 1708 1029 0
+rnode "VOUT.n16" 0 0 1608 -1029 0
+rnode "VOUT.n17" 0 0 1432 850 0
+rnode "VOUT.n18" 0 0 1432 714 0
+rnode "VOUT.n19" 0 0 1432 578 0
+rnode "VOUT.n20" 0 0 1432 442 0
+rnode "VOUT.n21" 0 0 1432 306 0
+rnode "VOUT.n22" 0 0 1432 170 0
+rnode "VOUT.n23" 0 0 1432 34 0
+rnode "VOUT.n24" 0 0 1432 -102 0
+rnode "VOUT.n25" 0 0 1432 -238 0
+rnode "VOUT.n26" 0 0 1432 -374 0
+rnode "VOUT.n27" 0 0 1432 -510 0
+rnode "VOUT.n28" 0 0 1432 -646 0
+rnode "VOUT.n29" 0 0 1432 -782 0
+rnode "VOUT.n30" 0 0 1432 -850 0
+rnode "VOUT.t33" 0 0 1683 -564 0
+rnode "VOUT.t32" 0 0 2077 -564 0
+rnode "VOUT.t31" 0 0 1880 -664 0
+rnode "VOUT.n31" 0 0 1880 -747 0
+rnode "VOUT.n32" 0 0 1650 -714 0
+rnode "VOUT.t13" 0 0 1683 348 0
+rnode "VOUT.t12" 0 0 2077 348 0
+rnode "VOUT.t10" 0 0 1880 248 0
+rnode "VOUT.n33" 0 0 1880 165 0
+rnode "VOUT.n34" 0 0 1650 198 0
+rnode "VOUT.n35" 0 0 1473 165 0
+rnode "VOUT.n36" 0 0 1432 850 0
+rnode "VOUT.n37" 0 0 1432 850 0
+rnode "VOUT.n38" 0 0 1432 782 0
+rnode "VOUT.n39" 0 0 1432 782 0
+rnode "VOUT.n40" 0 0 1432 714 0
+rnode "VOUT.n41" 0 0 1432 714 0
+rnode "VOUT.n42" 0 0 1432 646 0
+rnode "VOUT.n43" 0 0 1432 646 0
+rnode "VOUT.n44" 0 0 1432 578 0
+rnode "VOUT.n45" 0 0 1432 578 0
+rnode "VOUT.n46" 0 0 1432 510 0
+rnode "VOUT.n47" 0 0 1432 510 0
+rnode "VOUT.n48" 0 0 1432 442 0
+rnode "VOUT.n49" 0 0 1432 442 0
+rnode "VOUT.n50" 0 0 1432 374 0
+rnode "VOUT.n51" 0 0 1432 374 0
+rnode "VOUT.n52" 0 0 1432 306 0
+rnode "VOUT.n53" 0 0 1432 306 0
+rnode "VOUT.n54" 0 0 1432 238 0
+rnode "VOUT.n55" 0 0 1432 238 0
+rnode "VOUT.n56" 0 0 1432 170 0
+rnode "VOUT.n57" 0 0 1432 170 0
+rnode "VOUT.n58" 0 0 1432 102 0
+rnode "VOUT.n59" 0 0 1432 102 0
+rnode "VOUT.n60" 0 0 1432 34 0
+rnode "VOUT.n61" 0 0 1432 34 0
+rnode "VOUT.n62" 0 0 1432 -34 0
+rnode "VOUT.n63" 0 0 1432 -34 0
+rnode "VOUT.n64" 0 0 1432 -102 0
+rnode "VOUT.n65" 0 0 1432 -102 0
+rnode "VOUT.n66" 0 0 1432 -170 0
+rnode "VOUT.n67" 0 0 1432 -170 0
+rnode "VOUT.n68" 0 0 1432 -238 0
+rnode "VOUT.n69" 0 0 1432 -238 0
+rnode "VOUT.n70" 0 0 1432 -306 0
+rnode "VOUT.n71" 0 0 1432 -306 0
+rnode "VOUT.t35" 0 0 2361 -564 0
+rnode "VOUT.t2" 0 0 2361 348 0
+rnode "VOUT.t1" 0 0 2755 348 0
+rnode "VOUT.t34" 0 0 2755 -564 0
+rnode "VOUT" 0 0 549 -377 0
+rnode "VOUT.n72" 0 0 -270 550 0
+rnode "VOUT.n73" 0 0 -270 448 0
+rnode "VOUT.t5" 0 0 -237 448 0
+rnode "VOUT.n74" 0 0 -270 482 0
+rnode "VOUT.n75" 0 0 -270 482 0
+rnode "VOUT.n76" 0 0 -270 520 0
+rnode "VOUT.n77" 0 0 -270 520 0
+rnode "VOUT.n78" 0 0 -270 592 0
+rnode "VOUT.n79" 0 0 -270 -562 0
+rnode "VOUT.n80" 0 0 -270 -664 0
+rnode "VOUT.t4" 0 0 -237 -664 0
+rnode "VOUT.n81" 0 0 -270 -630 0
+rnode "VOUT.n82" 0 0 -270 -630 0
+rnode "VOUT.n83" 0 0 -270 -592 0
+rnode "VOUT.n84" 0 0 -270 -592 0
+rnode "VOUT.n85" 0 0 -270 -520 0
+rnode "VOUT.n86" 0 0 -270 -320 0
+rnode "VOUT.n87" 0 0 599 -320 0
+rnode "VOUT.n88" 0 0 2009 438 0
+rnode "VOUT.n89" 0 0 2049 438 0
+rnode "VOUT.n90" 0 0 2297 -380 0
+rnode "VOUT.n91" 0 0 1473 -320 0
+rnode "VOUT.n92" 0 0 1432 -374 0
+rnode "VOUT.n93" 0 0 1432 -374 0
+rnode "VOUT.n94" 0 0 1432 -442 0
+rnode "VOUT.n95" 0 0 1432 -442 0
+rnode "VOUT.n96" 0 0 1432 -510 0
+rnode "VOUT.n97" 0 0 1432 -510 0
+rnode "VOUT.n98" 0 0 1432 -578 0
+rnode "VOUT.n99" 0 0 1432 -578 0
+rnode "VOUT.n100" 0 0 1432 -646 0
+rnode "VOUT.n101" 0 0 1432 -646 0
+rnode "VOUT.n102" 0 0 1432 -714 0
+rnode "VOUT.n103" 0 0 1432 -714 0
+rnode "VOUT.n104" 0 0 1473 -747 0
+rnode "VOUT.n105" 0 0 1432 -782 0
+rnode "VOUT.n106" 0 0 1432 -782 0
+rnode "VOUT.n107" 0 0 1432 -850 0
+rnode "VOUT.n108" 0 0 1708 -1029 0
+rnode "VOUT.n109" 0 0 1808 -1029 0
+rnode "VOUT.n110" 0 0 1908 -1029 0
+rnode "VOUT.n111" 0 0 2108 1029 0
+rnode "VOUT.n112" 0 0 2108 1029 0
+rnode "VOUT.n113" 0 0 2108 -1029 0
+rnode "VOUT.n114" 0 0 2108 -1029 0
+rnode "VOUT.n115" 0 0 1908 -1029 0
+rnode "VOUT.n116" 0 0 2308 -1029 0
+rnode "VOUT.n117" 0 0 2308 -1029 0
+rnode "VOUT.n118" 0 0 2308 -1029 0
+rnode "VOUT.n119" 0 0 2508 1029 0
+rnode "VOUT.n120" 0 0 2508 -1029 0
+rnode "VOUT.n121" 0 0 2508 -1029 0
+rnode "VOUT.n122" 0 0 2708 -1029 0
+rnode "VOUT.n123" 0 0 2708 -1029 0
+rnode "VOUT.n124" 0 0 2708 -1029 0
+rnode "VOUT.n125" 0 0 2708 1029 0
+rnode "VOUT.t0" 0 0 2558 348 0
+rnode "VOUT.n126" 0 0 2708 1029 0
+rnode "VOUT.n127" 0 0 2508 1029 0
+rnode "VOUT.n128" 0 0 2808 1029 0
+rnode "VOUT.n129" 0 0 3008 1029 0
+rnode "VOUT.n130" 0 0 3008 1029 0
+rnode "VOUT.n131" 0 0 3008 1029 0
+rnode "VOUT.n132" 0 0 2808 1029 0
+rnode "VOUT.n133" 0 0 3008 1029 0
+rnode "VOUT.n134" 0 0 2908 -1029 0
+rnode "VOUT.n135" 0 0 2908 -1029 0
+rnode "VOUT.n136" 0 0 3108 -1029 0
+rnode "VOUT.n137" 0 0 3108 -1029 0
+rnode "VOUT.n138" 0 0 3208 -1029 0
+rnode "VOUT.n139" 0 0 3208 1029 0
+rnode "VOUT.n140" 0 0 3208 1029 0
+rnode "VOUT.n141" 0 0 3208 1029 0
+rnode "VOUT.n142" 0 0 3408 1029 0
+rnode "VOUT.n143" 0 0 3408 1029 0
+rnode "VOUT.n144" 0 0 3408 1029 0
+rnode "VOUT.n145" 0 0 3408 1029 0
+rnode "VOUT.n146" 0 0 3408 -1029 0
+rnode "VOUT.n147" 0 0 3408 -1029 0
+rnode "VOUT.n148" 0 0 3208 -1029 0
+rnode "VOUT.n149" 0 0 3684 -918 0
+rnode "VOUT.n150" 0 0 3684 -918 0
+rnode "VOUT.n151" 0 0 3684 918 0
+rnode "VOUT.n152" 0 0 3684 918 0
+rnode "VOUT.n153" 0 0 3684 782 0
+rnode "VOUT.n154" 0 0 3684 918 0
+rnode "VOUT.n155" 0 0 3684 578 0
+rnode "VOUT.n156" 0 0 3684 442 0
+rnode "VOUT.n157" 0 0 3684 306 0
+rnode "VOUT.n158" 0 0 3684 170 0
+rnode "VOUT.t29" 0 0 3433 348 0
+rnode "VOUT.t30" 0 0 3039 348 0
+rnode "VOUT.t28" 0 0 3236 248 0
+rnode "VOUT.n159" 0 0 3236 165 0
+rnode "VOUT.n160" 0 0 3466 198 0
+rnode "VOUT.n161" 0 0 3684 34 0
+rnode "VOUT.n162" 0 0 3684 -102 0
+rnode "VOUT.n163" 0 0 3684 -238 0
+rnode "VOUT.n164" 0 0 3684 -374 0
+rnode "VOUT.n165" 0 0 3684 -510 0
+rnode "VOUT.n166" 0 0 3684 -646 0
+rnode "VOUT.t26" 0 0 3433 -564 0
+rnode "VOUT.t27" 0 0 3039 -564 0
+rnode "VOUT.t24" 0 0 3236 -664 0
+rnode "VOUT.n167" 0 0 3236 -747 0
+rnode "VOUT.n168" 0 0 3466 -714 0
+rnode "VOUT.n169" 0 0 3643 -747 0
+rnode "VOUT.n170" 0 0 3684 918 0
+rnode "VOUT.n171" 0 0 3684 -850 0
+rnode "VOUT.n172" 0 0 3684 -850 0
+rnode "VOUT.n173" 0 0 3684 -782 0
+rnode "VOUT.n174" 0 0 3684 -782 0
+rnode "VOUT.n175" 0 0 3684 918 0
+rnode "VOUT.n176" 0 0 3684 -714 0
+rnode "VOUT.n177" 0 0 3684 -714 0
+rnode "VOUT.n178" 0 0 3684 -646 0
+rnode "VOUT.n179" 0 0 3684 -578 0
+rnode "VOUT.n180" 0 0 3684 -578 0
+rnode "VOUT.n181" 0 0 3684 918 0
+rnode "VOUT.n182" 0 0 3684 -510 0
+rnode "VOUT.n183" 0 0 3684 918 0
+rnode "VOUT.n184" 0 0 3684 -442 0
+rnode "VOUT.n185" 0 0 3684 -442 0
+rnode "VOUT.n186" 0 0 3684 -374 0
+rnode "VOUT.n187" 0 0 3684 -306 0
+rnode "VOUT.n188" 0 0 3684 -306 0
+rnode "VOUT.n189" 0 0 3684 918 0
+rnode "VOUT.n190" 0 0 3684 -238 0
+rnode "VOUT.n191" 0 0 3684 918 0
+rnode "VOUT.n192" 0 0 3684 -170 0
+rnode "VOUT.n193" 0 0 3684 -170 0
+rnode "VOUT.n194" 0 0 3684 -102 0
+rnode "VOUT.n195" 0 0 3684 -34 0
+rnode "VOUT.n196" 0 0 3684 -34 0
+rnode "VOUT.n197" 0 0 3684 918 0
+rnode "VOUT.n198" 0 0 3684 34 0
+rnode "VOUT.n199" 0 0 3684 918 0
+rnode "VOUT.n200" 0 0 3684 102 0
+rnode "VOUT.n201" 0 0 3684 102 0
+rnode "VOUT.n202" 0 0 3643 165 0
+rnode "VOUT.n203" 0 0 3684 170 0
+rnode "VOUT.n204" 0 0 3684 238 0
+rnode "VOUT.n205" 0 0 3684 238 0
+rnode "VOUT.n206" 0 0 3684 918 0
+rnode "VOUT.n207" 0 0 3684 306 0
+rnode "VOUT.n208" 0 0 3684 918 0
+rnode "VOUT.n209" 0 0 3684 374 0
+rnode "VOUT.n210" 0 0 3684 374 0
+rnode "VOUT.n211" 0 0 3684 442 0
+rnode "VOUT.n212" 0 0 3684 510 0
+rnode "VOUT.n213" 0 0 3684 510 0
+rnode "VOUT.n214" 0 0 3684 918 0
+rnode "VOUT.n215" 0 0 3684 578 0
+rnode "VOUT.n216" 0 0 3684 646 0
+rnode "VOUT.n217" 0 0 3684 646 0
+rnode "VOUT.n218" 0 0 3684 714 0
+rnode "VOUT.n219" 0 0 3684 714 0
+rnode "VOUT.n220" 0 0 3684 782 0
+rnode "VOUT.n221" 0 0 3684 918 0
+rnode "VOUT.n222" 0 0 3684 850 0
+rnode "VOUT.n223" 0 0 3684 850 0
+rnode "VOUT.n224" 0 0 3684 918 0
+rnode "VOUT.n225" 0 0 3508 1029 0
+rnode "VOUT.n226" 0 0 3508 1029 0
+rnode "VOUT.n227" 0 0 3508 1029 0
+rnode "VOUT.n228" 0 0 3508 1029 0
+rnode "VOUT.n229" 0 0 3508 -1029 0
+rnode "VOUT.n230" 0 0 3508 -1029 0
+rnode "VOUT.n231" 0 0 3508 -1029 0
+rnode "VOUT.n232" 0 0 3408 -1029 0
+rnode "VOUT.n233" 0 0 3208 -1029 0
+rnode "VOUT.n234" 0 0 3308 -1029 0
+rnode "VOUT.n235" 0 0 3308 -1029 0
+rnode "VOUT.n236" 0 0 3308 -1029 0
+rnode "VOUT.t25" 0 0 3236 348 0
+rnode "VOUT.n237" 0 0 3308 1029 0
+rnode "VOUT.n238" 0 0 3308 1029 0
+rnode "VOUT.n239" 0 0 3308 1029 0
+rnode "VOUT.n240" 0 0 3308 1029 0
+rnode "VOUT.n241" 0 0 3208 1029 0
+rnode "VOUT.n242" 0 0 3108 1029 0
+rnode "VOUT.n243" 0 0 3108 1029 0
+rnode "VOUT.n244" 0 0 3108 1029 0
+rnode "VOUT.n245" 0 0 3108 1029 0
+rnode "VOUT.n246" 0 0 3108 -1029 0
+rnode "VOUT.n247" 0 0 3008 -1029 0
+rnode "VOUT.n248" 0 0 3008 -1029 0
+rnode "VOUT.n249" 0 0 3008 -1029 0
+rnode "VOUT.n250" 0 0 2908 -1029 0
+rnode "VOUT.n251" 0 0 2808 -1029 0
+rnode "VOUT.n252" 0 0 2808 -1029 0
+rnode "VOUT.n253" 0 0 2808 -1029 0
+rnode "VOUT.n254" 0 0 2808 1029 0
+rnode "VOUT.n255" 0 0 2908 1029 0
+rnode "VOUT.n256" 0 0 2908 1029 0
+rnode "VOUT.n257" 0 0 2908 1029 0
+rnode "VOUT.n258" 0 0 2908 1029 0
+rnode "VOUT.n259" 0 0 2808 1029 0
+rnode "VOUT.n260" 0 0 2708 1029 0
+rnode "VOUT.n261" 0 0 2708 1029 0
+rnode "VOUT.n262" 0 0 2608 1029 0
+rnode "VOUT.n263" 0 0 2608 1029 0
+rnode "VOUT.n264" 0 0 2608 1029 0
+rnode "VOUT.n265" 0 0 2608 -1029 0
+rnode "VOUT.n266" 0 0 2608 -1029 0
+rnode "VOUT.n267" 0 0 2608 -1029 0
+rnode "VOUT.n268" 0 0 2508 -1029 0
+rnode "VOUT.n269" 0 0 2408 -1029 0
+rnode "VOUT.n270" 0 0 2408 -1029 0
+rnode "VOUT.n271" 0 0 2408 -1029 0
+rnode "VOUT.n272" 0 0 2408 1029 0
+rnode "VOUT.n273" 0 0 2308 1029 0
+rnode "VOUT.n274" 0 0 2208 1029 0
+rnode "VOUT.n275" 0 0 2208 -1029 0
+rnode "VOUT.n276" 0 0 2208 -1029 0
+rnode "VOUT.n277" 0 0 2208 -1029 0
+rnode "VOUT.n278" 0 0 2108 -1029 0
+rnode "VOUT.n279" 0 0 1808 -1029 0
+rnode "VOUT.n280" 0 0 1908 -1029 0
+rnode "VOUT.n281" 0 0 2008 -1029 0
+rnode "VOUT.n282" 0 0 2008 -1029 0
+rnode "VOUT.n283" 0 0 2008 -1029 0
+rnode "VOUT.n284" 0 0 2008 1029 0
+rnode "VOUT.n285" 0 0 1908 1029 0
+rnode "VOUT.t11" 0 0 1880 348 0
+rnode "VOUT.n286" 0 0 1808 1029 0
+rnode "VOUT.n287" 0 0 1808 -1029 0
+rnode "VOUT.n288" 0 0 1708 -1029 0
+rnode "VOUT.n289" 0 0 1708 -1029 0
+rnode "VOUT.n290" 0 0 1608 -1029 0
+rnode "VOUT.n291" 0 0 1608 -1029 0
+rnode "VOUT.n292" 0 0 1432 -918 0
+rnode "VOUT.n293" 0 0 1432 -918 0
+rnode "VOUT.n294" 0 0 1432 -918 0
+rnode "VOUT.n295" 0 0 1246 1088 0
+rnode "VOUT.n296" 0 0 1246 1088 0
+rnode "VOUT.n297" 0 0 1246 1088 0
+rnode "VOUT.n298" 0 0 1246 1088 0
+rnode "VOUT.n299" 0 0 1246 1088 0
+rnode "VOUT.n300" 0 0 1246 1088 0
+rnode "VOUT.n301" 0 0 1246 1088 0
+rnode "VOUT.n302" 0 0 1246 1088 0
+rnode "VOUT.n303" 0 0 1246 1088 0
+rnode "VOUT.n304" 0 0 1246 1088 0
+rnode "VOUT.n305" 0 0 1246 1088 0
+rnode "VOUT.n306" 0 0 1246 1088 0
+rnode "VOUT.n307" 0 0 1246 1088 0
+rnode "VOUT.n308" 0 0 1246 1088 0
+rnode "VOUT.n309" 0 0 1246 1088 0
+rnode "VOUT.n310" 0 0 1050 1229 0
+rnode "VOUT.n311" 0 0 1246 952 0
+rnode "VOUT.n312" 0 0 1246 1020 0
+rnode "VOUT.n313" 0 0 1050 1229 0
+rnode "VOUT.n314" 0 0 1050 1229 0
+rnode "VOUT.t8" 0 0 995 448 0
+rnode "VOUT.t9" 0 0 521 448 0
+rnode "VOUT.t6" 0 0 758 448 0
+rnode "VOUT.n315" 0 0 758 165 0
+rnode "VOUT.n316" 0 0 1028 198 0
+rnode "VOUT.t22" 0 0 995 -664 0
+rnode "VOUT.t23" 0 0 521 -664 0
+rnode "VOUT.t21" 0 0 758 -664 0
+rnode "VOUT.n317" 0 0 758 -947 0
+rnode "VOUT.n318" 0 0 1028 -914 0
+rnode "VOUT.n319" 0 0 1050 -1229 0
+rnode "VOUT.n320" 0 0 950 -1229 0
+rnode "VOUT.n321" 0 0 850 -1229 0
+rnode "VOUT.n322" 0 0 650 -1229 0
+rnode "VOUT.n323" 0 0 650 -1229 0
+rnode "VOUT.n324" 0 0 850 -1229 0
+rnode "VOUT.n325" 0 0 650 -1229 0
+rnode "VOUT.t7" 0 0 758 448 0
+rnode "VOUT.n326" 0 0 650 1229 0
+rnode "VOUT.n327" 0 0 850 1229 0
+rnode "VOUT.n328" 0 0 650 1229 0
+rnode "VOUT.n329" 0 0 850 1229 0
+rnode "VOUT.n330" 0 0 1050 1229 0
+rnode "VOUT.n331" 0 0 850 1229 0
+rnode "VOUT.n332" 0 0 950 1229 0
+rnode "VOUT.n333" 0 0 950 1229 0
+rnode "VOUT.n334" 0 0 950 1229 0
+rnode "VOUT.n335" 0 0 950 1229 0
+rnode "VOUT.n336" 0 0 850 1229 0
+rnode "VOUT.n337" 0 0 750 1229 0
+rnode "VOUT.n338" 0 0 650 1229 0
+rnode "VOUT.n339" 0 0 550 1229 0
+rnode "VOUT.n340" 0 0 450 1229 0
+rnode "VOUT.n341" 0 0 450 1229 0
+rnode "VOUT.n342" 0 0 550 -1229 0
+rnode "VOUT.n343" 0 0 450 -1229 0
+rnode "VOUT.n344" 0 0 350 -1229 0
+rnode "VOUT.n345" 0 0 250 1229 0
+rnode "VOUT.n346" 0 0 250 1229 0
+rnode "VOUT.n347" 0 0 450 1229 0
+rnode "VOUT.n348" 0 0 350 1229 0
+rnode "VOUT.n349" 0 0 250 1229 0
+rnode "VOUT.n350" 0 0 150 1229 0
+rnode "VOUT.n351" 0 0 50 1229 0
+rnode "VOUT.n352" 0 0 50 1229 0
+rnode "VOUT.n353" 0 0 150 -1229 0
+rnode "VOUT.n354" 0 0 50 -1229 0
+rnode "VOUT.n355" 0 0 -50 -1229 0
+rnode "VOUT.n356" 0 0 -150 1229 0
+rnode "VOUT.n357" 0 0 -150 1229 0
+rnode "VOUT.n358" 0 0 50 1229 0
+rnode "VOUT.n359" 0 0 -50 1229 0
+rnode "VOUT.n360" 0 0 -150 1229 0
+rnode "VOUT.n361" 0 0 -250 1229 0
+rnode "VOUT.n362" 0 0 -350 1229 0
+rnode "VOUT.n363" 0 0 -350 1229 0
+rnode "VOUT.n364" 0 0 -250 -1229 0
+rnode "VOUT.n365" 0 0 -350 -1229 0
+rnode "VOUT.n366" 0 0 -450 -1229 0
+rnode "VOUT.n367" 0 0 -550 1229 0
+rnode "VOUT.n368" 0 0 -550 1229 0
+rnode "VOUT.n369" 0 0 -350 1229 0
+rnode "VOUT.n370" 0 0 -450 1229 0
+rnode "VOUT.n371" 0 0 -550 1229 0
+rnode "VOUT.n372" 0 0 -650 1229 0
+rnode "VOUT.n373" 0 0 -750 1229 0
+rnode "VOUT.n374" 0 0 -750 1229 0
+rnode "VOUT.n375" 0 0 -650 -1229 0
+rnode "VOUT.n376" 0 0 -750 -1229 0
+rnode "VOUT.n377" 0 0 -850 -1229 0
+rnode "VOUT.n378" 0 0 -950 1229 0
+rnode "VOUT.n379" 0 0 -950 1229 0
+rnode "VOUT.n380" 0 0 -750 1229 0
+rnode "VOUT.n381" 0 0 -850 1229 0
+rnode "VOUT.n382" 0 0 -950 1229 0
+rnode "VOUT.n383" 0 0 -1050 1229 0
+rnode "VOUT.n384" 0 0 -1246 1088 0
+rnode "VOUT.n385" 0 0 -1050 -1229 0
+rnode "VOUT.n386" 0 0 -1246 -1088 0
+rnode "VOUT.n387" 0 0 -1246 -952 0
+rnode "VOUT.n388" 0 0 -1246 -816 0
+rnode "VOUT.n389" 0 0 -1246 -680 0
+rnode "VOUT.n390" 0 0 -1246 -544 0
+rnode "VOUT.n391" 0 0 -1246 -408 0
+rnode "VOUT.n392" 0 0 -1246 -272 0
+rnode "VOUT.n393" 0 0 -1246 -136 0
+rnode "VOUT.n394" 0 0 -1246 0 0
+rnode "VOUT.n395" 0 0 -1246 136 0
+rnode "VOUT.n396" 0 0 -1246 272 0
+rnode "VOUT.n397" 0 0 -1246 408 0
+rnode "VOUT.n398" 0 0 -1246 544 0
+rnode "VOUT.n399" 0 0 -1246 680 0
+rnode "VOUT.n400" 0 0 -1246 816 0
+rnode "VOUT.n401" 0 0 -1246 1020 0
+rnode "VOUT.n402" 0 0 -1246 884 0
+rnode "VOUT.n403" 0 0 -1246 1088 0
+rnode "VOUT.n404" 0 0 -1246 1020 0
+rnode "VOUT.t17" 0 0 -995 448 0
+rnode "VOUT.t16" 0 0 -521 448 0
+rnode "VOUT.t14" 0 0 -758 448 0
+rnode "VOUT.n405" 0 0 -758 165 0
+rnode "VOUT.n406" 0 0 -1028 198 0
+rnode "VOUT.t20" 0 0 -995 -664 0
+rnode "VOUT.t19" 0 0 -521 -664 0
+rnode "VOUT.t18" 0 0 -758 -664 0
+rnode "VOUT.n407" 0 0 -758 -947 0
+rnode "VOUT.n408" 0 0 -1028 -914 0
+rnode "VOUT.n409" 0 0 -950 -1229 0
+rnode "VOUT.n410" 0 0 -750 -1229 0
+rnode "VOUT.n411" 0 0 -550 -1229 0
+rnode "VOUT.n412" 0 0 -350 -1229 0
+rnode "VOUT.n413" 0 0 -150 -1229 0
+rnode "VOUT.n414" 0 0 50 -1229 0
+rnode "VOUT.n415" 0 0 250 -1229 0
+rnode "VOUT.n416" 0 0 450 -1229 0
+rnode "VOUT.n417" 0 0 550 -1229 0
+rnode "VOUT.n418" 0 0 550 -1229 0
+rnode "VOUT.n419" 0 0 450 -1229 0
+rnode "VOUT.n420" 0 0 350 -1229 0
+rnode "VOUT.n421" 0 0 350 -1229 0
+rnode "VOUT.n422" 0 0 250 -1229 0
+rnode "VOUT.n423" 0 0 250 -1229 0
+rnode "VOUT.n424" 0 0 150 -1229 0
+rnode "VOUT.n425" 0 0 150 -1229 0
+rnode "VOUT.n426" 0 0 50 -1229 0
+rnode "VOUT.n427" 0 0 -50 -1229 0
+rnode "VOUT.n428" 0 0 -50 -1229 0
+rnode "VOUT.n429" 0 0 -150 -1229 0
+rnode "VOUT.n430" 0 0 -150 -1229 0
+rnode "VOUT.n431" 0 0 -250 -1229 0
+rnode "VOUT.n432" 0 0 -250 -1229 0
+rnode "VOUT.n433" 0 0 -350 -1229 0
+rnode "VOUT.n434" 0 0 -450 -1229 0
+rnode "VOUT.n435" 0 0 -450 -1229 0
+rnode "VOUT.n436" 0 0 -550 -1229 0
+rnode "VOUT.n437" 0 0 -550 -1229 0
+rnode "VOUT.n438" 0 0 -650 -1229 0
+rnode "VOUT.n439" 0 0 -650 -1229 0
+rnode "VOUT.n440" 0 0 -750 -1229 0
+rnode "VOUT.n441" 0 0 -850 -1229 0
+rnode "VOUT.n442" 0 0 -850 -1229 0
+rnode "VOUT.n443" 0 0 -950 -1229 0
+rnode "VOUT.n444" 0 0 -950 -1229 0
+rnode "VOUT.n445" 0 0 -1050 -1229 0
+rnode "VOUT.n446" 0 0 -1050 -1229 0
+rnode "VOUT.n447" 0 0 -1246 -1088 0
+rnode "VOUT.n448" 0 0 -1246 -1088 0
+rnode "VOUT.n449" 0 0 -1246 -1020 0
+rnode "VOUT.n450" 0 0 -1246 -1020 0
+rnode "VOUT.n451" 0 0 -1246 -952 0
+rnode "VOUT.n452" 0 0 -1246 -952 0
+rnode "VOUT.n453" 0 0 -1205 -947 0
+rnode "VOUT.n454" 0 0 -1246 -884 0
+rnode "VOUT.n455" 0 0 -1246 -884 0
+rnode "VOUT.n456" 0 0 -1246 -816 0
+rnode "VOUT.n457" 0 0 -1246 -816 0
+rnode "VOUT.n458" 0 0 -1246 -748 0
+rnode "VOUT.n459" 0 0 -1246 -748 0
+rnode "VOUT.n460" 0 0 -1246 -680 0
+rnode "VOUT.n461" 0 0 -1246 -680 0
+rnode "VOUT.n462" 0 0 -1246 -612 0
+rnode "VOUT.n463" 0 0 -1246 -612 0
+rnode "VOUT.n464" 0 0 -1246 -544 0
+rnode "VOUT.n465" 0 0 -1246 -544 0
+rnode "VOUT.n466" 0 0 -1246 -476 0
+rnode "VOUT.n467" 0 0 -1246 -476 0
+rnode "VOUT.n468" 0 0 -1246 -408 0
+rnode "VOUT.n469" 0 0 -1246 -408 0
+rnode "VOUT.n470" 0 0 -1246 -340 0
+rnode "VOUT.n471" 0 0 -1246 -340 0
+rnode "VOUT.n472" 0 0 -1246 -272 0
+rnode "VOUT.n473" 0 0 -1246 -272 0
+rnode "VOUT.n474" 0 0 -1246 -204 0
+rnode "VOUT.n475" 0 0 -1246 -204 0
+rnode "VOUT.n476" 0 0 -1246 -136 0
+rnode "VOUT.n477" 0 0 -1246 -136 0
+rnode "VOUT.n478" 0 0 -1246 -68 0
+rnode "VOUT.n479" 0 0 -1246 -68 0
+rnode "VOUT.n480" 0 0 -1246 0 0
+rnode "VOUT.n481" 0 0 -1246 0 0
+rnode "VOUT.n482" 0 0 -1246 68 0
+rnode "VOUT.n483" 0 0 -1246 68 0
+rnode "VOUT.n484" 0 0 -1246 136 0
+rnode "VOUT.n485" 0 0 -1246 136 0
+rnode "VOUT.n486" 0 0 -1205 165 0
+rnode "VOUT.n487" 0 0 -1246 204 0
+rnode "VOUT.n488" 0 0 -1246 204 0
+rnode "VOUT.n489" 0 0 -1246 272 0
+rnode "VOUT.n490" 0 0 -1246 272 0
+rnode "VOUT.n491" 0 0 -1246 340 0
+rnode "VOUT.n492" 0 0 -1246 340 0
+rnode "VOUT.n493" 0 0 -1246 408 0
+rnode "VOUT.n494" 0 0 -1246 408 0
+rnode "VOUT.n495" 0 0 -1246 476 0
+rnode "VOUT.n496" 0 0 -1246 476 0
+rnode "VOUT.n497" 0 0 -1246 544 0
+rnode "VOUT.n498" 0 0 -1246 544 0
+rnode "VOUT.n499" 0 0 -1246 612 0
+rnode "VOUT.n500" 0 0 -1246 612 0
+rnode "VOUT.n501" 0 0 -1246 680 0
+rnode "VOUT.n502" 0 0 -1246 680 0
+rnode "VOUT.n503" 0 0 -1246 748 0
+rnode "VOUT.n504" 0 0 -1246 748 0
+rnode "VOUT.n505" 0 0 -1246 816 0
+rnode "VOUT.n506" 0 0 -1246 816 0
+rnode "VOUT.n507" 0 0 -1246 884 0
+rnode "VOUT.n508" 0 0 -1246 952 0
+rnode "VOUT.n509" 0 0 -1246 952 0
+rnode "VOUT.n510" 0 0 -1246 952 0
+rnode "VOUT.n511" 0 0 -1246 1088 0
+rnode "VOUT.n512" 0 0 -1050 1229 0
+rnode "VOUT.n513" 0 0 -1050 1229 0
+rnode "VOUT.n514" 0 0 -1050 1229 0
+rnode "VOUT.n515" 0 0 -950 1229 0
+rnode "VOUT.n516" 0 0 -850 1229 0
+rnode "VOUT.n517" 0 0 -850 1229 0
+rnode "VOUT.n518" 0 0 -850 1229 0
+rnode "VOUT.t15" 0 0 -758 448 0
+rnode "VOUT.n519" 0 0 -750 1229 0
+rnode "VOUT.n520" 0 0 -650 1229 0
+rnode "VOUT.n521" 0 0 -650 1229 0
+rnode "VOUT.n522" 0 0 -650 1229 0
+rnode "VOUT.n523" 0 0 -550 1229 0
+rnode "VOUT.n524" 0 0 -450 1229 0
+rnode "VOUT.n525" 0 0 -450 1229 0
+rnode "VOUT.n526" 0 0 -450 1229 0
+rnode "VOUT.n527" 0 0 -350 1229 0
+rnode "VOUT.n528" 0 0 -250 1229 0
+rnode "VOUT.n529" 0 0 -250 1229 0
+rnode "VOUT.n530" 0 0 -250 1229 0
+rnode "VOUT.n531" 0 0 -150 1229 0
+rnode "VOUT.n532" 0 0 -50 1229 0
+rnode "VOUT.n533" 0 0 -50 1229 0
+rnode "VOUT.n534" 0 0 -50 1229 0
+rnode "VOUT.t3" 0 0 0 448 0
+rnode "VOUT.n535" 0 0 50 1229 0
+rnode "VOUT.n536" 0 0 150 1229 0
+rnode "VOUT.n537" 0 0 150 1229 0
+rnode "VOUT.n538" 0 0 150 1229 0
+rnode "VOUT.n539" 0 0 250 1229 0
+rnode "VOUT.n540" 0 0 350 1229 0
+rnode "VOUT.n541" 0 0 350 1229 0
+rnode "VOUT.n542" 0 0 350 1229 0
+rnode "VOUT.n543" 0 0 450 1229 0
+rnode "VOUT.n544" 0 0 550 1229 0
+rnode "VOUT.n545" 0 0 550 1229 0
+rnode "VOUT.n546" 0 0 550 1229 0
+rnode "VOUT.n547" 0 0 650 1229 0
+rnode "VOUT.n548" 0 0 750 1229 0
+rnode "VOUT.n549" 0 0 750 1229 0
+rnode "VOUT.n550" 0 0 750 1229 0
+rnode "VOUT.n551" 0 0 750 -1229 0
+rnode "VOUT.n552" 0 0 750 -1229 0
+rnode "VOUT.n553" 0 0 750 -1229 0
+rnode "VOUT.n554" 0 0 850 -1229 0
+rnode "VOUT.n555" 0 0 950 -1229 0
+rnode "VOUT.n556" 0 0 950 -1229 0
+rnode "VOUT.n557" 0 0 1050 -1229 0
+rnode "VOUT.n558" 0 0 1050 -1229 0
+rnode "VOUT.n559" 0 0 1246 -1088 0
+rnode "VOUT.n560" 0 0 1246 -1088 0
+rnode "VOUT.n561" 0 0 1246 -1020 0
+rnode "VOUT.n562" 0 0 1246 -1020 0
+rnode "VOUT.n563" 0 0 1246 -952 0
+rnode "VOUT.n564" 0 0 1246 -952 0
+rnode "VOUT.n565" 0 0 1205 -947 0
+rnode "VOUT.n566" 0 0 1246 -884 0
+rnode "VOUT.n567" 0 0 1246 -884 0
+rnode "VOUT.n568" 0 0 1246 -816 0
+rnode "VOUT.n569" 0 0 1246 -816 0
+rnode "VOUT.n570" 0 0 1246 -748 0
+rnode "VOUT.n571" 0 0 1246 -748 0
+rnode "VOUT.n572" 0 0 1246 -680 0
+rnode "VOUT.n573" 0 0 1246 -680 0
+rnode "VOUT.n574" 0 0 1246 -612 0
+rnode "VOUT.n575" 0 0 1246 -612 0
+rnode "VOUT.n576" 0 0 1246 -544 0
+rnode "VOUT.n577" 0 0 1246 -544 0
+rnode "VOUT.n578" 0 0 1246 -476 0
+rnode "VOUT.n579" 0 0 1246 -476 0
+rnode "VOUT.n580" 0 0 1246 -408 0
+rnode "VOUT.n581" 0 0 1246 -408 0
+rnode "VOUT.n582" 0 0 1246 -340 0
+rnode "VOUT.n583" 0 0 1246 -340 0
+rnode "VOUT.n584" 0 0 1246 -272 0
+rnode "VOUT.n585" 0 0 1246 -272 0
+rnode "VOUT.n586" 0 0 1246 -204 0
+rnode "VOUT.n587" 0 0 1246 -204 0
+rnode "VOUT.n588" 0 0 1246 -136 0
+rnode "VOUT.n589" 0 0 1246 -136 0
+rnode "VOUT.n590" 0 0 1246 -68 0
+rnode "VOUT.n591" 0 0 1246 -68 0
+rnode "VOUT.n592" 0 0 1246 0 0
+rnode "VOUT.n593" 0 0 1246 0 0
+rnode "VOUT.n594" 0 0 1246 68 0
+rnode "VOUT.n595" 0 0 1246 68 0
+rnode "VOUT.n596" 0 0 1246 136 0
+rnode "VOUT.n597" 0 0 1246 136 0
+rnode "VOUT.n598" 0 0 1205 165 0
+rnode "VOUT.n599" 0 0 1246 204 0
+rnode "VOUT.n600" 0 0 1246 204 0
+rnode "VOUT.n601" 0 0 1246 272 0
+rnode "VOUT.n602" 0 0 1246 272 0
+rnode "VOUT.n603" 0 0 1246 340 0
+rnode "VOUT.n604" 0 0 1246 340 0
+rnode "VOUT.n605" 0 0 1246 408 0
+rnode "VOUT.n606" 0 0 1246 408 0
+rnode "VOUT.n607" 0 0 1246 476 0
+rnode "VOUT.n608" 0 0 1246 476 0
+rnode "VOUT.n609" 0 0 1246 544 0
+rnode "VOUT.n610" 0 0 1246 544 0
+rnode "VOUT.n611" 0 0 1246 612 0
+rnode "VOUT.n612" 0 0 1246 612 0
+rnode "VOUT.n613" 0 0 1246 680 0
+rnode "VOUT.n614" 0 0 1246 680 0
+rnode "VOUT.n615" 0 0 1246 748 0
+rnode "VOUT.n616" 0 0 1246 748 0
+rnode "VOUT.n617" 0 0 1246 816 0
+rnode "VOUT.n618" 0 0 1246 816 0
+rnode "VOUT.n619" 0 0 1246 884 0
+rnode "VOUT.n620" 0 0 1246 884 0
+rnode "VOUT.n621" 0 0 1246 952 0
+rnode "VOUT.n622" 0 0 1246 1020 0
+rnode "VOUT.n623" 0 0 1246 1088 0
+rnode "VOUT.n624" 0 0 1246 1088 0
+rnode "VOUT.n625" 0 0 1246 1088 0
+rnode "VOUT.n626" 0 0 1246 1088 0
+rnode "VOUT.n627" 0 0 1432 918 0
+rnode "VOUT.n628" 0 0 1608 1029 0
+rnode "VOUT.n629" 0 0 1608 1029 0
+rnode "VOUT.n630" 0 0 1608 1029 0
+rnode "VOUT.n631" 0 0 1608 1029 0
+rnode "VOUT.n632" 0 0 1708 1029 0
+rnode "VOUT.n633" 0 0 1808 1029 0
+rnode "VOUT.n634" 0 0 1808 1029 0
+rnode "VOUT.n635" 0 0 1908 1029 0
+rnode "VOUT.n636" 0 0 2008 1029 0
+rnode "VOUT.n637" 0 0 2008 1029 0
+rnode "VOUT.n638" 0 0 2108 1029 0
+rnode "VOUT.n639" 0 0 2208 1029 0
+rnode "VOUT.n640" 0 0 2208 1029 0
+rnode "VOUT.n641" 0 0 2308 1029 0
+rnode "VOUT.n642" 0 0 2408 1029 0
+rnode "VOUT.n643" 0 0 2408 1029 0
+rnode "VBULK" 0 0 2508 1029 0
+resist "VOUT.n89" "VOUT.n88" 0.0247093
+resist "VOUT.n87" "VOUT" 0.07125
+resist "VBULK" "VOUT.n0" 0.125
+resist "VOUT.n632" "VOUT.n631" 0.152439
+resist "VOUT.n633" "VOUT.n632" 0.152439
+resist "VOUT.n633" "VOUT.n7" 0.152439
+resist "VOUT.n637" "VOUT.n7" 0.152439
+resist "VOUT.n638" "VOUT.n637" 0.152439
+resist "VOUT.n639" "VOUT.n638" 0.152439
+resist "VOUT.n639" "VOUT.n2" 0.152439
+resist "VOUT.n643" "VOUT.n2" 0.152439
+resist "VBULK" "VOUT.n643" 0.152439
+resist "VOUT.n260" "VOUT.n0" 0.152439
+resist "VOUT.n260" "VOUT.n259" 0.152439
+resist "VOUT.n259" "VOUT.n258" 0.152439
+resist "VOUT.n258" "VOUT.n129" 0.152439
+resist "VOUT.n242" "VOUT.n129" 0.152439
+resist "VOUT.n242" "VOUT.n241" 0.152439
+resist "VOUT.n241" "VOUT.n240" 0.152439
+resist "VOUT.n240" "VOUT.n142" 0.152439
+resist "VOUT.n225" "VOUT.n142" 0.152439
+resist "VOUT.n291" "VOUT.n108" 0.152439
+resist "VOUT.n279" "VOUT.n108" 0.152439
+resist "VOUT.n280" "VOUT.n279" 0.152439
+resist "VOUT.n281" "VOUT.n280" 0.152439
+resist "VOUT.n281" "VOUT.n278" 0.152439
+resist "VOUT.n278" "VOUT.n277" 0.152439
+resist "VOUT.n277" "VOUT.n116" 0.152439
+resist "VOUT.n269" "VOUT.n116" 0.152439
+resist "VOUT.n269" "VOUT.n268" 0.152439
+resist "VOUT.n268" "VOUT.n267" 0.152439
+resist "VOUT.n267" "VOUT.n122" 0.152439
+resist "VOUT.n251" "VOUT.n122" 0.152439
+resist "VOUT.n251" "VOUT.n250" 0.152439
+resist "VOUT.n250" "VOUT.n249" 0.152439
+resist "VOUT.n249" "VOUT.n136" 0.152439
+resist "VOUT.n233" "VOUT.n136" 0.152439
+resist "VOUT.n234" "VOUT.n233" 0.152439
+resist "VOUT.n234" "VOUT.n232" 0.152439
+resist "VOUT.n232" "VOUT.n231" 0.152439
+resist "VOUT.n383" "VOUT.n382" 0.152439
+resist "VOUT.n382" "VOUT.n381" 0.152439
+resist "VOUT.n381" "VOUT.n380" 0.152439
+resist "VOUT.n380" "VOUT.n372" 0.152439
+resist "VOUT.n372" "VOUT.n371" 0.152439
+resist "VOUT.n371" "VOUT.n370" 0.152439
+resist "VOUT.n370" "VOUT.n369" 0.152439
+resist "VOUT.n369" "VOUT.n361" 0.152439
+resist "VOUT.n361" "VOUT.n360" 0.152439
+resist "VOUT.n360" "VOUT.n359" 0.152439
+resist "VOUT.n359" "VOUT.n358" 0.152439
+resist "VOUT.n358" "VOUT.n350" 0.152439
+resist "VOUT.n350" "VOUT.n349" 0.152439
+resist "VOUT.n349" "VOUT.n348" 0.152439
+resist "VOUT.n348" "VOUT.n347" 0.152439
+resist "VOUT.n347" "VOUT.n339" 0.152439
+resist "VOUT.n339" "VOUT.n338" 0.152439
+resist "VOUT.n338" "VOUT.n337" 0.152439
+resist "VOUT.n337" "VOUT.n336" 0.152439
+resist "VOUT.n336" "VOUT.n335" 0.152439
+resist "VOUT.n335" "VOUT.n314" 0.152439
+resist "VOUT.n446" "VOUT.n409" 0.152439
+resist "VOUT.n441" "VOUT.n409" 0.152439
+resist "VOUT.n441" "VOUT.n440" 0.152439
+resist "VOUT.n440" "VOUT.n439" 0.152439
+resist "VOUT.n439" "VOUT.n411" 0.152439
+resist "VOUT.n434" "VOUT.n411" 0.152439
+resist "VOUT.n434" "VOUT.n433" 0.152439
+resist "VOUT.n433" "VOUT.n432" 0.152439
+resist "VOUT.n432" "VOUT.n413" 0.152439
+resist "VOUT.n427" "VOUT.n413" 0.152439
+resist "VOUT.n427" "VOUT.n426" 0.152439
+resist "VOUT.n426" "VOUT.n425" 0.152439
+resist "VOUT.n425" "VOUT.n415" 0.152439
+resist "VOUT.n420" "VOUT.n415" 0.152439
+resist "VOUT.n420" "VOUT.n419" 0.152439
+resist "VOUT.n419" "VOUT.n418" 0.152439
+resist "VOUT.n418" "VOUT.n322" 0.152439
+resist "VOUT.n553" "VOUT.n322" 0.152439
+resist "VOUT.n554" "VOUT.n553" 0.152439
+resist "VOUT.n555" "VOUT.n554" 0.152439
+resist "VOUT.n555" "VOUT.n319" 0.152439
+resist "VOUT.n56" "VOUT.n35" 0.780488
+resist "VOUT.n203" "VOUT.n202" 0.780488
+resist "VOUT.n565" "VOUT.n564" 0.780488
+resist "VOUT.n453" "VOUT.n452" 0.780488
+resist "VOUT.n91" "VOUT.n71" 2.18537
+resist "VOUT.n77" "VOUT.n73" 3.44721
+resist "VOUT.n84" "VOUT.n80" 3.44721
+resist "VOUT.n598" "VOUT.n597" 4.52683
+resist "VOUT.n486" "VOUT.n485" 4.52683
+resist "VOUT.n104" "VOUT.n103" 5.15122
+resist "VOUT.n177" "VOUT.n169" 5.15122
+resist "VOUT.n87" "VOUT.n86" 5.15589
+resist "VOUT.n106" "VOUT.n104" 5.46341
+resist "VOUT.n173" "VOUT.n169" 5.46341
+resist "VOUT.n76" "VOUT.n72" 5.81818
+resist "VOUT.n83" "VOUT.n79" 5.81818
+resist "VOUT.n599" "VOUT.n598" 6.0878
+resist "VOUT.n487" "VOUT.n486" 6.0878
+resist "VOUT.n76" "VOUT.n75" 7.3697
+resist "VOUT.n83" "VOUT.n82" 7.3697
+resist "VOUT.n78" "VOUT.n72" 8.14545
+resist "VOUT.n85" "VOUT.n79" 8.14545
+resist "VOUT.n92" "VOUT.n91" 8.42927
+resist "VOUT.n631" "VOUT.n630" 9.3
+resist "VOUT.n632" "VOUT.n11" 9.3
+resist "VOUT.n634" "VOUT.n633" 9.3
+resist "VOUT.n635" "VOUT.n7" 9.3
+resist "VOUT.n637" "VOUT.n636" 9.3
+resist "VOUT.n638" "VOUT.n6" 9.3
+resist "VOUT.n640" "VOUT.n639" 9.3
+resist "VOUT.n641" "VOUT.n2" 9.3
+resist "VOUT.n643" "VOUT.n642" 9.3
+resist "VBULK" "VOUT.n1" 9.3
+resist "VOUT.n226" "VOUT.n225" 9.3
+resist "VOUT.n262" "VOUT.n0" 9.3
+resist "VOUT.n261" "VOUT.n260" 9.3
+resist "VOUT.n259" "VOUT.n128" 9.3
+resist "VOUT.n258" "VOUT.n257" 9.3
+resist "VOUT.n130" "VOUT.n129" 9.3
+resist "VOUT.n243" "VOUT.n242" 9.3
+resist "VOUT.n241" "VOUT.n141" 9.3
+resist "VOUT.n240" "VOUT.n239" 9.3
+resist "VOUT.n143" "VOUT.n142" 9.3
+resist "VOUT.n231" "VOUT.n230" 9.3
+resist "VOUT.n291" "VOUT.n290" 9.3
+resist "VOUT.n289" "VOUT.n108" 9.3
+resist "VOUT.n279" "VOUT.n109" 9.3
+resist "VOUT.n280" "VOUT.n115" 9.3
+resist "VOUT.n282" "VOUT.n281" 9.3
+resist "VOUT.n278" "VOUT.n114" 9.3
+resist "VOUT.n277" "VOUT.n276" 9.3
+resist "VOUT.n117" "VOUT.n116" 9.3
+resist "VOUT.n270" "VOUT.n269" 9.3
+resist "VOUT.n268" "VOUT.n121" 9.3
+resist "VOUT.n267" "VOUT.n266" 9.3
+resist "VOUT.n123" "VOUT.n122" 9.3
+resist "VOUT.n252" "VOUT.n251" 9.3
+resist "VOUT.n250" "VOUT.n135" 9.3
+resist "VOUT.n249" "VOUT.n248" 9.3
+resist "VOUT.n137" "VOUT.n136" 9.3
+resist "VOUT.n233" "VOUT.n148" 9.3
+resist "VOUT.n235" "VOUT.n234" 9.3
+resist "VOUT.n232" "VOUT.n147" 9.3
+resist "VOUT.n514" "VOUT.n383" 9.3
+resist "VOUT.n515" "VOUT.n382" 9.3
+resist "VOUT.n516" "VOUT.n381" 9.3
+resist "VOUT.n380" "VOUT.n373" 9.3
+resist "VOUT.n522" "VOUT.n372" 9.3
+resist "VOUT.n523" "VOUT.n371" 9.3
+resist "VOUT.n524" "VOUT.n370" 9.3
+resist "VOUT.n369" "VOUT.n362" 9.3
+resist "VOUT.n530" "VOUT.n361" 9.3
+resist "VOUT.n531" "VOUT.n360" 9.3
+resist "VOUT.n532" "VOUT.n359" 9.3
+resist "VOUT.n358" "VOUT.n351" 9.3
+resist "VOUT.n538" "VOUT.n350" 9.3
+resist "VOUT.n539" "VOUT.n349" 9.3
+resist "VOUT.n540" "VOUT.n348" 9.3
+resist "VOUT.n347" "VOUT.n340" 9.3
+resist "VOUT.n546" "VOUT.n339" 9.3
+resist "VOUT.n547" "VOUT.n338" 9.3
+resist "VOUT.n548" "VOUT.n337" 9.3
+resist "VOUT.n336" "VOUT.n329" 9.3
+resist "VOUT.n335" "VOUT.n334" 9.3
+resist "VOUT.n330" "VOUT.n314" 9.3
+resist "VOUT.n557" "VOUT.n319" 9.3
+resist "VOUT.n446" "VOUT.n445" 9.3
+resist "VOUT.n444" "VOUT.n409" 9.3
+resist "VOUT.n442" "VOUT.n441" 9.3
+resist "VOUT.n440" "VOUT.n410" 9.3
+resist "VOUT.n439" "VOUT.n438" 9.3
+resist "VOUT.n437" "VOUT.n411" 9.3
+resist "VOUT.n435" "VOUT.n434" 9.3
+resist "VOUT.n433" "VOUT.n412" 9.3
+resist "VOUT.n432" "VOUT.n431" 9.3
+resist "VOUT.n430" "VOUT.n413" 9.3
+resist "VOUT.n428" "VOUT.n427" 9.3
+resist "VOUT.n426" "VOUT.n414" 9.3
+resist "VOUT.n425" "VOUT.n424" 9.3
+resist "VOUT.n423" "VOUT.n415" 9.3
+resist "VOUT.n421" "VOUT.n420" 9.3
+resist "VOUT.n419" "VOUT.n416" 9.3
+resist "VOUT.n418" "VOUT.n417" 9.3
+resist "VOUT.n323" "VOUT.n322" 9.3
+resist "VOUT.n553" "VOUT.n552" 9.3
+resist "VOUT.n554" "VOUT.n321" 9.3
+resist "VOUT.n556" "VOUT.n555" 9.3
+resist "VOUT.n77" "VOUT.n76" 9.3
+resist "VOUT.n84" "VOUT.n83" 9.3
+resist "VOUT.n78" "VOUT.n77" 9.45517
+resist "VOUT.n85" "VOUT.n84" 9.45517
+resist "VOUT.n75" "VOUT.n73" 9.71124
+resist "VOUT.n82" "VOUT.n80" 9.71124
+resist "VOUT.n59" "VOUT.n35" 9.83415
+resist "VOUT.n202" "VOUT.n201" 9.83415
+resist "VOUT.n566" "VOUT.n565" 9.83415
+resist "VOUT.n454" "VOUT.n453" 9.83415
+resist "VOUT.n292" "VOUT.n107" 10.6146
+resist "VOUT.n107" "VOUT.n106" 10.6146
+resist "VOUT.n103" "VOUT.n100" 10.6146
+resist "VOUT.n100" "VOUT.n99" 10.6146
+resist "VOUT.n99" "VOUT.n96" 10.6146
+resist "VOUT.n96" "VOUT.n95" 10.6146
+resist "VOUT.n95" "VOUT.n92" 10.6146
+resist "VOUT.n71" "VOUT.n68" 10.6146
+resist "VOUT.n68" "VOUT.n67" 10.6146
+resist "VOUT.n67" "VOUT.n64" 10.6146
+resist "VOUT.n64" "VOUT.n63" 10.6146
+resist "VOUT.n63" "VOUT.n60" 10.6146
+resist "VOUT.n60" "VOUT.n59" 10.6146
+resist "VOUT.n56" "VOUT.n55" 10.6146
+resist "VOUT.n55" "VOUT.n52" 10.6146
+resist "VOUT.n52" "VOUT.n51" 10.6146
+resist "VOUT.n51" "VOUT.n48" 10.6146
+resist "VOUT.n48" "VOUT.n47" 10.6146
+resist "VOUT.n47" "VOUT.n44" 10.6146
+resist "VOUT.n44" "VOUT.n43" 10.6146
+resist "VOUT.n43" "VOUT.n40" 10.6146
+resist "VOUT.n40" "VOUT.n39" 10.6146
+resist "VOUT.n39" "VOUT.n36" 10.6146
+resist "VOUT.n36" "VOUT.n12" 10.6146
+resist "VOUT.n172" "VOUT.n149" 10.6146
+resist "VOUT.n173" "VOUT.n172" 10.6146
+resist "VOUT.n178" "VOUT.n177" 10.6146
+resist "VOUT.n179" "VOUT.n178" 10.6146
+resist "VOUT.n179" "VOUT.n165" 10.6146
+resist "VOUT.n185" "VOUT.n165" 10.6146
+resist "VOUT.n186" "VOUT.n185" 10.6146
+resist "VOUT.n187" "VOUT.n186" 10.6146
+resist "VOUT.n187" "VOUT.n163" 10.6146
+resist "VOUT.n193" "VOUT.n163" 10.6146
+resist "VOUT.n194" "VOUT.n193" 10.6146
+resist "VOUT.n195" "VOUT.n194" 10.6146
+resist "VOUT.n195" "VOUT.n161" 10.6146
+resist "VOUT.n201" "VOUT.n161" 10.6146
+resist "VOUT.n204" "VOUT.n203" 10.6146
+resist "VOUT.n204" "VOUT.n157" 10.6146
+resist "VOUT.n210" "VOUT.n157" 10.6146
+resist "VOUT.n211" "VOUT.n210" 10.6146
+resist "VOUT.n212" "VOUT.n211" 10.6146
+resist "VOUT.n212" "VOUT.n155" 10.6146
+resist "VOUT.n217" "VOUT.n155" 10.6146
+resist "VOUT.n218" "VOUT.n217" 10.6146
+resist "VOUT.n218" "VOUT.n153" 10.6146
+resist "VOUT.n223" "VOUT.n153" 10.6146
+resist "VOUT.n224" "VOUT.n223" 10.6146
+resist "VOUT.n561" "VOUT.n560" 10.6146
+resist "VOUT.n564" "VOUT.n561" 10.6146
+resist "VOUT.n569" "VOUT.n566" 10.6146
+resist "VOUT.n570" "VOUT.n569" 10.6146
+resist "VOUT.n573" "VOUT.n570" 10.6146
+resist "VOUT.n574" "VOUT.n573" 10.6146
+resist "VOUT.n577" "VOUT.n574" 10.6146
+resist "VOUT.n578" "VOUT.n577" 10.6146
+resist "VOUT.n581" "VOUT.n578" 10.6146
+resist "VOUT.n582" "VOUT.n581" 10.6146
+resist "VOUT.n585" "VOUT.n582" 10.6146
+resist "VOUT.n586" "VOUT.n585" 10.6146
+resist "VOUT.n589" "VOUT.n586" 10.6146
+resist "VOUT.n590" "VOUT.n589" 10.6146
+resist "VOUT.n593" "VOUT.n590" 10.6146
+resist "VOUT.n594" "VOUT.n593" 10.6146
+resist "VOUT.n597" "VOUT.n594" 10.6146
+resist "VOUT.n602" "VOUT.n599" 10.6146
+resist "VOUT.n603" "VOUT.n602" 10.6146
+resist "VOUT.n606" "VOUT.n603" 10.6146
+resist "VOUT.n607" "VOUT.n606" 10.6146
+resist "VOUT.n610" "VOUT.n607" 10.6146
+resist "VOUT.n611" "VOUT.n610" 10.6146
+resist "VOUT.n614" "VOUT.n611" 10.6146
+resist "VOUT.n615" "VOUT.n614" 10.6146
+resist "VOUT.n618" "VOUT.n615" 10.6146
+resist "VOUT.n620" "VOUT.n618" 10.6146
+resist "VOUT.n621" "VOUT.n620" 10.6146
+resist "VOUT.n622" "VOUT.n621" 10.6146
+resist "VOUT.n623" "VOUT.n622" 10.6146
+resist "VOUT.n449" "VOUT.n448" 10.6146
+resist "VOUT.n452" "VOUT.n449" 10.6146
+resist "VOUT.n457" "VOUT.n454" 10.6146
+resist "VOUT.n458" "VOUT.n457" 10.6146
+resist "VOUT.n461" "VOUT.n458" 10.6146
+resist "VOUT.n462" "VOUT.n461" 10.6146
+resist "VOUT.n465" "VOUT.n462" 10.6146
+resist "VOUT.n466" "VOUT.n465" 10.6146
+resist "VOUT.n469" "VOUT.n466" 10.6146
+resist "VOUT.n470" "VOUT.n469" 10.6146
+resist "VOUT.n473" "VOUT.n470" 10.6146
+resist "VOUT.n474" "VOUT.n473" 10.6146
+resist "VOUT.n477" "VOUT.n474" 10.6146
+resist "VOUT.n478" "VOUT.n477" 10.6146
+resist "VOUT.n481" "VOUT.n478" 10.6146
+resist "VOUT.n482" "VOUT.n481" 10.6146
+resist "VOUT.n485" "VOUT.n482" 10.6146
+resist "VOUT.n490" "VOUT.n487" 10.6146
+resist "VOUT.n491" "VOUT.n490" 10.6146
+resist "VOUT.n494" "VOUT.n491" 10.6146
+resist "VOUT.n495" "VOUT.n494" 10.6146
+resist "VOUT.n498" "VOUT.n495" 10.6146
+resist "VOUT.n499" "VOUT.n498" 10.6146
+resist "VOUT.n502" "VOUT.n499" 10.6146
+resist "VOUT.n503" "VOUT.n502" 10.6146
+resist "VOUT.n506" "VOUT.n503" 10.6146
+resist "VOUT.n507" "VOUT.n506" 10.6146
+resist "VOUT.n508" "VOUT.n507" 10.6146
+resist "VOUT.n508" "VOUT.n404" 10.6146
+resist "VOUT.n404" "VOUT.n403" 10.6146
+resist "VOUT.n519" "VOUT.t15" 12.9317
+resist "VOUT.n550" "VOUT.t7" 12.9317
+resist "VOUT.n88" "VOUT.n87" 13.0405
+resist "VOUT.n90" "VOUT.n89" 18.0633
+resist "VOUT.n290" "VOUT.n289" 19.3939
+resist "VOUT.n289" "VOUT.n109" 19.3939
+resist "VOUT.n115" "VOUT.n109" 19.3939
+resist "VOUT.n282" "VOUT.n115" 19.3939
+resist "VOUT.n282" "VOUT.n114" 19.3939
+resist "VOUT.n276" "VOUT.n114" 19.3939
+resist "VOUT.n276" "VOUT.n117" 19.3939
+resist "VOUT.n270" "VOUT.n117" 19.3939
+resist "VOUT.n270" "VOUT.n121" 19.3939
+resist "VOUT.n266" "VOUT.n121" 19.3939
+resist "VOUT.n266" "VOUT.n123" 19.3939
+resist "VOUT.n252" "VOUT.n123" 19.3939
+resist "VOUT.n252" "VOUT.n135" 19.3939
+resist "VOUT.n248" "VOUT.n135" 19.3939
+resist "VOUT.n248" "VOUT.n137" 19.3939
+resist "VOUT.n148" "VOUT.n137" 19.3939
+resist "VOUT.n235" "VOUT.n148" 19.3939
+resist "VOUT.n235" "VOUT.n147" 19.3939
+resist "VOUT.n230" "VOUT.n147" 19.3939
+resist "VOUT.n630" "VOUT.n11" 19.3939
+resist "VOUT.n634" "VOUT.n11" 19.3939
+resist "VOUT.n635" "VOUT.n634" 19.3939
+resist "VOUT.n636" "VOUT.n635" 19.3939
+resist "VOUT.n636" "VOUT.n6" 19.3939
+resist "VOUT.n640" "VOUT.n6" 19.3939
+resist "VOUT.n641" "VOUT.n640" 19.3939
+resist "VOUT.n642" "VOUT.n641" 19.3939
+resist "VOUT.n642" "VOUT.n1" 19.3939
+resist "VOUT.n262" "VOUT.n1" 19.3939
+resist "VOUT.n262" "VOUT.n261" 19.3939
+resist "VOUT.n261" "VOUT.n128" 19.3939
+resist "VOUT.n257" "VOUT.n128" 19.3939
+resist "VOUT.n257" "VOUT.n130" 19.3939
+resist "VOUT.n243" "VOUT.n130" 19.3939
+resist "VOUT.n243" "VOUT.n141" 19.3939
+resist "VOUT.n239" "VOUT.n141" 19.3939
+resist "VOUT.n239" "VOUT.n143" 19.3939
+resist "VOUT.n226" "VOUT.n143" 19.3939
+resist "VOUT.n445" "VOUT.n444" 19.3939
+resist "VOUT.n444" "VOUT.n442" 19.3939
+resist "VOUT.n442" "VOUT.n410" 19.3939
+resist "VOUT.n438" "VOUT.n410" 19.3939
+resist "VOUT.n438" "VOUT.n437" 19.3939
+resist "VOUT.n437" "VOUT.n435" 19.3939
+resist "VOUT.n435" "VOUT.n412" 19.3939
+resist "VOUT.n431" "VOUT.n412" 19.3939
+resist "VOUT.n431" "VOUT.n430" 19.3939
+resist "VOUT.n430" "VOUT.n428" 19.3939
+resist "VOUT.n428" "VOUT.n414" 19.3939
+resist "VOUT.n424" "VOUT.n414" 19.3939
+resist "VOUT.n424" "VOUT.n423" 19.3939
+resist "VOUT.n423" "VOUT.n421" 19.3939
+resist "VOUT.n421" "VOUT.n416" 19.3939
+resist "VOUT.n417" "VOUT.n416" 19.3939
+resist "VOUT.n417" "VOUT.n323" 19.3939
+resist "VOUT.n552" "VOUT.n323" 19.3939
+resist "VOUT.n552" "VOUT.n321" 19.3939
+resist "VOUT.n556" "VOUT.n321" 19.3939
+resist "VOUT.n557" "VOUT.n556" 19.3939
+resist "VOUT.n515" "VOUT.n514" 19.3939
+resist "VOUT.n516" "VOUT.n515" 19.3939
+resist "VOUT.n516" "VOUT.n373" 19.3939
+resist "VOUT.n522" "VOUT.n373" 19.3939
+resist "VOUT.n523" "VOUT.n522" 19.3939
+resist "VOUT.n524" "VOUT.n523" 19.3939
+resist "VOUT.n524" "VOUT.n362" 19.3939
+resist "VOUT.n530" "VOUT.n362" 19.3939
+resist "VOUT.n531" "VOUT.n530" 19.3939
+resist "VOUT.n532" "VOUT.n531" 19.3939
+resist "VOUT.n532" "VOUT.n351" 19.3939
+resist "VOUT.n538" "VOUT.n351" 19.3939
+resist "VOUT.n539" "VOUT.n538" 19.3939
+resist "VOUT.n540" "VOUT.n539" 19.3939
+resist "VOUT.n540" "VOUT.n340" 19.3939
+resist "VOUT.n546" "VOUT.n340" 19.3939
+resist "VOUT.n547" "VOUT.n546" 19.3939
+resist "VOUT.n548" "VOUT.n547" 19.3939
+resist "VOUT.n548" "VOUT.n329" 19.3939
+resist "VOUT.n334" "VOUT.n329" 19.3939
+resist "VOUT.n334" "VOUT.n330" 19.3939
+resist "VOUT.n292" "VOUT.n291" 26.8951
+resist "VOUT.n631" "VOUT.n12" 26.8951
+resist "VOUT.n231" "VOUT.n149" 26.8951
+resist "VOUT.n225" "VOUT.n224" 26.8951
+resist "VOUT.n560" "VOUT.n319" 31.6085
+resist "VOUT.n623" "VOUT.n314" 31.6085
+resist "VOUT.n448" "VOUT.n446" 31.6085
+resist "VOUT.n403" "VOUT.n383" 31.6085
+resist "VOUT.n104" "VOUT.n32" 34.3273
+resist "VOUT.n35" "VOUT.n34" 34.3273
+resist "VOUT.n202" "VOUT.n160" 34.3273
+resist "VOUT.n169" "VOUT.n168" 34.3273
+resist "VOUT.n598" "VOUT.n316" 34.3273
+resist "VOUT.n565" "VOUT.n318" 34.3273
+resist "VOUT.n453" "VOUT.n408" 34.3273
+resist "VOUT.n486" "VOUT.n406" 34.3273
+resist "VOUT.n32" "VOUT.n31" 44.6061
+resist "VOUT.n34" "VOUT.n33" 44.6061
+resist "VOUT.n160" "VOUT.n159" 44.6061
+resist "VOUT.n168" "VOUT.n167" 44.6061
+resist "VOUT.t11" "VOUT.n285" 45.2608
+resist "VOUT.t25" "VOUT.n139" 45.2608
+resist "VOUT.n86" "VOUT.n85" 48.0879
+resist "VOUT.n74" "VOUT.t5" 52.3077
+resist "VOUT.n81" "VOUT.t4" 52.3077
+resist "VOUT.n316" "VOUT.n315" 52.3636
+resist "VOUT.n318" "VOUT.n317" 52.3636
+resist "VOUT.n408" "VOUT.n407" 52.3636
+resist "VOUT.n406" "VOUT.n405" 52.3636
+resist "VOUT.n86" "VOUT.n78" 58.1626
+resist "VOUT.n17" "VOUT.n14" 71.6755
+resist "VOUT.n38" "VOUT.n18" 71.6755
+resist "VOUT.n42" "VOUT.n19" 71.6755
+resist "VOUT.n46" "VOUT.n20" 71.6755
+resist "VOUT.n50" "VOUT.n21" 71.6755
+resist "VOUT.n54" "VOUT.n22" 71.6755
+resist "VOUT.n58" "VOUT.n23" 71.6755
+resist "VOUT.n62" "VOUT.n24" 71.6755
+resist "VOUT.n66" "VOUT.n25" 71.6755
+resist "VOUT.n70" "VOUT.n26" 71.6755
+resist "VOUT.n94" "VOUT.n27" 71.6755
+resist "VOUT.n98" "VOUT.n28" 71.6755
+resist "VOUT.n102" "VOUT.n29" 71.6755
+resist "VOUT.n294" "VOUT.n30" 71.6755
+resist "VOUT.n171" "VOUT.n170" 71.6755
+resist "VOUT.n176" "VOUT.n175" 71.6755
+resist "VOUT.n181" "VOUT.n180" 71.6755
+resist "VOUT.n184" "VOUT.n183" 71.6755
+resist "VOUT.n189" "VOUT.n188" 71.6755
+resist "VOUT.n192" "VOUT.n191" 71.6755
+resist "VOUT.n197" "VOUT.n196" 71.6755
+resist "VOUT.n200" "VOUT.n199" 71.6755
+resist "VOUT.n206" "VOUT.n205" 71.6755
+resist "VOUT.n209" "VOUT.n208" 71.6755
+resist "VOUT.n214" "VOUT.n213" 71.6755
+resist "VOUT.n216" "VOUT.n154" 71.6755
+resist "VOUT.n222" "VOUT.n221" 71.6755
+resist "VOUT.n294" "VOUT.n293" 71.6755
+resist "VOUT.n105" "VOUT.n29" 71.6755
+resist "VOUT.n101" "VOUT.n28" 71.6755
+resist "VOUT.n97" "VOUT.n27" 71.6755
+resist "VOUT.n93" "VOUT.n26" 71.6755
+resist "VOUT.n69" "VOUT.n25" 71.6755
+resist "VOUT.n65" "VOUT.n24" 71.6755
+resist "VOUT.n61" "VOUT.n23" 71.6755
+resist "VOUT.n57" "VOUT.n22" 71.6755
+resist "VOUT.n53" "VOUT.n21" 71.6755
+resist "VOUT.n49" "VOUT.n20" 71.6755
+resist "VOUT.n45" "VOUT.n19" 71.6755
+resist "VOUT.n41" "VOUT.n18" 71.6755
+resist "VOUT.n37" "VOUT.n17" 71.6755
+resist "VOUT.n174" "VOUT.n170" 71.6755
+resist "VOUT.n175" "VOUT.n166" 71.6755
+resist "VOUT.n182" "VOUT.n181" 71.6755
+resist "VOUT.n183" "VOUT.n164" 71.6755
+resist "VOUT.n190" "VOUT.n189" 71.6755
+resist "VOUT.n191" "VOUT.n162" 71.6755
+resist "VOUT.n198" "VOUT.n197" 71.6755
+resist "VOUT.n199" "VOUT.n158" 71.6755
+resist "VOUT.n207" "VOUT.n206" 71.6755
+resist "VOUT.n208" "VOUT.n156" 71.6755
+resist "VOUT.n215" "VOUT.n214" 71.6755
+resist "VOUT.n219" "VOUT.n154" 71.6755
+resist "VOUT.n221" "VOUT.n152" 71.6755
+resist "VOUT.n510" "VOUT.n401" 71.6755
+resist "VOUT.n402" "VOUT.n400" 71.6755
+resist "VOUT.n504" "VOUT.n399" 71.6755
+resist "VOUT.n500" "VOUT.n398" 71.6755
+resist "VOUT.n496" "VOUT.n397" 71.6755
+resist "VOUT.n492" "VOUT.n396" 71.6755
+resist "VOUT.n488" "VOUT.n395" 71.6755
+resist "VOUT.n483" "VOUT.n394" 71.6755
+resist "VOUT.n479" "VOUT.n393" 71.6755
+resist "VOUT.n475" "VOUT.n392" 71.6755
+resist "VOUT.n471" "VOUT.n391" 71.6755
+resist "VOUT.n467" "VOUT.n390" 71.6755
+resist "VOUT.n463" "VOUT.n389" 71.6755
+resist "VOUT.n459" "VOUT.n388" 71.6755
+resist "VOUT.n455" "VOUT.n387" 71.6755
+resist "VOUT.n450" "VOUT.n386" 71.6755
+resist "VOUT.n559" "VOUT.n309" 71.6755
+resist "VOUT.n563" "VOUT.n308" 71.6755
+resist "VOUT.n568" "VOUT.n307" 71.6755
+resist "VOUT.n572" "VOUT.n306" 71.6755
+resist "VOUT.n576" "VOUT.n305" 71.6755
+resist "VOUT.n580" "VOUT.n304" 71.6755
+resist "VOUT.n584" "VOUT.n303" 71.6755
+resist "VOUT.n588" "VOUT.n302" 71.6755
+resist "VOUT.n592" "VOUT.n301" 71.6755
+resist "VOUT.n596" "VOUT.n300" 71.6755
+resist "VOUT.n601" "VOUT.n299" 71.6755
+resist "VOUT.n605" "VOUT.n298" 71.6755
+resist "VOUT.n609" "VOUT.n297" 71.6755
+resist "VOUT.n613" "VOUT.n296" 71.6755
+resist "VOUT.n617" "VOUT.n295" 71.6755
+resist "VOUT.n625" "VOUT.n312" 71.6755
+resist "VOUT.n562" "VOUT.n309" 71.6755
+resist "VOUT.n567" "VOUT.n308" 71.6755
+resist "VOUT.n571" "VOUT.n307" 71.6755
+resist "VOUT.n575" "VOUT.n306" 71.6755
+resist "VOUT.n579" "VOUT.n305" 71.6755
+resist "VOUT.n583" "VOUT.n304" 71.6755
+resist "VOUT.n587" "VOUT.n303" 71.6755
+resist "VOUT.n591" "VOUT.n302" 71.6755
+resist "VOUT.n595" "VOUT.n301" 71.6755
+resist "VOUT.n600" "VOUT.n300" 71.6755
+resist "VOUT.n604" "VOUT.n299" 71.6755
+resist "VOUT.n608" "VOUT.n298" 71.6755
+resist "VOUT.n612" "VOUT.n297" 71.6755
+resist "VOUT.n616" "VOUT.n296" 71.6755
+resist "VOUT.n619" "VOUT.n295" 71.6755
+resist "VOUT.n625" "VOUT.n624" 71.6755
+resist "VOUT.n447" "VOUT.n386" 71.6755
+resist "VOUT.n451" "VOUT.n387" 71.6755
+resist "VOUT.n456" "VOUT.n388" 71.6755
+resist "VOUT.n460" "VOUT.n389" 71.6755
+resist "VOUT.n464" "VOUT.n390" 71.6755
+resist "VOUT.n468" "VOUT.n391" 71.6755
+resist "VOUT.n472" "VOUT.n392" 71.6755
+resist "VOUT.n476" "VOUT.n393" 71.6755
+resist "VOUT.n480" "VOUT.n394" 71.6755
+resist "VOUT.n484" "VOUT.n395" 71.6755
+resist "VOUT.n489" "VOUT.n396" 71.6755
+resist "VOUT.n493" "VOUT.n397" 71.6755
+resist "VOUT.n497" "VOUT.n398" 71.6755
+resist "VOUT.n501" "VOUT.n399" 71.6755
+resist "VOUT.n505" "VOUT.n400" 71.6755
+resist "VOUT.n510" "VOUT.n509" 71.6755
+resist "VOUT.t3" "VOUT.n534" 80.8229
+resist "VOUT.n535" "VOUT.t3" 80.8229
+resist "VOUT.t0" "VOUT.n119" 80.8229
+resist "VOUT.n264" "VOUT.t0" 80.8229
+resist "VOUT.n91" "VOUT.n90" 88.0894
+resist "VOUT.n286" "VOUT.t11" 116.385
+resist "VOUT.n237" "VOUT.t25" 116.385
+resist "VOUT.n316" "VOUT.t8" 123.018
+resist "VOUT.n318" "VOUT.t22" 123.018
+resist "VOUT.n408" "VOUT.t20" 123.018
+resist "VOUT.n406" "VOUT.t17" 123.018
+resist "VOUT.t15" "VOUT.n518" 148.714
+resist "VOUT.n331" "VOUT.t7" 148.714
+resist "VOUT.n512" "VOUT.n378" 161.646
+resist "VOUT.n518" "VOUT.n378" 161.646
+resist "VOUT.n520" "VOUT.n519" 161.646
+resist "VOUT.n520" "VOUT.n367" 161.646
+resist "VOUT.n526" "VOUT.n367" 161.646
+resist "VOUT.n527" "VOUT.n526" 161.646
+resist "VOUT.n528" "VOUT.n527" 161.646
+resist "VOUT.n528" "VOUT.n356" 161.646
+resist "VOUT.n534" "VOUT.n356" 161.646
+resist "VOUT.n536" "VOUT.n535" 161.646
+resist "VOUT.n536" "VOUT.n345" 161.646
+resist "VOUT.n542" "VOUT.n345" 161.646
+resist "VOUT.n543" "VOUT.n542" 161.646
+resist "VOUT.n544" "VOUT.n543" 161.646
+resist "VOUT.n544" "VOUT.n326" 161.646
+resist "VOUT.n550" "VOUT.n326" 161.646
+resist "VOUT.n332" "VOUT.n331" 161.646
+resist "VOUT.n332" "VOUT.n310" 161.646
+resist "VOUT.n628" "VOUT.n15" 161.646
+resist "VOUT.n286" "VOUT.n15" 161.646
+resist "VOUT.n285" "VOUT.n284" 161.646
+resist "VOUT.n284" "VOUT.n112" 161.646
+resist "VOUT.n274" "VOUT.n112" 161.646
+resist "VOUT.n274" "VOUT.n273" 161.646
+resist "VOUT.n273" "VOUT.n272" 161.646
+resist "VOUT.n272" "VOUT.n119" 161.646
+resist "VOUT.n264" "VOUT.n125" 161.646
+resist "VOUT.n254" "VOUT.n125" 161.646
+resist "VOUT.n255" "VOUT.n254" 161.646
+resist "VOUT.n255" "VOUT.n133" 161.646
+resist "VOUT.n245" "VOUT.n133" 161.646
+resist "VOUT.n245" "VOUT.n139" 161.646
+resist "VOUT.n237" "VOUT.n145" 161.646
+resist "VOUT.n228" "VOUT.n145" 161.646
+resist "VOUT.n105" "VOUT.n30" 163.366
+resist "VOUT.n102" "VOUT.n101" 163.366
+resist "VOUT.n98" "VOUT.n97" 163.366
+resist "VOUT.n94" "VOUT.n93" 163.366
+resist "VOUT.n70" "VOUT.n69" 163.366
+resist "VOUT.n66" "VOUT.n65" 163.366
+resist "VOUT.n62" "VOUT.n61" 163.366
+resist "VOUT.n58" "VOUT.n57" 163.366
+resist "VOUT.n54" "VOUT.n53" 163.366
+resist "VOUT.n50" "VOUT.n49" 163.366
+resist "VOUT.n46" "VOUT.n45" 163.366
+resist "VOUT.n42" "VOUT.n41" 163.366
+resist "VOUT.n38" "VOUT.n37" 163.366
+resist "VOUT.n171" "VOUT.n150" 163.366
+resist "VOUT.n176" "VOUT.n174" 163.366
+resist "VOUT.n180" "VOUT.n166" 163.366
+resist "VOUT.n184" "VOUT.n182" 163.366
+resist "VOUT.n188" "VOUT.n164" 163.366
+resist "VOUT.n192" "VOUT.n190" 163.366
+resist "VOUT.n196" "VOUT.n162" 163.366
+resist "VOUT.n200" "VOUT.n198" 163.366
+resist "VOUT.n205" "VOUT.n158" 163.366
+resist "VOUT.n209" "VOUT.n207" 163.366
+resist "VOUT.n213" "VOUT.n156" 163.366
+resist "VOUT.n216" "VOUT.n215" 163.366
+resist "VOUT.n220" "VOUT.n219" 163.366
+resist "VOUT.n222" "VOUT.n220" 163.366
+resist "VOUT.n563" "VOUT.n562" 163.366
+resist "VOUT.n568" "VOUT.n567" 163.366
+resist "VOUT.n572" "VOUT.n571" 163.366
+resist "VOUT.n576" "VOUT.n575" 163.366
+resist "VOUT.n580" "VOUT.n579" 163.366
+resist "VOUT.n584" "VOUT.n583" 163.366
+resist "VOUT.n588" "VOUT.n587" 163.366
+resist "VOUT.n592" "VOUT.n591" 163.366
+resist "VOUT.n596" "VOUT.n595" 163.366
+resist "VOUT.n601" "VOUT.n600" 163.366
+resist "VOUT.n605" "VOUT.n604" 163.366
+resist "VOUT.n609" "VOUT.n608" 163.366
+resist "VOUT.n613" "VOUT.n612" 163.366
+resist "VOUT.n617" "VOUT.n616" 163.366
+resist "VOUT.n619" "VOUT.n311" 163.366
+resist "VOUT.n312" "VOUT.n311" 163.366
+resist "VOUT.n451" "VOUT.n450" 163.366
+resist "VOUT.n456" "VOUT.n455" 163.366
+resist "VOUT.n460" "VOUT.n459" 163.366
+resist "VOUT.n464" "VOUT.n463" 163.366
+resist "VOUT.n468" "VOUT.n467" 163.366
+resist "VOUT.n472" "VOUT.n471" 163.366
+resist "VOUT.n476" "VOUT.n475" 163.366
+resist "VOUT.n480" "VOUT.n479" 163.366
+resist "VOUT.n484" "VOUT.n483" 163.366
+resist "VOUT.n489" "VOUT.n488" 163.366
+resist "VOUT.n493" "VOUT.n492" 163.366
+resist "VOUT.n497" "VOUT.n496" 163.366
+resist "VOUT.n501" "VOUT.n500" 163.366
+resist "VOUT.n505" "VOUT.n504" 163.366
+resist "VOUT.n509" "VOUT.n402" 163.366
+resist "VOUT.n401" "VOUT.n384" 163.366
+resist "VOUT.t5" "VOUT.n73" 167.116
+resist "VOUT.t4" "VOUT.n80" 167.116
+resist "VOUT.n315" "VOUT.t9" 175.381
+resist "VOUT.n317" "VOUT.t23" 175.381
+resist "VOUT.n407" "VOUT.t19" 175.381
+resist "VOUT.n405" "VOUT.t16" 175.381
+resist "VOUT.n75" "VOUT.n74" 185
+resist "VOUT.n82" "VOUT.n81" 185
+resist "VOUT.n31" "VOUT.t31" 207.962
+resist "VOUT.n33" "VOUT.t10" 207.962
+resist "VOUT.n159" "VOUT.t28" 207.962
+resist "VOUT.n167" "VOUT.t24" 207.962
+resist "VOUT.n315" "VOUT.t6" 228.009
+resist "VOUT.n317" "VOUT.t21" 228.009
+resist "VOUT.n407" "VOUT.t18" 228.009
+resist "VOUT.n405" "VOUT.t14" 228.009
+resist "VOUT.n32" "VOUT.t33" 233.891
+resist "VOUT.n34" "VOUT.t13" 233.891
+resist "VOUT.n160" "VOUT.t29" 233.891
+resist "VOUT.n168" "VOUT.t26" 233.891
+resist "VOUT.n288" "VOUT.n16" 240.244
+resist "VOUT.n288" "VOUT.n287" 240.244
+resist "VOUT.n287" "VOUT.n110" 240.244
+resist "VOUT.n283" "VOUT.n110" 240.244
+resist "VOUT.n283" "VOUT.n113" 240.244
+resist "VOUT.n275" "VOUT.n113" 240.244
+resist "VOUT.n275" "VOUT.n118" 240.244
+resist "VOUT.n271" "VOUT.n118" 240.244
+resist "VOUT.n271" "VOUT.n120" 240.244
+resist "VOUT.n265" "VOUT.n120" 240.244
+resist "VOUT.n265" "VOUT.n124" 240.244
+resist "VOUT.n253" "VOUT.n124" 240.244
+resist "VOUT.n253" "VOUT.n134" 240.244
+resist "VOUT.n247" "VOUT.n134" 240.244
+resist "VOUT.n247" "VOUT.n246" 240.244
+resist "VOUT.n246" "VOUT.n138" 240.244
+resist "VOUT.n236" "VOUT.n138" 240.244
+resist "VOUT.n236" "VOUT.n146" 240.244
+resist "VOUT.n229" "VOUT.n146" 240.244
+resist "VOUT.n629" "VOUT.n13" 240.244
+resist "VOUT.n13" "VOUT.n10" 240.244
+resist "VOUT.n10" "VOUT.n9" 240.244
+resist "VOUT.n9" "VOUT.n8" 240.244
+resist "VOUT.n111" "VOUT.n8" 240.244
+resist "VOUT.n111" "VOUT.n5" 240.244
+resist "VOUT.n5" "VOUT.n4" 240.244
+resist "VOUT.n4" "VOUT.n3" 240.244
+resist "VOUT.n127" "VOUT.n3" 240.244
+resist "VOUT.n263" "VOUT.n127" 240.244
+resist "VOUT.n263" "VOUT.n126" 240.244
+resist "VOUT.n132" "VOUT.n126" 240.244
+resist "VOUT.n256" "VOUT.n132" 240.244
+resist "VOUT.n256" "VOUT.n131" 240.244
+resist "VOUT.n244" "VOUT.n131" 240.244
+resist "VOUT.n244" "VOUT.n140" 240.244
+resist "VOUT.n238" "VOUT.n140" 240.244
+resist "VOUT.n238" "VOUT.n144" 240.244
+resist "VOUT.n227" "VOUT.n144" 240.244
+resist "VOUT.n443" "VOUT.n385" 240.244
+resist "VOUT.n443" "VOUT.n377" 240.244
+resist "VOUT.n377" "VOUT.n376" 240.244
+resist "VOUT.n376" "VOUT.n375" 240.244
+resist "VOUT.n436" "VOUT.n375" 240.244
+resist "VOUT.n436" "VOUT.n366" 240.244
+resist "VOUT.n366" "VOUT.n365" 240.244
+resist "VOUT.n365" "VOUT.n364" 240.244
+resist "VOUT.n429" "VOUT.n364" 240.244
+resist "VOUT.n429" "VOUT.n355" 240.244
+resist "VOUT.n355" "VOUT.n354" 240.244
+resist "VOUT.n354" "VOUT.n353" 240.244
+resist "VOUT.n422" "VOUT.n353" 240.244
+resist "VOUT.n422" "VOUT.n344" 240.244
+resist "VOUT.n344" "VOUT.n343" 240.244
+resist "VOUT.n343" "VOUT.n342" 240.244
+resist "VOUT.n342" "VOUT.n325" 240.244
+resist "VOUT.n551" "VOUT.n325" 240.244
+resist "VOUT.n551" "VOUT.n324" 240.244
+resist "VOUT.n324" "VOUT.n320" 240.244
+resist "VOUT.n558" "VOUT.n320" 240.244
+resist "VOUT.n513" "VOUT.n379" 240.244
+resist "VOUT.n517" "VOUT.n379" 240.244
+resist "VOUT.n517" "VOUT.n374" 240.244
+resist "VOUT.n521" "VOUT.n374" 240.244
+resist "VOUT.n521" "VOUT.n368" 240.244
+resist "VOUT.n525" "VOUT.n368" 240.244
+resist "VOUT.n525" "VOUT.n363" 240.244
+resist "VOUT.n529" "VOUT.n363" 240.244
+resist "VOUT.n529" "VOUT.n357" 240.244
+resist "VOUT.n533" "VOUT.n357" 240.244
+resist "VOUT.n533" "VOUT.n352" 240.244
+resist "VOUT.n537" "VOUT.n352" 240.244
+resist "VOUT.n537" "VOUT.n346" 240.244
+resist "VOUT.n541" "VOUT.n346" 240.244
+resist "VOUT.n541" "VOUT.n341" 240.244
+resist "VOUT.n545" "VOUT.n341" 240.244
+resist "VOUT.n545" "VOUT.n328" 240.244
+resist "VOUT.n549" "VOUT.n328" 240.244
+resist "VOUT.n549" "VOUT.n327" 240.244
+resist "VOUT.n333" "VOUT.n327" 240.244
+resist "VOUT.n333" "VOUT.n313" 240.244
+resist "VOUT.n90" "VOUT.t35" 249.88
+resist "VOUT.n627" "VOUT.n17" 256.663
+resist "VOUT.n627" "VOUT.n18" 256.663
+resist "VOUT.n627" "VOUT.n19" 256.663
+resist "VOUT.n627" "VOUT.n20" 256.663
+resist "VOUT.n627" "VOUT.n21" 256.663
+resist "VOUT.n627" "VOUT.n22" 256.663
+resist "VOUT.n627" "VOUT.n23" 256.663
+resist "VOUT.n627" "VOUT.n24" 256.663
+resist "VOUT.n627" "VOUT.n25" 256.663
+resist "VOUT.n627" "VOUT.n26" 256.663
+resist "VOUT.n627" "VOUT.n27" 256.663
+resist "VOUT.n627" "VOUT.n28" 256.663
+resist "VOUT.n627" "VOUT.n29" 256.663
+resist "VOUT.n627" "VOUT.n294" 256.663
+resist "VOUT.n170" "VOUT.n151" 256.663
+resist "VOUT.n175" "VOUT.n151" 256.663
+resist "VOUT.n181" "VOUT.n151" 256.663
+resist "VOUT.n183" "VOUT.n151" 256.663
+resist "VOUT.n189" "VOUT.n151" 256.663
+resist "VOUT.n191" "VOUT.n151" 256.663
+resist "VOUT.n197" "VOUT.n151" 256.663
+resist "VOUT.n199" "VOUT.n151" 256.663
+resist "VOUT.n206" "VOUT.n151" 256.663
+resist "VOUT.n208" "VOUT.n151" 256.663
+resist "VOUT.n214" "VOUT.n151" 256.663
+resist "VOUT.n154" "VOUT.n151" 256.663
+resist "VOUT.n221" "VOUT.n151" 256.663
+resist "VOUT.n511" "VOUT.n510" 256.663
+resist "VOUT.n511" "VOUT.n400" 256.663
+resist "VOUT.n511" "VOUT.n399" 256.663
+resist "VOUT.n511" "VOUT.n398" 256.663
+resist "VOUT.n511" "VOUT.n397" 256.663
+resist "VOUT.n511" "VOUT.n396" 256.663
+resist "VOUT.n511" "VOUT.n395" 256.663
+resist "VOUT.n511" "VOUT.n394" 256.663
+resist "VOUT.n511" "VOUT.n393" 256.663
+resist "VOUT.n511" "VOUT.n392" 256.663
+resist "VOUT.n511" "VOUT.n391" 256.663
+resist "VOUT.n511" "VOUT.n390" 256.663
+resist "VOUT.n511" "VOUT.n389" 256.663
+resist "VOUT.n511" "VOUT.n388" 256.663
+resist "VOUT.n511" "VOUT.n387" 256.663
+resist "VOUT.n511" "VOUT.n386" 256.663
+resist "VOUT.n626" "VOUT.n309" 256.663
+resist "VOUT.n626" "VOUT.n308" 256.663
+resist "VOUT.n626" "VOUT.n307" 256.663
+resist "VOUT.n626" "VOUT.n306" 256.663
+resist "VOUT.n626" "VOUT.n305" 256.663
+resist "VOUT.n626" "VOUT.n304" 256.663
+resist "VOUT.n626" "VOUT.n303" 256.663
+resist "VOUT.n626" "VOUT.n302" 256.663
+resist "VOUT.n626" "VOUT.n301" 256.663
+resist "VOUT.n626" "VOUT.n300" 256.663
+resist "VOUT.n626" "VOUT.n299" 256.663
+resist "VOUT.n626" "VOUT.n298" 256.663
+resist "VOUT.n626" "VOUT.n297" 256.663
+resist "VOUT.n626" "VOUT.n296" 256.663
+resist "VOUT.n626" "VOUT.n295" 256.663
+resist "VOUT.n626" "VOUT.n625" 256.663
+resist "VOUT.n89" "VOUT.t2" 264.649
+resist "VOUT.n31" "VOUT.t32" 278.497
+resist "VOUT.n33" "VOUT.t12" 278.497
+resist "VOUT.n159" "VOUT.t30" 278.497
+resist "VOUT.n167" "VOUT.t27" 278.497
+resist "VOUT.n628" "VOUT.n627" 284.497
+resist "VOUT.n228" "VOUT.n151" 284.497
+resist "VOUT.n74" "VOUT.n72" 289.615
+resist "VOUT.n81" "VOUT.n79" 289.615
+resist "VOUT.n627" "VOUT.n626" 300.661
+resist "VOUT.n88" "VOUT.t34" 302.261
+resist "VOUT.n88" "VOUT.t1" 304.466
+resist "VOUT.n512" "VOUT.n511" 316.826
+resist "VOUT.n626" "VOUT.n310" 316.826
+resist "VOUT.n14" "VOUT.n12" 585
+resist "VOUT.n37" "VOUT.n36" 585
+resist "VOUT.n39" "VOUT.n38" 585
+resist "VOUT.n41" "VOUT.n40" 585
+resist "VOUT.n43" "VOUT.n42" 585
+resist "VOUT.n45" "VOUT.n44" 585
+resist "VOUT.n47" "VOUT.n46" 585
+resist "VOUT.n49" "VOUT.n48" 585
+resist "VOUT.n51" "VOUT.n50" 585
+resist "VOUT.n53" "VOUT.n52" 585
+resist "VOUT.n55" "VOUT.n54" 585
+resist "VOUT.n57" "VOUT.n56" 585
+resist "VOUT.n59" "VOUT.n58" 585
+resist "VOUT.n61" "VOUT.n60" 585
+resist "VOUT.n63" "VOUT.n62" 585
+resist "VOUT.n65" "VOUT.n64" 585
+resist "VOUT.n67" "VOUT.n66" 585
+resist "VOUT.n69" "VOUT.n68" 585
+resist "VOUT.n71" "VOUT.n70" 585
+resist "VOUT.n93" "VOUT.n92" 585
+resist "VOUT.n95" "VOUT.n94" 585
+resist "VOUT.n97" "VOUT.n96" 585
+resist "VOUT.n99" "VOUT.n98" 585
+resist "VOUT.n101" "VOUT.n100" 585
+resist "VOUT.n103" "VOUT.n102" 585
+resist "VOUT.n106" "VOUT.n105" 585
+resist "VOUT.n107" "VOUT.n30" 585
+resist "VOUT.n293" "VOUT.n292" 585
+resist "VOUT.n151" "VOUT.n150" 585
+resist "VOUT.n150" "VOUT.n149" 585
+resist "VOUT.n172" "VOUT.n171" 585
+resist "VOUT.n174" "VOUT.n173" 585
+resist "VOUT.n177" "VOUT.n176" 585
+resist "VOUT.n178" "VOUT.n166" 585
+resist "VOUT.n180" "VOUT.n179" 585
+resist "VOUT.n182" "VOUT.n165" 585
+resist "VOUT.n185" "VOUT.n184" 585
+resist "VOUT.n186" "VOUT.n164" 585
+resist "VOUT.n188" "VOUT.n187" 585
+resist "VOUT.n190" "VOUT.n163" 585
+resist "VOUT.n193" "VOUT.n192" 585
+resist "VOUT.n194" "VOUT.n162" 585
+resist "VOUT.n196" "VOUT.n195" 585
+resist "VOUT.n198" "VOUT.n161" 585
+resist "VOUT.n201" "VOUT.n200" 585
+resist "VOUT.n203" "VOUT.n158" 585
+resist "VOUT.n205" "VOUT.n204" 585
+resist "VOUT.n207" "VOUT.n157" 585
+resist "VOUT.n210" "VOUT.n209" 585
+resist "VOUT.n211" "VOUT.n156" 585
+resist "VOUT.n213" "VOUT.n212" 585
+resist "VOUT.n215" "VOUT.n155" 585
+resist "VOUT.n217" "VOUT.n216" 585
+resist "VOUT.n219" "VOUT.n218" 585
+resist "VOUT.n220" "VOUT.n151" 585
+resist "VOUT.n220" "VOUT.n153" 585
+resist "VOUT.n223" "VOUT.n222" 585
+resist "VOUT.n224" "VOUT.n152" 585
+resist "VOUT.n229" "VOUT.n228" 585
+resist "VOUT.n230" "VOUT.n229" 585
+resist "VOUT.n146" "VOUT.n145" 585
+resist "VOUT.n147" "VOUT.n146" 585
+resist "VOUT.n237" "VOUT.n236" 585
+resist "VOUT.n236" "VOUT.n235" 585
+resist "VOUT.n139" "VOUT.n138" 585
+resist "VOUT.n148" "VOUT.n138" 585
+resist "VOUT.n246" "VOUT.n245" 585
+resist "VOUT.n246" "VOUT.n137" 585
+resist "VOUT.n247" "VOUT.n133" 585
+resist "VOUT.n248" "VOUT.n247" 585
+resist "VOUT.n255" "VOUT.n134" 585
+resist "VOUT.n135" "VOUT.n134" 585
+resist "VOUT.n254" "VOUT.n253" 585
+resist "VOUT.n253" "VOUT.n252" 585
+resist "VOUT.n125" "VOUT.n124" 585
+resist "VOUT.n124" "VOUT.n123" 585
+resist "VOUT.n265" "VOUT.n264" 585
+resist "VOUT.n266" "VOUT.n265" 585
+resist "VOUT.n120" "VOUT.n119" 585
+resist "VOUT.n121" "VOUT.n120" 585
+resist "VOUT.n272" "VOUT.n271" 585
+resist "VOUT.n271" "VOUT.n270" 585
+resist "VOUT.n273" "VOUT.n118" 585
+resist "VOUT.n118" "VOUT.n117" 585
+resist "VOUT.n275" "VOUT.n274" 585
+resist "VOUT.n276" "VOUT.n275" 585
+resist "VOUT.n113" "VOUT.n112" 585
+resist "VOUT.n114" "VOUT.n113" 585
+resist "VOUT.n284" "VOUT.n283" 585
+resist "VOUT.n283" "VOUT.n282" 585
+resist "VOUT.n285" "VOUT.n110" 585
+resist "VOUT.n115" "VOUT.n110" 585
+resist "VOUT.n287" "VOUT.n286" 585
+resist "VOUT.n287" "VOUT.n109" 585
+resist "VOUT.n288" "VOUT.n15" 585
+resist "VOUT.n289" "VOUT.n288" 585
+resist "VOUT.n628" "VOUT.n16" 585
+resist "VOUT.n290" "VOUT.n16" 585
+resist "VOUT.n228" "VOUT.n227" 585
+resist "VOUT.n227" "VOUT.n226" 585
+resist "VOUT.n145" "VOUT.n144" 585
+resist "VOUT.n144" "VOUT.n143" 585
+resist "VOUT.n238" "VOUT.n237" 585
+resist "VOUT.n239" "VOUT.n238" 585
+resist "VOUT.n140" "VOUT.n139" 585
+resist "VOUT.n141" "VOUT.n140" 585
+resist "VOUT.n245" "VOUT.n244" 585
+resist "VOUT.n244" "VOUT.n243" 585
+resist "VOUT.n133" "VOUT.n131" 585
+resist "VOUT.n131" "VOUT.n130" 585
+resist "VOUT.n256" "VOUT.n255" 585
+resist "VOUT.n257" "VOUT.n256" 585
+resist "VOUT.n254" "VOUT.n132" 585
+resist "VOUT.n132" "VOUT.n128" 585
+resist "VOUT.n126" "VOUT.n125" 585
+resist "VOUT.n261" "VOUT.n126" 585
+resist "VOUT.n264" "VOUT.n263" 585
+resist "VOUT.n263" "VOUT.n262" 585
+resist "VOUT.n127" "VOUT.n119" 585
+resist "VOUT.n127" "VOUT.n1" 585
+resist "VOUT.n272" "VOUT.n3" 585
+resist "VOUT.n642" "VOUT.n3" 585
+resist "VOUT.n273" "VOUT.n4" 585
+resist "VOUT.n641" "VOUT.n4" 585
+resist "VOUT.n274" "VOUT.n5" 585
+resist "VOUT.n640" "VOUT.n5" 585
+resist "VOUT.n112" "VOUT.n111" 585
+resist "VOUT.n111" "VOUT.n6" 585
+resist "VOUT.n284" "VOUT.n8" 585
+resist "VOUT.n636" "VOUT.n8" 585
+resist "VOUT.n285" "VOUT.n9" 585
+resist "VOUT.n635" "VOUT.n9" 585
+resist "VOUT.n286" "VOUT.n10" 585
+resist "VOUT.n634" "VOUT.n10" 585
+resist "VOUT.n15" "VOUT.n13" 585
+resist "VOUT.n13" "VOUT.n11" 585
+resist "VOUT.n629" "VOUT.n628" 585
+resist "VOUT.n630" "VOUT.n629" 585
+resist "VOUT.n513" "VOUT.n512" 585
+resist "VOUT.n514" "VOUT.n513" 585
+resist "VOUT.n379" "VOUT.n378" 585
+resist "VOUT.n515" "VOUT.n379" 585
+resist "VOUT.n518" "VOUT.n517" 585
+resist "VOUT.n517" "VOUT.n516" 585
+resist "VOUT.n519" "VOUT.n374" 585
+resist "VOUT.n374" "VOUT.n373" 585
+resist "VOUT.n521" "VOUT.n520" 585
+resist "VOUT.n522" "VOUT.n521" 585
+resist "VOUT.n368" "VOUT.n367" 585
+resist "VOUT.n523" "VOUT.n368" 585
+resist "VOUT.n526" "VOUT.n525" 585
+resist "VOUT.n525" "VOUT.n524" 585
+resist "VOUT.n527" "VOUT.n363" 585
+resist "VOUT.n363" "VOUT.n362" 585
+resist "VOUT.n529" "VOUT.n528" 585
+resist "VOUT.n530" "VOUT.n529" 585
+resist "VOUT.n357" "VOUT.n356" 585
+resist "VOUT.n531" "VOUT.n357" 585
+resist "VOUT.n534" "VOUT.n533" 585
+resist "VOUT.n533" "VOUT.n532" 585
+resist "VOUT.n535" "VOUT.n352" 585
+resist "VOUT.n352" "VOUT.n351" 585
+resist "VOUT.n537" "VOUT.n536" 585
+resist "VOUT.n538" "VOUT.n537" 585
+resist "VOUT.n346" "VOUT.n345" 585
+resist "VOUT.n539" "VOUT.n346" 585
+resist "VOUT.n542" "VOUT.n541" 585
+resist "VOUT.n541" "VOUT.n540" 585
+resist "VOUT.n543" "VOUT.n341" 585
+resist "VOUT.n341" "VOUT.n340" 585
+resist "VOUT.n545" "VOUT.n544" 585
+resist "VOUT.n546" "VOUT.n545" 585
+resist "VOUT.n328" "VOUT.n326" 585
+resist "VOUT.n547" "VOUT.n328" 585
+resist "VOUT.n550" "VOUT.n549" 585
+resist "VOUT.n549" "VOUT.n548" 585
+resist "VOUT.n331" "VOUT.n327" 585
+resist "VOUT.n329" "VOUT.n327" 585
+resist "VOUT.n333" "VOUT.n332" 585
+resist "VOUT.n334" "VOUT.n333" 585
+resist "VOUT.n313" "VOUT.n310" 585
+resist "VOUT.n330" "VOUT.n313" 585
+resist "VOUT.n558" "VOUT.n310" 585
+resist "VOUT.n558" "VOUT.n557" 585
+resist "VOUT.n332" "VOUT.n320" 585
+resist "VOUT.n556" "VOUT.n320" 585
+resist "VOUT.n331" "VOUT.n324" 585
+resist "VOUT.n324" "VOUT.n321" 585
+resist "VOUT.n551" "VOUT.n550" 585
+resist "VOUT.n552" "VOUT.n551" 585
+resist "VOUT.n326" "VOUT.n325" 585
+resist "VOUT.n325" "VOUT.n323" 585
+resist "VOUT.n544" "VOUT.n342" 585
+resist "VOUT.n417" "VOUT.n342" 585
+resist "VOUT.n543" "VOUT.n343" 585
+resist "VOUT.n416" "VOUT.n343" 585
+resist "VOUT.n542" "VOUT.n344" 585
+resist "VOUT.n421" "VOUT.n344" 585
+resist "VOUT.n422" "VOUT.n345" 585
+resist "VOUT.n423" "VOUT.n422" 585
+resist "VOUT.n536" "VOUT.n353" 585
+resist "VOUT.n424" "VOUT.n353" 585
+resist "VOUT.n535" "VOUT.n354" 585
+resist "VOUT.n414" "VOUT.n354" 585
+resist "VOUT.n534" "VOUT.n355" 585
+resist "VOUT.n428" "VOUT.n355" 585
+resist "VOUT.n429" "VOUT.n356" 585
+resist "VOUT.n430" "VOUT.n429" 585
+resist "VOUT.n528" "VOUT.n364" 585
+resist "VOUT.n431" "VOUT.n364" 585
+resist "VOUT.n527" "VOUT.n365" 585
+resist "VOUT.n412" "VOUT.n365" 585
+resist "VOUT.n526" "VOUT.n366" 585
+resist "VOUT.n435" "VOUT.n366" 585
+resist "VOUT.n436" "VOUT.n367" 585
+resist "VOUT.n437" "VOUT.n436" 585
+resist "VOUT.n520" "VOUT.n375" 585
+resist "VOUT.n438" "VOUT.n375" 585
+resist "VOUT.n519" "VOUT.n376" 585
+resist "VOUT.n410" "VOUT.n376" 585
+resist "VOUT.n518" "VOUT.n377" 585
+resist "VOUT.n442" "VOUT.n377" 585
+resist "VOUT.n443" "VOUT.n378" 585
+resist "VOUT.n444" "VOUT.n443" 585
+resist "VOUT.n512" "VOUT.n385" 585
+resist "VOUT.n445" "VOUT.n385" 585
+resist "VOUT.n511" "VOUT.n384" 585
+resist "VOUT.n403" "VOUT.n384" 585
+resist "VOUT.n404" "VOUT.n401" 585
+resist "VOUT.n509" "VOUT.n508" 585
+resist "VOUT.n507" "VOUT.n402" 585
+resist "VOUT.n506" "VOUT.n505" 585
+resist "VOUT.n504" "VOUT.n503" 585
+resist "VOUT.n502" "VOUT.n501" 585
+resist "VOUT.n500" "VOUT.n499" 585
+resist "VOUT.n498" "VOUT.n497" 585
+resist "VOUT.n496" "VOUT.n495" 585
+resist "VOUT.n494" "VOUT.n493" 585
+resist "VOUT.n492" "VOUT.n491" 585
+resist "VOUT.n490" "VOUT.n489" 585
+resist "VOUT.n488" "VOUT.n487" 585
+resist "VOUT.n485" "VOUT.n484" 585
+resist "VOUT.n483" "VOUT.n482" 585
+resist "VOUT.n481" "VOUT.n480" 585
+resist "VOUT.n479" "VOUT.n478" 585
+resist "VOUT.n477" "VOUT.n476" 585
+resist "VOUT.n475" "VOUT.n474" 585
+resist "VOUT.n473" "VOUT.n472" 585
+resist "VOUT.n471" "VOUT.n470" 585
+resist "VOUT.n469" "VOUT.n468" 585
+resist "VOUT.n467" "VOUT.n466" 585
+resist "VOUT.n465" "VOUT.n464" 585
+resist "VOUT.n463" "VOUT.n462" 585
+resist "VOUT.n461" "VOUT.n460" 585
+resist "VOUT.n459" "VOUT.n458" 585
+resist "VOUT.n457" "VOUT.n456" 585
+resist "VOUT.n455" "VOUT.n454" 585
+resist "VOUT.n452" "VOUT.n451" 585
+resist "VOUT.n450" "VOUT.n449" 585
+resist "VOUT.n448" "VOUT.n447" 585
+resist "VOUT.n560" "VOUT.n559" 585
+resist "VOUT.n562" "VOUT.n561" 585
+resist "VOUT.n564" "VOUT.n563" 585
+resist "VOUT.n567" "VOUT.n566" 585
+resist "VOUT.n569" "VOUT.n568" 585
+resist "VOUT.n571" "VOUT.n570" 585
+resist "VOUT.n573" "VOUT.n572" 585
+resist "VOUT.n575" "VOUT.n574" 585
+resist "VOUT.n577" "VOUT.n576" 585
+resist "VOUT.n579" "VOUT.n578" 585
+resist "VOUT.n581" "VOUT.n580" 585
+resist "VOUT.n583" "VOUT.n582" 585
+resist "VOUT.n585" "VOUT.n584" 585
+resist "VOUT.n587" "VOUT.n586" 585
+resist "VOUT.n589" "VOUT.n588" 585
+resist "VOUT.n591" "VOUT.n590" 585
+resist "VOUT.n593" "VOUT.n592" 585
+resist "VOUT.n595" "VOUT.n594" 585
+resist "VOUT.n597" "VOUT.n596" 585
+resist "VOUT.n600" "VOUT.n599" 585
+resist "VOUT.n602" "VOUT.n601" 585
+resist "VOUT.n604" "VOUT.n603" 585
+resist "VOUT.n606" "VOUT.n605" 585
+resist "VOUT.n608" "VOUT.n607" 585
+resist "VOUT.n610" "VOUT.n609" 585
+resist "VOUT.n612" "VOUT.n611" 585
+resist "VOUT.n614" "VOUT.n613" 585
+resist "VOUT.n616" "VOUT.n615" 585
+resist "VOUT.n618" "VOUT.n617" 585
+resist "VOUT.n620" "VOUT.n619" 585
+resist "VOUT.n626" "VOUT.n311" 585
+resist "VOUT.n621" "VOUT.n311" 585
+resist "VOUT.n622" "VOUT.n312" 585
+resist "VOUT.n624" "VOUT.n623" 585
+resist "VOUT.n293" "VOUT.n16" 591
+resist "VOUT.n629" "VOUT.n14" 591
+resist "VOUT.n229" "VOUT.n150" 591
+resist "VOUT.n227" "VOUT.n152" 591
+resist "VOUT.n559" "VOUT.n558" 711.122
+resist "VOUT.n447" "VOUT.n385" 711.122
+resist "VOUT.n513" "VOUT.n384" 711.122
+resist "VOUT.n624" "VOUT.n313" 711.122
+device msubckt sky130_fd_pr__nfet_01v8 521 248 522 249  "VOUT.t7" "VOUT.t6" 948 0 "VOUT.t8" 400 0 "VOUT.t9" 400 31200,956
+device msubckt sky130_fd_pr__nfet_01v8 2361 -664 2362 -663  "VOUT.t0" "Ib.t3" 788 0 "VOUT.t34" 200 0 "VOUT.t35" 200 15600,556
+device msubckt sky130_fd_pr__nfet_01v8 1683 248 1684 249  "VOUT.t11" "VOUT.t10" 788 0 "VOUT.t12" 200 0 "VOUT.t13" 200 15600,556
+device msubckt sky130_fd_pr__nfet_01v8 -237 248 -236 249  "VOUT.t3" "VIN.t1" 948 0 "VOUT.t5" 400 31200,956 "Ib.t1" 400 31200,956
+device msubckt sky130_fd_pr__nfet_01v8 -995 248 -994 249  "VOUT.t15" "VOUT.t14" 948 0 "VOUT.t16" 400 0 "VOUT.t17" 400 31200,956
+device msubckt sky130_fd_pr__nfet_01v8 -995 -864 -994 -863  "VOUT.t15" "VOUT.t18" 948 0 "VOUT.t19" 400 0 "VOUT.t20" 400 31200,956
+device msubckt sky130_fd_pr__nfet_01v8 -237 -864 -236 -863  "VOUT.t3" "VIN.t0" 948 0 "VOUT.t4" 400 31200,956 "Ib.t0" 400 31200,956
+device msubckt sky130_fd_pr__nfet_01v8 521 -864 522 -863  "VOUT.t7" "VOUT.t21" 948 0 "VOUT.t22" 400 0 "VOUT.t23" 400 31200,956
+device msubckt sky130_fd_pr__nfet_01v8 2361 248 2362 249  "VOUT.t0" "Ib.t2" 788 0 "VOUT.t1" 200 0 "VOUT.t2" 200 15600,556
+device msubckt sky130_fd_pr__nfet_01v8 3039 -664 3040 -663  "VOUT.t25" "VOUT.t24" 788 0 "VOUT.t26" 200 0 "VOUT.t27" 200 15600,556
+device msubckt sky130_fd_pr__nfet_01v8 3039 248 3040 249  "VOUT.t25" "VOUT.t28" 788 0 "VOUT.t29" 200 0 "VOUT.t30" 200 15600,556
+device msubckt sky130_fd_pr__nfet_01v8 1683 -664 1684 -663  "VOUT.t11" "VOUT.t31" 788 0 "VOUT.t32" 200 0 "VOUT.t33" 200 15600,556

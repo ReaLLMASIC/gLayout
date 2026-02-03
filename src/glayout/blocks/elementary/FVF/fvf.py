@@ -1,6 +1,5 @@
-from glayout import MappedPDK, sky130,gf180
-from glayout.spice.netlist import Netlist
-from glayout.routing import c_route,L_route,straight_route
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from gdsfactory.cell import cell
 from gdsfactory.component import Component
 from gdsfactory import Component
@@ -8,18 +7,50 @@ from glayout.primitives.fet import nmos, pmos, multiplier
 from glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port
 from glayout.util.snap_to_grid import component_snap_to_grid
 from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.routing.straight_route import straight_route
+from glayout.routing.c_route import c_route
+from glayout.routing.L_route import L_route
 from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter
+from glayout.spice.netlist import Netlist
 from glayout.primitives.via_gen import via_stack
 from gdsfactory.components import text_freetype, rectangle
-from glayout.blocks.elementary.FVF.evaluator_wrapper import run_evaluation # This is broken, need to be fixed
+try:
+    from glayout.blocks.evaluator_box.evaluator_wrapper import run_evaluation
+except ImportError:
+    print("Warning: evaluator_wrapper not found. Evaluation will be skipped.")
+    run_evaluation = None
+
+def get_component_netlist(component):
+    """Helper function to get netlist object from component info, compatible with all gdsfactory versions"""
+    from glayout.spice.netlist import Netlist
+    
+    # Try to get stored object first (for older gdsfactory versions)
+    if 'netlist_obj' in component.info:
+        return component.info['netlist_obj']
+    
+    # Try to reconstruct from netlist_data (for newer gdsfactory versions)
+    if 'netlist_data' in component.info:
+        data = component.info['netlist_data']
+        netlist = Netlist(
+            circuit_name=data['circuit_name'],
+            nodes=data['nodes']
+        )
+        netlist.source_netlist = data['source_netlist']
+        return netlist
+    
+    # Fallback: return the string representation (should not happen in normal operation)
+    return component.info.get('netlist', '')
 
 def fvf_netlist(fet_1: Component, fet_2: Component) -> Netlist:
 
          netlist = Netlist(circuit_name='FLIPPED_VOLTAGE_FOLLOWER', nodes=['VIN', 'VBULK', 'VOUT', 'Ib'])
          
-         netlist.connect_netlist(fet_1.info['netlist'], [('D', 'Ib'), ('G', 'VIN'), ('S', 'VOUT'), ('B', 'VBULK')])
-         netlist.connect_netlist(fet_2.info['netlist'], [('D', 'VOUT'), ('G', 'Ib'), ('S', 'VBULK'), ('B', 'VBULK')])
+         # Use helper function to get netlist objects regardless of gdsfactory version
+         fet_1_netlist = get_component_netlist(fet_1)
+         fet_2_netlist = get_component_netlist(fet_2)
+         netlist.connect_netlist(fet_1_netlist, [('D', 'Ib'), ('G', 'VIN'), ('S', 'VOUT'), ('B', 'VBULK')])
+         netlist.connect_netlist(fet_2_netlist, [('D', 'VOUT'), ('G', 'Ib'), ('S', 'VBULK'), ('B', 'VBULK')])
 
          return netlist
 
@@ -63,13 +94,13 @@ def sky130_add_fvf_labels(fvf_in: Component) -> Component:
 
 @cell
 def  flipped_voltage_follower(
-        pdk: MappedPDK,
-        device_type: str = "nmos", 
-        placement: str = "horizontal",
-        width: tuple[float,float] = (3,3),
-        length: tuple[float,float] = (None,None),
-        fingers: tuple[int,int] = (1,1),
-        multipliers: tuple[int,int] = (1,1),
+    pdk: MappedPDK,
+    device_type: str = "nmos", 
+    placement: str = "horizontal",
+    width: tuple[float,float] = (6.605703928526579, 3.713220935212418),
+    length: tuple[float,float] = (2.3659471990041707, 1.9639325665440608),
+    fingers: tuple[int,int] = (1, 1),
+    multipliers: tuple[int,int] = (2, 2),
         dummy_1: tuple[bool,bool] = (True,True),
         dummy_2: tuple[bool,bool] = (True,True),
         tie_layers1: tuple[str,str] = ("met2","met1"),
@@ -111,7 +142,6 @@ def  flipped_voltage_follower(
     fet_1 = device(pdk, width=width[0], fingers=fingers[0], multipliers=multipliers[0], with_dummy=dummy_1, with_substrate_tap=False, length=length[0], tie_layers=tie_layers1, sd_rmult=sd_rmult, **kwargs)
     fet_2 = device(pdk, width=width[1], fingers=fingers[1], multipliers=multipliers[1], with_dummy=dummy_2, with_substrate_tap=False, length=length[1], tie_layers=tie_layers2, sd_rmult=sd_rmult, **kwargs)
     well = "pwell" if device == nmos else "nwell" 
-
     fet_1_ref = top_level << fet_1
     fet_2_ref = top_level << fet_2 
 
@@ -157,66 +187,25 @@ def  flipped_voltage_follower(
     component = component_snap_to_grid(rename_ports_by_orientation(top_level))
     #component = rename_ports_by_orientation(top_level)
 
-    component.info['netlist'] = fvf_netlist(fet_1, fet_2)
+    # Store netlist as string for LVS (avoids gymnasium info dict type restrictions)
+    # Compatible with both gdsfactory 7.7.0 and 7.16.0+ strict Pydantic validation
+    netlist_obj = fvf_netlist(fet_1, fet_2)
+    component.info['netlist'] = netlist_obj.generate_netlist()
+    # Store the Netlist object for hierarchical netlist building (used by lvcm.py etc.)
+    component.info['netlist_obj'] = netlist_obj
+    # Store serialized netlist data for reconstruction if needed
+    component.info['netlist_data'] = {
+        'circuit_name': netlist_obj.circuit_name,
+        'nodes': netlist_obj.nodes,
+        'source_netlist': netlist_obj.source_netlist
+    }
     
     return component
 
-if __name__ == "__main__":
-    # OLD EVAL CODE
-    # comp = flipped_voltage_follower(sky130)
-    # # comp.pprint_ports()
-    # comp =  add_fvf_labels(comp,sky130)
-    # comp.name = "FVF"
-    # comp.show()
-    # #print(comp.info['netlist'].generate_netlist())
-    # print("...Running DRC...")
-    # drc_result = sky130.drc_magic(comp, "FVF")
-    # ## Klayout DRC
-    # #drc_result = sky130.drc(comp)\n
-    
-    # time.sleep(5)
-        
-    # print("...Running LVS...")
-    # lvs_res=sky130.lvs_netgen(comp, "FVF")
-    # #print("...Saving GDS...")
-    # #comp.write_gds('out_FVF.gds')
-
-    # NEW EVAL CODE
-    fvf = sky130_add_fvf_labels(flipped_voltage_follower(sky130, width=(2,1), sd_rmult=3))
+if __name__=="__main__":
+    fvf = sky130_add_fvf_labels(flipped_voltage_follower(sky130_mapped_pdk, width=(2,1), sd_rmult=3))
     fvf.show()
     fvf.name = "fvf"
     fvf_gds = fvf.write_gds("fvf.gds")
-
-    # Debug: Check if netlist exists and print it
-    if 'netlist' in fvf.info:
-        print("Netlist found in component info:")
-        
-        # Try to get stored object first (for older gdsfactory versions)
-        if 'netlist_obj' in fvf.info:
-            netlist_obj = fvf.info['netlist_obj']
-            netlist_content = netlist_obj.generate_netlist()
-        # Try to reconstruct from netlist_data (for newer gdsfactory versions)
-        elif 'netlist_data' in fvf.info:
-            data = fvf.info['netlist_data']
-            netlist_obj = Netlist(
-                circuit_name=data['circuit_name'],
-                nodes=data['nodes']
-            )
-            netlist_obj.source_netlist = data['source_netlist']
-            netlist_content = netlist_obj.generate_netlist()
-        else:
-            # Fallback: if it's already a string, use it directly
-            netlist_content = str(fvf.info['netlist'])
-        
-        print(netlist_content)
-        print("Writing netlist to fvf.cdl for inspection...")
-        with open("fvf.cdl", "w") as f:
-            f.write(netlist_content)
-    else:
-        print("No netlist found in component info!")
-
     result = run_evaluation("fvf.gds",fvf.name,fvf)
     print(result)
-
-
-

@@ -1,27 +1,36 @@
-from glayout import MappedPDK, sky130,gf180
-from glayout import nmos, pmos, tapring,via_stack
-from glayout.spice.netlist import Netlist
-from glayout.routing import c_route,L_route,straight_route
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from gdsfactory.component import Component
 from gdsfactory.component_reference import ComponentReference
 from gdsfactory.cell import cell
 from gdsfactory import Component
 from gdsfactory.components import text_freetype, rectangle
+from glayout.primitives.fet import nmos, pmos, multiplier
 from glayout.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, prec_ref_center
 from glayout.util.snap_to_grid import component_snap_to_grid
 from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.routing.straight_route import straight_route
+from glayout.routing.c_route import c_route
+from glayout.routing.L_route import L_route
+from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter
-from glayout.blocks.elementary.FVF import fvf_netlist, flipped_voltage_follower
-
+from glayout.spice.netlist import Netlist
+from glayout.blocks.elementary.FVF.fvf import fvf_netlist, flipped_voltage_follower  # Import from local ATLAS fvf.py
 from glayout.primitives.via_gen import via_stack
 from typing import Optional
-import time
+from glayout.blocks.evaluator_box.evaluator_wrapper import run_evaluation
+
 
 def add_lvcm_labels(lvcm_in: Component,
                 pdk: MappedPDK
                 ) -> Component:
 	
     lvcm_in.unlock()
+
+    met2_pin = (68,16)
+    met2_label = (68,5)
+    met3_pin = (69,16)
+    met3_label = (69,5)
     # list that will contain all port/comp info
     move_info = list()
     # create labels and append to info list
@@ -58,8 +67,9 @@ def add_lvcm_labels(lvcm_in: Component,
 def low_voltage_cmirr_netlist(bias_fvf: Component, cascode_fvf: Component, fet_1_ref: ComponentReference, fet_2_ref: ComponentReference, fet_3_ref: ComponentReference, fet_4_ref: ComponentReference) -> Netlist:
     
         netlist = Netlist(circuit_name='Low_voltage_current_mirror', nodes=['IBIAS1', 'IBIAS2', 'GND', 'IOUT1', 'IOUT2'])
-        netlist.connect_netlist(bias_fvf.info['netlist'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib','IBIAS1'),('VOUT','local_net_1')])
-        netlist.connect_netlist(cascode_fvf.info['netlist'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib', 'IBIAS2'),('VOUT','local_net_2')])
+        # Use netlist_obj for hierarchical netlist building
+        netlist.connect_netlist(bias_fvf.info['netlist_obj'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib','IBIAS1'),('VOUT','local_net_1')])
+        netlist.connect_netlist(cascode_fvf.info['netlist_obj'], [('VIN','IBIAS1'),('VBULK','GND'),('Ib', 'IBIAS2'),('VOUT','local_net_2')])
         fet_1A_ref=netlist.connect_netlist(fet_2_ref.info['netlist'], [('D', 'IOUT1'),('G','IBIAS1'),('B','GND')])
         fet_2A_ref=netlist.connect_netlist(fet_4_ref.info['netlist'], [('D', 'IOUT2'),('G','IBIAS1'),('B','GND')])
         fet_1B_ref=netlist.connect_netlist(fet_1_ref.info['netlist'], [('G','IBIAS2'),('S', 'GND'),('B','GND')])
@@ -175,25 +185,17 @@ def  low_voltage_cmirror(
     top_level.add_ports(fet_4_ref.get_ports_list(), prefix="M_4_A_")
     
     component = component_snap_to_grid(rename_ports_by_orientation(top_level))
-    component.info['netlist'] = low_voltage_cmirr_netlist(bias_fvf, cascode_fvf, fet_1_ref, fet_2_ref, fet_3_ref, fet_4_ref)
+    netlist_obj = low_voltage_cmirr_netlist(bias_fvf, cascode_fvf, fet_1_ref, fet_2_ref, fet_3_ref, fet_4_ref)
+    component.info['netlist'] = netlist_obj.generate_netlist()
     
     return component
 
-if __name__ == "__main__":
-    comp =low_voltage_cmirror(sky130)
-    # comp.pprint_ports()
-    comp =add_lvcm_labels(comp,sky130)
-    comp.name = "LVCM"
-    comp.show()
-    #print(comp.info['netlist'].generate_netlist())
-    print("...Running DRC...")
-    drc_result = sky130.drc_magic(comp, "LVCM")
-    ## Klayout DRC
-    #drc_result = sky130.drc(comp)
-    
-    time.sleep(5)
-        
-    print("...Running LVS...")
-    lvs_res=sky130.lvs_netgen(comp, "LVCM")
-    #print("...Saving GDS...")
-    #comp.write_gds('out_LVCM.gds')
+if __name__=="__main__":
+    #low_voltage_current_mirror = low_voltage_current_mirror(sky130_mapped_pdk)
+    low_voltage_current_mirror = add_lvcm_labels(low_voltage_cmirror(sky130_mapped_pdk),sky130_mapped_pdk)
+    low_voltage_current_mirror.show()
+    low_voltage_current_mirror.name = "Low_voltage_current_mirror"
+    #magic_drc_result = sky130_mapped_pdk.drc_magic(low_voltage_current_mirror, low_voltage_current_mirror.name)
+    #netgen_lvs_result = sky130_mapped_pdk.lvs_netgen(low_voltage_current_mirror, low_voltage_current_mirror.name)
+    low_voltage_current_mirror_gds = low_voltage_current_mirror.write_gds("low_voltage_current_mirror.gds")
+    res = run_evaluation("low_voltage_current_mirror.gds", low_voltage_current_mirror.name, low_voltage_current_mirror)

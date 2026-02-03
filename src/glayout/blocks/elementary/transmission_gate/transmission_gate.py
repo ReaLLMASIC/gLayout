@@ -15,7 +15,7 @@ from glayout.spice.netlist import Netlist
 from glayout.primitives.via_gen import via_stack
 from gdsfactory.components import text_freetype, rectangle
 try:
-    from evaluator_wrapper import run_evaluation
+    from glayout.blocks.evaluator_box.evaluator_wrapper import run_evaluation
 except ImportError:
     print("Warning: evaluator_wrapper not found. Evaluation will be skipped.")
     run_evaluation = None
@@ -204,7 +204,9 @@ def  transmission_gate(
     # Store netlist as string to avoid gymnasium info dict type restrictions
     # Compatible with both gdsfactory 7.7.0 and 7.16.0+ strict Pydantic validation
     netlist_obj = tg_netlist(nfet, pfet)
-    component.info['netlist'] = str(netlist_obj)
+    component.info['netlist'] = netlist_obj.generate_netlist()
+    # Store the Netlist object for hierarchical netlist building
+    component.info['netlist_obj'] = netlist_obj
     # Store serialized netlist data for reconstruction if needed
     component.info['netlist_data'] = {
         'circuit_name': netlist_obj.circuit_name,
