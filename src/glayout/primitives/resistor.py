@@ -11,6 +11,7 @@ from gdsfactory.cell import cell
 from typing import Optional
 from glayout import sky130
 from glayout.spice import Netlist
+from glayout.primitives.fet import fet_netlist
 
 def resistor_netlist(
     pdk: MappedPDK,
@@ -20,43 +21,45 @@ def resistor_netlist(
     multipliers: int,
 ) -> Netlist:
 
+    # Top-level resistor netlist
     netlist = Netlist(
         circuit_name="PMOS_RES",
         nodes=["P", "N", "B"],
     )
 
-    # Base PMOS subcircuit
-    pmos_unit = Netlist(
-        circuit_name="PMOS_UNIT",
-        nodes=["D", "G", "S", "B"],
-        source_netlist=""".subckt {circuit_name} D G S B
-X1 D G S B {model} l={length} w={width} m={m}
-.ends {circuit_name}""",
-        parameters={
-            "model": pdk.models["pfet"],
-            "length": length,
-            "width": width,
-            "m": multipliers,
-        },
-    )
+    prev_node = "P"
 
-    prev = "P"
     for i in range(num_series):
-        nxt = f"INT{i}" if i < num_series - 1 else "N"
 
+        next_node = f"INT{i}" if i < num_series - 1 else "N"
+
+        fet = fet_netlist(
+            pdk=pdk,
+            circuit_name=f"PMOS_UNIT_{i}",
+            model=pdk.models["pfet"],   
+            width=width,
+            length=length,
+            fingers=1,
+            multipliers=multipliers,
+            with_dummy=False,
+        )
+
+        # Diode-connected MOS: gate tied to drain
         netlist.connect_netlist(
-            pmos_unit,
+            fet,
             [
-                ("D", prev),
-                ("G", prev),
-                ("S", nxt),
+                ("D", prev_node),
+                ("G", prev_node),
+                ("S", next_node),
                 ("B", "B"),
             ],
         )
 
-        prev = nxt
+        prev_node = next_node
 
     return netlist
+
+
 
 @cell
 def resistor(
