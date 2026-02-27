@@ -6,20 +6,20 @@ sys.path.append(path.join(path.dirname(__file__), '../../'))
 
 from gdsfactory.read.import_gds import import_gds
 from gdsfactory.components import text_freetype, rectangle
-from glayout.flow.pdk.util.comp_utils import prec_array, movey, align_comp_to_port, prec_ref_center
-from glayout.flow.pdk.util.port_utils import add_ports_perimeter, print_ports
+from glayout.util.comp_utils import prec_array, movey, align_comp_to_port, prec_ref_center
+from glayout.util.port_utils import add_ports_perimeter, print_ports
 from gdsfactory.component import Component
-from glayout.flow.pdk.mappedpdk import MappedPDK
-from glayout.flow.blocks.composite.fvf_based_ota.ota import super_class_AB_OTA
-from glayout.flow.routing.L_route import L_route
-from glayout.flow.routing.c_route import c_route
-from glayout.flow.routing.straight_route import straight_route
-from glayout.flow.pdk.util.comp_utils import evaluate_bbox, prec_ref_center, prec_center, align_comp_to_port
-from glayout.flow.pdk.util.port_utils import rename_ports_by_orientation
-from glayout.flow.pdk.util.snap_to_grid import component_snap_to_grid
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.blocks.composite.fvf_based_ota.ota import super_class_AB_OTA
+from glayout.routing.L_route import L_route
+from glayout.routing.c_route import c_route
+from glayout.routing.straight_route import straight_route
+from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, prec_center, align_comp_to_port
+from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.util.snap_to_grid import component_snap_to_grid
 from gdsfactory.components import text_freetype, rectangle
-from glayout.flow.pdk.mappedpdk import MappedPDK
-from glayout.flow.primitives.via_gen import via_array, via_stack
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.primitives.via_gen import via_array, via_stack
 from gdsfactory.cell import cell, clear_cache
 import numpy as np
 from subprocess import Popen
@@ -38,9 +38,9 @@ from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.metrics import silhouette_score
 import argparse
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk as pdk
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk as pdk
 from itertools import count, repeat
-from glayout.flow.pdk.util.component_array_create import write_component_matrix
+from glayout.util.component_array_create import write_component_matrix
 import re
 import pickle
 import tempfile
@@ -611,7 +611,7 @@ def single_build_and_simulation(parameters: np.array, temp: int=25, output_dir: 
     saves ota gds in current directory with name 12345678987654321.gds
     returns -987.654321 for all values IF phase margin < 60
     """
-    from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+    from glayout.pdk.sky130_mapped import sky130_mapped_pdk
     # process temperature info
     temperature_info = [temp, None]
     if temperature_info[0] > -20:
@@ -810,7 +810,7 @@ if __name__ == "__main__":
     elif args.mode == "gen_otas":
         global usepdk
         if args.pdk[0].lower()=="g":
-            from glayout.flow.pdk.gf180_mapped import gf180_mapped_pdk
+            from glayout.pdk.gf180_mapped import gf180_mapped_pdk
             usepdk = gf180_mapped_pdk
         else:
             usepdk = pdk

@@ -8,7 +8,7 @@ from pathlib import Path
 from gdsfactory.typings import Component
 
 from robust_verification import run_robust_verification
-from glayout.flow.blocks.evaluator_box.physical_features import run_physical_feature_extraction
+from glayout.blocks.evaluator_box.physical_features import run_physical_feature_extraction
 
 def get_next_filename(base_name="evaluation", extension=".json"):
     """

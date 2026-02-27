@@ -7,6 +7,10 @@ from pathlib import Path
 from gdsfactory.typings import Component
 from gdsfactory.geometry.boolean import boolean
 
+# Get the path to run_pex.sh in the evaluator_box directory
+_EVALUATOR_BOX_DIR = Path(__file__).parent
+_RUN_PEX_SCRIPT = _EVALUATOR_BOX_DIR / "run_pex.sh"
+
 def calculate_area(component: Component) -> float:
     """Calculates the area of a gdsfactory Component."""
     return float(component.area())
@@ -90,17 +94,20 @@ def run_physical_feature_extraction(layout_path: str, component_name: str, top_l
         pex_spice_path = f"{component_name}_pex.spice"
         if os.path.exists(pex_spice_path):
             os.remove(pex_spice_path)
-        # Invoke via explicit "bash" to avoid execute-bit issues on some systems
-        # If run_pex.sh lacks +x permission, this still works reliably.
-        subprocess.run(["bash", "run_pex.sh", layout_path, component_name], check=True, capture_output=True, text=True)
+        # Use the run_pex.sh from evaluator_box directory, not current directory
+        if not _RUN_PEX_SCRIPT.exists():
+            raise FileNotFoundError(f"run_pex.sh not found at {_RUN_PEX_SCRIPT}")
+        # Make sure it's executable
+        os.chmod(_RUN_PEX_SCRIPT, 0o755)
+        subprocess.run([str(_RUN_PEX_SCRIPT), layout_path, component_name], check=True, capture_output=True, text=True)
         physical_results["pex"]["status"] = "PEX Complete"
         total_res, total_cap = _parse_simple_parasitics(component_name)
         physical_results["pex"]["total_resistance_ohms"] = total_res
         physical_results["pex"]["total_capacitance_farads"] = total_cap
     except subprocess.CalledProcessError as e:
         physical_results["pex"]["status"] = f"PEX Error: {e.stderr}"
-    except FileNotFoundError:
-        physical_results["pex"]["status"] = "PEX Error: run_pex.sh not found."
+    except FileNotFoundError as e:
+        physical_results["pex"]["status"] = f"PEX Error: {e}"
     except Exception as e:
         physical_results["pex"]["status"] = f"PEX Unexpected Error: {e}"
         
@@ -113,4 +120,4 @@ def run_physical_feature_extraction(layout_path: str, component_name: str, top_l
     except Exception as e:
         print(f"Warning: Could not calculate geometric features. Error: {e}")
 
-    return physical_results
+    return physical_results 
