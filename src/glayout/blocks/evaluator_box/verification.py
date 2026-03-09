@@ -133,6 +133,9 @@ def parse_lvs_report(report_content: str) -> dict:
 def run_verification(layout_path: str, component_name: str, top_level: Component) -> dict:
     """
     Runs DRC and LVS checks and returns a structured result dictionary.
+    Note: PDK functions create directory structures:
+      - DRC: {output_dir}/drc/{design_name}/{design_name}.rpt
+      - LVS: {output_dir}/lvs/{design_name}/{design_name}_lvs.rpt
     """
     verification_results = {
         "drc": {"status": "not run", "is_pass": False, "report_path": None, "summary": {}},
@@ -140,15 +143,18 @@ def run_verification(layout_path: str, component_name: str, top_level: Component
     }
     
     # DRC Check
-    drc_report_path = os.path.abspath(f"./{component_name}.drc.rpt")
-    verification_results["drc"]["report_path"] = drc_report_path
+    # PDK creates: {drc_output_dir}/drc/{component_name}/{component_name}.rpt
+    drc_output_dir = os.path.abspath(f"./{component_name}_drc_out")
+    drc_actual_report = os.path.join(drc_output_dir, "drc", component_name, f"{component_name}.rpt")
+    verification_results["drc"]["report_path"] = drc_actual_report
     try:
-        if os.path.exists(drc_report_path):
-            os.remove(drc_report_path)
-        sky130.drc_magic(layout_path, component_name, output_file=drc_report_path)
+        # Clean up existing directory if present
+        if os.path.exists(drc_output_dir):
+            shutil.rmtree(drc_output_dir)
+        sky130.drc_magic(layout_path, component_name, output_file=drc_output_dir)
         report_content = ""
-        if os.path.exists(drc_report_path):
-            with open(drc_report_path, 'r') as f:
+        if os.path.exists(drc_actual_report):
+            with open(drc_actual_report, 'r') as f:
                 report_content = f.read()
         summary = parse_drc_report(report_content)
         verification_results["drc"].update({"summary": summary, "is_pass": summary["is_pass"], "status": "pass" if summary["is_pass"] else "fail"})
@@ -156,15 +162,18 @@ def run_verification(layout_path: str, component_name: str, top_level: Component
         verification_results["drc"]["status"] = f"error: {e}"
 
     # LVS Check
-    lvs_report_path = os.path.abspath(f"./{component_name}.lvs.rpt")
-    verification_results["lvs"]["report_path"] = lvs_report_path
+    # PDK creates: {lvs_output_dir}/lvs/{component_name}/{component_name}_lvs.rpt
+    lvs_output_dir = os.path.abspath(f"./{component_name}_lvs_out")
+    lvs_actual_report = os.path.join(lvs_output_dir, "lvs", component_name, f"{component_name}_lvs.rpt")
+    verification_results["lvs"]["report_path"] = lvs_actual_report
     try:
-        if os.path.exists(lvs_report_path):
-            os.remove(lvs_report_path)
-        sky130.lvs_netgen(layout=top_level, design_name=component_name, output_file_path=lvs_report_path)
+        # Clean up existing directory if present
+        if os.path.exists(lvs_output_dir):
+            shutil.rmtree(lvs_output_dir)
+        sky130.lvs_netgen(layout=top_level, design_name=component_name, output_file_path=lvs_output_dir)
         report_content = ""
-        if os.path.exists(lvs_report_path):
-            with open(lvs_report_path, 'r') as report_file:
+        if os.path.exists(lvs_actual_report):
+            with open(lvs_actual_report, 'r') as report_file:
                 report_content = report_file.read()
         lvs_summary = parse_lvs_report(report_content)
         verification_results["lvs"].update({"summary": lvs_summary, "is_pass": lvs_summary["is_pass"], "status": "pass" if lvs_summary["is_pass"] else "fail"})

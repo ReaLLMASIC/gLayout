@@ -1,26 +1,26 @@
-from glayout.flow.pdk.mappedpdk import MappedPDK
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from gdsfactory import Component
 from gdsfactory.cell import cell
 from gdsfactory.component_reference import ComponentReference
 
-from glayout.flow.pdk.util.comp_utils import evaluate_bbox, prec_ref_center, prec_center, align_comp_to_port
-from glayout.flow.pdk.util.port_utils import rename_ports_by_orientation
-from glayout.flow.pdk.util.snap_to_grid import component_snap_to_grid
+from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, prec_center, align_comp_to_port
+from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.util.snap_to_grid import component_snap_to_grid
 from gdsfactory.components import text_freetype, rectangle
-from glayout.flow.spice.netlist import Netlist
+from glayout.spice.netlist import Netlist
 
 
-from glayout.flow.routing.straight_route import straight_route
-from glayout.flow.routing.c_route import c_route
-from glayout.flow.routing.L_route import L_route
-from glayout.flow.blocks.elementary.FVF.fvf import fvf_netlist, flipped_voltage_follower
-from glayout.flow.blocks.elementary.current_mirror.current_mirror import current_mirror, current_mirror_netlist
-from glayout.flow.primitives.via_gen import via_stack, via_array
-from glayout.flow.primitives.fet import nmos, pmos, multiplier
-from glayout.flow.blocks.elementary.transmission_gate.transmission_gate import transmission_gate,tg_netlist
-from glayout.flow.blocks.composite.fvf_based_ota.p_block import p_block,p_block_netlist
-from glayout.flow.blocks.composite.fvf_based_ota.n_block import n_block,n_block_netlist
+from glayout.routing.straight_route import straight_route
+from glayout.routing.c_route import c_route
+from glayout.routing.L_route import L_route
+from glayout.blocks.elementary.FVF.fvf import fvf_netlist, flipped_voltage_follower
+from glayout.blocks.elementary.current_mirror.current_mirror import current_mirror, current_mirror_netlist
+from glayout.primitives.via_gen import via_stack, via_array
+from glayout.primitives.fet import nmos, pmos, multiplier
+from glayout.blocks.elementary.transmission_gate.transmission_gate import transmission_gate,tg_netlist
+from glayout.blocks.composite.fvf_based_ota.p_block import p_block,p_block_netlist
+from glayout.blocks.composite.fvf_based_ota.n_block import n_block,n_block_netlist
 
 def super_class_AB_OTA_netlist(local_c_bias_1_ref: ComponentReference, local_c_bias_2_ref: ComponentReference, res_1_ref: ComponentReference, res_2_ref: ComponentReference, nb: Component, pblock: Component) -> Netlist:
 

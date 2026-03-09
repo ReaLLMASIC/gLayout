@@ -2,23 +2,23 @@ from gdsfactory.cell import cell, clear_cache
 from gdsfactory.component import Component, copy
 from gdsfactory.component_reference import ComponentReference
 from gdsfactory.components.rectangle import rectangle
-from glayout.flow.pdk.mappedpdk import MappedPDK
+from glayout.pdk.mappedpdk import MappedPDK
 from typing import Optional, Union
-from glayout.flow.primitives.fet import nmos, pmos, multiplier
-from glayout.flow.blocks.elementary.diff_pair import diff_pair
-from glayout.flow.primitives.guardring import tapring
-from glayout.flow.primitives.mimcap import mimcap_array, mimcap
-from glayout.flow.routing.L_route import L_route
-from glayout.flow.routing.c_route_old import c_route
-from glayout.flow.primitives.via_gen import via_stack, via_array
+from glayout.primitives.fet import nmos, pmos, multiplier
+from glayout.blocks.elementary.diff_pair import diff_pair
+from glayout.primitives.guardring import tapring
+from glayout.primitives.mimcap import mimcap_array, mimcap
+from glayout.routing.L_route import L_route
+from glayout.routing.c_route import c_route
+from glayout.primitives.via_gen import via_stack, via_array
 from gdsfactory.routing.route_quad import route_quad
-from glayout.flow.pdk.util.comp_utils import evaluate_bbox, prec_ref_center, movex, movey, to_decimal, to_float, move, align_comp_to_port, get_padding_points_cc
-from glayout.flow.pdk.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, add_ports_perimeter, print_ports, set_port_orientation, rename_component_ports
-from glayout.flow.routing.straight_route import straight_route
-from glayout.flow.pdk.util.snap_to_grid import component_snap_to_grid
+from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, movex, movey, to_decimal, to_float, move, align_comp_to_port, get_padding_points_cc
+from glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, add_ports_perimeter, print_ports, set_port_orientation, rename_component_ports
+from glayout.routing.straight_route import straight_route
+from glayout.util.snap_to_grid import component_snap_to_grid
 from pydantic import validate_arguments
-from glayout.flow.placement.two_transistor_interdigitized import two_nfet_interdigitized
-from glayout.flow.spice import Netlist
+from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
+from glayout.spice import Netlist
 
 def row_csamplifier_diff_to_single_ended_converter_netlist(diff_to_single: Component) -> Netlist:
     overall_netlist = Netlist(
