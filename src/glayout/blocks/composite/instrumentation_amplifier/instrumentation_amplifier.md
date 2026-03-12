@@ -10,11 +10,14 @@ Transistors PM1 and PM2 form the differential input pair, which receives the inp
 ### Gain Stage / Active Load
 Transistors NM1, NM2, NM3, and NM4 act as the active load and gain stage, converting the differential current into output voltages at VOUT+ and VOUT− while maintaining differential operation.
 
+**dnwell must be added manually to nmos pair
+
 ### Biasing Transistor
 Transistor PM3 provides the bias current for the amplifier. The current is controlled by a bias voltage (Vbias) applied to its gate (VB), meaning the circuit uses voltage biasing instead of an Ibias current source.
 
 ### Differential Output
 The amplifier produces differential outputs, VOUT+ and VOUT−, which represent the amplified difference between the input signals.
+
 
 ## Parameterization
 ```
