@@ -63,4 +63,36 @@ def generate_ina(
 ```
 
 ## DRC Report
+```
+using default pdk_root
+Defaulting to stale magic_commands.tcl
 
+Magic 8.3 revision 528 - Compiled on Wed Jun 18 09:45:25 PM CEST 2025.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Sourcing design .magicrc for technology gf180mcuD ...
+10 Magic internal units = 1 Lambda
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 m5hole obsm5 fillm5 glass fillblock lvstext obscomment 
+Scaled tech values by 10 / 1 to match internal grid scaling
+Loading gf180mcuD Device Generator Menu ...
+Loading "/tmp/tmpu3sxch2e/magic_commands.tcl" from command line.
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: library
+Reading "INA".
+[INFO]: Loading INA
+
+Loading DRC CIF style.
+No errors found.
+[INFO]: DONE with /tmp/tmpu3sxch2e/INA.rpt
+
+Using technology "gf180mcuD", version 1.0.525-0-gf2e289d
+
+{'result_str': 'magic drc script passed\nNo errors found in DRC report',
+ 'subproc_code': 0}
+```
