@@ -141,6 +141,7 @@ ihp130_mapped_pdk = MappedPDK(
     grules=grulesobj,
 )
 
-# Configure GDS write precision and cell decorator cache
+# Configure GDS write precision, grid size, and cell decorator cache
+ihp130_mapped_pdk.grid_size = 0.005 # 5nm layout grid
 ihp130_mapped_pdk.gds_write_settings.precision = 1e-9 # 1nm precision , Check this setting with PDk documentration later
 ihp130_mapped_pdk.cell_decorator_settings.cache = False
