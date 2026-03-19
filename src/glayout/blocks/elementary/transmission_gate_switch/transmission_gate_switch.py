@@ -48,36 +48,36 @@ def add_tgswitch_labels(
     # VSS
     vsslabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=psize,centered=True).copy()
     vsslabel.add_label(text="VSS",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vsslabel,component.ports["N_tie_N_top_met_W"],None))
+    move_info.append((vsslabel,tgswitch_in.ports["N_tie_N_top_met_W"],None))
     #gnd_ref = top_level << gndlabel;
 
     #suply
     vddlabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=psize,centered=True).copy()
     vddlabel.add_label(text="VDD",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vddlabel,component.ports["P_tie_N_top_met_W"],None))
+    move_info.append((vddlabel,tgswitch_in.ports["P_tie_N_top_met_W"],None))
     #sup_ref = top_level << suplabel;
 
     # output
     outputlabel = rectangle(layer=pdk.get_glayer("met3_pin"),size=psize,centered=True).copy()
     outputlabel.add_label(text="VOUT",layer=pdk.get_glayer("met3_label"))
-    move_info.append((outputlabel,component.ports["P_drain_top_met_N"],None))
+    move_info.append((outputlabel,tgswitch_in.ports["P_drain_top_met_N"],None))
     #op_ref = top_level << outputlabel;
 
     # input
     inputlabel = rectangle(layer=pdk.get_glayer("met3_pin"),size=psize,centered=True).copy()
     inputlabel.add_label(text="VIN",layer=pdk.get_glayer("met3_label"))
-    move_info.append((inputlabel,component.ports["P_source_top_met_N"], None))
+    move_info.append((inputlabel,tgswitch_in.ports["P_source_top_met_N"], None))
     #ip_ref = top_level << inputlabel;
 
     # CLK
     clklabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=psize,centered=True).copy()
     clklabel.add_label(text="CLK",layer=pdk.get_glayer("met2_label"))
-    move_info.append((clklabel,component.ports["N_gate_S"], None))
+    move_info.append((clklabel,tgswitch_in.ports["N_gate_S"], None))
 
     # CLK_INV
     clkinvlabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=psize,centered=True).copy()
     clkinvlabel.add_label(text="CLKinv",layer=pdk.get_glayer("met2_label"))
-    move_info.append((clkinvlabel,component.ports["P_gate_N"], None))
+    move_info.append((clkinvlabel,tgswitch_in.ports["P_gate_N"], None))
 
     for comp, prt, alignment in move_info:
             alignment = ('c','b') if alignment is None else alignment
