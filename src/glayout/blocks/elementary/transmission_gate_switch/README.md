@@ -1,4 +1,4 @@
-# Transistor Gate Switch
+# Transmission Gate Switch
 
 GenYZ Team: Oct 17 2025
 
