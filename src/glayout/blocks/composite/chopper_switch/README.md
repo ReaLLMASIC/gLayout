@@ -21,7 +21,7 @@ This circuit is a differential chopper switch. It alternates the signal polarity
 - **sd_rmult:** Integer multiplier for source/drain contact routing width (reduces on-resistance).
 - **kwargs:** Additional parameters passed directly to pdk.nmos() and pdk.pmos().
 ```
-def cswitch(
+def chopper_switch(
         pdk: MappedPDK,
         width: tuple[float,float] = (10,10),
         length: tuple[float,float] = (0.5,0.5),
