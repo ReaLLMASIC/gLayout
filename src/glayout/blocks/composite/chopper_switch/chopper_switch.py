@@ -32,11 +32,11 @@ os.environ.update(env_vars)
 
 import sys
 from pathlib import Path
-sys.path.append(os.path.abspath("../elementary/TGSW"))
+sys.path.append(os.path.abspath("../elementary/transistor_gate_switch"))
 
-from TGSW import tgswitch
+from transistor_gate_switch import tgswitch
 
-def add_cswitch_labels(
+def add_chopper_switch_labels(
     cswitch_in: Component,
     pdk: MappedPDK,
     ) -> Component:
@@ -100,7 +100,7 @@ def add_cswitch_labels(
     
     return cswitch_in.flatten()
 
-def cswitch(
+def chopper_switch(
         pdk: MappedPDK,
         width: tuple[float,float] = (10,10),
         length: tuple[float,float] = (0.5,0.5),
@@ -117,7 +117,7 @@ def cswitch(
     pdk.activate()
     
     #top level component
-    top_level = Component(name="cswitch")
+    top_level = Component(name="chopper_switch")
 
     #four TG Switch
     SW1 = tgswitch(pdk, "vertical",(width[0],width[1]),(length[0],length[1]),(fingers[0],fingers[1]),(multipliers[0],multipliers[1]))
@@ -295,21 +295,21 @@ def cswitch(
     return component_snap_to_grid(rename_ports_by_orientation(top_level))
 
 if __name__ == "__main__":
-	comp = cswitch(gf180)
+	comp = chopper_switch(gf180)
 
 	# comp.pprint_ports()
 
-	comp = add_cswitch_labels(comp, gf180)
+	comp = add_chopper_switch_labels(comp, gf180)
 
-	comp.name = "CSWITCH"
+	comp.name = "chopper_switch"
 
-	comp.write_gds('out_CSWITCH.gds')
+	comp.write_gds('out_chopper_switch.gds')
 
 	comp.show()
 
 	print("...Running DRC...")
 
-	drc_result = gf180.drc_magic(comp, "CSWITCH")
+	drc_result = gf180.drc_magic(comp, "chopper_switch")
 
 	drc_result = gf180.drc(comp)
 
