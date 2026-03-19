@@ -32,9 +32,9 @@ os.environ.update(env_vars)
 
 import sys
 from pathlib import Path
-sys.path.append(os.path.abspath("../elementary/transistor_gate_switch"))
+sys.path.append(os.path.abspath("../elementary/transmission_gate_switch"))
 
-from transistor_gate_switch import tgswitch
+from transmission_gate_switch import tgswitch
 
 def add_chopper_switch_labels(
     cswitch_in: Component,
