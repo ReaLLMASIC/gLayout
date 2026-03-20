@@ -9,6 +9,57 @@ from glayout.util.comp_utils import evaluate_bbox, add_ports_perimeter
 from gdsfactory.component import Component
 from gdsfactory.cell import cell 
 from typing import Optional
+from glayout import sky130
+from glayout.spice import Netlist
+from glayout.primitives.fet import fet_netlist
+
+def resistor_netlist(
+    pdk: MappedPDK,
+    width: float,
+    length: float,
+    num_series: int,
+    multipliers: int,
+) -> Netlist:
+
+    # Top-level resistor netlist
+    netlist = Netlist(
+        circuit_name="PMOS_RES",
+        nodes=["P", "N", "B"],
+    )
+
+    prev_node = "P"
+
+    for i in range(num_series):
+
+        next_node = f"INT{i}" if i < num_series - 1 else "N"
+
+        fet = fet_netlist(
+            pdk=pdk,
+            circuit_name=f"PMOS_UNIT_{i}",
+            model=pdk.models["pfet"],   
+            width=width,
+            length=length,
+            fingers=1,
+            multipliers=multipliers,
+            with_dummy=False,
+        )
+
+        # Diode-connected MOS: gate tied to drain
+        netlist.connect_netlist(
+            fet,
+            [
+                ("D", prev_node),
+                ("G", prev_node),
+                ("S", next_node),
+                ("B", "B"),
+            ],
+        )
+
+        prev_node = next_node
+
+    return netlist
+
+
 
 @cell
 def resistor(
@@ -135,5 +186,43 @@ def resistor(
             
         toplvl.add_ports(pfet_references[0].get_ports_list(), prefix='port1_')
         toplvl.add_ports(pfet_references[-1].get_ports_list(), prefix='port2_')
+
+    toplvl.info["netlist"] = resistor_netlist(
+        pdk=pdk,
+        width=width,
+        length=length,
+        num_series=num_series,
+        multipliers=multipliers,
+    )
         
     return toplvl
+    
+if __name__ == "__main__":
+
+    # Create layout
+    res = resistor(
+        pdk=sky130,
+        width=5,
+        length=1,
+        num_series=3,
+        multipliers=2,
+        with_tie=True,
+    )
+
+    res.name = "PMOS_RES"
+    res.show()
+
+    # Write GDS
+    res_gds = res.write_gds("PMOS_RES.gds")
+    print(f"GDS written to {res_gds}")
+
+    # Run DRC
+    print("Running Magic DRC...")
+    drc_result = sky130.drc_magic(res, res.name)
+    print("DRC result:", drc_result)
+
+    # Run LVS (AUTO netlist picked from component.info)
+    print("Running LVS...")
+    lvs_result = sky130.lvs_netgen(res, res.name)
+
+    print("LVS result:", lvs_result)
