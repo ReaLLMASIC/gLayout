@@ -1,18 +1,18 @@
 from gdsfactory.read.import_gds import import_gds
 from gdsfactory.components import text_freetype, rectangle
-from glayout.flow.pdk.util.comp_utils import prec_array, movey, align_comp_to_port, prec_ref_center
-from glayout.flow.pdk.util.port_utils import add_ports_perimeter, print_ports
+from glayout.util.comp_utils import prec_array, movey, align_comp_to_port, prec_ref_center
+from glayout.util.port_utils import add_ports_perimeter, print_ports
 from gdsfactory.component import Component
-from glayout.flow.pdk.mappedpdk import MappedPDK
-from glayout.flow.blocks.composite.opamp.opamp import opamp
-from glayout.flow.routing.L_route import L_route
-from glayout.flow.routing.straight_route import straight_route
-from glayout.flow.routing.c_route import c_route
-from glayout.flow.primitives.via_gen import via_array
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.blocks.composite.opamp.opamp import opamp
+from glayout.routing.L_route import L_route
+from glayout.routing.straight_route import straight_route
+from glayout.routing.c_route import c_route
+from glayout.primitives.via_gen import via_array
 from gdsfactory.cell import cell, clear_cache
-from glayout.flow.pdk.sky130_mapped import sky130_mapped_pdk as pdk
-from glayout.flow.pdk.util.snap_to_grid import component_snap_to_grid
-from glayout.flow.pdk.util.component_array_create import write_component_matrix
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk as pdk
+from glayout.util.snap_to_grid import component_snap_to_grid
+from glayout.util.component_array_create import write_component_matrix
 from evaluator_wrapper import run_evaluation
 def sky130_add_opamp_2_labels(opamp_in: Component) -> Component:
 	"""adds opamp labels for extraction, without adding pads

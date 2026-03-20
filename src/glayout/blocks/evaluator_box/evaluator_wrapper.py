@@ -3,12 +3,19 @@
 import os
 import json
 import logging
+import shutil
 from datetime import datetime
 from pathlib import Path
 from gdsfactory.typings import Component
 
-from verification import run_verification
-from physical_features import run_physical_feature_extraction
+# Make run_pex.sh executable if it exists
+_evaluator_box_dir = Path(__file__).parent
+_run_pex_script = _evaluator_box_dir / "run_pex.sh"
+if _run_pex_script.exists():
+    os.chmod(_run_pex_script, 0o755)
+
+from glayout.blocks.evaluator_box.verification import run_verification
+from glayout.blocks.evaluator_box.physical_features import run_physical_feature_extraction
 
 def get_next_filename(base_name="evaluation", extension=".json"):
     """
@@ -28,22 +35,28 @@ def run_evaluation(layout_path: str, component_name: str, top_level: Component) 
     """
     print(f"--- Starting Comprehensive Evaluation for {component_name} ---")
 
-    # Deletes known intermediate and report files for a given component to ensure a clean run.
+    # Deletes known intermediate and report files/directories for a given component to ensure a clean run.
     print(f"Cleaning up intermediate files for component '{component_name}'...")
     
-    files_to_delete = [
+    items_to_delete = [
         f"{component_name}.res.ext",
         f"{component_name}.lvs.rpt",
         f"{component_name}_lvs.rpt",
+        f"{component_name}.drc.rpt",
+        f"{component_name}_drc_out",  # New DRC output directory
+        f"{component_name}_lvs_out",  # New LVS output directory
         f"{component_name}.nodes",
         f"{component_name}.sim",
         f"{component_name}.pex.spice",
         f"{component_name}_pex.spice"
     ]
     
-    for f_path in files_to_delete:
+    for f_path in items_to_delete:
         try:
-            if os.path.exists(f_path):
+            if os.path.isdir(f_path):
+                shutil.rmtree(f_path)
+                print(f"  - Deleted directory: {f_path}")
+            elif os.path.exists(f_path):
                 os.remove(f_path)
                 print(f"  - Deleted: {f_path}")
         except OSError as e:
