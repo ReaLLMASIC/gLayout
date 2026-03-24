@@ -1,0 +1,23 @@
+* NGSPICE file created from SCM.ext - technology: gf180mcuD
+
+.subckt SCM VIN VSS VOUT
+X0 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=23.36p ps=91.68u w=4u l=1u
+X1 VOUT VIN a_75_1553# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X2 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X3 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X4 a_n515_1553# a_n515_1553# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X5 VSS VSS VSS VSS nfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X6 a_75_1553# a_n515_1553# VSS VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X7 VIN VIN a_n515_1553# VSS nfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+C0 a_n515_1553# a_75_1553# 0.36588f
+C1 a_75_1553# VIN 1.45666f
+C2 a_n515_1553# VIN 1.80119f
+C3 VOUT a_75_1553# 1.15251f
+C4 a_n515_1553# VOUT 0.0849f
+C5 VOUT VIN 0.2042f
+C6 VOUT VSS 1.66471f
+C7 VIN VSS 2.65167f
+C8 a_75_1553# VSS 2.90565f
+C9 a_n515_1553# VSS 6.45698f
+.ends
+
