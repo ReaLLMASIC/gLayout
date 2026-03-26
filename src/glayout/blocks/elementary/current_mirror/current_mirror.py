@@ -1,26 +1,21 @@
-from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized
+from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized, two_tran_interdigitized_netlist
 from glayout.pdk.mappedpdk import MappedPDK
 from glayout.routing.c_route import c_route
 from glayout.routing.L_route import L_route
 from glayout.routing.straight_route import straight_route
 from glayout.spice.netlist import Netlist
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk as sky130
 from glayout.primitives.fet import nmos, pmos
 from glayout.primitives.guardring import tapring
-from glayout.util.port_utils import add_ports_perimeter, rename_ports_by_orientation
+from glayout.util.port_utils import add_ports_perimeter,rename_ports_by_orientation
 from gdsfactory.component import Component
 from gdsfactory.cell import cell
 from glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port
 from typing import Optional, Union 
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from glayout.primitives.via_gen import via_stack
 from gdsfactory.components import text_freetype, rectangle
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.blocks.evaluator_box.evaluator_wrapper import run_evaluation
 
-try:
-    from glayout.blocks.evaluator_box.evaluator_wrapper import run_evaluation
-except ImportError:
-    print("Warning: evaluator_wrapper not found. Evaluation will be skipped.")
-    run_evaluation = None
 
 def add_cm_labels(cm_in: Component,
                 pdk: MappedPDK 
@@ -45,12 +40,12 @@ def add_cm_labels(cm_in: Component,
     
     # vcopy
     vcopylabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-    vcopylabel.add_label(text="VCOPY",layer=pdk.get_glayer("met2_label"))
+    vcopylabel.add_label(text="VOUT",layer=pdk.get_glayer("met2_label"))
     move_info.append((vcopylabel,cm_in.ports["fet_B_drain_N"],None))
     
     # VB
     vblabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.5,0.5),centered=True).copy()
-    vblabel.add_label(text="VB",layer=pdk.get_glayer("met2_label"))
+    vblabel.add_label(text="B",layer=pdk.get_glayer("met2_label"))
     move_info.append((vblabel,cm_in.ports["welltie_S_top_met_S"], None))
     
     # move everything to position
@@ -59,47 +54,46 @@ def add_cm_labels(cm_in: Component,
         compref = align_comp_to_port(comp, prt, alignment=alignment)
         cm_in.add(compref)
     return cm_in.flatten() 
-
-def current_mirror_netlist(
-    pdk: MappedPDK, 
+def current_mirror_interdigitized_netlist(
+    pdk: MappedPDK,
     width: float,
     length: float,
+    fingers: int,
     multipliers: int, 
     with_dummy: bool = True,
     n_or_p_fet: Optional[str] = 'nfet',
     subckt_only: Optional[bool] = False
 ) -> Netlist:
-    if length is None:
-        length = pdk.get_grule('poly')['min_width']
-    if width is None:
-        width = 3 
-    mtop = multipliers if subckt_only else 1
-    model = pdk.models[n_or_p_fet]
+    """
+    Current mirror netlist built from a two-transistor interdigitized primitive
     
-    source_netlist = """.subckt {circuit_name} {nodes} """ + f'l={length} w={width} m={mtop} ' + """
-XA VREF VREF VSS VB {model} l={{l}} w={{w}} m={{m}}
-XB VCOPY VREF VSS VB {model} l={{l}} w={{w}} m={{m}}"""
-    if with_dummy:
-        source_netlist += "\nXDUMMY VB VB VB VB {model} l={{l}} w={{w}} m={{2}}"
-    source_netlist += "\n.ends {circuit_name}"
+    """
+    current_mirror_netlist = Netlist(circuit_name="CMIRROR", nodes=["B", "VOUT", "VREF", "VSS"])
 
-    instance_format = "X{name} {nodes} {circuit_name} l={length} w={width} m={mult}"
- 
-    return Netlist(
-        circuit_name='CMIRROR',
-        nodes=['VREF', 'VCOPY', 'VSS', 'VB'], 
-        source_netlist=source_netlist,
-        instance_format=instance_format,
-        parameters={
-            'model': model,
-            'width': width,
-            'length': length,   
-            'mult': multipliers
-        }
+    current_mirror_netlist.connect_netlist(
+        two_tran_interdigitized_netlist(
+            pdk=pdk,
+            width=width,
+            length=length,
+            fingers=fingers,
+            multipliers=int(multipliers),
+            with_dummy=with_dummy,
+            n_or_p_fet=n_or_p_fet,
+        ),
+        [
+            ("VDD1", "VREF"),   # reference drain
+            ("VG1",  "VREF"),   # reference gate (diode-connected)
+            ("VDD2", "VOUT"),   # mirror drain
+            ("VG2",  "VREF"),   # mirror gate
+            ("VSS1", "VSS"),    # shared source
+            ("VSS2", "VSS"),
+            ("VB",   "B"),      # bulk
+        ],
     )
 
+    return current_mirror_netlist
+current_mirror_netlist = current_mirror_interdigitized_netlist
 
-#@cell
 def current_mirror(
     pdk: MappedPDK, 
     numcols: int = 3,
@@ -202,22 +196,166 @@ def current_mirror(
         top_level.add_ports(subtap_ring.get_ports_list(), prefix="substrate_tap_")
   
     top_level.add_ports(source_short.get_ports_list(), prefix='purposegndports')
-    
-    
-    top_level.info['netlist'] = current_mirror_netlist(
-        pdk, 
-        width=kwargs.get('width', 3), length=kwargs.get('length', 0.15), multipliers=numcols, with_dummy=with_dummy,
+
+    top_level.info["netlist"] = current_mirror_interdigitized_netlist(
+        pdk=pdk,
+        width=kwargs.get("width", 3),
+        length=kwargs.get("length", 0.15),
+        fingers=kwargs.get("fingers",1),
+        multipliers=numcols,
+        with_dummy=with_dummy,
         n_or_p_fet=device,
         subckt_only=True
     )
  
     return top_level
+
+def generate_cm_tb(spice_file, tb_file="tb_cm.spice"):
+
+    tb = f"""
+* Current Mirror Regression Test
+
+.temp 25
+
+.param bref = 5u
+.param rbias = 10k
+
+VDD VDD 0 1.8
+
+* measurement nodes
+V1 VREF 0 DC 0
+V2 VOUT 0 DC 0
+
+* bias
+Iref VDD VREF {{bref}}
+R1 VREF VDD {{rbias}}
+
+* include model
+.lib /usr/bin/miniconda3/share/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.include {spice_file}
+
+* DUT
+XDUT VOUT VREF 0 CMIRROR
+
+.control
+
+echo "Starting CM regression..."
+
+let min_error = 999
+let best_bref = 0
+let best_r = 0
+
+let bref_val = 0.5u
+
+while bref_val le 50u
+
+    let rbias_val = 1k
+
+    while rbias_val le 1Meg
+
+        alter Iref = $&bref_val
+        alter R1 = $&rbias_val
+
+        op
+
+        let i_ref = (1.8 - v(VREF)) / rbias_val
+        let i_out = i(V2)
+
+        let err = abs(i_out - i_ref) / abs(i_ref) * 100
+
+        echo "bref=$&bref_val rbias=$&rbias_val err=$&err"
+
+        if err lt min_error
+            let min_error = err
+            let best_bref = bref_val
+            let best_r = rbias_val
+        end
+
+        let rbias_val = rbias_val * 2
+    end
+
+    let bref_val = bref_val * 2
+end
+
+echo "BEST RESULT:"
+echo "bref = $&best_bref"
+echo "rbias = $&best_r"
+echo "error = $&min_error %"
+
+wrdata cm_results.txt best_bref best_r min_error
+
+.endc
+.end
+"""
+
+    with open(tb_file, "w") as f:
+        f.write(tb)
+
+    print(f" Testbench written: {tb_file}")
+    return tb_file
+
+def check_layout(component):
+    assert component is not None
+    assert len(component.ports) > 0
+    assert len(component.polygons) > 0
+    print("Layout sanity OK")
+
+
+def run_cm_regression(component, gds_file):
+
+    results = {}
+
+    try:
+        check_layout(component)
+        results["gds"] = "pass"
+    except Exception as e:
+        results["gds"] = f"fail: {e}"
+
+    try:
+        eval_res = run_evaluation(gds_file, component.name, component)
+        results["drc"] = eval_res["drc"]["status"]
+        results["lvs"] = eval_res["lvs"]["status"]
+    except Exception as e:
+        results["verification"] = f"fail: {e}"
+
+    return results
+
+def write_spice(component, filename="cm.spice", show=True):
+    netlist_obj = component.info.get("netlist", None)
+
+    if netlist_obj is None:
+        raise ValueError("No netlist found in component.info")
+
+    spice_text = netlist_obj.generate_netlist()
+    spice_text = spice_text.replace("{", "").replace("}", "")
+
+    with open(filename, "w") as f:
+        f.write(spice_text)
+
+    print(f" SPICE written to {filename}")
+    return filename
+
+
+if __name__ == "__main__":
+
+    cm = add_cm_labels(
+        current_mirror(sky130_mapped_pdk, device='pfet'),
+        sky130_mapped_pdk
+    )
+
+    cm.name = "CMIRROR"
+    cm.show()
+
+    gds = cm.write_gds("cm.gds")
+    print("GDS:", gds)
+
+    if run_evaluation is not None:
+        reg_results = run_cm_regression(cm, gds)
+        print("Regression:", reg_results)
+    else:
+        print("Skipping evaluation")
+
+    spice_file = write_spice(cm)
+    tb_file = generate_cm_tb(spice_file)
+
     
-if __name__=="__main__":
-    current_mirror = add_cm_labels(current_mirror(sky130_mapped_pdk, device='pfet'),sky130_mapped_pdk)
-    current_mirror.show()
-    current_mirror.name = "CMIRROR"
-    #magic_drc_result = sky130_mapped_pdk.drc_magic(current_mirror, current_mirror.name)
-    #netgen_lvs_result = sky130_mapped_pdk.lvs_netgen(current_mirror, current_mirror.name)
-    current_mirror_gds = current_mirror.write_gds("current_mirror.gds")
-    res = run_evaluation("current_mirror.gds", current_mirror.name, current_mirror)
