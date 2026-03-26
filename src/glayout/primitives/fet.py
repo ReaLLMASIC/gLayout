@@ -72,7 +72,17 @@ def fet_netlist(
     multipliers: int,
     with_dummy: Union[bool, tuple[bool, bool]]
 ) -> Netlist:
-     # add spice netlist
+    """Generate a primitive transistor subckt netlist.
+
+    The original implementation encoded `fingers * multipliers` into the MOS
+    `m` parameter of a single device. Magic extraction, however, expands the
+    layout into multiple parallel devices, and netgen then reports systematic
+    property mismatches on width. To keep the schematic/reference side closer to
+    the extracted layout representation, emit one explicit main device per
+    finger/multiplier and one explicit dummy device per row/side instead of
+    relying on `m`.
+    """
+    # add spice netlist
     num_dummies = 0
     if with_dummy == False or with_dummy == (False, False):
         num_dummies = 0
@@ -88,12 +98,16 @@ def fet_netlist(
     wtop = width
     mtop = fingers * multipliers
     dmtop = multipliers
-    
-    source_netlist=""".subckt {circuit_name} {nodes} """+f'l={ltop} w={wtop} m={mtop} dm={dmtop} '+"""
-XMAIN   D G S B {model} l={{l}} w={{w}} m={{m}}"""
 
-    for i in range(num_dummies):
-        source_netlist += "\nXDUMMY" + str(i+1) + " B B B B {model} l={{l}} w={{w}} m={{dm}}"
+    source_netlist = """.subckt {circuit_name} {nodes} """ + f"l={ltop} w={wtop}"
+
+    # Emit one explicit main device per effective finger instance.
+    for i in range(mtop):
+        source_netlist += f"\nXMAIN{i+1} D G S B {{model}} l={ltop} w={wtop}"
+
+    # Emit one dummy device per side, per multiplier row.
+    for i in range(num_dummies * dmtop):
+        source_netlist += f"\nXDUMMY{i+1} B B B B {{model}} l={ltop} w={wtop}"
 
     source_netlist += "\n.ends {circuit_name}"
 
@@ -101,7 +115,7 @@ XMAIN   D G S B {model} l={{l}} w={{w}} m={{m}}"""
         circuit_name=circuit_name,
         nodes=['D', 'G', 'S', 'B'],
         source_netlist=source_netlist,
-        instance_format="X{name} {nodes} {circuit_name} l={length} w={width} m={mult} dm={dummy_mult}",
+        instance_format="X{name} {nodes} {circuit_name} l={length} w={width}",
         parameters={
             'model': model,
             'length': ltop,
@@ -631,5 +645,3 @@ def pmos(
     )
 
     return component
-
-
