@@ -4,7 +4,7 @@ Glayout - A PDK-agnostic layout automation framework for analog circuit design
 
 try:
     from .pdk.mappedpdk import MappedPDK
-except ImportError as e:
+except Exception as e:
     print(f"[WARN] gdsfactory import failed - switching to a minimal DummyPdk ({e})")
     print("[INFO] Switching to a minimal DummyPdk for limited functionality.")
 
@@ -19,15 +19,15 @@ except ImportError as e:
 # Other PDKs
 try:
     from .pdk.sky130_mapped import sky130_mapped_pdk as sky130
-except ImportError:
+except Exception:
     sky130 = None
 try:
     from .pdk.gf180_mapped import gf180_mapped_pdk as gf180
-except ImportError:
+except Exception:
     gf180 = None
 try:
     from .pdk.ihp130_mapped import ihp130_mapped_pdk as ihp130
-except ImportError:
+except Exception:
     ihp130 = None
 
 # Primitive components

@@ -1,5 +1,6 @@
-"""
-Usage at the package level: from pdk.gf180_mapped import gf180_mapped_pdk
-"""
+"""Package-level GF180 mapped PDK export."""
 
-from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
+try:
+    from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
+except Exception:
+    gf180_mapped_pdk = None
