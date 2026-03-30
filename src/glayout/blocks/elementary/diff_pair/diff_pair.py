@@ -84,9 +84,22 @@ def add_df_labels(df_in: Component,
 
 def diff_pair_netlist(fetL: Component, fetR: Component) -> Netlist:
 	diff_pair_netlist = Netlist(circuit_name='DIFF_PAIR', nodes=['VP', 'VN', 'VDD1', 'VDD2', 'VTAIL', 'B'])
+
+	# The physical layout uses an AB/BA common-centroid placement with four
+	# mirrored device references (two copies of the left device and two copies of
+	# the right device). Model that explicitly in the reference netlist so LVS
+	# compares against the same effective device count/width.
 	diff_pair_netlist.connect_netlist(
 		fetL.info['netlist'],
 		[('D', 'VDD1'), ('G', 'VP'), ('S', 'VTAIL'), ('B', 'B')]
+	)
+	diff_pair_netlist.connect_netlist(
+		fetL.info['netlist'],
+		[('D', 'VDD1'), ('G', 'VP'), ('S', 'VTAIL'), ('B', 'B')]
+	)
+	diff_pair_netlist.connect_netlist(
+		fetR.info['netlist'],
+		[('D', 'VDD2'), ('G', 'VN'), ('S', 'VTAIL'), ('B', 'B')]
 	)
 	diff_pair_netlist.connect_netlist(
 		fetR.info['netlist'],
