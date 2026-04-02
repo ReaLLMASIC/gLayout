@@ -6,8 +6,22 @@ from typing import Callable, Union, Optional
 from decimal import Decimal
 from pathlib import Path
 import pickle
-from PrettyPrint import PrettyPrintTree
 import math
+
+try:
+	from PrettyPrint import PrettyPrintTree
+except ImportError:
+	try:
+		from prettyprinttree import PrettyPrintTree
+	except ImportError:
+		class PrettyPrintTree:  # type: ignore[override]
+			"""Fallback shim when pretty-print helpers are unavailable."""
+
+			def __init__(self, *args, **kwargs):
+				pass
+
+			def __call__(self, *args, **kwargs):
+				return ""
 
 
 @validate_arguments

@@ -1,5 +1,6 @@
-"""
-Usage at the package level: from pdk.sky130_mapped import sky130_mapped_pdk
-"""
+"""Package-level SKY130 mapped PDK export."""
 
-from glayout.pdk.sky130_mapped.sky130_mapped import sky130_mapped_pdk
+try:
+    from glayout.pdk.sky130_mapped.sky130_mapped import sky130_mapped_pdk
+except Exception:
+    sky130_mapped_pdk = None
