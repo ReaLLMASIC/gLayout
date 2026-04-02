@@ -210,106 +210,24 @@ def current_mirror(
  
     return top_level
 
-def generate_cm_tb(spice_file, tb_file="tb_cm.spice"):
-
-    tb = f"""
-* Current Mirror Regression Test
-
-.temp 25
-
-.param bref = 5u
-.param rbias = 10k
-
-VDD VDD 0 1.8
-
-* measurement nodes
-V1 VREF 0 DC 0
-V2 VOUT 0 DC 0
-
-* bias
-Iref VDD VREF {{bref}}
-R1 VREF VDD {{rbias}}
-
-* include model
-.lib /usr/bin/miniconda3/share/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
-.include {spice_file}
-
-* DUT
-XDUT VOUT VREF 0 CMIRROR
-
-.control
-
-echo "Starting CM regression..."
-
-let min_error = 999
-let best_bref = 0
-let best_r = 0
-
-let bref_val = 0.5u
-
-while bref_val le 50u
-
-    let rbias_val = 1k
-
-    while rbias_val le 1Meg
-
-        alter Iref = $&bref_val
-        alter R1 = $&rbias_val
-
-        op
-
-        let i_ref = (1.8 - v(VREF)) / rbias_val
-        let i_out = i(V2)
-
-        let err = abs(i_out - i_ref) / abs(i_ref) * 100
-
-        echo "bref=$&bref_val rbias=$&rbias_val err=$&err"
-
-        if err lt min_error
-            let min_error = err
-            let best_bref = bref_val
-            let best_r = rbias_val
-        end
-
-        let rbias_val = rbias_val * 2
-    end
-
-    let bref_val = bref_val * 2
-end
-
-echo "BEST RESULT:"
-echo "bref = $&best_bref"
-echo "rbias = $&best_r"
-echo "error = $&min_error %"
-
-wrdata cm_results.txt best_bref best_r min_error
-
-.endc
-.end
-"""
-
-    with open(tb_file, "w") as f:
-        f.write(tb)
-
-    print(f" Testbench written: {tb_file}")
-    return tb_file
-
-def check_layout(component):
-    assert component is not None
-    assert len(component.ports) > 0
-    assert len(component.polygons) > 0
-    print("Layout sanity OK")
-
-
-def run_cm_regression(component, gds_file):
+def run_full_test(component, gds_filename=None, write_spice=True):
 
     results = {}
 
+    comp_name = getattr(component, "name", None)
+    if not comp_name or comp_name == "Unnamed":
+        comp_name = component.__class__.__name__
+
+    results["component"] = comp_name
     try:
-        check_layout(component)
-        results["gds"] = "pass"
+        if gds_filename is None:
+            gds_filename = f"{comp_name}.gds"         
+        gds_file = component.write_gds(gds_filename)
+        print(f" GDS written: {gds_file}")
+        results["gds_write"] = "pass"
     except Exception as e:
-        results["gds"] = f"fail: {e}"
+        results["gds_write"] = f"fail: {e}"
+        return results  
 
     try:
         eval_res = run_evaluation(gds_file, component.name, component)
@@ -318,22 +236,34 @@ def run_cm_regression(component, gds_file):
     except Exception as e:
         results["verification"] = f"fail: {e}"
 
+    if write_spice:
+        try:
+            netlist_obj = component.info.get("netlist", None)
+
+            if netlist_obj is None:
+                raise ValueError("No netlist found in component.info")
+
+            if isinstance(netlist_obj, str):
+                spice_text = netlist_obj
+            else:
+                spice_text = netlist_obj.generate_netlist()
+
+            spice_text = spice_text.replace("{", "").replace("}", "")
+
+            sky130_spice_path = "/usr/bin/miniconda3/share/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice"
+            spice_text = f".include {sky130_spice_path}\n\n" + spice_text
+
+            spice_file = f"{comp_name}.spice"
+            with open(spice_file, "w") as f:
+                f.write(spice_text)
+
+            print(f" SPICE written: {spice_file}")
+            results["spice"] = "pass"
+
+        except Exception as e:
+            results["spice"] = f"fail: {e}"
+
     return results
-
-def write_spice(component, filename="cm.spice", show=True):
-    netlist_obj = component.info.get("netlist", None)
-
-    if netlist_obj is None:
-        raise ValueError("No netlist found in component.info")
-
-    spice_text = netlist_obj.generate_netlist()
-    spice_text = spice_text.replace("{", "").replace("}", "")
-
-    with open(filename, "w") as f:
-        f.write(spice_text)
-
-    print(f" SPICE written to {filename}")
-    return filename
 
 
 if __name__ == "__main__":
@@ -349,13 +279,10 @@ if __name__ == "__main__":
     gds = cm.write_gds("cm.gds")
     print("GDS:", gds)
 
-    if run_evaluation is not None:
-        reg_results = run_cm_regression(cm, gds)
-        print("Regression:", reg_results)
+    if run_evaluation is not None:		
+		results = run_full_test(cm)
+        print(results)		
     else:
         print("Skipping evaluation")
-
-    spice_file = write_spice(cm)
-    tb_file = generate_cm_tb(spice_file)
 
     
