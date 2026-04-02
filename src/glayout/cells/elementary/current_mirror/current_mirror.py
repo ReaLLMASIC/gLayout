@@ -1,26 +1,25 @@
-from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized
+from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, two_pfet_interdigitized, two_tran_interdigitized_netlist
 from glayout.pdk.mappedpdk import MappedPDK
 from glayout.routing.c_route import c_route
 from glayout.routing.L_route import L_route
 from glayout.routing.straight_route import straight_route
 from glayout.spice.netlist import Netlist
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk as sky130
 from glayout.primitives.fet import nmos, pmos
 from glayout.primitives.guardring import tapring
-from glayout.util.port_utils import add_ports_perimeter, rename_ports_by_orientation
+from glayout.util.port_utils import add_ports_perimeter,rename_ports_by_orientation
 from gdsfactory.component import Component
 from gdsfactory.cell import cell
 from glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port
 from typing import Optional, Union 
-from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from glayout.primitives.via_gen import via_stack
 from gdsfactory.components import text_freetype, rectangle
-
+from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 try:
     from glayout.verification.evaluator_wrapper import run_evaluation
 except ImportError:
     print("Warning: evaluator_wrapper not found. Evaluation will be skipped.")
     run_evaluation = None
+
 
 def add_cm_labels(cm_in: Component,
                 pdk: MappedPDK 
@@ -45,12 +44,12 @@ def add_cm_labels(cm_in: Component,
     
     # vcopy
     vcopylabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-    vcopylabel.add_label(text="VCOPY",layer=pdk.get_glayer("met2_label"))
+    vcopylabel.add_label(text="VOUT",layer=pdk.get_glayer("met2_label"))
     move_info.append((vcopylabel,cm_in.ports["fet_B_drain_N"],None))
     
     # VB
     vblabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.5,0.5),centered=True).copy()
-    vblabel.add_label(text="VB",layer=pdk.get_glayer("met2_label"))
+    vblabel.add_label(text="B",layer=pdk.get_glayer("met2_label"))
     move_info.append((vblabel,cm_in.ports["welltie_S_top_met_S"], None))
     
     # move everything to position
@@ -59,47 +58,50 @@ def add_cm_labels(cm_in: Component,
         compref = align_comp_to_port(comp, prt, alignment=alignment)
         cm_in.add(compref)
     return cm_in.flatten() 
-
-def current_mirror_netlist(
-    pdk: MappedPDK, 
+					
+def current_mirror_interdigitized_netlist(
+    pdk: MappedPDK,
     width: float,
     length: float,
+    fingers: int,
     multipliers: int, 
     with_dummy: bool = True,
     n_or_p_fet: Optional[str] = 'nfet',
     subckt_only: Optional[bool] = False
 ) -> Netlist:
-    if length is None:
-        length = pdk.get_grule('poly')['min_width']
-    if width is None:
-        width = 3 
-    mtop = multipliers if subckt_only else 1
-    model = pdk.models[n_or_p_fet]
-    
-    source_netlist = """.subckt {circuit_name} {nodes} """ + f'l={length} w={width} m={mtop} ' + """
-XA VREF VREF VSS VB {model} l={{l}} w={{w}} m={{m}}
-XB VCOPY VREF VSS VB {model} l={{l}} w={{w}} m={{m}}"""
-    if with_dummy:
-        source_netlist += "\nXDUMMY VB VB VB VB {model} l={{l}} w={{w}} m={{2}}"
-    source_netlist += "\n.ends {circuit_name}"
+    """
+    Current mirror netlist built from a two-transistor interdigitized primitive
+    """
 
-    instance_format = "X{name} {nodes} {circuit_name} l={length} w={width} m={mult}"
- 
-    return Netlist(
-        circuit_name='CMIRROR',
-        nodes=['VREF', 'VCOPY', 'VSS', 'VB'], 
-        source_netlist=source_netlist,
-        instance_format=instance_format,
-        parameters={
-            'model': model,
-            'width': width,
-            'length': length,   
-            'mult': multipliers
-        }
+    current_mirror_netlist = Netlist(circuit_name="CMIRROR", nodes=["VREF", "VOUT", "VSS", "B"])
+
+    current_mirror_netlist.connect_netlist(
+        two_tran_interdigitized_netlist(
+            pdk=pdk,
+            width=width,
+            length=length,
+            fingers=fingers,
+            multipliers=multipliers,
+            with_dummy=with_dummy,
+            n_or_p_fet=n_or_p_fet,
+        ),
+        [
+            ("VDD1", "VREF"),   # reference drain
+            ("VG1",  "VREF"),   # reference gate (diode-connected)
+            ("VDD2", "VOUT"),   # mirror drain
+            ("VG2",  "VREF"),   # mirror gate
+            ("VSS1", "VSS"),    # shared source
+            ("VSS2", "VSS"),
+            ("VB",   "B"),      # bulk
+        ],
     )
 
+    return current_mirror_netlist
 
-#@cell
+
+# Backward-compatible export used by __init__.py and downstream imports.
+current_mirror_netlist = current_mirror_interdigitized_netlist
+
 def current_mirror(
     pdk: MappedPDK, 
     numcols: int = 3,
@@ -202,22 +204,28 @@ def current_mirror(
         top_level.add_ports(subtap_ring.get_ports_list(), prefix="substrate_tap_")
   
     top_level.add_ports(source_short.get_ports_list(), prefix='purposegndports')
-    
-    
-    top_level.info['netlist'] = current_mirror_netlist(
-        pdk, 
-        width=kwargs.get('width', 3), length=kwargs.get('length', 0.15), multipliers=numcols, with_dummy=with_dummy,
+
+    top_level.info["netlist"] = current_mirror_interdigitized_netlist(
+        pdk=pdk,
+        width=kwargs.get("width", 3),
+        length=kwargs.get("length", 0.15),
+        fingers=kwargs.get("fingers",1),
+        multipliers=numcols,
+        with_dummy=with_dummy,
         n_or_p_fet=device,
         subckt_only=True
     )
  
     return top_level
-    
+
 if __name__=="__main__":
-    current_mirror = add_cm_labels(current_mirror(sky130_mapped_pdk, device='pfet'),sky130_mapped_pdk)
-    current_mirror.show()
-    current_mirror.name = "CMIRROR"
+    cm = add_cm_labels(current_mirror(sky130_mapped_pdk, device='pfet'),sky130_mapped_pdk)
+    cm.show()
+    cm.name = "CMIRROR"
     #magic_drc_result = sky130_mapped_pdk.drc_magic(current_mirror, current_mirror.name)
     #netgen_lvs_result = sky130_mapped_pdk.lvs_netgen(current_mirror, current_mirror.name)
-    current_mirror_gds = current_mirror.write_gds("current_mirror.gds")
-    res = run_evaluation("current_mirror.gds", current_mirror.name, current_mirror)
+    current_mirror_gds = cm.write_gds("cm.gds")
+    if run_evaluation is not None:
+        res = run_evaluation("cm.gds", cm.name, cm)
+    else:
+        print("Skipping evaluation because evaluator_wrapper was not found.")
