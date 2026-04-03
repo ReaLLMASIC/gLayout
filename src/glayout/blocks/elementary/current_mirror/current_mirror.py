@@ -265,7 +265,6 @@ def run_full_test(component, gds_filename=None, write_spice=True):
 
     return results
 
-
 if __name__ == "__main__":
 
     cm = add_cm_labels(
@@ -279,10 +278,5 @@ if __name__ == "__main__":
     gds = cm.write_gds("cm.gds")
     print("GDS:", gds)
 
-    if run_evaluation is not None:		
-		results = run_full_test(cm)
-        print(results)		
-    else:
-        print("Skipping evaluation")
-
-    
+    results = run_full_test(cm)
+    print(results)
