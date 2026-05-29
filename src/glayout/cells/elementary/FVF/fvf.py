@@ -59,7 +59,6 @@ def fvf_netlist(fet_1: Component, fet_2: Component) -> Netlist:
          return netlist
 
 
-
 def sky130_add_fvf_labels(fvf_in: Component) -> Component:
 
     fvf_in.unlock()
@@ -70,26 +69,28 @@ def sky130_add_fvf_labels(fvf_in: Component) -> Component:
     met2_label = (69,5)
     # list that will contain all port/comp info
     move_info = list()
-    # create labels and append to info list
-    # gnd
-    gnd2label = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()
-    gnd2label.add_label(text="VBULK",layer=met1_label)
-    move_info.append((gnd2label,fvf_in.ports["B_tie_N_top_met_N"],None))
 
-    #currentbias
-    ibiaslabel = rectangle(layer=met2_pin,size=(0.5,0.5),centered=True).copy()
-    ibiaslabel.add_label(text="Ib",layer=met2_label)
-    move_info.append((ibiaslabel,fvf_in.ports["A_drain_bottom_met_N"],None))
+    for portname in ("A_tie_W_top_met_N", "B_tie_W_top_met_N"):
+        if portname not in fvf_in.ports:
+            continue
+        gnd2label = rectangle(layer=met1_pin, size=(0.5,0.5), centered=True).copy()
+        gnd2label.add_label(text="VBULK", layer=met1_label)
+        move_info.append((gnd2label, fvf_in.ports[portname], ('c','c')))
 
-    # output (3rd stage)
-    outputlabel = rectangle(layer=met2_pin,size=(0.5,0.5),centered=True).copy()
-    outputlabel.add_label(text="VOUT",layer=met2_label)
-    move_info.append((outputlabel,fvf_in.ports["A_source_bottom_met_N"],None))
+    # current bias
+    ibiaslabel = rectangle(layer=met2_pin, size=(0.5,0.5), centered=True).copy()
+    ibiaslabel.add_label(text="Ib", layer=met2_label)
+    move_info.append((ibiaslabel, fvf_in.ports["A_drain_bottom_met_N"], None))
+
+    # output
+    outputlabel = rectangle(layer=met2_pin, size=(0.5,0.5), centered=True).copy()
+    outputlabel.add_label(text="VOUT", layer=met2_label)
+    move_info.append((outputlabel, fvf_in.ports["A_source_bottom_met_N"], None))
 
     # input
-    inputlabel = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()
-    inputlabel.add_label(text="VIN",layer=met1_label)
-    move_info.append((inputlabel,fvf_in.ports["A_multiplier_0_gate_N"], None))
+    inputlabel = rectangle(layer=met1_pin, size=(0.5,0.5), centered=True).copy()
+    inputlabel.add_label(text="VIN", layer=met1_label)
+    move_info.append((inputlabel, fvf_in.ports["A_multiplier_0_gate_N"], None))
 
     # move everything to position
     for comp, prt, alignment in move_info:
@@ -235,12 +236,12 @@ def  flipped_voltage_follower(
     gate_2_via = top_level << viam2m3
     drain_1_via.move(fet_1_ref.ports["multiplier_0_drain_W"].center).movex(-0.5*evaluate_bbox(fet_1)[1])
     source_1_via.move(fet_1_ref.ports["multiplier_0_source_E"].center).movex(1.5)
-    drain_2_via.move(fet_2_ref.ports["multiplier_0_drain_W"].center).movex(-1.5)
-    gate_2_via.move(fet_2_ref.ports["multiplier_0_gate_E"].center).movex(1)
+    drain_2_via.move(fet_2_ref.ports["multiplier_0_drain_W"].center).movex(-1.65)
+    gate_2_via.move(fet_2_ref.ports["multiplier_0_gate_E"].center).movex(1.40)
 
     top_level << straight_route(pdk, fet_1_ref.ports["multiplier_0_source_E"], source_1_via.ports["bottom_met_W"])
     top_level << straight_route(pdk, fet_2_ref.ports["multiplier_0_drain_W"], drain_2_via.ports["bottom_met_E"])
-    top_level << c_route(pdk, source_1_via.ports["top_met_N"], drain_2_via.ports["top_met_N"], extension=1.2*max(width[0],width[1]), e1glayer="met3", e2glayer="met3", cglayer="met2")
+    top_level << c_route(pdk, source_1_via.ports["top_met_N"], drain_2_via.ports["top_met_N"], extension=1.2*max(width[0],width[1]), e1glayer="met3", e2glayer="met3", cglayer="met3")
     top_level << straight_route(pdk, fet_1_ref.ports["multiplier_0_drain_W"], drain_1_via.ports["bottom_met_E"])
     top_level << c_route(pdk, drain_1_via.ports["top_met_S"], gate_2_via.ports["top_met_S"], extension=1.2*max(width[0],width[1]), cglayer="met2")
     top_level << straight_route(pdk, fet_2_ref.ports["multiplier_0_gate_E"], gate_2_via.ports["bottom_met_W"])
