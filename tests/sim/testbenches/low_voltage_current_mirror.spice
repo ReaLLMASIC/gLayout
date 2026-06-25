@@ -1,0 +1,30 @@
+* Testbench: low-voltage cascode current mirror
+*   Low_voltage_current_mirror ports: IBIAS1 IBIAS2 GND IOUT1 IOUT2
+*   IBIAS1 is the reference input node; IBIAS2 is an internally-generated
+*   second-tier bias (left to float to its own operating point); IOUT1/IOUT2
+*   are the two mirrored output branches.
+*
+* Functional check: push a reference current into IBIAS1 and confirm both
+* output branches sink ~the same current (1:1 mirror) when held at mid-rail.
+* Swept reference so the ratio is checked across a range, not one point.
+*
+* run_cell_sim.py injects the .lib + DUT .include; stimulus + analysis ONLY.
+* sky130 (1.8 V). NOTE: this cell wraps the FVF feedback loops, so the bias
+* point is delicate -- calibrate the check bands against a golden ngspice run.
+.param VDD=1.8
+.param IREF=10u
+Vgnd GND 0 DC 0
+* Reference current into the IBIAS1 node.
+Iref 0 IBIAS1 DC {IREF}
+* Outputs held near mid-rail through ammeters; i(vmX) is the sunk mirror current.
+Vsup DD 0 DC 0.9
+Vm1 DD IOUT1 DC 0
+Vm2 DD IOUT2 DC 0
+* DUT: IBIAS1 IBIAS2 GND IOUT1 IOUT2  (IBIAS2 left on its own net)
+X1 IBIAS1 net_ibias2 GND IOUT1 IOUT2 Low_voltage_current_mirror
+.dc Iref 2u 20u 1u
+.measure dc iout1_op FIND i(vm1) AT=10u
+.measure dc iout2_op FIND i(vm2) AT=10u
+.measure dc err1 param='(iout1_op - 10e-6)/10e-6'
+.measure dc err2 param='(iout2_op - 10e-6)/10e-6'
+.end
