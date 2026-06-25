@@ -1,0 +1,33 @@
+* Testbench: NMOS differential pair
+*   DIFF_PAIR ports: VP VN VDD1 VDD2 VTAIL B
+*   (VDD1/VDD2 are the drain output nodes; VTAIL is the common source.)
+*
+* Functional check: a tail current sunk from VTAIL steers between the two
+* drain branches according to Vid = VP - VN. At VP = VN the pair is balanced
+* (each branch carries ITAIL/2); the balance error and the recovered tail
+* current are what we test. Matching is process-independent, mirroring the
+* "ratio is what we test" idea in the current-mirror deck.
+*
+* run_cell_sim.py injects the .lib + DUT .include; stimulus + analysis ONLY.
+* sky130 (1.8 V). One deck serves both the w=3 and w=5 DIFF_PAIR variants.
+.param VDD=1.8
+.param ITAIL=20u
+.param VCM=0.9
+Vb B 0 DC 0
+* Drains pulled up to VDD through 0 V ammeters -> i(vmeasX) is branch current.
+Vdd DD 0 DC {VDD}
+Vmeas1 DD VDD1 DC 0
+Vmeas2 DD VDD2 DC 0
+* Tail current sink (sources of the pair return through here to ground).
+Itail VTAIL 0 DC {ITAIL}
+* Inputs: VN held at the common mode, VP swept through it.
+Vn VN 0 DC {VCM}
+Vp VP 0 DC 0
+* DUT: VP VN VDD1 VDD2 VTAIL B
+X1 VP VN VDD1 VDD2 VTAIL B DIFF_PAIR
+.dc Vp 0.6 1.2 0.01
+.measure dc i1_bal FIND i(vmeas1) AT={VCM}
+.measure dc i2_bal FIND i(vmeas2) AT={VCM}
+.measure dc itail_rec param='i1_bal + i2_bal'
+.measure dc imbalance param='(i1_bal - i2_bal)/(i1_bal + i2_bal)'
+.end
