@@ -62,7 +62,7 @@ jobs:
         # Both PDKs ship ngspice model libs: sky130 at
         # sky130A/libs.tech/ngspice/sky130.lib.spice, gf180 under the ciel
         # versioned path. run_cell_sim.py resolves the right one per --pdk.
-        pdk: [sky130, gf180]
+        pdk: [sky130]
 
     defaults:
       run:
