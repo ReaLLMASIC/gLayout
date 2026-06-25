@@ -7,10 +7,7 @@ name: "Automated: Cell ngspice"
 #
 # Why hang off DRC (alongside LVS) instead of chaining off LVS: it reuses the
 # exact trigger/artifact plumbing the LVS workflow already proves out, and
-# keeps sim independent so a flaky LVS run doesn't block it. If you'd rather
-# only simulate cells that passed LVS, point `workflows:` at
-# "Automated: Cell LVS" and download the lvs-${{ matrix.pdk }} artifact below
-# instead of drc-${{ matrix.pdk }}.
+# keeps sim independent so a flaky LVS run doesn't block it.
 #
 # Also runnable on demand against the latest DRC artifact.
 on:
