@@ -5,7 +5,7 @@
 *
 * Functional check: VOUT follows VIN with a roughly constant level shift
 * (VOUT ~ VIN - Vgs0) -- so over the input range the small-signal gain
-* (slope dVOUT/dVIN) should be near 1. We measure that slope plus the DC
+* (slope dVOUT/dVIN) should be near 1. Measure that slope plus the DC
 * level shift. (Low output impedance is the other FVF virtue; left as an
 * extension -- add a load-current step on VOUT and measure dVOUT.)
 *
