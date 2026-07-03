@@ -106,6 +106,7 @@ def _parse_sim_log(text: str, checks: Optional[Dict[str, dict]]) -> Dict[str, An
         "measures": {},
         "failed_measures": [],
         "check_violations": [],
+        "rows": [],
         "raw_tail": text[-1500:] if text else "",
     }
     if not text:
@@ -127,8 +128,26 @@ def _parse_sim_log(text: str, checks: Optional[Dict[str, dict]]) -> Dict[str, An
     fatal = re.search(r"\bfatal\b|singular matrix|Timestep too small|simulation (?:aborted|interrupted)|iteration limit reached", text, re.I)
 
     # Capture `name = 1.23e-9` style measurement echoes, and any that failed.
-    for m in re.finditer(r"^\s*([A-Za-z_]\w*)\s*=\s*(-?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?)\b", text, re.M):
-        summary["measures"][m.group(1)] = float(m.group(2))
+    # ngspice prints `.measure` results under a "Measurements for <...> Analysis"
+    # header; its end-of-run resource report (e.g. "Stack = 0 bytes.") also looks
+    # like a bare `name = value`, so scope extraction to the measurement block(s)
+    # and stop at the blank line that closes each. Fall back to a global scan
+    # when no header is present, preserving prior behaviour.
+    meas_re = re.compile(r"^\s*([A-Za-z_]\w*)\s*=\s*(-?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?)\b")
+    headers = list(re.finditer(r"Measurements for .*?Analysis.*$", text, re.I | re.M))
+    if headers:
+        for h in headers:
+            started = False
+            for line in text[h.end():].splitlines():
+                mm = meas_re.match(line)
+                if mm:
+                    summary["measures"][mm.group(1)] = float(mm.group(2))
+                    started = True
+                elif started and not line.strip():
+                    break  # blank line closes the measurement block
+    else:
+        for mm in meas_re.finditer(text):
+            summary["measures"][mm.group(1)] = float(mm.group(2))
     for m in re.finditer(r"(?:measure(?:ment)?\s+)?([A-Za-z_]\w*)\s*(?:=\s*failed|\bfailed\b)", text, re.I):
         if m.group(1).lower() not in ("the", "measurement"):
             summary["failed_measures"].append(m.group(1))
@@ -140,24 +159,124 @@ def _parse_sim_log(text: str, checks: Optional[Dict[str, dict]]) -> Dict[str, An
         summary["conclusion"] = "measurement failed"
         return summary
 
-    if checks:
-        for name, band in checks.items():
-            if name not in summary["measures"]:
-                summary["check_violations"].append(f"{name}: not measured")
-                continue
-            val = summary["measures"][name]
-            lo, hi = band.get("min"), band.get("max")
-            if lo is not None and val < lo:
-                summary["check_violations"].append(f"{name}={val:g} < min {lo:g}")
-            if hi is not None and val > hi:
-                summary["check_violations"].append(f"{name}={val:g} > max {hi:g}")
-        if summary["check_violations"]:
-            summary["conclusion"] = "out-of-spec measurement"
-            return summary
+    # Build a per-measurement table: every measured value, annotated with its
+    # band + verdict when a checks sidecar covers it. Built unconditionally so
+    # the report can render a table whether the cell passes or fails, and so
+    # the pass/fail verdict and the displayed table can never disagree.
+    checked = checks or {}
+    for name, val in summary["measures"].items():
+        band = checked.get(name)
+        lo = band.get("min") if band else None
+        hi = band.get("max") if band else None
+        if band is None:
+            verdict = "n/a"
+        elif (lo is not None and val < lo) or (hi is not None and val > hi):
+            verdict = "FAIL"
+            lo_s = "-inf" if lo is None else format(lo, "g")
+            hi_s = "inf" if hi is None else format(hi, "g")
+            summary["check_violations"].append(f"{name}={val:g} outside [{lo_s}, {hi_s}]")
+        else:
+            verdict = "PASS"
+        summary["rows"].append(
+            {"name": name, "value": val, "min": lo, "max": hi, "verdict": verdict}
+        )
+    # Bands declared in the sidecar with no matching measurement in the log.
+    for name, band in checked.items():
+        if name not in summary["measures"]:
+            summary["check_violations"].append(f"{name}: not measured")
+            summary["rows"].append(
+                {"name": name, "value": None,
+                 "min": band.get("min"), "max": band.get("max"), "verdict": "MISSING"}
+            )
+
+    if summary["check_violations"]:
+        summary["conclusion"] = "out-of-spec measurement"
+        return summary
 
     summary["is_pass"] = True
     summary["conclusion"] = "sim passed"
     return summary
+
+
+def _fmt_eng(x: Optional[float]) -> str:
+    """Compact engineering formatting for report tables (10.0u, 1.8m, -4.43e-13)."""
+    if x is None:
+        return "—"
+    if x == 0:
+        return "0"
+    ax = abs(x)
+    for suffix, scale in (("G", 1e9), ("M", 1e6), ("k", 1e3), ("", 1.0),
+                          ("m", 1e-3), ("u", 1e-6), ("n", 1e-9), ("p", 1e-12)):
+        if ax >= scale:
+            return f"{x / scale:.4g}{suffix}"
+    return f"{x:.4g}"  # sub-pico: leave in scientific form
+
+
+def _table_rows(rows: List[dict]) -> List[List[str]]:
+    """Normalise measurement rows to string cells for the tables below."""
+    def band(r: dict) -> str:
+        lo, hi = r.get("min"), r.get("max")
+        if lo is None and hi is None:
+            return "—"
+        return f"{_fmt_eng(lo)} … {_fmt_eng(hi)}"
+    return [[r["name"], _fmt_eng(r["value"]), band(r), r["verdict"]] for r in rows]
+
+
+def _ascii_table(rows: List[dict]) -> str:
+    """Fixed-width table for the console log / JUnit system-out."""
+    if not rows:
+        return "    (no measurements captured)"
+    header = ["measurement", "value", "limits", "result"]
+    data = _table_rows(rows)
+    widths = [max(len(header[i]), *(len(row[i]) for row in data)) for i in range(4)]
+    line = lambda cells: "  " + " | ".join(c.ljust(widths[i]) for i, c in enumerate(cells))
+    sep = "  " + "-+-".join("-" * w for w in widths)
+    return "\n".join([line(header), sep, *(line(r) for r in data)])
+
+
+def _markdown_table(rows: List[dict]) -> str:
+    """GitHub-flavoured Markdown table for the Actions step summary."""
+    if not rows:
+        return "_(no measurements captured)_"
+    out = ["| measurement | value | limits | result |", "|---|---|---|---|"]
+    for name, value, limits, verdict in _table_rows(rows):
+        badge = {"PASS": "✅ PASS", "FAIL": "❌ FAIL",
+                 "MISSING": "⚠️ MISSING", "n/a": "—"}.get(verdict, verdict)
+        out.append(f"| `{name}` | {value} | {limits} | {badge} |")
+    return "\n".join(out)
+
+
+def _write_step_summary(results: List[dict], pdk: str, counts: Dict[str, int]) -> None:
+    """Append a per-cell measurement table to $GITHUB_STEP_SUMMARY.
+
+    No-op when the env var is unset (i.e. running locally), so this stays
+    invisible outside CI. In CI it renders as real tables on the run's Summary
+    page, alongside the JUnit check the publish step already posts.
+    """
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    lines = [
+        f"## ngspice checks — {pdk}",
+        "",
+        f"**{counts['pass']} passed · {counts['fail']} failed · "
+        f"{counts['error']} error · {counts['skip']} skipped**",
+        "",
+    ]
+    badge = {"pass": "✅", "fail": "❌", "error": "💥", "skip": "⏭️"}
+    for r in results:
+        rows = r.get("summary", {}).get("rows", [])
+        lines.append(f"### {badge.get(r['status'], '')} `{r['cell']}` — {r['status'].upper()}")
+        if r.get("message") and r["status"] != "pass":
+            lines.append(f"> {r['message']}")
+        lines.append("")
+        lines.append(_markdown_table(rows))
+        lines.append("")
+    try:
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write("\n".join(lines) + "\n")
+    except OSError:
+        pass
 
 
 def _write_junit(results: List[dict], pdk: str, out: Path) -> None:
@@ -182,6 +301,11 @@ def _write_junit(results: List[dict], pdk: str, out: Path) -> None:
             ET.SubElement(case, "error", attrib={"message": r.get("message", "sim error")}).text = json.dumps(r, indent=2)
         elif r["status"] == "skip":
             ET.SubElement(case, "skipped", attrib={"message": r.get("message", "skipped")})
+        # Attach the measurement table to every case so it shows in the JUnit
+        # report body regardless of pass/fail.
+        rows = r.get("summary", {}).get("rows", [])
+        if rows:
+            ET.SubElement(case, "system-out").text = "\n" + _ascii_table(rows) + "\n"
     ET.ElementTree(suite).write(out, encoding="utf-8", xml_declaration=True)
 
 
@@ -234,10 +358,14 @@ def _run_one_sim(item: dict) -> dict:
 
     try:
         print(f"[SIM]  {name}", flush=True)
-        checks: Optional[Dict[str, dict]] = None
-        checks_path = Path(item["testbench_path"]).with_suffix(".checks.json")
-        if checks_path.exists():
-            checks = json.loads(checks_path.read_text())
+        # Pass bands come from the single consolidated checks file, loaded once
+        # in main() and handed to each cell here. A per-cell <cell>.checks.json
+        # sidecar still works as a legacy fallback for cells not listed in it.
+        checks: Optional[Dict[str, dict]] = item.get("checks")
+        if checks is None:
+            sidecar = Path(item["testbench_path"]).with_suffix(".checks.json")
+            if sidecar.exists():
+                checks = json.loads(sidecar.read_text())
 
         _assemble_deck(
             name,
@@ -282,6 +410,9 @@ def _run_one_sim(item: dict) -> dict:
         result["status"] = "fail"
         result["message"] = parsed["conclusion"]
     print(f"[{result['status'].upper()}] {name}: {result.get('message','')}", flush=True)
+    rows = parsed.get("rows", [])
+    if rows:
+        print(_ascii_table(rows), flush=True)
     return result
 
 
@@ -298,6 +429,12 @@ def main() -> int:
         help="Directory of <cell>.spice testbenches (and optional <cell>.checks.json).",
     )
     parser.add_argument("--model-lib", default=None, help="Override ngspice model library path.")
+    parser.add_argument(
+        "--checks-file", default=None,
+        help="Single JSON file of pass bands keyed by cell name "
+             "(default: <testbench-dir>/checks.json). A per-cell "
+             "<cell>.checks.json sidecar is used as a fallback for any cell "
+             "not listed in this file.")
     parser.add_argument("--corner", default=None, help="Override corner section (default: sky130=tt, gf180=typical).")
     parser.add_argument(
         "--cells", default=None,
@@ -339,6 +476,19 @@ def main() -> int:
     model_lib, corner = _model_lib(args.pdk, args.model_lib, args.corner)
     print(f"model lib: {model_lib} (corner {corner})")
 
+    # Load the single consolidated checks file once: { "<cell>": {band...} }.
+    checks_file = Path(args.checks_file) if args.checks_file else (tb_dir / "checks.json")
+    all_checks: Dict[str, dict] = {}
+    if checks_file.exists():
+        try:
+            all_checks = json.loads(checks_file.read_text())
+            print(f"checks file: {checks_file} ({len(all_checks)} cells with bands)")
+        except json.JSONDecodeError as exc:
+            print(f"warning: could not parse {checks_file}: {exc}", file=sys.stderr)
+    else:
+        print(f"no consolidated checks file at {checks_file} "
+              f"(cells run as smoke tests unless a sidecar exists)")
+
     if args.cells:
         wanted = {c.strip() for c in args.cells.split(",") if c.strip()}
         missing = wanted - set(cells)
@@ -357,6 +507,7 @@ def main() -> int:
             "pdk": args.pdk,
             "netlist_path": str(inputs_dir / "netlists" / f"{name}.spice"),
             "testbench_path": str(tb_dir / f"{name}.spice"),
+            "checks": all_checks.get(name),
             "model_lib": str(model_lib),
             "corner": corner,
             "out_dir": str(out_dir),
@@ -391,6 +542,7 @@ def main() -> int:
     }
     (out_dir / "summary.json").write_text(json.dumps(summary, indent=2))
     _write_junit(results, args.pdk, out_dir / "junit.xml")
+    _write_step_summary(results, args.pdk, summary)
     print(json.dumps({k: v for k, v in summary.items() if k != "results"}, indent=2))
     return 0 if summary["fail"] == 0 and summary["error"] == 0 else 1
 
