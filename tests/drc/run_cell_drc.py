@@ -10,21 +10,6 @@ The script:
   * parses the resulting ``lyrdb`` to count violations,
   * emits a JSON summary, a JUnit report, and exits non-zero if any cell has
     DRC errors or fails to build.
-
-gf180 notes
------------
-The bundled ``gf180mcu.drc`` reads its configuration from global Ruby
-variables ($metal_top, $metal_level, $mim_option, $run_mode, $thr, $offgrid).
-Every one of them has an internal fallback, so the deck *runs* without them --
-but the fallbacks are 9K / 6LM / "Nan" MIM, which do not match this PDK's
-5-metal layer map and silently skip ALL MIM capacitor checks. We therefore
-pass them explicitly via ``-rd`` for variant D (5LM / 11K / MIM-B), matching
-the ``--variant=D`` used by the klayout LVS deck in tests/lvs/klayout_gf180.py.
-
-Do NOT point this runner at ``gf180mcu_drc_wrapper.drc``: that wrapper exists
-for ``MappedPDK.drc`` (which uses in_gds/report_file naming) and presets the
-variant-A metal stack (30K / 3LM / MIM-A), which would drop every metal4 and
-metal5 BEOL rule.
 """
 from __future__ import annotations
 
@@ -32,7 +17,6 @@ import argparse
 import csv
 import json
 import os
-import re
 import subprocess
 import sys
 import traceback
@@ -48,15 +32,6 @@ BUNDLED_DECKS = {
     "gf180":  REPO_ROOT / "src" / "glayout" / "pdk" / "gf180_mapped" / "gf180mcu.drc",
 }
 DEFAULT_PARAM_DIR = REPO_ROOT / "tests" / "parameters"
-
-# gf180mcu metal-stack variants: variant -> (metal_top, metal_level, mim_option).
-# Mirrors the mapping in the PDK's own run_drc_main klayout macro.
-GF180_VARIANTS = {
-    "A": ("30K", "3LM", "A"),
-    "B": ("11K", "4LM", "B"),
-    "C": ("9K",  "5LM", "B"),
-    "D": ("11K", "5LM", "B"),
-}
 
 
 @dataclass
@@ -165,83 +140,33 @@ def _drc_deck_for(pdk_name: str, override: Optional[str] = None) -> Path:
     return BUNDLED_DECKS[pdk_name]
 
 
-# ---------------------------------------------------------------------------
-# Rules that are not functional defects for a standalone cell.
+# Rules that are not functional defects — fab/density-style; safe to ignore in CI.
 # Match by category name OR description (case-insensitive).
-# ---------------------------------------------------------------------------
+import re as _re
 _IGNORE_PATTERNS = [
-    re.compile(r"density", re.IGNORECASE),
-
-    # Minimum-area rules. The phrasing differs per engine/PDK:
-    #   magic (sky130):  "Metal1 minimum area < 0.083um^2"
-    #   klayout sky130:  m1.4 / m2.4 / ... (matched by name below)
-    #   klayout gf180:   "Minimum Metal1 area : 0.1444um^2"   <- M1.3 .. M5.3
-    #                    "Min. COMP area (um2)"               <- DF.9
-    # A single pattern anchored on min...area (with anything in between up to
-    # the ':' separator) covers all of them. The earlier
-    # r"min[._\s-]*\w*\s*area" form did NOT match "Minimum Metal1 area",
-    # because \w* consumed "imum" and then "area" had to match "Metal1".
-    re.compile(r"\bmin(?:imum)?\b[^:]*\barea\b", re.IGNORECASE),
-
-    # sky130 metal min-area rules, matched by rule name.
-    re.compile(r"^m\d+\.4$", re.IGNORECASE),
-
-    # gf180 DF.13 / DF.14: max distance from a well tap / substrate tap to the
-    # nearest transistor of the opposite type. Both are chip-level latch-up
-    # constraints -- a single cell containing only NMOS (or only PMOS) cannot
-    # satisfy them in isolation, and glayout cells are placed into a larger
-    # design that provides the taps.
-    re.compile(r"^DF\.13", re.IGNORECASE),
-    re.compile(r"^DF\.14", re.IGNORECASE),
-]
-
-# Rules the gf180 deck emits as explicit *recommendations* / guidelines rather
-# than hard defects (their own descriptions say "It is recommended" /
-# "Guideline"). They fire on isolated cells that have no surrounding guard
-# ring. Enable with --ignore-guidelines once you have confirmed they are the
-# only remaining failures; left off by default so nothing is hidden silently.
-_GUIDELINE_PATTERNS = [
-    re.compile(r"^MDN\.17", re.IGNORECASE),
-    re.compile(r"^MDP\.3$", re.IGNORECASE),
-    re.compile(r"^MDP\.17a", re.IGNORECASE),
-    re.compile(r"recommend", re.IGNORECASE),
-    re.compile(r"guideline", re.IGNORECASE),
+    _re.compile(r"density", _re.IGNORECASE),
+    _re.compile(r"min[._\s-]*\w*\s*area", _re.IGNORECASE),
+    _re.compile(r"^m\d+\.4$", _re.IGNORECASE),  # sky130 metal min-area rules: m1.4, m2.4, m3.4, m4.4
+    # gf180 DF.14: max distance from a substrate tap (pcomp outside nwell)
+    # to the nearest nfet (ncomp outside nwell). This is a chip-level
+    # latch-up constraint; a pmos-only cell can't satisfy it in isolation.
+    _re.compile(r"^DF\.14", _re.IGNORECASE),
 ]
 
 
-def _is_ignored_rule(name: str, desc: str, extra_patterns: Optional[List[Any]] = None) -> bool:
-    """True if this rule is not a functional defect for a standalone cell.
-
-    Patterns are tested against the rule NAME on its own and against
-    "<name>  <desc>". Testing the name separately matters for anchored
-    patterns: r"^m\\d+\\.4$" can never match the concatenated string, so in the
-    original implementation the sky130 metal min-area names were silently
-    never ignored.
-    """
-    name = (name or "").strip()
-    text = f"{name}  {desc or ''}"
-    patterns = list(_IGNORE_PATTERNS)
-    if extra_patterns:
-        patterns.extend(extra_patterns)
-    return any(p.search(name) or p.search(text) for p in patterns)
+def _is_ignored_rule(name: str, desc: str) -> bool:
+    text = f"{name}  {desc}"
+    return any(p.search(text) for p in _IGNORE_PATTERNS)
 
 
-def _count_lyrdb_violations(report: Path, extra_ignores: Optional[List[Any]] = None) -> dict:
+def _count_lyrdb_violations(report: Path) -> dict:
     """Count DRC violations in a klayout lyrdb. Returns a dict with:
         total, effective (excluding density/min-area), ignored, by_rule, ignored_by_rule.
-    On failure to read or parse the report returns {'total': -1, ...} plus a
-    'parse_error' key, so a truncated/garbled lyrdb reads as an error rather
-    than as a clean pass.
+    On failure to read the report returns {'total': -1, ...}.
     """
-    empty = {"total": -1, "effective": -1, "ignored": 0, "by_rule": {}, "ignored_by_rule": {}}
     if not report.exists():
-        return dict(empty)
-    try:
-        tree = ET.parse(report)
-    except ET.ParseError as exc:
-        out = dict(empty)
-        out["parse_error"] = f"{exc}"
-        return out
+        return {"total": -1, "effective": -1, "ignored": 0, "by_rule": {}, "ignored_by_rule": {}}
+    tree = ET.parse(report)
     root = tree.getroot()
     cats: dict[str, str] = {}
     items = None
@@ -270,7 +195,7 @@ def _count_lyrdb_violations(report: Path, extra_ignores: Optional[List[Any]] = N
                     cat = (sub.text or "").strip().strip("'")
                     break
             desc = cats.get(cat, "")
-            if _is_ignored_rule(cat, desc, extra_ignores):
+            if _is_ignored_rule(cat, desc):
                 ignored_by_rule[cat] = ignored_by_rule.get(cat, 0) + 1
             else:
                 by_rule[cat] = by_rule.get(cat, 0) + 1
@@ -284,28 +209,7 @@ def _count_lyrdb_violations(report: Path, extra_ignores: Optional[List[Any]] = N
     }
 
 
-def _run_klayout(
-    deck: Path,
-    gds: Path,
-    report: Path,
-    pdk_name: str = "sky130",
-    variant: str = "D",
-    topcell: Optional[str] = None,
-    threads: int = 2,
-    offgrid: bool = True,
-    timeout: int = 1800,
-) -> subprocess.CompletedProcess:
-    """Invoke the klayout DRC deck in batch mode.
-
-    For gf180 we must supply the metal-stack globals explicitly: the deck's
-    own fallbacks are 9K / 6LM / MIM "Nan", which skip every MIM capacitor
-    rule and select a via5/metaltop stack this PDK's layer map does not use.
-
-    ``threads`` defaults to 2 rather than the deck's internal 16: the caller
-    already runs cells in parallel via ProcessPoolExecutor, and 16 threads per
-    cell oversubscribes a 2-4 core CI runner badly enough to trip the OOM
-    killer (which surfaces as "report file not produced").
-    """
+def _run_klayout(deck: Path, gds: Path, report: Path) -> subprocess.CompletedProcess:
     cmd = [
         "klayout",
         "-b",
@@ -313,28 +217,14 @@ def _run_klayout(
         "-rd", f"input={gds}",
         "-rd", f"report={report}",
     ]
-    if pdk_name == "gf180":
-        metal_top, metal_level, mim_option = GF180_VARIANTS[variant]
-        cmd += [
-            "-rd", f"metal_top={metal_top}",
-            "-rd", f"metal_level={metal_level}",
-            "-rd", f"mim_option={mim_option}",
-            "-rd", "run_mode=flat",
-            "-rd", f"thr={threads}",
-            "-rd", f"offgrid={'true' if offgrid else 'false'}",
-        ]
-        if topcell:
-            # Without this the deck calls source($input) and lets klayout guess
-            # the top cell.
-            cmd += ["-rd", f"topcell={topcell}"]
-    return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+    return subprocess.run(cmd, capture_output=True, text=True, timeout=900)
 
 
-_MAGIC_RULE_RE = re.compile(r"^[A-Za-z]")
-_MAGIC_COORD_RE = re.compile(r"^[0-9-]")
+_MAGIC_RULE_RE = _re.compile(r"^[A-Za-z]")
+_MAGIC_COORD_RE = _re.compile(r"^[0-9-]")
 
 
-def _count_magic_violations(report: Path, extra_ignores: Optional[List[Any]] = None) -> dict:
+def _count_magic_violations(report: Path) -> dict:
     """Parse a magic DRC report (the format ``custom_drc_save_report`` writes
     in ``pdk.drc_magic``). Returns the same shape as ``_count_lyrdb_violations``
     so JUnit/summary code can stay agnostic.
@@ -356,7 +246,7 @@ def _count_magic_violations(report: Path, extra_ignores: Optional[List[Any]] = N
             current_rule = s
             continue
         if _MAGIC_COORD_RE.match(s) and current_rule:
-            if _is_ignored_rule(current_rule, current_rule, extra_ignores):
+            if _is_ignored_rule(current_rule, current_rule):
                 ignored_by_rule[current_rule] = ignored_by_rule.get(current_rule, 0) + 1
             else:
                 by_rule[current_rule] = by_rule.get(current_rule, 0) + 1
@@ -376,7 +266,6 @@ def _run_magic_drc(item: dict, pdk, comp_name: str, gds_path: Path, magic_dir: P
     name = item["name"]
     pdk_name = item["pdk"]
     out_dir = Path(item["out_dir"])
-    extra_ignores = _GUIDELINE_PATTERNS if item.get("ignore_guidelines") else None
     res: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "engine": "magic", "status": "skip"}
     rpt_dir = magic_dir / "drc" / comp_name
     rpt_path = rpt_dir / f"{comp_name}.rpt"
@@ -391,7 +280,7 @@ def _run_magic_drc(item: dict, pdk, comp_name: str, gds_path: Path, magic_dir: P
         res.update({"status": "error", "message": f"magic drc failed: {exc}", "trace": traceback.format_exc()})
         print(f"[ERROR] {name}: magic drc failed: {exc}", flush=True)
         return res
-    viols = _count_magic_violations(rpt_path, extra_ignores)
+    viols = _count_magic_violations(rpt_path)
     effective = viols["effective"]
     res.update({
         "violations": viols,
@@ -418,8 +307,7 @@ def _run_one_cell(item: dict) -> dict:
     runs on its own core.
 
     item keys: name, pdk, deck, kwargs, gds_path, rpt_path, netlist_path,
-               out_dir, engines (list[str]), magic_dir (str|None),
-               variant, threads, offgrid, ignore_guidelines
+               out_dir, engines (list[str]), magic_dir (str|None)
     """
     name = item["name"]
     pdk_name = item["pdk"]
@@ -428,7 +316,6 @@ def _run_one_cell(item: dict) -> dict:
     gds_path = Path(item["gds_path"])
     rpt_path = Path(item["rpt_path"])
     netlist_path = Path(item["netlist_path"])
-    extra_ignores = _GUIDELINE_PATTERNS if item.get("ignore_guidelines") else None
     result: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "status": "skip"}
     try:
         print(f"[BUILD] {name}", flush=True)
@@ -463,15 +350,8 @@ def _run_one_cell(item: dict) -> dict:
     if "klayout" in engines:
         try:
             print(f"[DRC]  {name}", flush=True)
-            proc = _run_klayout(
-                deck, gds_path, rpt_path,
-                pdk_name=pdk_name,
-                variant=item.get("variant", "D"),
-                topcell=name,
-                threads=item.get("threads", 2),
-                offgrid=item.get("offgrid", True),
-            )
-            viols = _count_lyrdb_violations(rpt_path, extra_ignores)
+            proc = _run_klayout(deck, gds_path, rpt_path)
+            viols = _count_lyrdb_violations(rpt_path)
             effective = viols["effective"]
             klayout_res: Dict[str, Any] = {
                 "engine": "klayout",
@@ -479,24 +359,17 @@ def _run_one_cell(item: dict) -> dict:
                 "report": str(rpt_path.relative_to(out_dir)),
                 "klayout_returncode": proc.returncode,
                 "klayout_stderr_tail": (proc.stderr or "")[-400:],
-                # The gf180 deck logs its resolved switches (METAL_TOP,
-                # METAL_STACK, MIM Option, Offgrid) on stdout -- keep the tail
-                # so a config mismatch is visible in the artifact.
-                "klayout_stdout_tail": (proc.stdout or "")[-800:],
             }
             if proc.returncode != 0:
                 klayout_res["status"] = "error"
                 klayout_res["message"] = f"klayout exited {proc.returncode}"
-            elif viols.get("parse_error"):
-                klayout_res["status"] = "error"
-                klayout_res["message"] = f"lyrdb parse error: {viols['parse_error']}"
             elif effective < 0:
                 klayout_res["status"] = "error"
                 klayout_res["message"] = "report file not produced"
             elif effective == 0:
                 klayout_res["status"] = "pass"
                 if viols["ignored"]:
-                    klayout_res["message"] = f"clean (ignored {viols['ignored']} density/area/latch-up)"
+                    klayout_res["message"] = f"clean (ignored {viols['ignored']} density/area)"
             else:
                 klayout_res["status"] = "fail"
                 top = ", ".join(f"{r}:{n}" for r, n in sorted(viols["by_rule"].items(), key=lambda kv: -kv[1])[:3])
@@ -587,27 +460,6 @@ def main() -> int:
         default="klayout",
         help="DRC engine(s) to run per cell. 'both' runs klayout and magic in sequence per worker.",
     )
-    parser.add_argument(
-        "--variant", default="D", choices=sorted(GF180_VARIANTS),
-        help="gf180mcu metal-stack variant (ignored for sky130). D = 5LM/11K/MIM-B, "
-             "matching --variant=D in tests/lvs/klayout_gf180.py.",
-    )
-    parser.add_argument(
-        "--threads", type=int, default=2,
-        help="Threads per klayout process for gf180 ($thr). Kept low because "
-             "cells already run in parallel; the deck's own default is 16.",
-    )
-    parser.add_argument(
-        "--no-offgrid", action="store_true",
-        help="Disable the gf180 deck's OFFGRID/ACUTE geometry section ($offgrid=false). "
-             "Useful while triaging; leave enabled in CI.",
-    )
-    parser.add_argument(
-        "--ignore-guidelines", action="store_true",
-        help="Also ignore rules the deck flags as recommendations/guidelines "
-             "(MDN.17, MDP.3, MDP.17a, ...) which cannot be satisfied by a "
-             "standalone cell with no surrounding guard ring.",
-    )
     args = parser.parse_args()
     engines = ["klayout", "magic"] if args.engine == "both" else [args.engine]
 
@@ -637,11 +489,6 @@ def main() -> int:
             print(f"warning: cells not in CSV: {sorted(missing)}", file=sys.stderr)
         specs = {n: s for n, s in specs.items() if n in wanted}
 
-    if args.pdk == "gf180":
-        mt, ml, mim = GF180_VARIANTS[args.variant]
-        print(f"gf180 variant {args.variant}: metal_top={mt} metal_level={ml} "
-              f"mim_option={mim} thr={args.threads} offgrid={not args.no_offgrid}")
-
     # Hand cell work to a process pool so build+klayout for different cells
     # run on different cores. Each worker imports glayout fresh; we pass the
     # cell name + kwargs over the wire and resolve the builder by name in the
@@ -660,10 +507,6 @@ def main() -> int:
             "out_dir": str(out_dir),
             "engines": engines,
             "magic_dir": str(magic_dir) if magic_dir else None,
-            "variant": args.variant,
-            "threads": args.threads,
-            "offgrid": not args.no_offgrid,
-            "ignore_guidelines": args.ignore_guidelines,
         }
         for name, spec in specs.items()
     ]
@@ -684,7 +527,6 @@ def main() -> int:
 
     summary = {
         "pdk": args.pdk,
-        "variant": args.variant if args.pdk == "gf180" else None,
         "total": len(results),
         "pass": sum(1 for r in results if r["status"] == "pass"),
         "fail": sum(1 for r in results if r["status"] == "fail"),
@@ -696,19 +538,6 @@ def main() -> int:
     _write_junit(results, args.pdk, out_dir / "junit.xml")
 
     print(json.dumps({k: v for k, v in summary.items() if k != "results"}, indent=2))
-
-    # Aggregate rule histogram: the single most useful thing when triaging a
-    # red run, and cheap to print.
-    agg: Dict[str, int] = {}
-    for r in results:
-        for er in (r.get("engines") or {}).values():
-            for rule, n in (er.get("violations", {}).get("by_rule") or {}).items():
-                agg[rule] = agg.get(rule, 0) + n
-    if agg:
-        print("\nviolations by rule:")
-        for rule, n in sorted(agg.items(), key=lambda kv: -kv[1]):
-            print(f"  {rule:<24} {n}")
-
     return 0 if summary["fail"] == 0 and summary["error"] == 0 else 1
 
 
