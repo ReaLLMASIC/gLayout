@@ -14,6 +14,32 @@ from glayout.routing.straight_route import straight_route
 from glayout.spice import Netlist
 
 
+def __comp_min_width(pdk: MappedPDK) -> float:
+    """Minimum diffusion height that can host a contact (rule CO.4 in gf180).
+
+    The COMP region must enclose the contact by min_enclosure on every side:
+
+        mcon.width + 2 * mcon-active_diff.min_enclosure
+
+    which is 0.22 + 2*0.07 = 0.36um in gf180. Below that the *channel* may
+    still be narrower, but the diffusion under the contact may not: that is
+    the classic "dogbone" geometry, and it is what the PDK's own pcell does
+    (gf180mcu::nfet_03v3_draw declares wmin=0.22 and lays out a 0.22um device
+    with the COMP at two different heights).
+
+    Derived from the PDK rules rather than hardcoded, so it carries over to
+    other technologies. Returns 0.0 if the rules are unavailable, which keeps
+    the previous behaviour.
+    """
+    try:
+        return pdk.snap_to_2xgrid(
+            pdk.get_grule("mcon")["width"]
+            + 2 * pdk.get_grule("mcon", "active_diff")["min_enclosure"]
+        )
+    except Exception:
+        return 0.0
+
+
 @validate_arguments
 def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float, width: float, poly_height: float, sdlayer: str, inter_finger_topmet: str) -> Component:
     """internal use: returns an array of fingers"""
@@ -30,8 +56,12 @@ def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float,
     # create a single finger
     finger = Component("finger")
     gate = finger << rectangle(size=(length, poly_height), layer=pdk.get_glayer("poly"), centered=True)
-    sd_viaarr = via_array(pdk, "active_diff", "met1", size=(sd_viaxdim, width), minus1=True, lay_bottom=False).copy()
-    interfinger_correction = via_array(pdk,"met1",inter_finger_topmet, size=(None, width),lay_every_layer=True, num_vias=(1,None))
+    # Contacts are sized by the *contact* width, not the channel width: a
+    # narrow channel does not prevent contacting, the diffusion simply widens
+    # under the contact (dogbone). Without this, small W violates CO.4.
+    contact_width = max(width, __comp_min_width(pdk))
+    sd_viaarr = via_array(pdk, "active_diff", "met1", size=(sd_viaxdim, contact_width), minus1=True, lay_bottom=False, no_exception=True).copy()
+    interfinger_correction = via_array(pdk,"met1",inter_finger_topmet, size=(None, contact_width),lay_every_layer=True, num_vias=(1,None), no_exception=True)
     sd_viaarr << interfinger_correction
     sd_viaarr_ref = finger << sd_viaarr
     sd_viaarr_ref.movex((poly_spacing+length) / 2)
@@ -50,7 +80,11 @@ def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float,
     # create diffusion and +doped region
     multiplier = rename_ports_by_orientation(centered_farray)
     diff_extra_enc = 2 * pdk.get_grule("mcon", "active_diff")["min_enclosure"]
-    diff_dims =(diff_extra_enc + evaluate_bbox(multiplier)[0], width)
+    # The diffusion cannot be as short as the channel if that leaves the
+    # contact without its CO.4 margin. Electrical width is set by the poly
+    # over the channel, not by the diffusion at the contacts.
+    comp_w = max(width, __comp_min_width(pdk))
+    diff_dims =(diff_extra_enc + evaluate_bbox(multiplier)[0], comp_w)
     diff = multiplier << rectangle(size=diff_dims,layer=pdk.get_glayer("active_diff"),centered=True)
     sd_diff_ovhg = pdk.get_grule(sdlayer, "active_diff")["min_enclosure"]
     sdlayer_dims = [dim + 2*sd_diff_ovhg for dim in diff_dims]
@@ -213,7 +247,10 @@ def multiplier(
     min_width = max(min_length, pdk.get_grule("active_diff")["min_width"])
     width = min_width if (width or min_width) <= min_width else width
     width = pdk.snap_to_2xgrid(width)
-    poly_height = width + 2 * pdk.get_grule("poly", "active_diff")["overhang"]
+    # Poly must overhang the COMP, and COMP may be wider than the channel
+    # (see __comp_min_width). Sizing this on 'width' alone leaves the poly
+    # short for narrow devices and trips PL.4_LV (poly2 end cap).
+    poly_height = max(width, __comp_min_width(pdk)) + 2 * pdk.get_grule("poly", "active_diff")["overhang"]
     # call finger array
     multiplier = __gen_fingers_macro(pdk, interfinger_rmult, fingers, length, width, poly_height, sdlayer, inter_finger_topmet)
     # route all drains/ gates/ sources
