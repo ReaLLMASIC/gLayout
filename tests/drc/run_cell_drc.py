@@ -53,6 +53,10 @@ _CELL_BUILDERS: Dict[str, str] = {
     "diff_pair_ibias":                        "glayout.cells.composite:diff_pair_ibias",
     "low_voltage_cmirror":                    "glayout.cells.composite:low_voltage_cmirror",
     "opamp":                                  "glayout.cells.composite:opamp",
+    # Narrow primitives: the diffusion under a contact cannot shrink with the
+    # channel (CO.4 in gf180), so these exercise the dogbone path in fet.py.
+    "nmos_narrow":                            "glayout.primitives.fet:nmos",
+    "pmos_narrow":                            "glayout.primitives.fet:pmos",
 }
 
 
