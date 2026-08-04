@@ -81,9 +81,6 @@ def _parse_lvs_report(text: str) -> Dict[str, Any]:
 
     summary["unmatched_nets"] = sum(1 for _ in re.finditer(r"\(no matching net\)", text))
     summary["unmatched_instances"] = sum(1 for _ in re.finditer(r"\(no matching instance\)", text))
-    # The two patterns above are netgen phrasing and never appear in klayout
-    # output, so on gf180 they stay 0 and every failure reads "(0 mismatches)".
-    # Count the xref log entries that lvsdb_report appends to the report.
     if not summary["unmatched_nets"]:
         summary["unmatched_nets"] = sum(
             1 for _ in re.finditer(r"is not matching any net from reference netlist", text)
@@ -91,6 +88,11 @@ def _parse_lvs_report(text: str) -> Dict[str, Any]:
     m = re.search(r"^LIKELY ROOT CAUSE\n\s+(.+)$", text, re.MULTILINE)
     if m:
         summary["first_cause"] = m.group(1).strip()
+    # Failures with no per-net log() entries (device/subcircuit-level) leave the
+    # net regex above at 0. lvsdb_report's TOTAL ISSUES counts every xref bucket.
+    m = re.search(r"^TOTAL ISSUES: (\d+)$", text, re.MULTILINE)
+    if m and not summary["unmatched_nets"]:
+        summary["unmatched_nets"] = int(m.group(1))
     if summary["unmatched_nets"] or summary["unmatched_instances"]:
         summary["is_pass"] = False
         if "match" in summary["conclusion"].lower() and "do not" not in summary["conclusion"].lower():
