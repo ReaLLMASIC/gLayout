@@ -342,9 +342,88 @@ def analyze(lvsdb: Optional[str | Path],
         if c["status"].lower() not in ("match", "matchwithwarning")
     ]
 
-    # Pick the single most actionable line. Port-count problems come first:
-    # they are a whole-cell failure that makes every net look unmatched.
+    # ---- pick the single most actionable line ----------------------------
+    # Port-count problems come first: they are a whole-cell failure that makes
+    # every net look unmatched. After that, prefer the per-circuit log()
+    # messages, then fall back to the structured cross-reference. That last
+    # fallback matters: when a compare fails at the device or subcircuit level
+    # klayout may emit NO per-net log entries at all, so a messages-only
+    # heuristic reports "(0 mismatches)" with no cause while the xref section
+    # holds the answer.
     ports = out["ports"]
+
+    def _same_name_net_split():
+        """A net unmatched on BOTH sides under the SAME name is the strongest
+        available signal: the name pairs up but the terminal sets differ, i.e.
+        a real connectivity difference on that net. Devices touching it then
+        cascade, so this must outrank device mismatches -- otherwise the
+        reported cause is a symptom (e.g. "device mismatch $2 <-> MAIN1")
+        rather than the bulk/rail net that actually differs."""
+        for c in out["xref"].get("circuits", []):
+            where = c["layout"] or c["schematic"] or "?"
+            lay = set(c["nets_only_in_layout"])
+            sch = set(c["nets_only_in_schematic"])
+            both = sorted(lay & sch)
+            if both:
+                orphans = sorted(lay - sch)
+                extra = (f"; layout-only net(s) {', '.join(orphans)} suggest a "
+                         f"terminal that should join {both[0]} sits on its own net"
+                         if orphans else "")
+                return (f"{where}: net {', '.join(both)} present on both sides "
+                        f"but unmatched - terminal sets differ{extra}")
+        return None
+
+    def _first_xref_cause():
+        for c in out["xref"].get("circuits", []):
+            where = c["layout"] or c["schematic"] or "?"
+            if c["subcircuits_mismatched"]:
+                s = c["subcircuits_mismatched"][0]
+                return (f"{where}: unresolved/unmatched subcircuit "
+                        f"{s['schematic'] or s['layout']} "
+                        f"({len(c['subcircuits_mismatched'])} total) - a device "
+                        f"model emitted as an X-instance with no .subckt body "
+                        f"will look like this")
+            if c["devices_only_in_schematic"]:
+                d = c["devices_only_in_schematic"][0]
+                return (f"{where}: {len(c['devices_only_in_schematic'])} "
+                        f"schematic device(s) missing from layout, first "
+                        f"{d['name']} [{d['class']}]")
+            if c["devices_only_in_layout"]:
+                d = c["devices_only_in_layout"][0]
+                return (f"{where}: {len(c['devices_only_in_layout'])} layout "
+                        f"device(s) not in schematic, first {d['name']} "
+                        f"[{d['class']}]")
+            if c["devices_mismatched"]:
+                d = c["devices_mismatched"][0]
+                pd = d["param_diff"]
+                detail = (", ".join(f"{x['param']} layout={x['layout']:g} "
+                                    f"schematic={x['schematic']:g}" for x in pd)
+                          if pd else "topology differs, parameters agree")
+                return (f"{where}: device mismatch {d['layout']} <-> "
+                        f"{d['schematic']} ({detail})")
+            if c["pins_mismatched"]:
+                x = c["pins_mismatched"][0]
+                return (f"{where}: pin mismatch {x['layout']} <-> "
+                        f"{x['schematic']}")
+            if c["nets_only_in_schematic"] or c["nets_only_in_layout"]:
+                return (f"{where}: {len(c['nets_only_in_layout'])} layout / "
+                        f"{len(c['nets_only_in_schematic'])} schematic net(s) "
+                        f"unmatched")
+            if c["status"] not in ("Match", "MatchWithWarning"):
+                return f"{where}: circuit pair status {c['status']}"
+        return None
+
+    def _first_message_cause():
+        for c in out["messages"]:
+            if c["status"].lower() in ("match", "matchwithwarning"):
+                continue
+            where = c["layout"] or c["schematic"]
+            if c["infos"]:
+                return f"{where}: {c['infos'][0]}"
+            if c["errors"]:
+                return f"{where}: {c['errors'][0]}"
+        return None
+
     if ports.get("available") and ports.get("only_in_layout"):
         out["first_cause"] = (
             "extra top-level pin(s) in layout: "
@@ -353,20 +432,29 @@ def analyze(lvsdb: Optional[str | Path],
         )
     elif ports.get("available") and ports.get("only_in_schematic"):
         out["first_cause"] = (
-            "missing top-level pin(s) in layout: " + ", ".join(ports["only_in_schematic"])
+            "missing top-level pin(s) in layout: "
+            + ", ".join(ports["only_in_schematic"])
         )
     else:
-        # Otherwise the deepest failing circuit -- parents inherit their
-        # children's failures, so the innermost one is the real bug.
-        for c in out["messages"]:
-            if c["status"].lower() in ("match", "matchwithwarning"):
-                continue
-            if c["infos"]:
-                out["first_cause"] = f"{c['layout'] or c['schematic']}: {c['infos'][0]}"
-                break
-            if c["errors"]:
-                out["first_cause"] = f"{c['layout'] or c['schematic']}: {c['errors'][0]}"
-                break
+        out["first_cause"] = (_same_name_net_split()
+                              or _first_message_cause()
+                              or _first_xref_cause())
+
+    # Count every issue, not just net-level log entries.
+    out["issue_count"] = out["error_count"] + sum(
+        len(c[k])
+        for c in out["xref"].get("circuits", [])
+        for k in ("nets_only_in_layout", "nets_only_in_schematic",
+                  "nets_mismatched", "devices_only_in_layout",
+                  "devices_only_in_schematic", "devices_mismatched",
+                  "pins_mismatched", "subcircuits_mismatched")
+    )
+    if not out["failing_circuits"]:
+        out["failing_circuits"] = [
+            (c["layout"] or c["schematic"])
+            for c in out["xref"].get("circuits", [])
+            if c["status"] not in ("Match", "MatchWithWarning")
+        ]
     return out
 
 
@@ -382,6 +470,8 @@ def render(report: Dict[str, Any], max_items: int = 25) -> str:
         p("")
         p("LIKELY ROOT CAUSE")
         p(f"  {report['first_cause']}")
+    p("")
+    p(f"TOTAL ISSUES: {report.get('issue_count', 0)}")
 
     ports = report["ports"]
     p("")
