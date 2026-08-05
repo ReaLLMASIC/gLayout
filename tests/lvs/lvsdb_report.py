@@ -16,7 +16,7 @@ detail lives in the LVS database, in two places:
    status), which ARE reachable via the binding and give us structured
    names plus device parameter diffs.
 
-We read both, plus a direct top-level port comparison between the
+Read both, plus a direct top-level port comparison between the
 extracted ``.cir`` and the staged ``.spice`` -- with ``--top_lvl_pins`` a
 single extra label in the layout becomes an extra pin and fails the
 compare, which is invisible in the net-level output.
@@ -28,11 +28,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 BAD_STATUS = {"Mismatch", "NoMatch", "Skipped", "mismatch", "nomatch", "skipped"}
-
-
-# --------------------------------------------------------------------------
-# 1. Text parse of the per-circuit log() blocks (no klayout dependency)
-# --------------------------------------------------------------------------
 
 _ENTRY_RE = re.compile(
     r"entry\(\s*(?P<sev>\w+)\s+description\('(?P<msg>(?:[^'\\]|\\.)*)'\)",
@@ -142,10 +137,6 @@ def parse_lvsdb_messages(path: str | Path) -> List[Dict[str, Any]]:
         circuits.append(entry)
     return circuits
 
-
-# --------------------------------------------------------------------------
-# 2. Structured cross-reference via the klayout binding (optional)
-# --------------------------------------------------------------------------
 
 def _call(obj, *names):
     for n in names:
@@ -265,10 +256,6 @@ def parse_lvsdb_xref(path: str | Path) -> Dict[str, Any]:
     return result
 
 
-# --------------------------------------------------------------------------
-# 3. Top-level port comparison (catches extra pins under --top_lvl_pins)
-# --------------------------------------------------------------------------
-
 _SUBCKT_RE = re.compile(r"^\s*\.subckt\s+(\S+)\s*(.*)$", re.IGNORECASE | re.MULTILINE)
 
 
@@ -313,10 +300,6 @@ def port_diff(cir_path: str | Path, spice_path: str | Path, top: str) -> Dict[st
     }
 
 
-# --------------------------------------------------------------------------
-# Combine + render
-# --------------------------------------------------------------------------
-
 def analyze(lvsdb: Optional[str | Path],
             cir: Optional[str | Path] = None,
             spice: Optional[str | Path] = None,
@@ -342,7 +325,6 @@ def analyze(lvsdb: Optional[str | Path],
         if c["status"].lower() not in ("match", "matchwithwarning")
     ]
 
-    # ---- pick the single most actionable line ----------------------------
     # Port-count problems come first: they are a whole-cell failure that makes
     # every net look unmatched. After that, prefer the per-circuit log()
     # messages, then fall back to the structured cross-reference. That last
