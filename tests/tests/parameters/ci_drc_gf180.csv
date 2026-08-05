@@ -1,0 +1,10 @@
+cell,params_json
+current_mirror_nfet,"{""device"": ""nfet"", ""numcols"": 2}"
+current_mirror_pfet,"{""device"": ""pfet"", ""numcols"": 2}"
+diff_pair,"{""width"": 3, ""fingers"": 4, ""n_or_p_fet"": true}"
+flipped_voltage_follower,"{""device_type"": ""nmos"", ""placement"": ""vertical"", ""width"": [3.0, 3.0], ""length"": [0.5, 0.5], ""fingers"": [2, 2], ""multipliers"": [1, 1]}"
+transmission_gate,{}
+differential_to_single_ended_converter,"{""rmult"": 3, ""half_pload"": [3.0, 1.0, 2], ""via_xlocation"": 12}"
+diff_pair_ibias,"{""half_diffpair_params"": [5.0, 1.0, 1], ""diffpair_bias"": [5.0, 2.0, 1], ""rmult"": 2, ""with_antenna_diode_on_diffinputs"": 0}"
+low_voltage_cmirror,"{""width"": [4.0, 1.5], ""length"": 2.0, ""fingers"": [2, 1], ""multipliers"": [1, 1]}"
+opamp,"{""half_diffpair_params"": [5.0, 1.0, 1], ""diffpair_bias"": [5.0, 2.0, 1], ""half_common_source_params"": [7.0, 1.0, 10, 5], ""half_common_source_bias"": [6.0, 2.0, 8, 4], ""half_pload"": [6.0, 1.0, 5], ""add_output_stage"": false, ""with_antenna_diode_on_diffinputs"": 0, ""rmult"": 1}"
