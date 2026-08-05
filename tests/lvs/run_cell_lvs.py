@@ -30,10 +30,10 @@ from typing import Any, Dict, List, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "tests" / "drc"))
-from run_cell_drc import _resolve_pdk  # noqa: E402  (reuse PDK resolver)
+from run_cell_drc import _resolve_pdk 
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from klayout_gf180 import run_lvs_klayout_gf180  # noqa: E402
+from klayout_gf180 import run_lvs_klayout_gf180  
 
 
 def _parse_lvs_report(text: str) -> Dict[str, Any]:
