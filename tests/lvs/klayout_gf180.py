@@ -26,7 +26,7 @@ from typing import Any, Dict, Optional
 
 try:
     from lvsdb_report import analyze, render
-except ImportError:  # direct import, tests/lvs not on sys.path
+except ImportError:  
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from lvsdb_report import analyze, render
@@ -82,7 +82,7 @@ def _detect_substrate_name(spice_path: Path, top_cell: str) -> str:
     upper = {t.upper(): t for t in tokens}
     for cand in ("B", "VBULK", "VSUB", "GND", "VSS"):
         if cand in upper:
-            return upper[cand]          # return the port's ACTUAL casing
+            return upper[cand]         
     return tokens[-1] if tokens else "gf180mcu_gnd"
 
 
