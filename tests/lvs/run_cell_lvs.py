@@ -30,10 +30,10 @@ from typing import Any, Dict, List, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "tests" / "drc"))
-from run_cell_drc import _resolve_pdk  # noqa: E402  (reuse PDK resolver)
+from run_cell_drc import _resolve_pdk 
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from klayout_gf180 import run_lvs_klayout_gf180  # noqa: E402
+from klayout_gf180 import run_lvs_klayout_gf180  
 
 
 def _parse_lvs_report(text: str) -> Dict[str, Any]:
@@ -46,6 +46,7 @@ def _parse_lvs_report(text: str) -> Dict[str, Any]:
     summary: Dict[str, Any] = {
         "is_pass": False,
         "conclusion": "LVS inconclusive",
+        "first_cause": None,
         "unmatched_nets": 0,
         "unmatched_instances": 0,
         "raw_tail": text[-1200:] if text else "",
@@ -80,6 +81,18 @@ def _parse_lvs_report(text: str) -> Dict[str, Any]:
 
     summary["unmatched_nets"] = sum(1 for _ in re.finditer(r"\(no matching net\)", text))
     summary["unmatched_instances"] = sum(1 for _ in re.finditer(r"\(no matching instance\)", text))
+    if not summary["unmatched_nets"]:
+        summary["unmatched_nets"] = sum(
+            1 for _ in re.finditer(r"is not matching any net from reference netlist", text)
+        )
+    m = re.search(r"^LIKELY ROOT CAUSE\n\s+(.+)$", text, re.MULTILINE)
+    if m:
+        summary["first_cause"] = m.group(1).strip()
+    # Failures with no per-net log() entries (device/subcircuit-level) leave the
+    # net regex above at 0. lvsdb_report's TOTAL ISSUES counts every xref bucket.
+    m = re.search(r"^TOTAL ISSUES: (\d+)$", text, re.MULTILINE)
+    if m and not summary["unmatched_nets"]:
+        summary["unmatched_nets"] = int(m.group(1))
     if summary["unmatched_nets"] or summary["unmatched_instances"]:
         summary["is_pass"] = False
         if "match" in summary["conclusion"].lower() and "do not" not in summary["conclusion"].lower():
@@ -172,7 +185,10 @@ def _run_one_lvs(item: dict) -> dict:
     else:
         result["status"] = "fail"
         mismatches = parsed["unmatched_nets"] + parsed["unmatched_instances"]
-        result["message"] = f"{parsed['conclusion']} ({mismatches} mismatch{'es' if mismatches != 1 else ''})"
+        cause = (ret.get("first_cause") if isinstance(ret, dict) else None) \
+                or parsed.get("first_cause")
+        base = f"{parsed['conclusion']} ({mismatches} mismatch{'es' if mismatches != 1 else ''})"
+        result["message"] = f"{base} — {cause}" if cause else base
     print(f"[{result['status'].upper()}] {name}: {result.get('message','')}", flush=True)
     return result
 

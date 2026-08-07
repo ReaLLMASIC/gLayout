@@ -15,6 +15,7 @@ mirrors `pdk.lvs_netgen`'s call signature so the CI harness in
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -23,6 +24,12 @@ import tempfile
 from pathlib import Path
 from typing import Any, Dict, Optional
 
+try:
+    from lvsdb_report import analyze, render
+except ImportError:  
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from lvsdb_report import analyze, render
 
 # Reference SPICE bundled with gf180_mapped — included in the staged netlist
 # so klayout can resolve any standard-cell sub-circuits referenced in tests.
@@ -72,9 +79,10 @@ def _detect_substrate_name(spice_path: Path, top_cell: str) -> str:
     if not m:
         return "gf180mcu_gnd"
     tokens = [t for t in m.group(1).split() if "=" not in t]
+    upper = {t.upper(): t for t in tokens}
     for cand in ("B", "VBULK", "VSUB", "GND", "VSS"):
-        if cand in tokens:
-            return cand
+        if cand in upper:
+            return upper[cand]         
     return tokens[-1] if tokens else "gf180mcu_gnd"
 
 
@@ -217,8 +225,8 @@ def run_lvs_klayout_gf180(
         rpt_file = rpt_dir / f"{design_name}_lvs.rpt"
         rpt_file.write_text(log_text)
 
-        # Stash the extracted netlist + lvsdb + per-run log if produced.
-        for fname in (f"{design_name}.cir", f"{design_name}.lvsdb"):
+        # Stash the extracted netlist + lvsdb + staged reference + per-run log.
+        for fname in (f"{design_name}.cir", f"{design_name}.lvsdb", f"{design_name}.spice"):
             src = tmpdir / fname
             if src.is_file():
                 shutil.copy(src, rpt_dir / fname)
@@ -226,9 +234,38 @@ def run_lvs_klayout_gf180(
             shutil.copy(src, rpt_dir / src.name)
 
         summary = _classify_log(log_text)
+
+        # Pull the real mismatches out of the lvsdb and append them to the
+        # report, so the .rpt alone explains the failure.
+        details = {}
+        lvsdb = rpt_dir / f"{design_name}.lvsdb"
+        if lvsdb.is_file():
+            try:
+                details = analyze(
+                    lvsdb,
+                    cir=rpt_dir / f"{design_name}.cir",
+                    spice=rpt_dir / f"{design_name}.spice",
+                    top=design_name,
+                )
+                detail_text = render(details)
+                (rpt_dir / f"{design_name}_lvs_details.txt").write_text(detail_text)
+                rpt_file.write_text(log_text + "\n\n" + detail_text)
+                (rpt_dir / f"{design_name}_lvs_details.json").write_text(
+                    json.dumps(details, indent=2)
+                )
+            except Exception as exc:
+                rpt_file.write_text(log_text + f"\n\nlvsdb analysis failed: {exc!r}\n")
+
+        conclusion = summary["conclusion"]
+        if details.get("first_cause"):
+            conclusion = f"{conclusion}: {details['first_cause']}"
+
         return {
             "subproc_code": proc.returncode,
             "report_path": str(rpt_file),
             "is_pass": summary["is_pass"],
-            "conclusion": summary["conclusion"],
+            "conclusion": conclusion,
+            "first_cause": details.get("first_cause"),
+            "failing_circuits": details.get("failing_circuits", []),
+            "error_count": details.get("error_count", 0),
         }
