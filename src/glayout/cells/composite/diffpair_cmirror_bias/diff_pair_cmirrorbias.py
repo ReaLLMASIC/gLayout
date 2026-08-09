@@ -25,6 +25,7 @@ from glayout.util.port_utils import (
     print_ports,
     set_port_orientation,
     rename_component_ports,
+    no_pin_labels,
 )
 from glayout.util.snap_to_grid import component_snap_to_grid
 from pydantic import validate_arguments
@@ -89,14 +90,17 @@ def diff_pair_ibias(
     # rings so klayout extracts the dummies' G/S/D on bulk (B). sky130
     # always wants 'B' too — passing it unconditionally is correct on
     # both PDKs because it matches the magic-merged extraction.
-    center_diffpair_comp = diff_pair(
-        pdk,
-        width=half_diffpair_params[0],
-        length=half_diffpair_params[1],
-        fingers=half_diffpair_params[2],
-        rmult=rmult,
-        dum_net='B',
-    )
+    # VTAIL is a top-level pin of a standalone diff_pair but an internal net
+    # here, so the inherited label would extract as an extra top-level pin.
+    with no_pin_labels():
+        center_diffpair_comp = diff_pair(
+            pdk,
+            width=half_diffpair_params[0],
+            length=half_diffpair_params[1],
+            fingers=half_diffpair_params[2],
+            rmult=rmult,
+            dum_net='B',
+        )
     # add antenna diodes if that option was specified
     diffpair_centered_ref = prec_ref_center(center_diffpair_comp)
     diffpair_i_.add(diffpair_centered_ref)
@@ -194,23 +198,20 @@ def diff_pair_ibias(
         viaoffset=None,
     )
     cmirror.add_ports(srcshort.get_ports_list(), prefix="purposegndports")
-    # current mirror netlist — gf180 needs `dummies_tied_to_bulk=False`
-    # because here we use raw two_nfet_interdigitized + custom routing,
-    # NOT current_mirror, so the standalone-cell's straight_route from
-    # dummy gsdcon to welltie never gets drawn; klayout extracts the
-    # cmirror dummies on a per-cell floating net. sky130 magic merges
-    # the floating dummies into the bulk so the schematic must keep
-    # them tied to VB or magic counts an extra net.
-    ## HACK: Note that this is a hack for magic LVS, and it's likely incorrect
-    ##       we probably want to fix it properly
-    _dummies_tied = (pdk.name.lower() == "sky130")
+    # Current mirror netlist. The dummies sit inside the composite's shared
+    # pwell/tap context, so both extractors report their G/S/D on the bulk
+    # net: klayout merges the interdigitized dummy fingers into one B-tied
+    # device, and magic absorbs them into the bulk during parallel-device
+    # merging. Keeping them tied to the bulk here matches what is extracted
+    # on both PDKs; declaring a separate floating net would add a net the
+    # layout does not have.
     cmirror.info['netlist'] = current_mirror_netlist(
         pdk,
         width=diffpair_bias[0],
         length=diffpair_bias[1],
         fingers=1,
         multipliers=diffpair_bias[2],
-        dummies_tied_to_bulk=_dummies_tied,
+        dummies_tied_to_bulk=True,
     )
 
     # add cmirror — bump y-offset enough that the LVPWELL paddings of the

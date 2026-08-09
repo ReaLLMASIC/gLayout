@@ -5,6 +5,34 @@ from decimal import Decimal
 from pathlib import Path
 import pickle
 import math
+import os
+from contextlib import contextmanager
+
+
+@contextmanager
+def no_pin_labels():
+    """Build sub-cells without their standalone LVS pin labels.
+
+    Elementary cells emit pin labels so they can be LVS'd on their own. Inside
+    a composite those names collide with the parent's own labels, and nets that
+    are top-level pins in the sub-cell (a diff_pair's VTAIL, say) are internal
+    in the parent -- klayout extracts the inherited label as an extra top-level
+    pin and LVS fails. Wrap the sub-cell build to suppress them:
+
+        with no_pin_labels():
+            inner = diff_pair(pdk, ...)
+
+    Restores any pre-existing value on exit, so nesting is safe.
+    """
+    prev = os.environ.get("GLAYOUT_NO_PIN_LABELS")
+    os.environ["GLAYOUT_NO_PIN_LABELS"] = "1"
+    try:
+        yield
+    finally:
+        if prev is None:
+            os.environ.pop("GLAYOUT_NO_PIN_LABELS", None)
+        else:
+            os.environ["GLAYOUT_NO_PIN_LABELS"] = prev
 
 try:
 	from PrettyPrint import PrettyPrintTree
