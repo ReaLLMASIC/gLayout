@@ -29,6 +29,7 @@ PathType = Union[str, _Path]
 # cell_decorator_settings, .activate()). Extra fields are allowed so callers
 # can pass arbitrary pdk-specific config.
 from pydantic import BaseModel, ConfigDict  # noqa: E402
+import os as _os
 
 
 class _GdsWriteSettings(BaseModel):
@@ -264,6 +265,9 @@ class ComponentReference:
         self._ref = gref
         # owner is the Component this reference has been added to (not the target)
         self.owner: Optional["Component"] = None
+        # a label for this placement; falls back to the target cell's name
+        self._name: Optional[str] = None
+
 
     # --- metadata ----------------------------------------------------------
     @property
@@ -308,14 +312,31 @@ class ComponentReference:
         self._ref.x_reflection = bool(value)
 
     # --- movement (mutate + return self) ----------------------------------
-    def movex(self, dx: float = 0.0) -> "ComponentReference":
+    def movex(
+        self,
+        origin: float = 0.0,
+        destination: Optional[float] = None,
+    ) -> "ComponentReference":
+        """Move along x, mirroring ``move``'s calling conventions:
+          - movex(dx)                 — translate by dx
+          - movex(destination=x)      — translate by x
+          - movex(origin=x0,
+                  destination=x1)     — translate by x1-x0
+        """
+        dx = float(origin) if destination is None else float(destination) - float(origin)
         ox, oy = self.origin
-        self.origin = (ox + float(dx), oy)
+        self.origin = (ox + dx, oy)
         return self
 
-    def movey(self, dy: float = 0.0) -> "ComponentReference":
+    def movey(
+        self,
+        origin: float = 0.0,
+        destination: Optional[float] = None,
+    ) -> "ComponentReference":
+        """Move along y. See :meth:`movex` for the calling conventions."""
+        dy = float(origin) if destination is None else float(destination) - float(origin)
         ox, oy = self.origin
-        self.origin = (ox, oy + float(dy))
+        self.origin = (ox, oy + dy)
         return self
 
     def move(
@@ -419,6 +440,16 @@ class ComponentReference:
         return ((x0 + x1) / 2.0, (y0 + y1) / 2.0)
 
     @property
+    def x(self) -> float:
+        """Centre x. gdsfactory exposes this on references, not just on cells."""
+        return self.center[0]
+
+    @property
+    def y(self) -> float:
+        """Centre y. Counterpart of :attr:`x`."""
+        return self.center[1]
+
+    @property
     def xmin(self) -> float: return self.bbox[0][0]
     @property
     def xmax(self) -> float: return self.bbox[1][0]
@@ -429,7 +460,15 @@ class ComponentReference:
 
     @property
     def name(self) -> str:
-        return self.parent.name
+        return self._name if self._name is not None else self.parent.name
+
+    @name.setter
+    def name(self, value: str) -> None:
+        # gdsfactory lets callers label a placement without touching the cell it
+        # points at (``ref.name = "pfet_2"``), and cells and tutorials do exactly
+        # that. Keep it on the reference: renaming the parent here would rename
+        # every other reference to the same cell too.
+        self._name = str(value)
 
     def __repr__(self) -> str:
         return f"ComponentReference(parent={self.parent.name!r}, origin={self.origin}, rotation={self.rotation})"
@@ -467,6 +506,21 @@ class Component:
     @name.setter
     def name(self, value: str) -> None:
         self._cell.name = str(value)
+
+    def show(self, *args, **kwargs) -> None:
+        """Open the layout in KLayout, like gdsfactory's Component.show().
+
+        Writes a temp .gds and hands it to klive when reachable. Tutorials
+        call this for interactive viewing, so it must stay quiet headless.
+        """
+        import tempfile
+        path = _os.path.join(tempfile.gettempdir(), f"{self.name}.gds")
+        self.write_gds(path)
+        try:
+            from gdsfactory.show import show as _gf_show  # type: ignore
+            _gf_show(path)
+        except Exception:
+            pass
 
     def __repr__(self) -> str:
         return f"Component(name={self.name!r}, ports={list(self.ports)}, refs={len(self._references)})"
@@ -773,7 +827,20 @@ class Component:
         visit(self._cell)
         return order
 
-    def write_gds(self, filename: str, unit: float = 1e-6, precision: float = 1e-9) -> str:
+    def write_gds(
+        self,
+        filename: Optional[str] = None,
+        unit: float = 1e-6,
+        precision: float = 1e-9,
+        gdsdir: Optional[str] = None,
+    ) -> str:
+        # Match gdsfactory's write_gds(gdspath=None, gdsdir=None): the path
+        # may be omitted (defaults to "<name>.gds") and a directory may be
+        # given on its own. Tutorials use both call styles.
+        if filename is None:
+            filename = f"{self.name}.gds"
+        if gdsdir is not None:
+            filename = str(_os.path.join(str(gdsdir), str(filename)))
         lib = gdstk.Library(unit=unit, precision=precision)
         used_names: set[str] = set()
         for cell in self._collect_cells():
