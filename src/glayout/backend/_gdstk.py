@@ -44,6 +44,10 @@ class _CellDecoratorSettings(BaseModel):
     cache: bool = False
 
 
+# The PDK whose grid snap_to_grid() should use. Set by Pdk.activate().
+_ACTIVE_PDK: Optional["Pdk"] = None
+
+
 class Pdk(BaseModel):
     """Minimal shim for gdsfactory.pdk.Pdk. Holds enough state for
     MappedPDK to function."""
@@ -53,15 +57,29 @@ class Pdk(BaseModel):
     name: str
     layers: Optional[dict] = None
     default_decorator: Optional[Any] = None
-    grid_size: float = 0.001  # microns; matches gdsfactory default
+    grid_size: float = 0.001  # microns; corrected in activate() from precision
     gds_write_settings: _GdsWriteSettings = _GdsWriteSettings()
     cell_decorator_settings: _CellDecoratorSettings = _CellDecoratorSettings()
 
     def activate(self) -> None:
-        """No-op. gdsfactory's activate() registered the PDK in a global
-        registry; that registry is a gdsfactory concern and isn't needed
-        once gdsfactory is out of the import graph."""
-        return None
+        """Register this PDK as the active one.
+
+        gdsfactory kept a global registry so that helpers like snap_to_grid
+        could look up the process grid. Most of that registry is a gdsfactory
+        concern, but the grid is not: snapping to the wrong pitch puts every
+        vertex off-grid, and the DRC reports it on all of them.
+        """
+        # gdsfactory filled grid_size in from its PDK database here. Without
+        # that database the class default (1 nm) survives, and snapping a 5 nm
+        # process to 1 nm puts every vertex off-grid -- the DRC then flags
+        # comp, metal, contact and via alike. precision already carries the
+        # real pitch, so derive it rather than duplicating the number.
+        precision_um = float(self.gds_write_settings.precision) * 1e6
+        if precision_um > 0 and self.grid_size != precision_um:
+            object.__setattr__(self, "grid_size", precision_um)
+
+        global _ACTIVE_PDK
+        _ACTIVE_PDK = self
 
     def validate_layers(self, layers_required) -> None:
         """Mimics gdsfactory.pdk.Pdk.validate_layers — raise if any named
@@ -884,16 +902,23 @@ def Polygon(points, layer=(0, 0), datatype=None) -> gdstk.Polygon:
 # ---------------------------------------------------------------------------
 
 
-def snap_to_grid(x, nm: int = 1):
-    """Snap `x` (in micrometers) to an `nm`-nanometer grid.
+def snap_to_grid(x, nm: Optional[int] = None, grid_factor: int = 1):
+    """Snap `x` (in micrometers) to the active PDK's grid.
 
-    Matches gdsfactory.snap.snap_to_grid semantics used in this repo.
+    Mirrors gdsfactory.snap.snap_to_grid, which reads the grid from the active
+    PDK rather than assuming one: gf180 is on 5 nm, and snapping it to 1 nm
+    leaves every vertex off-grid (the DRC then flags comp, metal, contact and
+    via alike). `nm` overrides the lookup when a caller needs a specific pitch.
+
     Accepts scalars or iterables.
     """
     if x is None:
         return None
     if isinstance(x, (list, tuple)):
-        return type(x)(snap_to_grid(v, nm) for v in x)
+        return type(x)(snap_to_grid(v, nm, grid_factor) for v in x)
+    if nm is None:
+        grid_um = _ACTIVE_PDK.grid_size if _ACTIVE_PDK is not None else 0.001
+        nm = max(1, int(round(grid_um * 1000.0 * grid_factor)))
     return round(float(x) * 1000.0 / nm) * nm / 1000.0
 
 
