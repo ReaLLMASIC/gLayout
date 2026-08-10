@@ -267,6 +267,41 @@ def _as_layer(layer) -> Layer:
 # ---------------------------------------------------------------------------
 
 
+def _sort_ports_clockwise(ports: list) -> list:
+    """Order ports the way gdsfactory's select_ports() does.
+
+    select_ports defaults to clockwise=True, so ports come out bucketed by
+    orientation and swept west, north, east, south -- west sorted south to
+    north, north west to east, east north to south, south east to west.
+
+    The order is not cosmetic. Cells and notebooks pick ports out of
+    get_ports_list() by substring, e.g.
+
+        next(p for p in cap.get_ports_list() if "bottom_met" in p.name)
+
+    and a different order hands back a different port: on a 10x15 mimcap that
+    is array_row0_col0_bottom_met_W at (-4.250,-6.400) rather than
+    bottom_met_W at (-5.600,0.000), so the route lands somewhere else.
+    """
+    buckets = {"E": [], "N": [], "W": [], "S": []}
+    for p in ports:
+        angle = (p.orientation or 0) % 360
+        if angle <= 45 or angle >= 315:
+            buckets["E"].append(p)
+        elif 45 <= angle <= 135:
+            buckets["N"].append(p)
+        elif 135 <= angle <= 225:
+            buckets["W"].append(p)
+        else:
+            buckets["S"].append(p)
+
+    buckets["W"].sort(key=lambda p: +p.center[1])   # south to north
+    buckets["N"].sort(key=lambda p: +p.center[0])   # west to east
+    buckets["E"].sort(key=lambda p: -p.center[1])   # north to south
+    buckets["S"].sort(key=lambda p: -p.center[0])   # east to west
+    return buckets["W"] + buckets["N"] + buckets["E"] + buckets["S"]
+
+
 class ComponentReference:
     """Wraps a `gdstk.Reference`. Exposes transform mutation and transformed
     views of the parent component's ports/bbox."""
@@ -362,24 +397,37 @@ class ComponentReference:
         origin: Optional[Coord] = None,
         destination: Optional[Coord] = None,
     ) -> "ComponentReference":
-        """Move this reference. Two calling conventions:
-          - move((dx, dy))                    — translate by offset
-          - move(destination=(x, y))          — move so the ref's center lands at (x, y)
-          - move(origin=(x0, y0),
-                 destination=(x1, y1))        — translate by (x1-x0, y1-y0)
+        """Translate this reference by (destination - origin).
+
+        `origin` defaults to (0, 0), NOT to the reference's centre -- so
+        move(destination=(x, y)) is a plain translation by (x, y), the same as
+        move((x, y)). That is gdsfactory's signature, and the difference is not
+        academic: c_route places its extension rectangles with
+
+            e1_extension.move(destination=edge1.center)
+            e1_extension.movex(0 - evaluate_bbox(e1_extension)[0])
+
+        i.e. an absolute-looking call followed by relative nudges. Centring the
+        bbox on the destination instead injects an offset of half the
+        rectangle, and the route walks off: on the LIF neuron the met2 return
+        path ran to x=-8.125 instead of -1.250, widening the cell 8% and
+        raising 54 M2.2a violations that gdsfactory never produces.
+
+        Either endpoint may be a Port (or anything exposing `.center`), which
+        is how callers route to a port without unpacking it.
         """
-        if destination is None and origin is not None and not isinstance(origin, ComponentReference):
-            # single-arg form: treat as offset
-            return self.movex(origin[0]).movey(origin[1])
+        def _coord(v):
+            c = getattr(v, "center", None)
+            return (float(v[0]), float(v[1])) if c is None else (float(c[0]), float(c[1]))
+
         if destination is None:
-            return self
-        if origin is None:
-            # move by (destination - current center)
-            cx, cy = self.center
-            dx, dy = destination[0] - cx, destination[1] - cy
-        else:
-            dx, dy = destination[0] - origin[0], destination[1] - origin[1]
-        return self.movex(dx).movey(dy)
+            if origin is None:
+                return self
+            # single-arg form: move((dx, dy)) is a translation by that offset
+            destination, origin = origin, (0.0, 0.0)
+        ox, oy = _coord((0.0, 0.0) if origin is None else origin)
+        dx, dy = _coord(destination)
+        return self.movex(dx - ox).movey(dy - oy)
 
     def rotate(self, angle_deg: float, center: Coord = (0.0, 0.0)) -> "ComponentReference":
         # rotate the reference's placement about `center`
@@ -446,7 +494,7 @@ class ComponentReference:
                 if skip:
                     continue
             out.append(p)
-        return out
+        return _sort_ports_clockwise(out)
 
     @property
     def bbox(self) -> tuple[Coord, Coord]:
@@ -676,7 +724,7 @@ class Component:
                 out.append(p.copy(name=f"{prefix}{name}"))
             else:
                 out.append(p)
-        return out
+        return _sort_ports_clockwise(out)
 
     # --- geometry ---------------------------------------------------------
     def add_polygon(self, points, layer: Optional[Layer] = None) -> gdstk.Polygon:
