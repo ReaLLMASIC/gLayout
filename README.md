@@ -70,7 +70,7 @@ transistor.write_gds("transistor.gds")
 Every generator in Glayout is verified through a three-stage flow: physical
 verification (DRC), netlist equivalence (LVS), and electrical behavior
 (parasitic extraction followed by ngspice simulation). All three stages run
-automatically in CI — see [CI Flow](#ci-flow) below.
+automatically in CI.
 
 ### Running verification locally
 
@@ -110,18 +110,6 @@ matrix, from the latest run on `main`. Cells are driven by the testbenches in
 | `opamp` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ❌ Mismatch |
 
 <!-- END: VERIFICATION_MATRIX -->
-
-
-### Workflow status
-
-<!-- TODO: confirm workflow filenames, runtimes and matrix entries -->
-
-| Workflow | Trigger | Stages | PDK matrix | Status |
-|----------|---------|--------|------------|--------|
-| `ci.yml` | push, PR | install, lint, unit tests | — | [![CI](https://github.com/ReaLLMASIC/gLayout/actions/workflows/ci.yml/badge.svg)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/ci.yml) |
-| `drc_lvs.yml` | push, PR | GDS generation → DRC → LVS | sky130, gf180 | [![DRC / LVS](https://github.com/ReaLLMASIC/gLayout/actions/workflows/drc_lvs.yml/badge.svg)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/drc_lvs.yml) |
-| `sim.yml` | push, nightly | PEX → ngspice regression | sky130, gf180 | [![ngspice Simulation](https://github.com/ReaLLMASIC/gLayout/actions/workflows/sim.yml/badge.svg)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/sim.yml) |
-| `docs.yml` | push to `main` | build + deploy docs | — | [![Docs](https://github.com/ReaLLMASIC/gLayout/actions/workflows/docs.yml/badge.svg)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/docs.yml) |
 
 ### Latest run summary
 
