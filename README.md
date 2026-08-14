@@ -3,12 +3,9 @@
 A PDK-agnostic layout automation framework for analog circuit design.
 
 <!-- TODO: replace OWNER/REPO and workflow filenames with the real ones -->
-[![CI](https://github.com/ReaLLMASIC/gLayout/actions/workflows/ci.yml/badge.svg)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/ci.yml)
-[![DRC / LVS](https://github.com/ReaLLMASIC/gLayout/actions/workflows/drc_lvs.yml/badge.svg)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/drc_lvs.yml)
-[![ngspice Simulation](https://github.com/ReaLLMASIC/gLayout/actions/workflows/sim.yml/badge.svg)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/sim.yml)
-[![PyPI](https://img.shields.io/pypi/v/glayout.svg)](https://pypi.org/project/glayout/)
-[![Python](https://img.shields.io/pypi/pyversions/glayout.svg)](https://pypi.org/project/glayout/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ReaLLMASIC/gLayout/blob/main/LICENSE)
+[![LVS](https://github.com/ReaLLMASIC/gLayout/blob/main/.github/workflows/lvs.yml)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/lvs.yml)
+[![DRC](https://github.com/ReaLLMASIC/gLayout/blob/main/.github/workflows/drc.yml)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/drc.yml)
+[![ngspice Simulation](https://github.com/ReaLLMASIC/gLayout//blob/main/.github/workflows/ngspice.yml)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/ngspice.yml)
 
 ## Overview
 
@@ -138,8 +135,6 @@ matrix, from the latest run on `main`. Cells are driven by the testbenches in
 | LVS (Netgen) | ✅ 9 / 9 match | ❌ 8 / 9 match | 7m 21s |
 | PEX (Magic) | ✅ 34 / 34 | ✅ 30 / 31 | 11m 05s |
 | ngspice regression | ✅ 15 / 15 measurements | — not run | 14m 38s |
-
-_Commit `abc1234` · run [#412](https://github.com/ReaLLMASIC/gLayout/actions) · 2026-08-13_
 
 <!-- END: CI_SUMMARY -->
 
