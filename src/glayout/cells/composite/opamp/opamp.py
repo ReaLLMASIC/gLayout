@@ -223,7 +223,7 @@ def __add_output_stage(
     # Locate output stage relative position
     # x-coordinate: Center of SW capacitor in array
     # y-coordinate: Top of NMOS blocks
-    xref_port = opamp_top.ports["mimcap_row0_col0_bottom_met_S"]
+    xref_port = opamp_top.ports["mimcap_row0_col0_top_met_S"]
     x_cord = xref_port.center[0] - xref_port.width/2
     y_cord = opamp_top.ports["commonsource_cmirror_output_R_tie_N_top_met_N"].center[1]
     dims = evaluate_bbox(amp_fet_ref)

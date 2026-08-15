@@ -133,7 +133,8 @@ def __add_mimcap_arr(pdk: MappedPDK, opamp_top: Component, mim_cap_size, mim_cap
     intermediate_output = set_port_orientation(n_to_p_output_route.ports["con_S"],"N")
     # opamp_top << L_route(pdk, mimcaps_ref.ports["row0_col0_top_met_N"], intermediate_output, hwidth=1, hglayer="met4", vglayer="met4")
     # C route up right up to reach the mimcap port, extension is 
-    opamp_top << L_route(pdk, intermediate_output, mimcaps_ref.ports["row0_col0_bottom_met_E"], fullbottom=True, vglayer="met5", hglayer="met4") 
+    opamp_top << L_route(pdk, intermediate_output,
+                         mimcaps_ref.ports["row0_col0_top_met_E"], fullbottom=True, vglayer="met5", hglayer="met4") 
     opamp_top.add_ports(mimcaps_ref.get_ports_list(),prefix="mimcap_")
     # add the cs output as a port
     opamp_top.add_port(name="commonsource_output_E", port=intermediate_output)
