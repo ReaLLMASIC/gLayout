@@ -276,7 +276,7 @@ def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,floa
 			bl_mimcap = f"row{rownum}_col{colnum}_"
 			right_mimcap = f"row{rownum}_col{colnum+1}_"
 			top_mimcap = f"row{rownum+1}_col{colnum}_"
-			for level,layer in [("met5_","met5"),("top_met_",capmettop)]:
+			for level,layer in [("top_met_",capmettop)]:
 				bl_east_port = mimcap_arr.ports.get(bl_mimcap+level+"E")
 				r_west_port = mimcap_arr.ports.get(right_mimcap+level+"W")
 				bl_north_port = mimcap_arr.ports.get(bl_mimcap+level+"N")
