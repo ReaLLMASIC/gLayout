@@ -1,0 +1,50 @@
+/* Status colouring for the generated verification tables. The tokens are
+   emitted by sphinx/_ext/glayout_results.py; keep the class names in sync. */
+
+:root {
+  --gl-pass: #1a7f37;
+  --gl-fail: #cf222e;
+  --gl-warn: #9a6700;
+  --gl-skip: #6e7781;
+}
+
+body[data-theme="dark"] {
+  --gl-pass: #3fb950;
+  --gl-fail: #f85149;
+  --gl-warn: #d29922;
+  --gl-skip: #8b949e;
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme="light"]) {
+    --gl-pass: #3fb950;
+    --gl-fail: #f85149;
+    --gl-warn: #d29922;
+    --gl-skip: #8b949e;
+  }
+}
+
+.gl-pass { color: var(--gl-pass); font-weight: 600; white-space: nowrap; }
+.gl-fail { color: var(--gl-fail); font-weight: 600; white-space: nowrap; }
+.gl-warn { color: var(--gl-warn); font-weight: 600; white-space: nowrap; }
+.gl-skip { color: var(--gl-skip); white-space: nowrap; }
+
+/* The matrix is wide; let it use the full content width and shrink slightly
+   rather than scrolling horizontally on a laptop screen. */
+table.gl-matrix,
+table.gl-detail,
+table.gl-summary {
+  width: 100%;
+  font-size: 0.88rem;
+}
+
+table.gl-matrix th,
+table.gl-summary th {
+  font-size: 0.82rem;
+}
+
+p.gl-provenance {
+  font-size: 0.85rem;
+  color: var(--gl-skip);
+  margin-top: -0.5rem;
+}

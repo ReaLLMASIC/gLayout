@@ -282,3 +282,19 @@ tutorial/*.lyrdb
 tutorial/fvf.gds
 tutorial/out.gds
 tutorial/out.svg
+
+# Docs build output
+_site/
+_artifacts/
+# Leading slash anchors these to the repo root, so they do not also match the
+# committed sample data under sphinx/data/sample/.
+/drc_results/
+/lvs_results/
+/sim_results/
+sphinx/api_modules.rst
+sphinx/_autosummary/
+*.raw
+*.lyrdb
+
+# The committed sample data is not runner output.
+!sphinx/data/sample/**

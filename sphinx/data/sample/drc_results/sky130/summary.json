@@ -1,0 +1,64 @@
+{
+  "pdk": "sky130",
+  "total": 9,
+  "pass": 9,
+  "fail": 0,
+  "error": 0,
+  "skip": 0,
+  "results": [
+    {
+      "cell": "current_mirror_nfet",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "current_mirror_pfet",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "diff_pair",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "diff_pair_ibias",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "flipped_voltage_follower",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "low_voltage_cmirror",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "transmission_gate",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "opamp",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    },
+    {
+      "cell": "diffpair_cmirror_bias",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "drc clean"
+    }
+  ]
+}

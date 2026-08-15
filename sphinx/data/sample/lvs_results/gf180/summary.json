@@ -1,0 +1,64 @@
+{
+  "pdk": "gf180",
+  "total": 9,
+  "pass": 8,
+  "fail": 1,
+  "error": 0,
+  "skip": 0,
+  "results": [
+    {
+      "cell": "current_mirror_nfet",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    },
+    {
+      "cell": "current_mirror_pfet",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    },
+    {
+      "cell": "diff_pair",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    },
+    {
+      "cell": "diff_pair_ibias",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    },
+    {
+      "cell": "flipped_voltage_follower",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    },
+    {
+      "cell": "low_voltage_cmirror",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    },
+    {
+      "cell": "transmission_gate",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    },
+    {
+      "cell": "opamp",
+      "pdk": "gf180",
+      "status": "fail",
+      "message": "net mismatch: 1 net"
+    },
+    {
+      "cell": "diffpair_cmirror_bias",
+      "pdk": "gf180",
+      "status": "pass",
+      "message": "lvs match"
+    }
+  ]
+}
