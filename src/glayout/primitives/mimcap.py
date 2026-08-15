@@ -1,7 +1,7 @@
 from glayout.backend import Component, cell, rectangle
 from glayout.pdk.mappedpdk import MappedPDK
 from typing import Optional
-from glayout.primitives.via_gen import via_array
+from glayout.primitives.via_gen import via_array, via_stack
 from glayout.util.comp_utils import prec_array, to_decimal, to_float, evaluate_bbox, align_comp_to_port
 from glayout.util.port_utils import rename_ports_by_orientation, add_ports_perimeter, print_ports
 from pydantic import validate_arguments
@@ -144,37 +144,38 @@ def mimcap(
     )
     
     # 4. Add FuseTop layer - required for both options (defines the MIM area)
-    fusetop_comp = rectangle(
-        size=size, 
-        layer=pdk.layers["fusetop"], 
-        centered=True
-    )
-    
-    # Add ports to FuseTop for alignment purposes
-    fusetop_comp = add_ports_perimeter(fusetop_comp, layer=pdk.layers["fusetop"], prefix="fusetop_")
-    
-    # Add the FuseTop component to the main component
-    fusetop_ref = mim_cap << fusetop_comp
-    
-    # 5. Add option-specific layers
-    if option == "B":
-        # Option B specific: Add MIM_L_MK layer (marks the capacitor length)
-        # MIM_L_MK should have height of 0.1um and denote the length of the capacitor
-        mim_l_mk_size = (
-            size[0],  # x = length of capacitor (same as FuseTop)
-            0.1       # y = 0.1um height as specified
-        )
-        
-        mim_l_mk_ref = mim_cap << rectangle(
-            size=mim_l_mk_size,
-            layer=pdk.layers["MIM_L_MK"],
+    if (pdk=="gf180"):
+        fusetop_comp = rectangle(
+            size=size, 
+            layer=pdk.layers["fusetop"], 
             centered=True
         )
+    
+        # Add ports to FuseTop for alignment purposes
+        fusetop_comp = add_ports_perimeter(fusetop_comp, layer=pdk.layers["fusetop"], prefix="fusetop_")
         
-        # Align MIM_L_MK to the south border of the MIM capacitor
-        # MIM_L_MK center aligned horizontally, top edge aligned to MIM cap south edge
-        align_comp_to_port(mim_l_mk_ref, fusetop_ref.ports["fusetop_S"], alignment=('c', 't'))
-    # Option A: Only needs FuseTop, CAP_MK, and metal layers (no MIM_L_MK)
+        # Add the FuseTop component to the main component
+        fusetop_ref = mim_cap << fusetop_comp
+    
+        # 5. Add option-specific layers
+        if option == "B":
+            # Option B specific: Add MIM_L_MK layer (marks the capacitor length)
+            # MIM_L_MK should have height of 0.1um and denote the length of the capacitor
+            mim_l_mk_size = (
+                size[0],  # x = length of capacitor (same as FuseTop)
+                0.1       # y = 0.1um height as specified
+            )
+            
+            mim_l_mk_ref = mim_cap << rectangle(
+                size=mim_l_mk_size,
+                layer=pdk.layers["MIM_L_MK"],
+                centered=True
+            )
+            
+            # Align MIM_L_MK to the south border of the MIM capacitor
+            # MIM_L_MK center aligned horizontally, top edge aligned to MIM cap south edge
+            align_comp_to_port(mim_l_mk_ref, fusetop_ref.ports["fusetop_S"], alignment=('c', 't'))
+        # Option A: Only needs FuseTop, CAP_MK, and metal layers (no MIM_L_MK)
     
     # 6. Add bottom metal extensions and via connections to metal5
     # Use the provided extension parameters
@@ -191,8 +192,10 @@ def mimcap(
     # Create extensions on all four sides
     extensions = []
     
-    extension_width = 2*half_width 
-    extension_length =  0.4 # 0.4um length of the extensions
+    viastack = via_stack(pdk, capmetbottom, capmettop)
+    viadim = evaluate_bbox(viastack)[0]
+    extension_width = 2*half_width
+    extension_length = max(0.4, float(viadim))  # 0.4um length of the extensions
     # South extension  
     south_ext_size = (extension_width, extension_length)
     south_ext_pos = (bottom_plate_center[0], bottom_plate_center[1] - half_height - extension_length/2)
@@ -203,41 +206,6 @@ def mimcap(
     )
     south_ext.move(south_ext_pos)
     extensions.append(("S", south_ext, south_ext_size))
-    
-    """
-    # North extension
-    north_ext_size = (extension_width, extension_length)
-    north_ext_pos = (bottom_plate_center[0], bottom_plate_center[1] + half_height + extension_length/2)
-    north_ext = mim_cap << rectangle(
-        size=north_ext_size,
-        layer=pdk.get_glayer(capmetbottom),
-        centered=True
-    )
-    north_ext.move(north_ext_pos)
-    extensions.append(("N", north_ext, north_ext_size))
-
-    # East extension
-    east_ext_size = (extension_length, extension_width)
-    east_ext_pos = (bottom_plate_center[0] + half_width + extension_length/2, bottom_plate_center[1])
-    east_ext = mim_cap << rectangle(
-        size=east_ext_size,
-        layer=pdk.get_glayer(capmetbottom),
-        centered=True
-    )
-    east_ext.move(east_ext_pos)
-    extensions.append(("E", east_ext, east_ext_size))
-    
-    # West extension
-    west_ext_size = (extension_length, extension_width)
-    west_ext_pos = (bottom_plate_center[0] - half_width - extension_length/2, bottom_plate_center[1])
-    west_ext = mim_cap << rectangle(
-        size=west_ext_size,
-        layer=pdk.get_glayer(capmetbottom),
-        centered=True
-    )
-    west_ext.move(west_ext_pos)
-    extensions.append(("W", west_ext, west_ext_size))
-    """
     
     # 7. Add via arrays from extensions to metal5
     via_refs = []
@@ -257,8 +225,8 @@ def mimcap(
     
     # 8. Create ports on metal5 instead of bottom metal
     # Add ports to the via arrays (which have metal5 on top)
-    for direction, via_ref in via_refs:
-        mim_cap.add_ports(via_ref.get_ports_list())
+    #for direction, via_ref in via_refs:
+    #    mim_cap.add_ports(via_ref.get_ports_list())
     
     # Add top metal ports (unchanged)
     mim_cap.add_ports(top_met_ref.get_ports_list())
