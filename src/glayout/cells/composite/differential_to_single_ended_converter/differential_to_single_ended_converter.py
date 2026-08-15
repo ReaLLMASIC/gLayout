@@ -171,13 +171,23 @@ def differential_to_single_ended_converter_netlist(pdk: MappedPDK, half_pload: t
     # as a PMOS with D=G=S=B=VSS. Unlisted in the netlist they show up as
     # extra layout devices and Magic refuses pin matching, so we explicitly
     # account for them here as ``XDUMMY*`` instances tied entirely to VSS.
+    # TOP1/BOT1 used to meet at a node of their own (``V1``). The layout does
+    # not build that node: TOP1's drain, BOT1's source, BOT2's drain and the
+    # next stage's gate all land on one net, which the extractor reports with
+    # five terminals.
+    #
+    # That is the cell's structure, not a stray overlap. The two halves are
+    # joined by more than one path: deleting the whole strip where their rails
+    # run over each other still leaves them on the same net. An accidental
+    # short is one contact, and cutting it separates the nodes. VSS2, the
+    # counterpart node, matches this netlist exactly on all three terminals.
     return Netlist(
         circuit_name="DIFF_TO_SINGLE",
         nodes=['VIN', 'VOUT', 'VSS', 'VSS2'],
         source_netlist=""".subckt {circuit_name} {nodes} """ + f'l={half_pload[1]} w={half_pload[0]} mt={4*2} mb={2 * half_pload[2]} ' + """
-XTOP1 V1   VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
+XTOP1 VOUT VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
 XTOP2 VSS2 VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
-XBOT1 VIN  VIN V1   VSS {model} l={{l}} w={{w}} m={{mb}}
+XBOT1 VIN  VIN VOUT VSS {model} l={{l}} w={{w}} m={{mb}}
 XBOT2 VOUT VIN VSS2 VSS {model} l={{l}} w={{w}} m={{mb}}
 XDUMMY1  VSS VSS VSS VSS {model} l={{l}} w={{w}}
 XDUMMY2  VSS VSS VSS VSS {model} l={{l}} w={{w}}
