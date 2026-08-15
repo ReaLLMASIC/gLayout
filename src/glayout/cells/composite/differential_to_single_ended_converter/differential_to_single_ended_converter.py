@@ -100,8 +100,20 @@ def __route_sharedgatecomps(pdk: MappedPDK, shared_gate_comps, via_location, pto
     # between i=1/i=2 (gf180 DF.3a min comp space = 0.28um). All four are
     # PCOMP-outside-nwell at the same psub potential, so the rule allows
     # butting them — fill the gap with comp on the active_diff layer.
-    shared_gate_comps << route_quad(LRplusdopedPorts[1], LRplusdopedPorts[2], layer=pdk.get_glayer("active_diff"))
-    shared_gate_comps << route_quad(LRplusdopedPorts[5], LRplusdopedPorts[6], layer=pdk.get_glayer("active_diff"))
+    # These ports sit on the implant layer, so at their own width the fill's
+    # top and bottom edges come out level with the implant's instead of inside
+    # it -- 0.01um of extension where PP.5b/PP.5dii ask for 0.16. Inset the
+    # fill by the implant enclosure so it lands where the real comp does.
+    _pp_enclosure = pdk.get_grule("p+s/d", "active_diff")["min_enclosure"]
+    _comp_min_w = pdk.get_grule("active_diff")["min_width"]
+
+    def _inset_to_comp(port):
+        narrowed = port.copy()
+        narrowed.width = max(port.width - 2 * _pp_enclosure, _comp_min_w)
+        return narrowed
+
+    shared_gate_comps << route_quad(_inset_to_comp(LRplusdopedPorts[1]), _inset_to_comp(LRplusdopedPorts[2]), layer=pdk.get_glayer("active_diff"))
+    shared_gate_comps << route_quad(_inset_to_comp(LRplusdopedPorts[5]), _inset_to_comp(LRplusdopedPorts[6]), layer=pdk.get_glayer("active_diff"))
     # connect drain of the left 2 and right 2, short sources of all 4
     shared_gate_comps << route_quad(LRdrainsPorts[0],LRdrainsPorts[3],layer=LRdrainsPorts[0].layer)
     shared_gate_comps << route_quad(LRdrainsPorts[4],LRdrainsPorts[7],layer=LRdrainsPorts[0].layer)
