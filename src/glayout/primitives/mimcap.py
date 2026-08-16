@@ -334,7 +334,14 @@ def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,floa
                         extension_width=extension_width,
                         extension_length=extension_length,
                         with_extension=False)
-	mimcap_space = pdk.get_grule("capmet")["min_separation"] #+ evaluate_bbox(mimcap_single)[0]
+	try:
+		bottom_met_enclosure = pdk.get_grule(capmetbottom, "capmet")["min_enclosure"]
+	except (KeyError, NotImplementedError):
+		bottom_met_enclosure = 0.6  # Default fallback
+
+	mimcap_space = max(float(pdk.get_grule(capmettop)["min_separation"])
+                    - 2*float(bottom_met_enclosure),
+                    pdk.get_grule("capmet")["min_separation"]) #+ evaluate_bbox(mimcap_single)[0]
 	array_ref = mimcap_arr << prec_array(mimcap_single, rows, columns, spacing=2*[mimcap_space])
 	mimcap_arr.add_ports(array_ref.get_ports_list())
 	# create a list of ports that should be routed to connect the array
@@ -369,8 +376,9 @@ def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,floa
 	xmin, ymin = float(arr_bbox[0][0]) - pad, float(arr_bbox[0][1]) - pad
 	xmax, ymax = float(arr_bbox[1][0]) + pad, float(arr_bbox[1][1]) + pad
 	plate = Component()
-	#for level_layer in (capmettop, capmetbottom):
-	plate.add_polygon([(xmin,ymin),(xmax,ymin),(xmax,ymax),(xmin,ymax)], layer=pdk.get_glayer(capmetbottom))
+	for level_layer in (capmettop, capmetbottom):
+		plate.add_polygon([(xmin,ymin),(xmax,ymin),(xmax,ymax),(xmin,ymax)],
+                    layer=pdk.get_glayer(level_layer))
 	mimcap_arr << plate
 
 	# add netlist
