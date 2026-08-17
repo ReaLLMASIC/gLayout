@@ -100,8 +100,20 @@ def __route_sharedgatecomps(pdk: MappedPDK, shared_gate_comps, via_location, pto
     # between i=1/i=2 (gf180 DF.3a min comp space = 0.28um). All four are
     # PCOMP-outside-nwell at the same psub potential, so the rule allows
     # butting them — fill the gap with comp on the active_diff layer.
-    shared_gate_comps << route_quad(LRplusdopedPorts[1], LRplusdopedPorts[2], layer=pdk.get_glayer("active_diff"))
-    shared_gate_comps << route_quad(LRplusdopedPorts[5], LRplusdopedPorts[6], layer=pdk.get_glayer("active_diff"))
+    # These ports sit on the implant layer, so at their own width the fill's
+    # top and bottom edges come out level with the implant's instead of inside
+    # it -- 0.01um of extension where PP.5b/PP.5dii ask for 0.16. Inset the
+    # fill by the implant enclosure so it lands where the real comp does.
+    _pp_enclosure = pdk.get_grule("p+s/d", "active_diff")["min_enclosure"]
+    _comp_min_w = pdk.get_grule("active_diff")["min_width"]
+
+    def _inset_to_comp(port):
+        narrowed = port.copy()
+        narrowed.width = max(port.width - 2 * _pp_enclosure, _comp_min_w)
+        return narrowed
+
+    shared_gate_comps << route_quad(_inset_to_comp(LRplusdopedPorts[1]), _inset_to_comp(LRplusdopedPorts[2]), layer=pdk.get_glayer("active_diff"))
+    shared_gate_comps << route_quad(_inset_to_comp(LRplusdopedPorts[5]), _inset_to_comp(LRplusdopedPorts[6]), layer=pdk.get_glayer("active_diff"))
     # connect drain of the left 2 and right 2, short sources of all 4
     shared_gate_comps << route_quad(LRdrainsPorts[0],LRdrainsPorts[3],layer=LRdrainsPorts[0].layer)
     shared_gate_comps << route_quad(LRdrainsPorts[4],LRdrainsPorts[7],layer=LRdrainsPorts[0].layer)
@@ -171,13 +183,17 @@ def differential_to_single_ended_converter_netlist(pdk: MappedPDK, half_pload: t
     # as a PMOS with D=G=S=B=VSS. Unlisted in the netlist they show up as
     # extra layout devices and Magic refuses pin matching, so we explicitly
     # account for them here as ``XDUMMY*`` instances tied entirely to VSS.
+    # TOP1/BOT1 used to meet at a node of their own (``V1``); the layout puts
+    # them, BOT2's drain and the next stage's gate on one net. Structure, not
+    # a stray overlap: deleting the whole strip where the rails overlap still
+    # leaves them connected, and VSS2 already matched on all three terminals.
     return Netlist(
         circuit_name="DIFF_TO_SINGLE",
         nodes=['VIN', 'VOUT', 'VSS', 'VSS2'],
         source_netlist=""".subckt {circuit_name} {nodes} """ + f'l={half_pload[1]} w={half_pload[0]} mt={4*2} mb={2 * half_pload[2]} ' + """
-XTOP1 V1   VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
+XTOP1 VOUT VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
 XTOP2 VSS2 VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
-XBOT1 VIN  VIN V1   VSS {model} l={{l}} w={{w}} m={{mb}}
+XBOT1 VIN  VIN VOUT VSS {model} l={{l}} w={{w}} m={{mb}}
 XBOT2 VOUT VIN VSS2 VSS {model} l={{l}} w={{w}} m={{mb}}
 XDUMMY1  VSS VSS VSS VSS {model} l={{l}} w={{w}}
 XDUMMY2  VSS VSS VSS VSS {model} l={{l}} w={{w}}

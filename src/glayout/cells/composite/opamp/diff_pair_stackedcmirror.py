@@ -17,6 +17,7 @@ from glayout.placement.two_transistor_interdigitized import two_nfet_interdigiti
 
 from glayout.cells.composite.diffpair_cmirror_bias import diff_pair_ibias
 from glayout.cells.composite.stacked_current_mirror import stacked_nfet_current_mirror
+from glayout.util.port_utils import no_pin_labels
 from glayout.cells.composite.differential_to_single_ended_converter import differential_to_single_ended_converter
 from glayout.cells.composite.opamp.row_csamplifier_diff_to_single_ended_converter import row_csamplifier_diff_to_single_ended_converter
 
@@ -24,7 +25,9 @@ from glayout.cells.composite.opamp.row_csamplifier_diff_to_single_ended_converte
 @validate_arguments
 def __add_diff_pair_and_bias(pdk: MappedPDK, toplevel_stacked: Component, half_diffpair_params: tuple[float, float, int], diffpair_bias: tuple[float, float, int], rmult: int, with_antenna_diode_on_diffinputs: int) -> Component:
     clear_cache()
-    diffpair_i_ref = diff_pair_ibias(pdk, half_diffpair_params, diffpair_bias, rmult, with_antenna_diode_on_diffinputs)
+    # Inside the opamp, diff_pair_ibias's pins are internal nets.
+    with no_pin_labels():
+        diffpair_i_ref = diff_pair_ibias(pdk, half_diffpair_params, diffpair_bias, rmult, with_antenna_diode_on_diffinputs)
     toplevel_stacked.add(diffpair_i_ref)
     toplevel_stacked.add_ports(diffpair_i_ref.get_ports_list(),prefix="diffpair_")
 
@@ -76,7 +79,10 @@ def __route_bottom_ncomps_except_drain_nbias(pdk: MappedPDK, toplevel_stacked: C
     # leaving a sliver gap that trips m2.2a. Stamp an m2 patch at each
     # corner that overlaps both polygons so they merge in DRC.
     if pdk.name.lower() == "gf180":
-        from gdsfactory.components.rectangle import rectangle as _rect
+        # use the backend's rectangle (already imported at module level), not
+        # gdsfactory's: importing it directly bypasses the backend abstraction
+        # and yields a component the active backend cannot reference.
+        _rect = rectangle
         _m2 = pdk.get_glayer("met2")
         # Use cmirror_ref_L's drain_E port (center.x is the inner edge of
         # cmirror_ref_L's leftmost drain column on m2; mirror for R) and

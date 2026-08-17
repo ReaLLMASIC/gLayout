@@ -122,18 +122,22 @@ def __add_mimcap_arr(pdk: MappedPDK, opamp_top: Component, mim_cap_size, mim_cap
     displace_fact = max(max_metalsep,pdk.get_grule("capmet")["min_separation"]) + 0.3 # Hack
     mimcaps_ref.movex(pdk.snap_to_2xgrid(opamp_top.xmax + displace_fact + mim_cap_size[0]/2))
     mimcaps_ref.movey(pdk.snap_to_2xgrid(ymin + mim_cap_size[1]/2))
-    # connect mimcap. Match OpenFASOC reference: use the cap plates' native
-    # routing layers — V2 (cap_metalbottom) is glayout met4, V1 (cap_metaltop)
-    # is glayout met5. The c_route to V2 lands on met4 and the L_route to V1
-    # lands on met5, so both via stacks contact the cap plates directly.
+    # connect mimcap. The routes have to land on the layers the cap plates are
+    # actually drawn on, and those come from the PDK: sky130 puts the MIM
+    # between met4 and met5, gf180's option A puts it between met2 and met3.
+    # Hardcoding met4/met5 left the whole array floating on gf180 -- the routes
+    # arrived two levels above the plates with no via3 to step down.
+    capmettop = pdk.layer_to_glayer(pdk.get_grule("capmet")["capmettop"])
+    capmetbottom = pdk.layer_to_glayer(pdk.get_grule("capmet")["capmetbottom"])
+    # the corridor layer has to stay clear of both plates
+    cglayer = "met4" if capmettop != "met4" else "met5"
     port1 = opamp_top.ports["pcomps_mimcap_connection_con_N"]
     port2 = mimcaps_ref.ports["row"+str(int(mim_cap_rows)-1)+"_col0_top_met_N"]
     cref2_extension = max_metalsep + opamp_top.ymax - max(port1.center[1], port2.center[1])
-    opamp_top << c_route(pdk,port1,port2, extension=cref2_extension, fullbottom=True, e1glayer="met3", e2glayer="met5", cglayer="met4", width2=5.0) # A Hack
+    opamp_top << c_route(pdk,port1,port2, extension=cref2_extension, fullbottom=True, e1glayer="met3", e2glayer=capmettop, cglayer=cglayer, width2=5.0) # A Hack
     intermediate_output = set_port_orientation(n_to_p_output_route.ports["con_S"],"N")
-    # opamp_top << L_route(pdk, mimcaps_ref.ports["row0_col0_top_met_N"], intermediate_output, hwidth=1, hglayer="met4", vglayer="met4")
-    # C route up right up to reach the mimcap port, extension is 
-    opamp_top << L_route(pdk, intermediate_output, mimcaps_ref.ports["row0_col0_bottom_met_E"], fullbottom=True, vglayer="met5", hglayer="met4") 
+    # C route up right up to reach the mimcap port, extension is
+    opamp_top << L_route(pdk, intermediate_output, mimcaps_ref.ports["row0_col0_bottom_met_E"], fullbottom=True, vglayer=cglayer, hglayer=capmetbottom)
     opamp_top.add_ports(mimcaps_ref.get_ports_list(),prefix="mimcap_")
     # add the cs output as a port
     opamp_top.add_port(name="commonsource_output_E", port=intermediate_output)

@@ -5,6 +5,7 @@ from glayout.primitives.fet import nmos, pmos, multiplier
 from glayout.cells.elementary.diff_pair import diff_pair
 from glayout.primitives.guardring import tapring
 from glayout.primitives.mimcap import mimcap_array, mimcap
+from glayout.routing.straight_route import straight_route
 from glayout.routing.L_route import L_route
 from glayout.routing.c_route import c_route
 from glayout.primitives.via_gen import via_stack, via_array
@@ -84,6 +85,18 @@ def row_csamplifier_diff_to_single_ended_converter(pdk: MappedPDK, diff_to_singl
         )
         halfMultp_ref = pmos_comps << halfMultp
         halfMultp_ref.movex(direction * abs(x_dim_center + halfMultp_ref.xmax+1))
+        # Well to the source potential. This cell's netlist declares B = S =
+        # VSS and __connect_cs_netlist assumes the welltie ring already does
+        # that, but extraction puts the ring on a net of its own and the
+        # output pfets end up with a floating well. The ring sits against the
+        # device and both ports are met2, so this is a straight run.
+        side = "W" if direction < 0 else "E"
+        far = "E" if direction < 0 else "W"
+        pmos_comps << straight_route(
+            pdk,
+            halfMultp_ref.ports["multiplier_0_source_" + side],
+            halfMultp_ref.ports["tie_" + side + "_top_met_" + far],
+        )
         label = "L_" if direction==-1 else "R_"
         # this special marker is used to rename these ports in the opamp to commonsource_Pamp_
         pmos_comps.add_ports(halfMultp_ref.get_ports_list(),prefix="halfpspecialmarker_"+label)

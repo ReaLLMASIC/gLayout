@@ -198,13 +198,9 @@ def diff_pair_ibias(
         viaoffset=None,
     )
     cmirror.add_ports(srcshort.get_ports_list(), prefix="purposegndports")
-    # Current mirror netlist. The dummies sit inside the composite's shared
-    # pwell/tap context, so both extractors report their G/S/D on the bulk
-    # net: klayout merges the interdigitized dummy fingers into one B-tied
-    # device, and magic absorbs them into the bulk during parallel-device
-    # merging. Keeping them tied to the bulk here matches what is extracted
-    # on both PDKs; declaring a separate floating net would add a net the
-    # layout does not have.
+    # Current mirror netlist. The dummies share the composite's pwell/tap
+    # context, so both extractors report their G/S/D on the bulk net. Tying
+    # them to it here matches that; a separate net would not exist in layout.
     cmirror.info['netlist'] = current_mirror_netlist(
         pdk,
         width=diffpair_bias[0],
@@ -278,6 +274,14 @@ def diff_pair_ibias(
         ("VSS",   "ibias_purposegndport",    "met4"),
         ("B",     "tap_N_top_met_S",         "met1"),
     ]
+    # These labels let the cell pass LVS on its own. Inside a composite the
+    # same nets are internal, so inheriting the labels extracts them as
+    # top-level pins the parent's schematic does not have -- that is what
+    # leaves the opamp with VDD1, VDD2, VN|VP, IBIAS and B to spare. Same
+    # switch diff_pair, current_mirror and fvf already honour.
+    import os as _os_pins
+    if _os_pins.environ.get("GLAYOUT_NO_PIN_LABELS"):
+        _pin_specs = []
     for _text, _portname, _glayer in _pin_specs:
         _port = diffpair_i_.ports[_portname]
         _alignment = _orient_to_align[round(_port.orientation) % 360]
