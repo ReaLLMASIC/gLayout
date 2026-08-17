@@ -54,6 +54,15 @@ def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float,
     poly_spacing = max(sd_viaxdim, poly_spacing)
     met1_minsep = pdk.get_grule("met1")["min_separation"]
     poly_spacing += met1_minsep if length < met1_minsep else 0
+    # On a dogbone the pads stand proud of the channel, so the gap between two
+    # of them is a notch in the diffusion and owes COMP-to-COMP spacing. Left
+    # alone it comes out at 0.26um against a 0.28um rule. Widening the gate
+    # pitch fixes it without touching the channel, so the device stays the
+    # width that was asked for and only grows along x.
+    if max(width, __comp_min_width(pdk)) > width:
+        pad_xdim = sd_viaxdim + 2 * pdk.get_grule("mcon", "active_diff")["min_enclosure"]
+        comp_space = pdk.get_grule("active_diff")["min_separation"]
+        poly_spacing = max(poly_spacing, pad_xdim + comp_space - length)
     # create a single finger
     finger = Component("finger")
     gate = finger << rectangle(size=(length, poly_height), layer=pdk.get_glayer("poly"), centered=True)
@@ -270,9 +279,12 @@ def multiplier(
              f"{pdk.name}; building a {min_width}um device instead")
     width = min_width if (width or min_width) <= min_width else width
     width = pdk.snap_to_2xgrid(width)
-    # Poly overhangs the channel, which is `width` tall -- the diffusion is
-    # wider only at the contacts, and the poly does not run over those.
-    poly_height = width + 2 * pdk.get_grule("poly", "active_diff")["overhang"]
+    # The end cap has to clear the *widest* diffusion the poly runs beside,
+    # which on a dogbone is the contact pad, not the channel. Sizing this on
+    # `width` alone leaves the poly 0.17um short at the pad corners and trips
+    # PL.4. Note this does not widen the device: electrical width is poly
+    # over COMP, and COMP is still `width` tall under the gate.
+    poly_height = max(width, __comp_min_width(pdk)) + 2 * pdk.get_grule("poly", "active_diff")["overhang"]
     # call finger array
     multiplier = __gen_fingers_macro(pdk, interfinger_rmult, fingers, length, width, poly_height, sdlayer, inter_finger_topmet)
     # route all drains/ gates/ sources
