@@ -12,6 +12,7 @@ from glayout.util.snap_to_grid import component_snap_to_grid
 from decimal import Decimal
 from glayout.routing.straight_route import straight_route
 from glayout.spice import Netlist
+from warnings import warn
 
 
 def __comp_min_width(pdk: MappedPDK) -> float:
@@ -80,12 +81,26 @@ def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float,
     # create diffusion and +doped region
     multiplier = rename_ports_by_orientation(centered_farray)
     diff_extra_enc = 2 * pdk.get_grule("mcon", "active_diff")["min_enclosure"]
-    # The diffusion cannot be as short as the channel if that leaves the
-    # contact without its CO.4 margin. Electrical width is set by the poly
-    # over the channel, not by the diffusion at the contacts.
+    # The channel is `width` tall; the diffusion only has to widen where a
+    # contact sits on it, so that CO.4's enclosure is met. Widening the whole
+    # strip instead would be simpler to draw and would silently build a wider
+    # device than the caller asked for -- a 0.22um request coming out as
+    # 0.36um, with no error to notice it by. Hence the dogbone: a narrow strip
+    # the full length, with a pad at each source/drain contact.
     comp_w = max(width, __comp_min_width(pdk))
-    diff_dims =(diff_extra_enc + evaluate_bbox(multiplier)[0], comp_w)
-    diff = multiplier << rectangle(size=diff_dims,layer=pdk.get_glayer("active_diff"),centered=True)
+    diff_len = diff_extra_enc + evaluate_bbox(multiplier)[0]
+    diff_dims = (diff_len, comp_w)
+    diff = multiplier << rectangle(size=(diff_len, width),
+                                   layer=pdk.get_glayer("active_diff"),
+                                   centered=True)
+    if comp_w > width:
+        pad_dims = (sd_viaxdim + diff_extra_enc, comp_w)
+        pitch = poly_spacing + length
+        for contact in range(fingers + 1):
+            pad = multiplier << rectangle(size=pad_dims,
+                                          layer=pdk.get_glayer("active_diff"),
+                                          centered=True)
+            pad.movex((contact - fingers / 2) * pitch)
     sd_diff_ovhg = pdk.get_grule(sdlayer, "active_diff")["min_enclosure"]
     sdlayer_dims = [dim + 2*sd_diff_ovhg for dim in diff_dims]
     sdlayer_ref = multiplier << rectangle(size=sdlayer_dims, layer=pdk.get_glayer(sdlayer),centered=True)
@@ -244,13 +259,20 @@ def multiplier(
     min_length = pdk.get_grule("poly")["min_width"]
     length = min_length if (length or min_length) <= min_length else length
     length = pdk.snap_to_2xgrid(length)
-    min_width = max(min_length, pdk.get_grule("active_diff")["min_width"])
+    # The floor on width is the diffusion's own min width -- 0.22um in gf180,
+    # matching the wmin the foundry pcell declares. It used to be max(that,
+    # min_length), but min_length is the poly's min width, which constrains
+    # the channel *length*: using it here confused two different dimensions
+    # and quietly turned a requested 0.22um device into a 0.28um one.
+    min_width = pdk.get_grule("active_diff")["min_width"]
+    if width and width < min_width:
+        warn(f"width {width}um is below the {min_width}um minimum for "
+             f"{pdk.name}; building a {min_width}um device instead")
     width = min_width if (width or min_width) <= min_width else width
     width = pdk.snap_to_2xgrid(width)
-    # Poly must overhang the COMP, and COMP may be wider than the channel
-    # (see __comp_min_width). Sizing this on 'width' alone leaves the poly
-    # short for narrow devices and trips PL.4_LV (poly2 end cap).
-    poly_height = max(width, __comp_min_width(pdk)) + 2 * pdk.get_grule("poly", "active_diff")["overhang"]
+    # Poly overhangs the channel, which is `width` tall -- the diffusion is
+    # wider only at the contacts, and the poly does not run over those.
+    poly_height = width + 2 * pdk.get_grule("poly", "active_diff")["overhang"]
     # call finger array
     multiplier = __gen_fingers_macro(pdk, interfinger_rmult, fingers, length, width, poly_height, sdlayer, inter_finger_topmet)
     # route all drains/ gates/ sources
