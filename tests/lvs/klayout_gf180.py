@@ -87,6 +87,7 @@ def _detect_substrate_name(spice_path: Path, top_cell: str) -> str:
 
 
 _GF180_PRIMITIVE_FETS = ("nfet_03v3", "pfet_03v3")
+_GF180_PRIMITIVE_CAPS = ("cap_mim_1f0fF", "cap_mim_1f5fF", "cap_mim_2f0fF")
 
 
 def _rewrite_x_to_m_for_primitives(cdl_text: str) -> str:
@@ -111,7 +112,18 @@ def _rewrite_x_to_m_for_primitives(cdl_text: str) -> str:
         rf"^X(\S+)(\s+\S+\s+\S+\s+\S+\s+\S+\s+(?:{fet_alt})\b)",
         re.MULTILINE,
     )
-    return pat.sub(r"M\1\2", cdl_text)
+    cdl_text = pat.sub(r"M\1\2", cdl_text)
+
+    # Same for the MIM caps, two terminals instead of four. They are real
+    # subcircuits in the PDK, so X is the correct SPICE prefix -- but the deck
+    # classifies capacitors by prefix too, and an X-prefix cap never becomes a
+    # device, leaving the extracted MIM with nothing to pair with.
+    cap_alt = "|".join(re.escape(m) for m in _GF180_PRIMITIVE_CAPS)
+    cap_pat = re.compile(
+        rf"^X(\S+)(\s+\S+\s+\S+\s+(?:{cap_alt})\b)",
+        re.MULTILINE,
+    )
+    return cap_pat.sub(r"C\1\2", cdl_text)
 
 
 def _stage_inputs(workdir: Path, cell: str, gds_src: Path, netlist_src: Path) -> Path:
@@ -175,6 +187,33 @@ def _classify_log(log: str) -> Dict[str, Any]:
     return {"is_pass": False, "conclusion": "LVS inconclusive"}
 
 
+# The PDK deck's option A connects the bottom plate to `metal2` instead of
+# `metal2_con`, the layer the connectivity graph is built from, and never
+# bridges via2_cap to metal3_con. Option B, right below it, has all three.
+# Both MIM plates float without this: 10 of the opamp's 19 mismatches.
+_MIM_A_BROKEN = """  connect(metal2, mim_virtual)
+  connect(fuse_cap, via2_cap)"""
+_MIM_A_FIXED = """  connect(metal2_con, mim_virtual)
+  connect(fuse_cap, via2_cap)
+  connect(via2_cap, metal3_con)"""
+
+
+def _deck_with_option_a_fixed(deck: Path, dest: Path) -> Path:
+    """Copy the PDK deck and repair its MIM option A branch.
+
+    Returns the deck untouched when it is already fixed or the text is not
+    recognised, so a different PDK version still runs.
+    """
+    connections = deck.parent / "rule_decks" / "mimcap_connections.lvs"
+    if not connections.is_file() or _MIM_A_BROKEN not in connections.read_text():
+        return deck
+
+    shutil.copytree(deck.parent, dest, dirs_exist_ok=True)
+    patched = dest / "rule_decks" / "mimcap_connections.lvs"
+    patched.write_text(patched.read_text().replace(_MIM_A_BROKEN, _MIM_A_FIXED))
+    return dest / deck.name
+
+
 def run_lvs_klayout_gf180(
     layout: str,
     design_name: str,
@@ -205,19 +244,43 @@ def run_lvs_klayout_gf180(
         spice_staged = _stage_inputs(tmpdir, design_name, layout_path, netlist_path)
         sub_name = _detect_substrate_name(spice_staged, design_name)
 
-        cmd = [
-            "python3", str(run_lvs),
-            f"--layout={layout_path}",
-            f"--netlist={spice_staged}",
-            "--variant=D",
-            f"--topcell={design_name}",
-            "--run_mode=flat",
-            "--combine",
-            "--schematic_simplify",
-            "--top_lvl_pins",
-            f"--lvs_sub={sub_name}",
-            f"--run_dir={tmpdir}",
-        ]
+        # The deck is called directly rather than through run_lvs.py, whose
+        # four presets are all wrong here: glayout draws the MIM on option A
+        # (met2 / FuseTop / met3) and routes up to met5, and no preset pairs
+        # option A with 5 metal levels. That combination is a real process --
+        # the DRM documents 1P5M (TM 6KA with MIM) -- and the deck accepts the
+        # options individually.
+        #
+        # GF180_LVS_DECK points at an already-fixed deck; otherwise the runner
+        # patches its own copy.
+        lvs_deck = Path(os.environ.get("GF180_LVS_DECK")
+                        or _deck_with_option_a_fixed(run_lvs.parent / "gf180mcu.lvs",
+                                                     tmpdir / "deck"))
+        sws = {
+            "input": str(layout_path),
+            "schematic": str(spice_staged),
+            "topcell": design_name,
+            "target_netlist": str(tmpdir / f"{design_name}.cir"),
+            "report": str(tmpdir / f"{design_name}.lvsdb"),
+            "mim_option": "A",
+            "metal_level": "5LM",
+            "metal_top": "11K",
+            "poly_res": "1k",
+            "mim_cap": "2",
+            "run_mode": "flat",
+            "combine": "true",
+            "schematic_simplify": "true",
+            "top_lvl_pins": "true",
+            # False by default in the deck, which numbers the nets instead of
+            # naming them and keeps the GDS labels out of the report.
+            # run_lvs.py sets it; calling the deck directly has to as well.
+            "spice_net_names": "true",
+            "lvs_sub": sub_name,
+            "thr": "2",
+        }
+        cmd = ["klayout", "-b", "-r", str(lvs_deck)]
+        for k, v in sws.items():
+            cmd += ["-rd", f"{k}={v}"]
         proc = subprocess.run(cmd, cwd=tmpdir, capture_output=True, text=True)
 
         # Even on klayout-exit-nonzero we want the log preserved for triage.

@@ -208,12 +208,16 @@ def main() -> int:
     )
     parser.add_argument(
         "--skip-cells",
-        default="differential_to_single_ended_converter",
+        default="differential_to_single_ended_converter,nmos_narrow,pmos_narrow",
         help=(
             "Comma-separated cell names to skip when --cells is not specified. "
             "Default skips differential_to_single_ended_converter (Magic mis-extracts "
             "its PMOS bulk; the cell can still be tested by passing --cells "
-            "differential_to_single_ended_converter)."
+            "differential_to_single_ended_converter) and nmos_narrow/pmos_narrow, "
+            "which are DRC regression cells for the dogbone diffusion: they are bare "
+            "primitives, their reference subckt is named after the device rather than "
+            "the cell, and LVS aborts with 'no schematic counterpart' instead of "
+            "reporting anything useful."
         ),
     )
     parser.add_argument(
