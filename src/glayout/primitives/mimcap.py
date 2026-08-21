@@ -1,8 +1,10 @@
+from os import rename
 from glayout.backend import Component, cell, rectangle
 from glayout.pdk.mappedpdk import MappedPDK
+from glayout.pdk.gf180_mapped import gf180_mapped_pdk as gf180
 from typing import Optional
-from glayout.primitives.via_gen import via_array
-from glayout.util.comp_utils import prec_array, to_decimal, to_float
+from glayout.primitives.via_gen import via_array, via_stack
+from glayout.util.comp_utils import prec_array, to_decimal, to_float, evaluate_bbox, align_comp_to_port
 from glayout.util.port_utils import rename_ports_by_orientation, add_ports_perimeter, print_ports
 from pydantic import validate_arguments
 from glayout.routing.straight_route import straight_route
@@ -51,30 +53,247 @@ def __generate_mimcap_array_netlist(mimcap_netlist: Netlist, num_caps: int) -> N
 
 #@cell
 def mimcap(
-    pdk: MappedPDK, size: tuple[float,float]=(5.0, 5.0)
+    pdk: MappedPDK, size: tuple[float,float]=(5.0, 5.0), option: str = "B",
+    with_extension: bool = True, extension_direction: str = "S",
+    extension_width: float = 0.0, extension_length: float = 0.0
 ) -> Component:
-    """create a mimcap
+    """create a MIM capacitor according to GF180MCU Option A or Option B
+    
+    MIM Option A structure (Metal3-Metal2 stack):
+    - FuseTop layer defines the top plate of MIM capacitor
+    - Metal3 forms the actual top plate 
+    - CAP_MK defines the dielectric layer
+    - Metal2 forms the bottom plate
+    - For 3 metal layer processes
+    
+    MIM Option B structure (Metal5-Metal4 stack):
+    - FuseTop layer defines the top plate area
+    - Metal5 (top metal) forms the actual top plate 
+    - CAP_MK defines the dielectric
+    - Metal4 (bottom metal) forms the bottom plate
+    - MIM_L_MK marks the capacitor's length dimension
+    - For 4+ metal layer processes
+    
     args:
     pdk=pdk to use
     size=tuple(float,float) size of cap
-    ****Note: size is the size of the capmet layer
+    option=str either "A" for Metal3-Metal2 or "B" for Metal5-Metal4 (default: "B")
+    with_extension=bool enable extension or not
+    extension_direction=str specify which direction to use for the extension
+    extension_width=float width of bottom plate extensions for via connections (default: 0.0um)
+    extension_length=float length of bottom plate extensions outside capacitor (default: 0.0um)
+    
     ports:
-    top_met_...all edges, this is the metal over the capmet
-    bottom_met_...all edges, this is the metal below capmet
+    top_met_...all edges, this is the top metal plate
+    met5_...all edges, this is the bottom metal plate connection through metal5 vias
     """
     size = pdk.snap_to_2xgrid(size)
-    # error checking and
-    capmettop, capmetbottom = __get_mimcap_layerconstruction_info(pdk)
-    # create top component
+    
+    # Validate option parameter - default to Option B if invalid
+    if option not in ["A", "B"]:
+        print(f"Warning: Invalid option '{option}'. Defaulting to Option B")
+        option = "B"
+    
+    # Minimum area check per MIMTM.8a (5*5 um2)
+    min_area = 25.0  # 5*5 um2
+    if size[0] * size[1] < min_area:
+        print(f"Warning: MIM cap area {size[0]*size[1]:.2f} um2 is below minimum {min_area} um2")
+    
+    # Maximum area check per MIMTM.8b (100*100 um2)
+    max_area = 10000.0  # 100*100 um2
+    if size[0] * size[1] > max_area:
+        raise ValueError(f"MIM cap area {size[0]*size[1]:.2f} um2 exceeds maximum {max_area} um2")
+    
+    # Set layer construction based on option
+    if option == "A":
+        # Option A: Metal3-Metal2 stack (for 3 metal layer processes)
+        capmettop = "met3"
+        capmetbottom = "met2"
+    else:  # option == "B"
+        # Option B: Metal5-Metal4 stack (for 4+ metal layer processes)
+        capmettop = "met5" 
+        capmetbottom = "met4"
+    
+    # Create main component
     mim_cap = Component()
-    mim_cap << rectangle(size=size, layer=pdk.get_glayer("capmet"), centered=True)
-    top_met_ref = mim_cap << via_array(
-        pdk, capmetbottom, capmettop, size=size, minus1=True, lay_bottom=False
+    
+    # 1. Create bottom metal plate with proper enclosure first
+    # Per design rules: Minimum bottom plate overlap of top plate = 0.6um
+    try:
+        bottom_met_enclosure = pdk.get_grule(capmetbottom, "capmet")["min_enclosure"]
+    except (KeyError, NotImplementedError):
+        bottom_met_enclosure = 0.6  # Default fallback
+    
+    bottom_met_enclosure = max(bottom_met_enclosure, 0.6)  # Ensure minimum 0.6um
+    bottom_plate_size = (size[0] + 2*bottom_met_enclosure, size[1] + 2*bottom_met_enclosure)
+    
+    bottom_met_ref = mim_cap << rectangle(
+        size=bottom_plate_size,
+        layer=pdk.get_glayer(capmetbottom),
+        centered=True
     )
-    bottom_met_enclosure = pdk.get_grule(capmetbottom,"capmet")["min_enclosure"]
-    mim_cap.add_padding(layers=(pdk.get_glayer(capmetbottom),),default=bottom_met_enclosure)
-    # flatten and create ports
-    mim_cap = add_ports_perimeter(mim_cap, layer=pdk.get_glayer(capmetbottom), prefix="bottom_met_")
+    
+    # 2. Create CAP_MK layer - dielectric layer (with 0.6um overhang to match KLayout generator)
+    cap_mk_overhang = 0.6  # 0.6um overhang on each side to match KLayout standard
+    cap_mk_size = (size[0] + 2*cap_mk_overhang, size[1] + 2*cap_mk_overhang)
+    cap_mk_ref = mim_cap << rectangle(
+        size=cap_mk_size, 
+        layer=pdk.get_glayer("capmet"), 
+        centered=True
+    )
+    
+    # 3. Create top metal plate with via connections
+    # Use minus1=False to get maximum via coverage like KLayout generator
+    top_met_ref = mim_cap << via_array(
+        pdk, capmetbottom, capmettop, size=size, minus1=False, lay_bottom=False
+    )
+    
+    # 4. Add FuseTop layer - required for both options (defines the MIM area)
+    if (pdk is gf180):
+        fusetop_comp = rectangle(
+            size=size, 
+            layer=pdk.layers["fusetop"], 
+            centered=True
+        )
+    
+        # Add ports to FuseTop for alignment purposes
+        fusetop_comp = add_ports_perimeter(fusetop_comp, layer=pdk.layers["fusetop"], prefix="fusetop_")
+        
+        # Add the FuseTop component to the main component
+        fusetop_ref = mim_cap << fusetop_comp
+    
+        # 5. Add option-specific layers
+        if option == "B":
+            # Option B specific: Add MIM_L_MK layer (marks the capacitor length)
+            # MIM_L_MK should have height of 0.1um and denote the length of the capacitor
+            mim_l_mk_size = (
+                size[0],  # x = length of capacitor (same as FuseTop)
+                0.1       # y = 0.1um height as specified
+            )
+            
+            mim_l_mk_ref = mim_cap << rectangle(
+                size=mim_l_mk_size,
+                layer=pdk.layers["MIM_L_MK"],
+                centered=True
+            )
+            
+            # Align MIM_L_MK to the south border of the MIM capacitor
+            # MIM_L_MK center aligned horizontally, top edge aligned to MIM cap south edge
+            align_comp_to_port(mim_l_mk_ref, fusetop_ref.ports["fusetop_S"], alignment=('c', 't'))
+        # Option A: Only needs FuseTop, CAP_MK, and metal layers (no MIM_L_MK)
+    
+    # 6. Add bottom metal extensions and via connections to metal5
+    # Use the provided extension parameters
+    
+    # Calculate positions for extensions on each side
+    # Get bottom plate dimensions [x-length, y-length]
+    bottom_plate_size = evaluate_bbox(bottom_met_ref)
+    bottom_plate_center = bottom_met_ref.center
+    
+    # Calculate edge positions from center and dimensions
+    half_width = bottom_plate_size[0] / 2
+    half_height = bottom_plate_size[1] / 2
+    
+    # Create extensions on the selected direction
+    if with_extension:
+        extensions = []
+        
+        viastack = via_stack(pdk, capmetbottom, capmettop)
+        viadim = evaluate_bbox(viastack)[0]
+
+        if extension_direction=="S":
+            extension_width = 2*half_width
+            extension_length = max(0.4, float(viadim))  # 0.4um length of the extensions
+            # South extension  
+            ext_size = (extension_width, extension_length)
+            ext_pos = (bottom_plate_center[0], bottom_plate_center[1] - half_height - extension_length/2)
+
+        elif extension_direction=="N":
+
+            extension_width = 2*half_width
+            extension_length = max(0.4, float(viadim))  # 0.4um length of the extensions
+            # North extension  
+            ext_size = (extension_width, extension_length)
+            ext_pos = (bottom_plate_center[0], bottom_plate_center[1] + half_height + extension_length/2)
+
+        elif extension_direction=="W":
+
+            extension_length = 2*half_height
+            extension_width = max(0.4, float(viadim))  # 0.4um length of the extensions
+            # North extension  
+            ext_size = (extension_width, extension_length)
+            ext_pos = (bottom_plate_center[0] - half_width - extension_width/2, bottom_plate_center[1])
+
+        elif extension_direction=="E":
+
+            extension_length = 2*half_height
+            extension_width = max(0.4, float(viadim))  # 0.4um length of the extensions
+            # North extension  
+            ext_size = (extension_width, extension_length)
+            ext_pos = (bottom_plate_center[0] + half_width + extension_width/2, bottom_plate_center[1])
+
+        else:
+            raise ValueError(f"extension_direction must be a valid value from"
+                             f" [S,N,W,E]. Received {extension_direction}.")
+
+        ext = mim_cap << rename_ports_by_orientation(rectangle(
+            size=ext_size,
+            layer=pdk.get_glayer(capmetbottom),
+            centered=True
+        ))
+        ext.move(ext_pos)
+
+        extensions.append((extension_direction, ext, ext_size))
+    
+        # 7. Add via arrays from extensions to capmettop
+        via_refs = []
+        for direction, ext_ref, ext_size in extensions:
+            # Create via array from bottom metal to capmettop
+            via_ref = mim_cap << via_array(
+                pdk, 
+                capmetbottom, 
+                capmettop, 
+                size=ext_size, 
+                # minus1=True,  # Use minus1=True for smaller extensions
+                lay_bottom=False
+            )
+            # Align via array to the extension
+            via_ref.move(ext_ref.center)
+            via_refs.append((direction, via_ref))
+    
+        # 8. Create ports on top_metal instead of bottom metal
+        # Add ports to the via arrays (which have metal5 on top)
+        for direction, via_ref in via_refs:
+            bottom_via_prefix=f"bot_via_{direction}_"
+            mim_cap.add_ports(via_ref.get_ports_list(),
+                              prefix=bottom_via_prefix)
+
+            target_port= ext.ports.get(direction)
+            cord_ref=int(1 if direction in ["S", "N"] else 0)
+            other_cord= int(not cord_ref)
+            min_via_distance=0
+            for via_port in via_ref.get_ports_list():
+
+                via_distance=abs(via_port.center[cord_ref] -
+                                 target_port.center[cord_ref])
+
+                if via_distance < min_via_distance:
+                    min_via_distance = via_distance
+
+            #Requires minimum distance according to MIM rule
+            if min_via_distance < 0.4:
+                appendix_size=[0.0,0.0]
+                appendix_size[cord_ref]=0.4-min_via_distance
+                appendix_size[other_cord]=ext_size[other_cord]
+                appendix=mim_cap << rectangle(size=appendix_size,
+                        layer=pdk.get_glayer(capmetbottom),
+                        centered=True
+                        )
+                appendix_pos=target_port.center
+                appendix_pos[cord_ref] = appendix_pos[cord_ref] + appendix_size[cord_ref]/2 if direction=="N" or direction=="E" else appendix_pos[cord_ref] - appendix_size[cord_ref]/2
+                appendix.move(appendix_pos)
+    
+    # Add top metal ports (unchanged)
     mim_cap.add_ports(top_met_ref.get_ports_list())
 
     component = rename_ports_by_orientation(mim_cap).flatten()
@@ -85,21 +304,44 @@ def mimcap(
     return component
 
 #@cell
-def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,float] = (5.0,5.0), rmult: Optional[int]=1) -> Component:
+def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,float] = (5.0,5.0), rmult: Optional[int]=1, option: str = "B", extension_width: float = 0.0, extension_length: float = 0.0) -> Component:
 	"""create mimcap array
 	args:
 	pdk to use
+	rows = number of rows
+	columns = number of columns  
 	size = tuple(float,float) size of a single cap
+	rmult = routing multiplier
+	option = "A" for Metal3-Metal2 or "B" for Metal5-Metal4 (default: "B")
+	extension_width = width of bottom plate extensions for via connections (default: 2.0um)
+	extension_length = length of bottom plate extensions outside capacitor (default: 1.0um)
 	****Note: size is the size of the capmet layer
 	ports:
 	cap_x_y_top_met_...all edges, this is the metal over the capmet in row x, col y
-	cap_x_y_bottom_met_...all edges, this is the metal below capmet in row x, col y
+	cap_x_y_met5_...all edges, this is the bottom metal connection through metal5 vias in row x, col y
 	"""
-	capmettop, capmetbottom = __get_mimcap_layerconstruction_info(pdk)
+	# Set layer construction based on option
+	if option == "A":
+		capmettop = "met3"
+		capmetbottom = "met2"
+	else:  # option == "B"
+		capmettop = "met5" 
+		capmetbottom = "met4"
+		
 	mimcap_arr = Component()
 	# create the mimcap array
-	mimcap_single = mimcap(pdk, size)
-	mimcap_space = pdk.get_grule("capmet")["min_separation"] #+ evaluate_bbox(mimcap_single)[0]
+	mimcap_single = mimcap(pdk, size, option=option,
+                        extension_width=extension_width,
+                        extension_length=extension_length,
+                        with_extension=False)
+	try:
+		bottom_met_enclosure = pdk.get_grule(capmetbottom, "capmet")["min_enclosure"]
+	except (KeyError, NotImplementedError):
+		bottom_met_enclosure = 0.6  # Default fallback
+
+	mimcap_space = max(float(pdk.get_grule(capmettop)["min_separation"])
+                    - 2*float(bottom_met_enclosure),
+                    pdk.get_grule("capmet")["min_separation"]) #+ evaluate_bbox(mimcap_single)[0]
 	array_ref = mimcap_arr << prec_array(mimcap_single, rows, columns, spacing=2*[mimcap_space])
 	mimcap_arr.add_ports(array_ref.get_ports_list())
 	# create a list of ports that should be routed to connect the array
@@ -109,7 +351,7 @@ def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,floa
 			bl_mimcap = f"row{rownum}_col{colnum}_"
 			right_mimcap = f"row{rownum}_col{colnum+1}_"
 			top_mimcap = f"row{rownum+1}_col{colnum}_"
-			for level,layer in [("bottom_met_",capmetbottom),("top_met_",capmettop)]:
+			for level,layer in [("top_met_",capmettop)]:
 				bl_east_port = mimcap_arr.ports.get(bl_mimcap+level+"E")
 				r_west_port = mimcap_arr.ports.get(right_mimcap+level+"W")
 				bl_north_port = mimcap_arr.ports.get(bl_mimcap+level+"N")
@@ -136,7 +378,7 @@ def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,floa
 	plate = Component()
 	for level_layer in (capmettop, capmetbottom):
 		plate.add_polygon([(xmin,ymin),(xmax,ymin),(xmax,ymax),(xmin,ymax)],
-		                  layer=pdk.get_glayer(level_layer))
+                    layer=pdk.get_glayer(level_layer))
 	mimcap_arr << plate
 
 	# add netlist
