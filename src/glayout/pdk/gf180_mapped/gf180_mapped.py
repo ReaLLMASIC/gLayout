@@ -133,7 +133,12 @@ gf180_mapped_pdk = MappedPDK(
 	models={
         'nfet': 'nfet_03v3',
 		'pfet': 'pfet_03v3',
-		'mimcap': 'mimcap_1p0fF'
+		# The PDK names these cap_mim_<density>fF: 1f0, 1f5 or 2f0.
+		# 'mimcap_1p0fF' does not exist -- prefix reversed, 'p' for 'f' --
+		# so the reference netlist named a model the LVS reader could not
+		# pair with the cap_mim_* it extracts, in every cell with a cap.
+		# Which density to use is a process decision, not the generator's.
+		'mimcap': 'cap_mim_2f0fF'
     },
     layers=LAYER,
     pdk_files=pdk_files,
