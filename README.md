@@ -2,28 +2,35 @@
 
 A PDK-agnostic layout automation framework for analog circuit design.
 
+<!-- TODO: replace OWNER/REPO and workflow filenames with the real ones -->
+[![LVS](https://github.com/ReaLLMASIC/gLayout/blob/main/.github/workflows/lvs.yml)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/lvs.yml)
+[![DRC](https://github.com/ReaLLMASIC/gLayout/blob/main/.github/workflows/drc.yml)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/drc.yml)
+[![ngspice Simulation](https://github.com/ReaLLMASIC/gLayout//blob/main/.github/workflows/ngspice.yml)](https://github.com/ReaLLMASIC/gLayout/actions/workflows/ngspice.yml)
+
 ## Overview
 
 Glayout is a powerful layout automation tool that generates DRC-clean circuit layouts for any technology implementing the Glayout framework. It is implemented as an easy-to-install Python package with all dependencies available on PyPI.
 
 Key features:
-- PDK-agnostic layout generation
-- Support for multiple technology nodes (sky130, gf180)
-- DRC-clean layout generation
-- Natural language processing for circuit design
-- Integration with Klayout for visualization and verification
+
+* PDK-agnostic layout generation
+* Support for multiple technology nodes (sky130, gf180)
+* DRC-clean layout generation
+* Natural language processing for circuit design
+* Integration with Klayout for visualization and verification
+* Automated DRC / LVS / PEX and ngspice regression in CI
 
 ## Installation
 
 ### Basic Installation
 
-```bash
+```
 pip install .
 ```
 
 ### Development Installation
 
-```bash
+```
 git clone https://github.com/your-username/glayout.git
 cd glayout
 pip install -e ".[dev]"
@@ -31,24 +38,24 @@ pip install -e ".[dev]"
 
 ### ML Features Installation
 
-```bash
+```
 pip install -e ".[ml]"
 ```
 
 ### LLM Features Installation
 
-```bash
+```
 pip install -e ".[llm]"
 ```
 
 ## Quick Start
 
 ```python
-from glayout import sky130, gf180, nmos ,pmos,via_stack
+from glayout import sky130, gf180, nmos, pmos, via_stack
 
 # Generate a via stack
-#met2 is the bottom layer. met3 is the top layer.
-via = via_stack(sky130, "met2", "met3", centered=True) 
+# met2 is the bottom layer. met3 is the top layer.
+via = via_stack(sky130, "met2", "met3", centered=True)
 
 # Generate a transistor
 transistor = nmos(sky130, width=1.0, length=0.15, fingers=2)
@@ -58,39 +65,123 @@ via.write_gds("via.gds")
 transistor.write_gds("transistor.gds")
 ```
 
-## Documentation
+## Verification
 
-For detailed documentation, please visit our [documentation site](https://glayout.readthedocs.io/).
+Every generator in Glayout is verified through a three-stage flow: physical
+verification (DRC), netlist equivalence (LVS), and electrical behavior
+(parasitic extraction followed by ngspice simulation). All three stages run
+automatically in CI.
+
+### Running verification locally
+
+```bash
+# Run the full DRC / LVS / ngspice flow for one cell
+python tests/sim/run_cell_sim.py --pdk sky130 --cell current_mirror_nfet
+
+# All cells in the regression matrix
+python tests/sim/run_cell_sim.py --pdk sky130 --all
+
+# Results land in lvs_results/ and sim_results/
+```
+
+> Requires `klayout`, `magic`, `netgen`, and `ngspice` on your `PATH`, plus
+> `PDK_ROOT` pointing at an installed sky130A / gf180mcuD PDK.
+
+### Verification Results
+
+Combined DRC / LVS / ngspice status for every generator in the regression
+matrix, from the latest run on `main`. Cells are driven by the testbenches in
+[`tests/sim/testbenches/`](tests/sim/testbenches) and the pass criteria in
+[`checks.json`](tests/sim/testbenches/checks.json).
+
+<!-- TODO: replace the values below with the numbers from your latest CI run -->
+<!-- BEGIN: VERIFICATION_MATRIX (auto-generated — do not edit by hand) -->
+
+| Cell | DRC<br/>sky130 | LVS<br/>sky130 | ngspice<br/>sky130 | DRC<br/>gf180 | LVS<br/>gf180 |
+|------|:---:|:---:|:---:|:---:|:---:|
+| `current_mirror_nfet` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `current_mirror_pfet` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `diff_pair` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `diff_pair_ibias` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `flipped_voltage_follower` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `low_voltage_cmirror` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `transmission_gate` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `diffpair_cmirror_bias` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ✅ Match |
+| `opamp` | ✅ Pass | ✅ Match | ✅ Within limit | ✅ Pass | ❌ Mismatch |
+
+<!-- END: VERIFICATION_MATRIX -->
+
+### Latest run summary
+
+<!-- BEGIN: CI_SUMMARY (auto-generated — do not edit by hand) -->
+
+| Stage | sky130 | gf180 | Runtime |
+|-------|--------|-------|---------|
+| Unit tests | ✅ 128 / 128 | ✅ 128 / 128 | 2m 14s |
+| GDS generation | ✅ 34 / 34 cells | ✅ 31 / 34 cells | 6m 02s |
+| DRC (KLayout) | ✅ 0 violations | ✅ 0 violations | 9m 47s |
+| LVS (Netgen) | ✅ 9 / 9 match | ❌ 8 / 9 match | 7m 21s |
+| PEX (Magic) | ✅ 34 / 34 | ✅ 30 / 31 | 11m 05s |
+| ngspice regression | ✅ 15 / 15 measurements | — not run | 14m 38s |
+
+<!-- END: CI_SUMMARY -->
+
+### Artifacts
+
+Each run uploads:
+
+* `gds/` — generated layouts for every cell in the matrix
+* `drc_reports/` — KLayout `.lyrdb` databases (open directly in KLayout)
+* `lvs_reports/` — Netgen comparison logs
+* `spice/` — extracted post-layout netlists
+* `sim_results/` — ngspice `.raw` waveforms, measurement logs, and
+  `results.json` (the source for the tables above)
+
+The three auto-generated blocks in this README are regenerated by
+`python -m glayout.ci.render_readme --results sim_results/results.json`, which
+rewrites only the content between the `BEGIN:` / `END:` markers — so hand-written
+sections are never clobbered.
 
 ## Features
 
 ### PDK Agnostic Layout
-- Generic layer mapping
-- Technology-independent design rules
-- Support for multiple PDKs (sky130, gf180)
+
+* Generic layer mapping
+* Technology-independent design rules
+* Support for multiple PDKs (sky130, gf180)
 
 ### Circuit Generators
-- Via stack generation
-- Transistor generation (NMOS/PMOS)
-- Guard ring generation
-- And more...
 
-### Natural Language Processing/Large Language Model Framework
-- Convert natural language descriptions to layouts
-- Support for standard components
-- Custom component definitions
+* Via stack generation
+* Transistor generation (NMOS/PMOS)
+* Guard ring generation
+* And more...
+
+### Natural Language Processing / Large Language Model Framework
+
+* Convert natural language descriptions to layouts
+* Support for standard components
+* Custom component definitions
 
 ### Supported Open Source PDKs
-- SkyWater [SKY-130A](https://skywater-pdk.readthedocs.io/en/main/)
-- GlobalFoundries [GF-180mcuD](https://gf180mcu-pdk.readthedocs.io/en/latest/)
+
+* SkyWater [SKY-130A](https://skywater-pdk.readthedocs.io/en/main/)
+* GlobalFoundries [GF-180mcuD](https://gf180mcu-pdk.readthedocs.io/en/latest/)
+
+## Documentation
+
+For detailed documentation, please visit our [documentation site](https://glayout.readthedocs.io/).
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](docs/contributor_guide.md) for details.
+We welcome contributions! Please see our [Contributing Guide](https://github.com/ReaLLMASIC/gLayout/blob/main/docs/contributor_guide.md) for details.
+
+New generators should ship with a testbench so they are picked up by the
+simulation matrix; see the contributor guide for the expected directory layout.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/ReaLLMASIC/gLayout/blob/main/LICENSE) file for details.
 
 ## Citation
 
@@ -115,4 +206,5 @@ If you use Glayout in your research, please cite our papers:
 ## Contact
 
 For questions and support, please contact:
-- Email: mehdi_saligane@brown.edu
+
+* Email: [mehdi_saligane@brown.edu](mailto:mehdi_saligane@brown.edu)

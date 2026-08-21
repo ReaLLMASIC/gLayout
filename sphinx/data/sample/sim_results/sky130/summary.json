@@ -1,0 +1,310 @@
+{
+  "pdk": "sky130",
+  "total": 9,
+  "pass": 9,
+  "fail": 0,
+  "error": 0,
+  "skip": 0,
+  "results": [
+    {
+      "cell": "current_mirror_nfet",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/current_mirror_nfet/current_mirror_nfet.deck.spice",
+      "log": "reports/sim/current_mirror_nfet/current_mirror_nfet.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "iout": 3.962e-06,
+          "vout_min": 0.34
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "iout",
+            "value": 3.962e-06,
+            "min": null,
+            "max": 4.2e-06,
+            "verdict": "PASS"
+          },
+          {
+            "name": "vout_min",
+            "value": 0.34,
+            "min": null,
+            "max": 0.4,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "current_mirror_pfet",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/current_mirror_pfet/current_mirror_pfet.deck.spice",
+      "log": "reports/sim/current_mirror_pfet/current_mirror_pfet.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "iout": 3.948e-06
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "iout",
+            "value": 3.948e-06,
+            "min": null,
+            "max": 4.2e-06,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "diff_pair",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/diff_pair/diff_pair.deck.spice",
+      "log": "reports/sim/diff_pair/diff_pair.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "gain_db": 25.8,
+          "tphl": 1.19e-09
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "gain_db",
+            "value": 25.8,
+            "min": 24.0,
+            "max": 28.0,
+            "verdict": "PASS"
+          },
+          {
+            "name": "tphl",
+            "value": 1.19e-09,
+            "min": null,
+            "max": 2e-09,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "diff_pair_ibias",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/diff_pair_ibias/diff_pair_ibias.deck.spice",
+      "log": "reports/sim/diff_pair_ibias/diff_pair_ibias.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "ibias": 1.96e-05
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "ibias",
+            "value": 1.96e-05,
+            "min": 1.8e-05,
+            "max": 2.2e-05,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "flipped_voltage_follower",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/flipped_voltage_follower/flipped_voltage_follower.deck.spice",
+      "log": "reports/sim/flipped_voltage_follower/flipped_voltage_follower.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "vout": 0.892
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "vout",
+            "value": 0.892,
+            "min": 0.85,
+            "max": 0.95,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "low_voltage_cmirror",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/low_voltage_cmirror/low_voltage_cmirror.deck.spice",
+      "log": "reports/sim/low_voltage_cmirror/low_voltage_cmirror.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "iout": 9.81e-06,
+          "v_headroom": 0.31
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "iout",
+            "value": 9.81e-06,
+            "min": 9.5e-06,
+            "max": 1.05e-05,
+            "verdict": "PASS"
+          },
+          {
+            "name": "v_headroom",
+            "value": 0.31,
+            "min": null,
+            "max": 0.35,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "transmission_gate",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/transmission_gate/transmission_gate.deck.spice",
+      "log": "reports/sim/transmission_gate/transmission_gate.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "tphl": 1.58e-10,
+          "tplh": 1.62e-10
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "tphl",
+            "value": 1.58e-10,
+            "min": null,
+            "max": 2e-10,
+            "verdict": "PASS"
+          },
+          {
+            "name": "tplh",
+            "value": 1.62e-10,
+            "min": null,
+            "max": 2e-10,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "opamp",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/opamp/opamp.deck.spice",
+      "log": "reports/sim/opamp/opamp.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "gain_db": 60.2,
+          "ugb": 11100000.0,
+          "phase_margin": 61.8
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "gain_db",
+            "value": 60.2,
+            "min": 55.0,
+            "max": null,
+            "verdict": "PASS"
+          },
+          {
+            "name": "ugb",
+            "value": 11100000.0,
+            "min": 8000000.0,
+            "max": null,
+            "verdict": "PASS"
+          },
+          {
+            "name": "phase_margin",
+            "value": 61.8,
+            "min": 55.0,
+            "max": null,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    },
+    {
+      "cell": "diffpair_cmirror_bias",
+      "pdk": "sky130",
+      "status": "pass",
+      "message": "sim passed",
+      "returncode": 0,
+      "deck": "reports/sim/diffpair_cmirror_bias/diffpair_cmirror_bias.deck.spice",
+      "log": "reports/sim/diffpair_cmirror_bias/diffpair_cmirror_bias.log",
+      "summary": {
+        "is_pass": true,
+        "conclusion": "sim passed",
+        "measures": {
+          "gain_db": 33.1
+        },
+        "failed_measures": [],
+        "check_violations": [],
+        "rows": [
+          {
+            "name": "gain_db",
+            "value": 33.1,
+            "min": 30.0,
+            "max": null,
+            "verdict": "PASS"
+          }
+        ],
+        "raw_tail": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>glayout — live verification status</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --fg: #1f2328;
+  --muted: #6e7781;
+  --border: #d0d7de;
+  --pass: #1a7f37;
+  --fail: #cf222e;
+  --warn: #9a6700;
+  --accent: #0969da;
+  --panel: #f6f8fa;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117;
+    --fg: #e6edf3;
+    --muted: #8b949e;
+    --border: #30363d;
+    --pass: #3fb950;
+    --fail: #f85149;
+    --warn: #d29922;
+    --accent: #58a6ff;
+    --panel: #161b22;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 2rem 1.25rem 4rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+main { max-width: 1000px; margin: 0 auto; }
+h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.25rem;
+  letter-spacing: 0.01em;
+}
+.sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.75rem; }
+.sub a { color: var(--accent); }
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.9rem 1.1rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+.dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--muted);
+}
+.dot.ok { background: var(--pass); }
+.dot.stale { background: var(--warn); }
+.dot.bad { background: var(--fail); }
+.headline { font-weight: 600; }
+.meta { color: var(--muted); font-size: 0.86rem; margin-left: auto; }
+.meta a { color: var(--accent); }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88em; }
+
+section { margin-bottom: 2.25rem; }
+h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+  margin: 0 0 0.9rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th, td {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+td.num { font-variant-numeric: tabular-nums; }
+.pass { color: var(--pass); font-weight: 600; }
+.fail { color: var(--fail); font-weight: 600; }
+.warn { color: var(--warn); font-weight: 600; }
+.skip { color: var(--muted); }
+
+.controls { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+button {
+  font: inherit;
+  font-size: 0.84rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); color: var(--accent); }
+.hint { color: var(--muted); font-size: 0.82rem; }
+.error {
+  border: 1px solid var(--fail);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  color: var(--fail);
+  font-size: 0.9rem;
+}
+.error code { color: var(--muted); }
+.wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>glayout — live verification status</h1>
+  <p class="sub">
+    Fetched from <code id="src">…</code> on load, so this reflects the latest
+    pipeline run rather than the last docs deploy.
+    <a href="../">Back to documentation</a>
+  </p>
+
+  <div id="bar" class="status-bar">
+    <span class="dot"></span>
+    <span class="headline">Loading…</span>
+  </div>
+
+  <div id="content"></div>
+
+  <section>
+    <div class="controls">
+      <button id="refresh">Refresh now</button>
+      <span class="hint">Auto-refreshes every 2 minutes while this tab is visible.</span>
+    </div>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var REFRESH_MS = 120000;
+  var STALE_HOURS = 48;
+  var STAGES = ["drc", "lvs", "sim"];
+  var STAGE_LABELS = { drc: "DRC", lvs: "LVS", sim: "ngspice" };
+
+  var STATUS = {
+    pass:  ["\u2705", "Pass",    "pass"],
+    fail:  ["\u274c", "Fail",    "fail"],
+    error: ["\uD83D\uDCA5", "Error", "fail"],
+    skip:  ["\u23ed\uFE0F", "Skipped", "skip"],
+    missing: ["\u2014", "Not run", "skip"]
+  };
+
+  var VERDICT = {
+    PASS:    ["\u2705", "PASS",    "pass"],
+    FAIL:    ["\u274c", "FAIL",    "fail"],
+    MISSING: ["\u26a0\uFE0F", "MISSING", "warn"],
+    "n/a":   ["\u2014", "no band", "skip"]
+  };
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function badge(map, key) {
+    var t = map[key] || map.missing || map["n/a"];
+    return '<span class="' + t[2] + '">' + t[0] + " " + t[1] + "</span>";
+  }
+
+  // Engineering formatting, matching run_cell_sim.py's _fmt_eng so a number
+  // here reads the same as in the runner's log.
+  function fmtEng(x) {
+    if (x === null || x === undefined) return "\u2014";
+    if (typeof x !== "number") return esc(x);
+    if (x === 0) return "0";
+    var ax = Math.abs(x);
+    var units = [["G",1e9],["M",1e6],["k",1e3],["",1],
+                 ["m",1e-3],["u",1e-6],["n",1e-9],["p",1e-12]];
+    for (var i = 0; i < units.length; i++) {
+      if (ax >= units[i][1]) {
+        return Number((x / units[i][1]).toPrecision(4)) + units[i][0];
+      }
+    }
+    return Number(x.toPrecision(4)).toString();
+  }
+
+  function fmtBand(row) {
+    if (row.min === null && row.max === null) return "\u2014";
+    return fmtEng(row.min) + " \u2026 " + fmtEng(row.max);
+  }
+
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html !== undefined) n.innerHTML = html;
+    return n;
+  }
+
+  function fmtAge(h) {
+    if (h === null) return "unknown age";
+    if (h < 1) return Math.round(h * 60) + " min ago";
+    if (h < 48) return Math.round(h) + " h ago";
+    return Math.round(h / 24) + " days ago";
+  }
+
+  // ---- rendering ---------------------------------------------------------
+
+  function cellsIn(store) {
+    var seen = {};
+    Object.keys(store).forEach(function (key) {
+      (store[key].results || []).forEach(function (r) {
+        if (r.cell) seen[r.cell] = true;
+      });
+    });
+    return Object.keys(seen).sort();
+  }
+
+  function matrixHTML(store, pdks) {
+    var cols = [];
+    pdks.forEach(function (pdk) {
+      STAGES.forEach(function (stage) {
+        if (store[stage + ":" + pdk]) {
+          cols.push({ stage: stage, pdk: pdk });
+        }
+      });
+    });
+    if (!cols.length) return "<p class='hint'>No runner output found.</p>";
+
+    var lookup = {};
+    cols.forEach(function (c) {
+      var key = c.stage + ":" + c.pdk;
+      var byCell = {};
+      (store[key].results || []).forEach(function (r) { byCell[r.cell] = r; });
+      lookup[key] = byCell;
+    });
+
+    var html = '<div class="wrap"><table><thead><tr><th>Cell</th>';
+    cols.forEach(function (c) {
+      html += "<th>" + STAGE_LABELS[c.stage] + " " + esc(c.pdk) + "</th>";
+    });
+    html += "</tr></thead><tbody>";
+
+    cellsIn(store).forEach(function (name) {
+      html += "<tr><td><code>" + esc(name) + "</code></td>";
+      cols.forEach(function (c) {
+        var rec = lookup[c.stage + ":" + c.pdk][name];
+        html += "<td>" + badge(STATUS, rec ? rec.status : "missing") + "</td>";
+      });
+      html += "</tr>";
+    });
+    return html + "</tbody></table></div>";
+  }
+
+  function detailHTML(store, pdk) {
+    var data = store["sim:" + pdk];
+    if (!data) return "<p class='hint'>No ngspice run recorded for " + esc(pdk) + ".</p>";
+
+    var rows = "";
+    (data.results || []).forEach(function (rec) {
+      var ms = (rec.summary && rec.summary.rows) || [];
+      if (!ms.length) {
+        if (rec.status === "fail" || rec.status === "error") {
+          var t = STATUS[rec.status];
+          rows += "<tr><td><code>" + esc(rec.cell) + "</code></td>" +
+                  "<td>\u2014</td><td>\u2014</td><td>\u2014</td>" +
+                  '<td><span class="' + t[2] + '">' + t[0] + " " +
+                  esc((rec.message || "").slice(0, 70)) + "</span></td></tr>";
+        }
+        return;
+      }
+      ms.forEach(function (m) {
+        rows += "<tr><td><code>" + esc(rec.cell) + "</code></td>" +
+                "<td><code>" + esc(m.name) + "</code></td>" +
+                '<td class="num">' + fmtEng(m.value) + "</td>" +
+                '<td class="num">' + fmtBand(m) + "</td>" +
+                "<td>" + badge(VERDICT, m.verdict) + "</td></tr>";
+      });
+    });
+
+    if (!rows) return "<p class='hint'>No measurements captured.</p>";
+    return '<div class="wrap"><table><thead><tr>' +
+      "<th>Cell</th><th>Measurement</th><th>Value</th><th>Limits</th><th>Result</th>" +
+      "</tr></thead><tbody>" + rows + "</tbody></table></div>";
+  }
+
+  function summaryHTML(store, pdks) {
+    var html = '<div class="wrap"><table><thead><tr><th>Stage</th>';
+    pdks.forEach(function (p) { html += "<th>" + esc(p) + "</th>"; });
+    html += "</tr></thead><tbody>";
+
+    var any = false;
+    STAGES.forEach(function (stage) {
+      var present = pdks.some(function (p) { return store[stage + ":" + p]; });
+      if (!present) return;
+      any = true;
+      html += "<tr><td>" + STAGE_LABELS[stage] + "</td>";
+      pdks.forEach(function (pdk) {
+        var d = store[stage + ":" + pdk];
+        if (!d) { html += "<td>" + badge(STATUS, "missing") + "</td>"; return; }
+        if (!d.total) {
+          html += '<td><span class="skip">\u2014 nothing to run</span></td>';
+          return;
+        }
+        var failed = (d.fail || 0) + (d.error || 0);
+        var cls = failed ? "fail" : "pass";
+        var sym = failed ? "\u274c" : "\u2705";
+        html += '<td><span class="' + cls + '">' + sym + " " +
+                (d.pass || 0) + "/" + d.total + "</span></td>";
+      });
+      html += "</tr>";
+    });
+    return any ? html + "</tbody></table></div>" : "";
+  }
+
+  function countFailures(store) {
+    var n = 0;
+    Object.keys(store).forEach(function (k) {
+      var d = store[k];
+      n += (d.fail || 0) + (d.error || 0);
+    });
+    return n;
+  }
+
+  function render(store, pdks, fetchedAt) {
+    var hours = (Date.now() - fetchedAt) / 3600000;
+    var failures = countFailures(store);
+
+    var dot = failures ? "bad" : "ok";
+    var headline = failures
+      ? failures + (failures === 1 ? " check failing" : " checks failing")
+      : "All checks passing";
+
+    var loaded = Object.keys(store).map(function (k) {
+      var parts = k.split(":");
+      return STAGE_LABELS[parts[0]] + " " + parts[1];
+    }).sort();
+
+    document.getElementById("bar").innerHTML =
+      '<span class="dot ' + dot + '"></span>' +
+      '<span class="headline">' + headline + "</span>" +
+      '<span class="meta">' + esc(loaded.join(" \u00b7 ")) + "</span>";
+
+    var html = "";
+    html += "<section><h2>Verification matrix</h2>" + matrixHTML(store, pdks) + "</section>";
+    html += "<section><h2>ngspice measurements</h2>" + detailHTML(store, pdks[0]) + "</section>";
+    var sum = summaryHTML(store, pdks);
+    if (sum) html += "<section><h2>Per-stage totals</h2>" + sum + "</section>";
+    document.getElementById("content").innerHTML = html;
+  }
+
+  function renderError(message, base) {
+    document.getElementById("bar").innerHTML =
+      '<span class="dot bad"></span><span class="headline">No results available</span>';
+    document.getElementById("content").innerHTML =
+      '<div class="error"><p>' + esc(message) + "</p>" +
+      "<p><code>" + esc(base) + "</code></p>" +
+      "<p>This is expected until a workflow publishes its " +
+      "<code>summary.json</code> files to the branch this page reads from. " +
+      "The build-time tables in the documentation remain valid as of the " +
+      "last deploy.</p></div>";
+  }
+
+  // ---- loading -----------------------------------------------------------
+
+  function load() {
+    var cfg = window.GLAYOUT_LIVE || {};
+    var base = cfg.resultsBase;
+    var pdks = cfg.pdks || ["sky130", "gf180"];
+    document.getElementById("src").textContent = base || "(unconfigured)";
+
+    if (!base) { renderError("No results base URL configured.", "config.js"); return; }
+    if (base.charAt(base.length - 1) !== "/") base += "/";
+
+    var jobs = [];
+    STAGES.forEach(function (stage) {
+      pdks.forEach(function (pdk) {
+        var url = base + stage + "_results/" + pdk + "/summary.json?t=" + Date.now();
+        jobs.push(
+          fetch(url, { cache: "no-store" })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (d) { return { key: stage + ":" + pdk, data: d }; })
+            .catch(function () { return { key: stage + ":" + pdk, data: null }; })
+        );
+      });
+    });
+
+    Promise.all(jobs).then(function (parts) {
+      var store = {};
+      parts.forEach(function (p) { if (p.data) store[p.key] = p.data; });
+      if (!Object.keys(store).length) {
+        renderError("No summary.json could be fetched.", base);
+        return;
+      }
+      render(store, pdks, Date.now());
+    });
+  }
+
+  document.getElementById("refresh").addEventListener("click", load);
+  setInterval(function () { if (!document.hidden) load(); }, REFRESH_MS);
+  load();
+})();
+</script>
+</body>
+</html>
