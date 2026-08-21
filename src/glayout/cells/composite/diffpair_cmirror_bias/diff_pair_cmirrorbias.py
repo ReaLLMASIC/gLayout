@@ -96,6 +96,7 @@ def diff_pair_ibias(
         fingers=half_diffpair_params[2],
         rmult=rmult,
         dum_net='B',
+        with_pin_labels=False,
     )
     # add antenna diodes if that option was specified
     diffpair_centered_ref = prec_ref_center(center_diffpair_comp)
@@ -201,16 +202,17 @@ def diff_pair_ibias(
     # cmirror dummies on a per-cell floating net. sky130 magic merges
     # the floating dummies into the bulk so the schematic must keep
     # them tied to VB or magic counts an extra net.
-    ## HACK: Note that this is a hack for magic LVS, and it's likely incorrect
-    ##       we probably want to fix it properly
-    _dummies_tied = (pdk.name.lower() == "sky130")
+    # Extraction shows the merged cmirror dummy as `B B B B` on gf180 too:
+    # with_tie=True draws a welltie ring that IS the bulk net, and the dummy
+    # contacts land on it. The old sky130-only condition described a difference
+    # that does not exist.
     cmirror.info['netlist'] = current_mirror_netlist(
         pdk,
         width=diffpair_bias[0],
         length=diffpair_bias[1],
         fingers=1,
         multipliers=diffpair_bias[2],
-        dummies_tied_to_bulk=_dummies_tied,
+        dummies_tied_to_bulk=True,
     )
 
     # add cmirror — bump y-offset enough that the LVPWELL paddings of the
