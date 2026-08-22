@@ -287,6 +287,7 @@ def run_lvs_klayout_gf180(
     netlist: str,
     output_file_path: str,
     pdk_root: Optional[str] = None,
+    mim_option: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Run gf180mcu klayout LVS for one cell.
 
@@ -295,6 +296,12 @@ def run_lvs_klayout_gf180(
     verbatim — `_parse_lvs_report` recognises the "Netlists match" /
     "Netlists do not match" lines), and stashes the extracted .cir, .lvsdb,
     and lvs_run_*.log alongside it for inspection.
+
+    ``mim_option`` selects the MIM stack the deck extracts: "A" (met2 /
+    FuseTop / met3) or "B" (met4 / FuseTop / met5). The two are mutually
+    exclusive at process level, so the wrong one extracts no capacitor at all
+    and every MIM shows up as missing from the layout. Defaults to
+    ``$GF180_MIM_OPTION``, then to "A".
     """
     layout_path = Path(layout)
     netlist_path = Path(netlist)
@@ -303,6 +310,9 @@ def run_lvs_klayout_gf180(
     rpt_dir.mkdir(parents=True, exist_ok=True)
 
     pdk_root = pdk_root or os.environ.get("PDK_ROOT", "/foss/pdks")
+    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "A").upper()
+    if mim_option not in ("A", "B"):
+        raise ValueError(f"mim_option must be 'A' or 'B', got {mim_option!r}")
     deck_dir = _resolve_deck_dir(pdk_root)
     run_lvs = deck_dir / "run_lvs.py"
 
@@ -312,24 +322,26 @@ def run_lvs_klayout_gf180(
         sub_name = _detect_substrate_name(spice_staged, design_name)
 
         # The deck is called directly rather than through run_lvs.py, whose
-        # four presets are all wrong here: glayout draws the MIM on option A
-        # (met2 / FuseTop / met3) and routes up to met5, and no preset pairs
-        # option A with 5 metal levels. That combination is a real process --
-        # the DRM documents 1P5M (TM 6KA with MIM) -- and the deck accepts the
-        # options individually.
+        # four presets are all wrong here: a cell can draw its MIM on option A
+        # (met2 / FuseTop / met3) and still route up to met5, and no preset
+        # pairs option A with 5 metal levels. That combination is a real
+        # process -- the DRM documents 1P5M (TM 6KA with MIM) -- and the deck
+        # accepts the options individually.
         #
         # GF180_LVS_DECK points at an already-fixed deck; otherwise the runner
-        # patches its own copy.
+        # patches its own copy. Only option A needs the patch; the deck's
+        # option B branch already connects all three plates.
+        deck_src = run_lvs.parent / "gf180mcu.lvs"
         lvs_deck = Path(os.environ.get("GF180_LVS_DECK")
-                        or _deck_with_option_a_fixed(run_lvs.parent / "gf180mcu.lvs",
-                                                     tmpdir / "deck"))
+                        or (_deck_with_option_a_fixed(deck_src, tmpdir / "deck")
+                            if mim_option == "A" else deck_src))
         sws = {
             "input": str(layout_path),
             "schematic": str(spice_staged),
             "topcell": design_name,
             "target_netlist": str(tmpdir / f"{design_name}.cir"),
             "report": str(tmpdir / f"{design_name}.lvsdb"),
-            "mim_option": "A",
+            "mim_option": mim_option,
             "metal_level": "5LM",
             "metal_top": "11K",
             "poly_res": "1k",

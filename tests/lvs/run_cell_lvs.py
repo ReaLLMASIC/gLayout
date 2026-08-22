@@ -155,6 +155,7 @@ def _run_one_lvs(item: dict) -> dict:
                 design_name=name,
                 netlist=str(netlist_path),
                 output_file_path=str(rpt_dir),
+                mim_option=item.get("mim_option"),
             )
         else:
             pdk = _resolve_pdk(pdk_name)
@@ -221,6 +222,16 @@ def main() -> int:
         ),
     )
     parser.add_argument(
+        "--mim-option", choices=["A", "B"], default=None,
+        help=(
+            "gf180 MIM stack the deck should extract: A (met2/FuseTop/met3) "
+            "or B (met4/FuseTop/met5). They are mutually exclusive at process "
+            "level, so picking the wrong one extracts no capacitor and every "
+            "MIM reports as missing from the layout. Default: $GF180_MIM_OPTION, "
+            "else A."
+        ),
+    )
+    parser.add_argument(
         "--jobs", "-j", type=int, default=max(1, (os.cpu_count() or 2) - 1),
         help="Worker processes for parallel LVS (default: cpu_count-1).",
     )
@@ -258,6 +269,7 @@ def main() -> int:
             "netlist_path": str(inputs_dir / "netlists" / f"{name}.spice"),
             "out_dir": str(out_dir),
             "rpt_dir": str(rpt_dir),
+            "mim_option": args.mim_option,
         }
         for name in cells
     ]
