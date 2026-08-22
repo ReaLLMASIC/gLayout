@@ -24,6 +24,9 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
+          # setup-python hashes this to key the cache; the repo has no
+          # requirements.txt or pyproject.toml, so point it at setup.py.
+          cache-dependency-path: setup.py
 
       # Deliberately NOT `pip install -e .`. install_requires pins
       # gdsfactory<=7.7.0 and numpy<=1.24.0, which forces CPython 3.10 and
