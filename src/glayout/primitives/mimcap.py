@@ -144,8 +144,33 @@ def mimcap(
     
     # 3. Create top metal plate with via connections
     # Use minus1=False to get maximum via coverage like KLayout generator
+    # via_array decides how many via columns fit using the generic
+    # metal-over-via enclosure -- 0.12um for met5 over via4 on gf180 -- but the
+    # MIM plate has a stricter one: MIMTM.4 (option B) and MIM.4 (option A)
+    # both want 0.4um of plate over the via that contacts it.
+    #
+    # The resulting plate-to-via margin is a sawtooth in `size`: it grows until
+    # one more column fits, then drops. The floor of that sawtooth is 0.390um,
+    # comfortable for 0.12 and 10nm short of 0.4, so the violations repeat with
+    # the via pitch of 0.80um rather than scaling with the size.
+    #
+    # Shrinking the array region by the difference between the two rules lifts
+    # the whole sawtooth by that amount, floor included: 0.390 -> 0.670um. A
+    # column enters later than it would, so some sizes get one fewer via
+    # row/column -- slightly more series resistance into the plate, which a MIM
+    # can afford, in exchange for an enclosure that holds at every size.
+    via_margin = pdk.get_grule("capmet").get("via_enclosure")
+    if via_margin is not None:
+        # the via that contacts the plate from below: met5 -> via4, met3 -> via2
+        via_glayer = "via" + str(int(capmettop[3:]) - 1)
+        generic = pdk.get_grule(capmettop, via_glayer)["min_enclosure"]
+        extra = max(0.0, float(via_margin) - float(generic))
+        array_size = (size[0] - 2 * extra, size[1] - 2 * extra)
+    else:
+        array_size = size
     top_met_ref = mim_cap << via_array(
-        pdk, capmetbottom, capmettop, size=size, minus1=False, lay_bottom=False
+        pdk, capmetbottom, capmettop, size=array_size, minus1=False,
+        lay_bottom=False
     )
     
     # 4. Add FuseTop layer - required for both options (defines the MIM area)
