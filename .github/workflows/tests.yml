@@ -40,19 +40,15 @@ jobs:
 
       # The heavier DRC/LVS workflows run the gdsfactory backend (Python
       # 3.10, gdsfactory 7.7), so gdstk currently has no CI coverage at all.
-      # tests/test_cells_layout.py is left out on purpose: it builds every
-      # cell in both backends, takes ~85 s, and carries five documented
-      # xfails, so a green result there would mean "nothing changed" rather
-      # than "everything works". It belongs to whoever argues for cell-build
-      # coverage.
+      # Everything under tests/ except test_cells_layout.py, which is left
+      # out on purpose: it builds every cell in both backends, takes ~85 s,
+      # and carries five documented xfails, so a green result there would
+      # mean "nothing changed" rather than "everything works". Excluding
+      # rather than listing files means a test added later is picked up
+      # without having to remember to edit this workflow.
       - name: Run tests
         env:
           PYTHONPATH: src
           GLAYOUT_BACKEND: gdstk
           PDK_ROOT: /tmp
-        run: |
-          pytest -q \
-            tests/test_lvs_pin_filter.py \
-            tests/test_import_paths.py \
-            tests/test_repo_layout.py \
-            tests/test_gdstk_backend.py
+        run: pytest -q tests --ignore=tests/test_cells_layout.py
