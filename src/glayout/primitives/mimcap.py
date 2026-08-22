@@ -289,7 +289,8 @@ def mimcap(
                         layer=pdk.get_glayer(capmetbottom),
                         centered=True
                         )
-                appendix_pos=target_port.center
+                # Port.center is a tuple; the component below indexes into it.
+                appendix_pos=list(target_port.center)
                 appendix_pos[cord_ref] = appendix_pos[cord_ref] + appendix_size[cord_ref]/2 if direction=="N" or direction=="E" else appendix_pos[cord_ref] - appendix_size[cord_ref]/2
                 appendix.move(appendix_pos)
     
