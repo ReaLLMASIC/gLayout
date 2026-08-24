@@ -30,6 +30,11 @@ jobs:
         # Both sky130A and gf180mcuD live here; glayout's gf180 module reads
         # this at import time even when a notebook only touches sky130, so
         # it has to be set globally.
+        # The tutorials build several times faster on the native backend,
+        # which takes the heaviest notebooks off the 180s per-cell limit
+        # rather than raising it. Measured on the fork's own CI:
+        # GLayout_Cells 187.8s (timeout) -> 14.2s, whole suite 660s -> 158s.
+        GLAYOUT_BACKEND: gdstk
         PDK_ROOT: /foss/pdks
         # FVF / INV / BJT tutorials default to gf180; the bootstrap cell in
         # each notebook derives PDKPATH from PDK_ROOT/PDK if unset.
