@@ -30,6 +30,28 @@ class GdstkBackendTests(unittest.TestCase):
         c.add_port(name="p1", center=(0, 0), width=1, orientation=0, layer=(1, 0))
         self.assertIn("p1", c.ports)
 
+    def test_add_ref_array(self):
+        """add_ref(columns=, rows=, spacing=) lays out a repeated reference.
+
+        `test_bjt_gdsfactory` builds its contact rings this way. Without it
+        the notebook dies on a TypeError halfway through.
+        """
+        from glayout.backend import Component, rectangle
+        c = Component("array_probe")
+        unit = rectangle(size=(1, 1), layer=(1, 0))
+        ref = c.add_ref(unit, columns=3, rows=2, spacing=(2, 2))
+        self.assertIsNotNone(ref)
+        # 3 columns at pitch 2 span 1 + 2*2 = 5; 2 rows span 1 + 2 = 3.
+        (x0, y0), (x1, y1) = c.bbox
+        self.assertAlmostEqual(x1 - x0, 5.0)
+        self.assertAlmostEqual(y1 - y0, 3.0)
+
+    def test_add_ref_array_needs_spacing(self):
+        from glayout.backend import Component, rectangle
+        c = Component("array_probe_nospacing")
+        with self.assertRaises(ValueError):
+            c.add_ref(rectangle(size=(1, 1), layer=(1, 0)), columns=2)
+
     def test_primitives_build(self):
         from glayout.pdk.sky130_mapped.sky130_mapped import sky130_mapped_pdk as pdk
         from glayout.primitives.via_gen import via_stack, via_array

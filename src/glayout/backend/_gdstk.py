@@ -616,8 +616,34 @@ class Component:
         return self
 
     # --- add / << ----------------------------------------------------------
-    def add_ref(self, component: "Component", alias: Optional[str] = None) -> ComponentReference:
-        ref = component.ref()
+    def add_ref(
+        self,
+        component: "Component",
+        alias: Optional[str] = None,
+        columns: int = 1,
+        rows: int = 1,
+        spacing: Optional[tuple] = None,
+    ) -> ComponentReference:
+        """Reference `component`, optionally as a repeated array.
+
+        gdsfactory accepts columns/rows/spacing here and the BJT tutorial
+        lays its contact rings out that way. gdstk has the same notion
+        natively, so the array stays one reference rather than becoming
+        rows*columns of them.
+        """
+        if columns != 1 or rows != 1:
+            if spacing is None:
+                raise ValueError(
+                    "add_ref: spacing is required when columns or rows > 1"
+                )
+            gref = gdstk.Reference(
+                component._cell, origin=(0.0, 0.0),
+                columns=int(columns), rows=int(rows),
+                spacing=(float(spacing[0]), float(spacing[1])),
+            )
+            ref = ComponentReference(component, gref)
+        else:
+            ref = component.ref()
         self.add(ref)
         return ref
 
