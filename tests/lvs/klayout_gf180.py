@@ -22,7 +22,9 @@ import shutil
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Tuple
+
+import gdstk
 
 try:
     from lvsdb_report import analyze, render
@@ -59,6 +61,24 @@ def _resolve_deck_dir(pdk_root: str) -> Path:
     return deck
 
 
+def _top_level_ports(spice_path: Path, top_cell: str) -> List[str]:
+    """Port names on the reference netlist's top `.subckt`, in order.
+
+    This is the schematic's own statement of what the cell's pins are, so it
+    is what decides which layout labels are pins -- see _filter_pin_labels.
+    """
+    try:
+        text = spice_path.read_text(errors="ignore")
+    except OSError:
+        return []
+    pat = re.compile(r"^\.subckt\s+" + re.escape(top_cell) + r"\s+(.+)$",
+                     re.MULTILINE | re.IGNORECASE)
+    m = pat.search(text)
+    if not m:
+        return []
+    return [tok for tok in m.group(1).split() if "=" not in tok]
+
+
 def _detect_substrate_name(spice_path: Path, top_cell: str) -> str:
     """Pick the schematic's bulk port name to pass as klayout's --lvs_sub.
 
@@ -70,15 +90,9 @@ def _detect_substrate_name(spice_path: Path, top_cell: str) -> str:
     pick B). Falls back to the last positional port, then to the deck
     default.
     """
-    try:
-        text = spice_path.read_text(errors="ignore")
-    except OSError:
+    tokens = _top_level_ports(spice_path, top_cell)
+    if not tokens:
         return "gf180mcu_gnd"
-    pat = re.compile(r"^\.subckt\s+" + re.escape(top_cell) + r"\s+(.+)$", re.MULTILINE | re.IGNORECASE)
-    m = pat.search(text)
-    if not m:
-        return "gf180mcu_gnd"
-    tokens = [t for t in m.group(1).split() if "=" not in t]
     upper = {t.upper(): t for t in tokens}
     for cand in ("B", "VBULK", "VSUB", "GND", "VSS"):
         if cand in upper:
@@ -126,6 +140,46 @@ def _rewrite_x_to_m_for_primitives(cdl_text: str) -> str:
     return cap_pat.sub(r"C\1\2", cdl_text)
 
 
+def _filter_pin_labels(gds_path: Path, ports: List[str]) -> Tuple[List[str], bool]:
+    """Drop layout labels the reference netlist does not declare as pins.
+
+    A pin label is not a property of a cell, it is a property of how the cell
+    is used: a diff_pair's VTAIL is a top-level pin standalone and an internal
+    net inside a composite. Elementary cells emit labels so they can be LVS'd
+    on their own, and a parent that flattens them inherits those names --
+    klayout extracts them as extra top-level pins and LVS fails.
+
+    Deciding this in the generator means every composite has to suppress its
+    children's labels, at every level, and one that forgets fails silently.
+    Deciding it here needs no cooperation from any cell: the reference netlist
+    already states which names are pins, and that statement is honoured.
+
+    Only the staged copy used for extraction is filtered, so the GDS a cell
+    ships keeps its labels and LEF/macro flows are unaffected.
+
+    Matching is case-insensitive: SPICE is case-insensitive and generators do
+    not always agree with the schematic on capitalisation (`vdd` vs `Vdd`).
+
+    Returns the dropped texts, and whether every label was dropped -- that is
+    not label inheritance but a naming mismatch, worth reporting.
+    """
+    if not ports:
+        return [], False
+    keep = {port.upper() for port in ports}
+    lib = gdstk.read_gds(str(gds_path))
+    dropped: List[str] = []
+    total = 0
+    for cell in lib.cells:
+        for label in list(cell.labels):
+            total += 1
+            if label.text.upper() not in keep:
+                cell.remove(label)
+                dropped.append(label.text)
+    if dropped:
+        lib.write_gds(str(gds_path))
+    return dropped, bool(total) and len(dropped) == total
+
+
 def _stage_inputs(workdir: Path, cell: str, gds_src: Path, netlist_src: Path) -> Path:
     """Copy GDS + reference netlist into the temp dir, normalize, and return
     the staged spice path. Normalizations (mirror `.run_ci_lvs_v2.sh`):
@@ -138,6 +192,8 @@ def _stage_inputs(workdir: Path, cell: str, gds_src: Path, netlist_src: Path) ->
       generator code stays PDK-agnostic and emits X-prefix everywhere.
     * Prepend `.include` of the bundled reference spice so any std-cell
       subckt the test netlist references can be resolved.
+    * Drop labels the reference netlist does not declare as pins, so a
+      composite does not inherit its children's standalone pin names.
     """
     layout_dst = workdir / f"{cell}.gds"
     cdl_dst = workdir / f"{cell}.cdl"
@@ -163,6 +219,17 @@ def _stage_inputs(workdir: Path, cell: str, gds_src: Path, netlist_src: Path) ->
         parts.append(f".include {_REF_SPICE}\n")
     parts.append(cdl_text)
     spice_dst.write_text("".join(parts))
+
+    ports = _top_level_ports(spice_dst, cell)
+    dropped, all_gone = _filter_pin_labels(layout_dst, ports)
+    if all_gone:
+        print(f"[{cell}] WARNING: no layout label matches a port of "
+              f".subckt {cell} ({' '.join(ports)}); dropped {dropped}. "
+              f"Layout pin names and reference netlist pin names do not "
+              f"agree, so LVS will see the layout as having no pins.")
+    elif dropped:
+        print(f"[{cell}] dropped {len(dropped)} inherited label(s) not "
+              f"declared as pins: {' '.join(sorted(set(dropped)))}")
     return spice_dst
 
 
@@ -220,6 +287,7 @@ def run_lvs_klayout_gf180(
     netlist: str,
     output_file_path: str,
     pdk_root: Optional[str] = None,
+    mim_option: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Run gf180mcu klayout LVS for one cell.
 
@@ -228,6 +296,12 @@ def run_lvs_klayout_gf180(
     verbatim — `_parse_lvs_report` recognises the "Netlists match" /
     "Netlists do not match" lines), and stashes the extracted .cir, .lvsdb,
     and lvs_run_*.log alongside it for inspection.
+
+    ``mim_option`` selects the MIM stack the deck extracts: "A" (met2 /
+    FuseTop / met3) or "B" (met4 / FuseTop / met5). The two are mutually
+    exclusive at process level, so the wrong one extracts no capacitor at all
+    and every MIM shows up as missing from the layout. Defaults to
+    ``$GF180_MIM_OPTION``, then to "A".
     """
     layout_path = Path(layout)
     netlist_path = Path(netlist)
@@ -236,6 +310,9 @@ def run_lvs_klayout_gf180(
     rpt_dir.mkdir(parents=True, exist_ok=True)
 
     pdk_root = pdk_root or os.environ.get("PDK_ROOT", "/foss/pdks")
+    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "A").upper()
+    if mim_option not in ("A", "B"):
+        raise ValueError(f"mim_option must be 'A' or 'B', got {mim_option!r}")
     deck_dir = _resolve_deck_dir(pdk_root)
     run_lvs = deck_dir / "run_lvs.py"
 
@@ -245,24 +322,26 @@ def run_lvs_klayout_gf180(
         sub_name = _detect_substrate_name(spice_staged, design_name)
 
         # The deck is called directly rather than through run_lvs.py, whose
-        # four presets are all wrong here: glayout draws the MIM on option A
-        # (met2 / FuseTop / met3) and routes up to met5, and no preset pairs
-        # option A with 5 metal levels. That combination is a real process --
-        # the DRM documents 1P5M (TM 6KA with MIM) -- and the deck accepts the
-        # options individually.
+        # four presets are all wrong here: a cell can draw its MIM on option A
+        # (met2 / FuseTop / met3) and still route up to met5, and no preset
+        # pairs option A with 5 metal levels. That combination is a real
+        # process -- the DRM documents 1P5M (TM 6KA with MIM) -- and the deck
+        # accepts the options individually.
         #
         # GF180_LVS_DECK points at an already-fixed deck; otherwise the runner
-        # patches its own copy.
+        # patches its own copy. Only option A needs the patch; the deck's
+        # option B branch already connects all three plates.
+        deck_src = run_lvs.parent / "gf180mcu.lvs"
         lvs_deck = Path(os.environ.get("GF180_LVS_DECK")
-                        or _deck_with_option_a_fixed(run_lvs.parent / "gf180mcu.lvs",
-                                                     tmpdir / "deck"))
+                        or (_deck_with_option_a_fixed(deck_src, tmpdir / "deck")
+                            if mim_option == "A" else deck_src))
         sws = {
             "input": str(layout_path),
             "schematic": str(spice_staged),
             "topcell": design_name,
             "target_netlist": str(tmpdir / f"{design_name}.cir"),
             "report": str(tmpdir / f"{design_name}.lvsdb"),
-            "mim_option": "A",
+            "mim_option": mim_option,
             "metal_level": "5LM",
             "metal_top": "11K",
             "poly_res": "1k",

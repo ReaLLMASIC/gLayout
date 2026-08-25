@@ -1,0 +1,54 @@
+name: Unit tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Cancel superseded runs on the same branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: Unit tests (gdstk)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          # setup-python hashes this to key the cache; the repo has no
+          # requirements.txt or pyproject.toml, so point it at setup.py.
+          cache-dependency-path: setup.py
+
+      # Deliberately NOT `pip install -e .`. install_requires pins
+      # gdsfactory<=7.7.0 and numpy<=1.24.0, which forces CPython 3.10 and
+      # pulls the whole layout stack; none of it is needed here. conftest.py
+      # sets GLAYOUT_BACKEND=gdstk precisely so tests that import glayout
+      # directly do not require gdsfactory, and these files build on gdstk
+      # only. Keeping the environment small is what makes this job fast
+      # enough to run on every push.
+      - name: Install test dependencies
+        run: pip install pytest gdstk numpy pandas pydantic docopt
+
+      # The heavier DRC/LVS workflows run the gdsfactory backend (Python
+      # 3.10, gdsfactory 7.7), so gdstk currently has no CI coverage at all.
+      # Everything under tests/ except test_cells_layout.py, which is left
+      # out on purpose: it builds every cell in both backends, takes ~85 s,
+      # and carries five documented xfails, so a green result there would
+      # mean "nothing changed" rather than "everything works". Excluding
+      # rather than listing files means a test added later is picked up
+      # without having to remember to edit this workflow.
+      - name: Run tests
+        env:
+          PYTHONPATH: src
+          GLAYOUT_BACKEND: gdstk
+          PDK_ROOT: /tmp
+        run: pytest -q tests --ignore=tests/test_cells_layout.py
