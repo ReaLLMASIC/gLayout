@@ -195,17 +195,13 @@ def diff_pair_ibias(
         viaoffset=None,
     )
     cmirror.add_ports(srcshort.get_ports_list(), prefix="purposegndports")
-    # current mirror netlist — gf180 needs `dummies_tied_to_bulk=False`
-    # because here we use raw two_nfet_interdigitized + custom routing,
-    # NOT current_mirror, so the standalone-cell's straight_route from
-    # dummy gsdcon to welltie never gets drawn; klayout extracts the
-    # cmirror dummies on a per-cell floating net. sky130 magic merges
-    # the floating dummies into the bulk so the schematic must keep
-    # them tied to VB or magic counts an extra net.
-    # Extraction shows the merged cmirror dummy as `B B B B` on gf180 too:
-    # with_tie=True draws a welltie ring that IS the bulk net, and the dummy
-    # contacts land on it. The old sky130-only condition described a difference
-    # that does not exist.
+    # Current mirror netlist. The dummies sit inside the composite's shared
+    # pwell/tap context, so both extractors report their G/S/D on the bulk
+    # net: klayout merges the interdigitized dummy fingers into one B-tied
+    # device, and magic absorbs them into the bulk during parallel-device
+    # merging. Keeping them tied to the bulk here matches what is extracted
+    # on both PDKs; declaring a separate floating net would add a net the
+    # layout does not have.
     cmirror.info['netlist'] = current_mirror_netlist(
         pdk,
         width=diffpair_bias[0],

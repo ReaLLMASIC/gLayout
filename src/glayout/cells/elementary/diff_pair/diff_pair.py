@@ -33,46 +33,50 @@ def add_df_labels(df_in: Component,
                          ) -> Component:
 	
 	df_in.unlock()
-	met1_pin = (67,16)
-	met1_label = (67,5)
-	met2_pin = (68,16)
-	met2_label = (68,5)
+	def _pin(met: str, text: str, size: float):
+		"""Label marker sized to the routable metal's minimum width.
+
+		The marker is aligned centre-to-centre on its port so it lands inside
+		the metal the router already placed, instead of tangent to its edge.
+		A marker that only carries the label layer floats: the extractor finds
+		no conductor under the text, the net comes out unnamed, and LVS reports
+		the pin as missing from the layout.
+		"""
+		min_w = pdk.get_grule(met)["min_width"]
+		side = max(size, min_w)
+		marker = rectangle(layer=pdk.get_glayer(met + "_label"), size=(side, side), centered=True).copy()
+		marker.add_label(text=text, layer=pdk.get_glayer(met + "_label"))
+		return marker
     # list that will contain all port/comp info
 	move_info = list()
     # create labels and append to info list
     # vtail
-	vtaillabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-	vtaillabel.add_label(text="VTAIL",layer=pdk.get_glayer("met2_label"))
+	vtaillabel = _pin("met2", "VTAIL", 0.27)
 	move_info.append((vtaillabel,df_in.ports["bl_multiplier_0_source_S"],None))
     
     # vdd1
-	vdd1label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-	vdd1label.add_label(text="VDD1",layer=pdk.get_glayer("met2_label"))
+	vdd1label = _pin("met2", "VDD1", 0.27)
 	move_info.append((vdd1label,df_in.ports["tl_multiplier_0_drain_N"],None))
     
     # vdd2
-	vdd2label = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-	vdd2label.add_label(text="VDD2",layer=pdk.get_glayer("met2_label"))
+	vdd2label = _pin("met2", "VDD2", 0.27)
 	move_info.append((vdd2label,df_in.ports["tr_multiplier_0_drain_N"],None))
     
     # VB
-	vblabel = rectangle(layer=pdk.get_glayer("met1_pin"),size=(0.5,0.5),centered=True).copy()
-	vblabel.add_label(text="B",layer=pdk.get_glayer("met1_label"))
+	vblabel = _pin("met1", "B", 0.5)
 	move_info.append((vblabel,df_in.ports["tap_N_top_met_S"], None))
     
     # VP
-	vplabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-	vplabel.add_label(text="VP",layer=pdk.get_glayer("met2_label"))
+	vplabel = _pin("met2", "VP", 0.27)
 	move_info.append((vplabel,df_in.ports["br_multiplier_0_gate_S"], None))
     
     # VN
-	vnlabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-	vnlabel.add_label(text="VN",layer=pdk.get_glayer("met2_label"))
+	vnlabel = _pin("met2", "VN", 0.27)
 	move_info.append((vnlabel,df_in.ports["bl_multiplier_0_gate_S"], None))
 
     # move everything to position
 	for comp, prt, alignment in move_info:
-		alignment = ('c','b') if alignment is None else alignment
+		alignment = ('c','c') if alignment is None else alignment
 		compref = align_comp_to_port(comp, prt, alignment=alignment)
 		df_in.add(compref)
 	return df_in.flatten() 
@@ -85,17 +89,18 @@ def diff_pair_netlist(fetL: Component, fetR: Component, pdk: Optional[MappedPDK]
 	# the right device). Model that explicitly in the reference netlist so LVS
 	# compares against the same effective device count/width.
 	#
-	# DUM maps to the dummies' G/S/D net. Standalone:
-	# * gf180 klayout extracts the four dummies' diffusion fingers as one
-	#   shared floating net (the inter-dummy contacts merge them), so we
-	#   map DUM→'dum' (a local subckt-level net).
-	# * sky130 magic+netgen absorbs the floating dummies into the bulk
-	#   during parallel-device merging, so the schematic must put them on B
-	#   directly — leaving DUM as a separate `dum` net there counts an extra
-	#   net on the schematic side and trips the LVS comparison.
-	# `dum_net` lets a composite parent override this when the surrounding
-	# layout context (extra tap rings, shared pwell paths) physically forces
-	# the dummies onto a different net than the standalone-cell extraction.
+	# DUM maps to the dummies' G/S/D net, and which net that is follows the
+	# layout rather than the PDK. When a substrate tap is placed, the four
+	# dummies are routed to the tap ring (the
+	# `multiplier_0_dummy_*_gsdcon_top_met_W` -> `tap_*` routes below), so both
+	# extractors report them on the bulk: gf180 klayout merges the four parallel
+	# fingers into a single B-tied device, and sky130 magic+netgen absorbs them
+	# into the bulk during parallel-device merging. Declaring a separate `dum`
+	# net in that case adds a net the layout does not have and trips LVS.
+	# Without the tap ring there is nothing tying them down, so they stay on a
+	# floating subckt-level net.
+	# `dum_net` lets a caller override this when the surrounding layout context
+	# forces the dummies onto a different net than the standalone extraction.
 	if dum_net is None:
 		dum_net = 'B' if substrate_tap else 'dum'
 	for net, fet in (('VDD1', fetL), ('VDD1', fetL), ('VDD2', fetR), ('VDD2', fetR)):
