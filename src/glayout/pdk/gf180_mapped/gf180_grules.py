@@ -364,5 +364,9 @@ grulesobj["capmet"]["via3"] = {}
 grulesobj["capmet"]["met4"] = {}
 grulesobj["capmet"]["via4"] = {}
 grulesobj["capmet"]["met5"] = {}
-grulesobj["capmet"]["capmet"] = {'capmettop': (81, 0), 'capmetbottom': (46, 0), 'min_separation': 1.2}
+# via_enclosure: the MIM plate has its own, stricter enclosure of the via that
+# contacts it -- 0.4um (MIMTM.4 / MIM.4). The generic metal-over-via rule is
+# 0.12, so a via array sized off that reaches 0.28um too close to the plate
+# edge and the cap fails DRC at sizes where the count happens to land there.
+grulesobj["capmet"]["capmet"] = {'capmettop': (81, 0), 'capmetbottom': (46, 0), 'min_separation': 1.2, 'via_enclosure': 0.4}
 
