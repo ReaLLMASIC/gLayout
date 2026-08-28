@@ -1,0 +1,34 @@
+* Testbench: PFET current mirror  (CMIRROR ports: VREF VOUT VSS B)
+*
+* Functional check: the output branch mirrors a 10 uA reference 1:1.
+*
+* run_cell_sim.py injects the .lib model line and .includes the DUT netlist,
+* so this file is stimulus + analysis ONLY (no .lib / no .include here).
+*
+* For the pfet mirror the "VSS" net is the common SOURCE and ties to the top
+* rail, as does the bulk B. Rail held at 1.8 V so the deck is valid on both
+* sky130 and gf180 (the gf180 3.3 V part just runs under-driven, still in
+* saturation at the 0.9 V output operating point).
+
+.param IREF=10u
+
+Vdd VDD 0 DC 1.8
+
+* Reference branch: pull IREF out of the diode-connected VREF node.
+Iref VREF 0 DC {IREF}
+
+* Output branch: 0 V ammeter oriented so sourced current reads positive.
+Vbias vom 0 DC 0.9
+Vmeas VOUT vom DC 0
+
+* DUT: source (VSS net) and bulk (B) tied to VDD for the pfet mirror.
+X1 VREF VOUT VDD VDD CMIRROR
+
+* Sweep the output node 0 -> 1.8 V (saturation through triode).
+.dc Vbias 0 1.8 0.02
+
+.measure dc iout_op    FIND i(vmeas) AT=0.9
+.measure dc iout_lo    FIND i(vmeas) AT=0.2
+.measure dc mirror_err param='(iout_op-10e-6)/10e-6'
+
+.end
