@@ -76,7 +76,10 @@ def __route_bottom_ncomps_except_drain_nbias(pdk: MappedPDK, toplevel_stacked: C
     # leaving a sliver gap that trips m2.2a. Stamp an m2 patch at each
     # corner that overlaps both polygons so they merge in DRC.
     if pdk.name.lower() == "gf180":
-        from gdsfactory.components.rectangle import rectangle as _rect
+        # use the backend's rectangle (already imported at module level), not
+        # gdsfactory's: importing it directly bypasses the backend abstraction
+        # and yields a component the active backend cannot reference.
+        _rect = rectangle
         _m2 = pdk.get_glayer("met2")
         # Use cmirror_ref_L's drain_E port (center.x is the inner edge of
         # cmirror_ref_L's leftmost drain column on m2; mirror for R) and

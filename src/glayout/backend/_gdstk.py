@@ -264,8 +264,22 @@ class ComponentReference:
         self._ref = gref
         # owner is the Component this reference has been added to (not the target)
         self.owner: Optional["Component"] = None
-        # `info` is used by some cells to attach netlist / hierarchy metadata.
-        self.info: dict = {}
+
+    # --- metadata ----------------------------------------------------------
+    @property
+    def info(self) -> dict:
+        """Metadata of the referenced component.
+
+        gdsfactory exposes the parent's `info` through the reference, and cells
+        rely on that: mimcap_array writes `info['netlist']` on the Component,
+        while opamp_twostage reads it back off the reference returned by `<<`.
+        A reference has no metadata of its own, so delegate.
+        """
+        return self.parent.info
+
+    @info.setter
+    def info(self, value: dict) -> None:
+        self.parent.info = value
 
     # --- transform properties ---------------------------------------------
     @property
@@ -477,13 +491,17 @@ class Component:
 
     def add(
         self,
-        element: Union[ComponentReference, gdstk.Reference, gdstk.Polygon, gdstk.Label, Iterable],
+        element: Union["Component", ComponentReference, gdstk.Reference, gdstk.Polygon, gdstk.Label, Iterable],
     ) -> "Component":
-        """Add a reference, polygon, label, or iterable of those."""
+        """Add a component, reference, polygon, label, or iterable of those."""
         if isinstance(element, ComponentReference):
             self._cell.add(element._ref)
             element.owner = self
             self._references.append(element)
+        elif isinstance(element, Component):
+            # gdsfactory accepts a bare Component here and references it
+            # implicitly; opamp_twostage and others rely on that.
+            self.add_ref(element)
         elif isinstance(element, (gdstk.Reference, gdstk.Polygon, gdstk.Label)):
             self._cell.add(element)
         elif isinstance(element, Iterable):
@@ -493,10 +511,26 @@ class Component:
             raise TypeError(f"Component.add: unsupported type {type(element).__name__}")
         return self
 
-    def ref(self) -> ComponentReference:
+    def ref(
+        self,
+        position: Coord = (0.0, 0.0),
+        rotation: float = 0.0,
+        x_reflection: bool = False,
+    ) -> ComponentReference:
         """Return a fresh ComponentReference pointing at this Component.
-        Not yet attached to any parent."""
-        return ComponentReference(self)
+
+        Not yet attached to any parent. `position`, `rotation` and
+        `x_reflection` mirror gdsfactory's signature; opamp.py calls
+        `rect.ref(position=...)`.
+        """
+        r = ComponentReference(self)
+        if x_reflection:
+            r.mirror(p1=(0.0, 0.0), p2=(1.0, 0.0))
+        if rotation:
+            r.rotate(rotation)
+        if position != (0.0, 0.0):
+            r.movex(position[0]).movey(position[1])
+        return r
 
     # --- ports -------------------------------------------------------------
     def add_port(
@@ -541,6 +575,19 @@ class Component:
                 raise ValueError(f"duplicate port name {new_name!r} on component {self.name!r}")
             self.ports[new_name] = np
         return self
+
+    def pprint_ports(self) -> None:
+        """Print the ports, one per line.
+
+        gdsfactory offers this on Component and the tutorials use it to look
+        at a cell while building it. Without it a notebook that runs fine on
+        the other backend dies with AttributeError halfway through.
+        """
+        for name in sorted(self.ports):
+            p = self.ports[name]
+            print("%-42s (%9.3f, %9.3f)  ancho %7.3f  %5.1f  %s"
+                  % (name, p.center[0], p.center[1], p.width,
+                     p.orientation or 0.0, p.layer))
 
     def get_ports_list(self, prefix: str = "", **filters) -> list[Port]:
         out: list[Port] = []
