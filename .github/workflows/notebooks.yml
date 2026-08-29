@@ -123,14 +123,34 @@ jobs:
           # pulls in gdstk / svgutils / ipywidgets; jupyter+nbconvert+
           # ipykernel are the only extras the notebook harness needs.
           uv pip install -e .
-          uv pip install jupyter nbconvert ipykernel
+          # jupyter-client pinned: 8.10.0 (published 2026-08-28 12:17 UTC)
+          # quadrupled the rate of lost kernel replies on this runner --
+          # measured A/B on the same machine, 4/6 hangs against 1/6 with
+          # 8.9.1. Unpinned, each run silently takes whatever PyPI shipped
+          # that morning, which is why one commit passed on the 25th and
+          # hung on the 28th.
+          uv pip install jupyter nbconvert ipykernel "jupyter-client==8.9.1"
+
+      # Runs on cache hits too. The install step above is skipped when the
+      # venv is restored, so a pin written only there is inert: the cache
+      # key hashes setup.py and src/, not this file, and a restored venv
+      # keeps whatever jupyter-client it was built with. That is also how
+      # 8.10.0 got in -- a src change busted the key on the 28th and the
+      # rebuild took the version published that morning. Enforcing the pin
+      # here is a no-op when it already matches.
+      - name: Enforce the jupyter-client pin
+        run: |
+          set -euxo pipefail
+          . "$GITHUB_WORKSPACE/.venv/bin/activate"
+          uv pip install "jupyter-client==8.9.1"
+          python -c "import jupyter_client; print(jupyter_client.__version__)"
 
       - name: Run all tutorial notebooks
         run: |
           set -euxo pipefail
           . "$GITHUB_WORKSPACE/.venv/bin/activate"
           python tests/notebooks/run_tutorial_notebooks.py \
-            --out-dir notebook_results
+            --out-dir notebook_results --strip-displays --retries 1
 
       - name: Upload notebook artifacts
         if: always()
