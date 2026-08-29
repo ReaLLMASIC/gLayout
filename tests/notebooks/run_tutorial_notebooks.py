@@ -119,6 +119,41 @@ def _scan_executed(path: Path) -> Optional[Dict[str, Any]]:
     return None
 
 
+def _strip_displays(nb: Path) -> Path:
+    """Write a sibling copy of `nb` with display calls removed, for CI.
+
+    The tutorials push multi-MB SVGs through iopub (display_component draws
+    the whole opamp: ~2.7 MB per message). Measured on the runner itself,
+    that is what stalls the kernel<->client transport: the same notebook run
+    3x with displays stalled or died every time, and 3x without them ran
+    clean in 12.5s. CI executes for regressions, not for pictures, so the
+    displays go.
+
+    Lines are dropped, not commented, matching the measured experiment. If
+    dropping a line leaves a cell that no longer compiles (say, a display
+    that was the only statement under a `with`), that cell keeps its
+    original source: correctness over stripping.
+    """
+    import json
+    doc = json.loads(nb.read_text(encoding="utf-8"))
+    quitar = ("display_component(", "display_gds(", "display(")
+    for cell in doc.get("cells", []):
+        if cell.get("cell_type") != "code":
+            continue
+        original = cell["source"]
+        kept = [l for l in original if not any(q in l for q in quitar)]
+        if kept == original:
+            continue
+        try:
+            compile("".join(kept), "<cell>", "exec")
+        except SyntaxError:
+            continue
+        cell["source"] = kept
+    out = nb.with_name(nb.stem + "__stripped.ipynb")
+    out.write_text(json.dumps(doc), encoding="utf-8")
+    return out
+
+
 def _run_one(
     nb: Path,
     executed_dir: Path,
@@ -126,10 +161,12 @@ def _run_one(
     timeout_per_cell: int,
     timeout_per_notebook: int,
     kernel_name: str,
+    strip_displays: bool = False,
 ) -> NotebookResult:
     rel = str(nb.relative_to(REPO_ROOT))
     stem = nb.stem
     workdir = nb.parent
+    a_ejecutar = _strip_displays(nb) if strip_displays else nb
     executed = executed_dir / f"{stem}.ipynb"
     log = log_dir / f"{stem}.log"
     executed.parent.mkdir(parents=True, exist_ok=True)
@@ -141,7 +178,7 @@ def _run_one(
         "--ExecutePreprocessor.allow_errors=True",
         f"--ExecutePreprocessor.kernel_name={kernel_name}",
         "--output", str(executed),
-        nb.name,
+        a_ejecutar.name,
     ]
     print(f"[RUN]  {rel}", flush=True)
     start = time.monotonic()
@@ -260,6 +297,18 @@ def main() -> int:
         help="Jupyter kernel name to launch (default: python3).",
     )
     p.add_argument(
+        "--strip-displays", action="store_true",
+        help="Drop display calls before executing. The multi-MB SVGs they "
+             "push through iopub are what stalls the kernel transport in CI "
+             "(measured: 3/3 stalled with them, 3/3 clean at 12.5s without).",
+    )
+    p.add_argument(
+        "--retries", type=int, default=0,
+        help="Re-run a notebook that ends in 'error' (crash/timeout, not a "
+             "cell failure) up to this many times. Transport races lose "
+             "messages; a genuinely broken notebook still fails every try.",
+    )
+    p.add_argument(
         "--only", default=None,
         help="Comma-separated notebook basenames (with or without .ipynb) to limit the run.",
     )
@@ -288,12 +337,24 @@ def main() -> int:
 
     results: List[NotebookResult] = []
     for nb in nbs:
-        r = _run_one(
-            nb, executed_dir, log_dir,
-            timeout_per_cell=args.cell_timeout,
-            timeout_per_notebook=args.notebook_timeout,
-            kernel_name=args.kernel_name,
-        )
+        for intento in range(1 + max(0, args.retries)):
+            r = _run_one(
+                nb, executed_dir, log_dir,
+                timeout_per_cell=args.cell_timeout,
+                timeout_per_notebook=args.notebook_timeout,
+                kernel_name=args.kernel_name,
+                strip_displays=args.strip_displays,
+            )
+            # only "error" (nbconvert crash / timeout) is worth retrying:
+            # that is the transport-race class. A "fail" is a real cell
+            # exception and retrying it would only hide it.
+            if r.status != "error" or intento == args.retries:
+                break
+            print(f"[RETRY] {r.notebook} ({r.duration_s:.1f}s) "
+                  f"{r.error_name}: attempt {intento + 2}", flush=True)
+        temporal = nb.with_name(nb.stem + "__stripped.ipynb")
+        if temporal.exists():
+            temporal.unlink()
         print(f"[{r.status.upper()}] {r.notebook} ({r.duration_s:.1f}s)" +
               (f" — cell {r.errored_cell} {r.error_name}: {r.error_message}"
                if r.status != "pass" else ""),
