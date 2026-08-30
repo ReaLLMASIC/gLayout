@@ -204,7 +204,7 @@ def two_nfet_interdigitized(
     dummy: Union[bool, tuple[bool, bool]] = True,
     with_substrate_tap: bool = True,
     with_tie: bool = True,
-    tie_layers: tuple[str,str]=("met2","met1"),
+    tie_layers: tuple[str,str]=("met1","met1"),
     **kwargs
 ) -> Component:
     """Currently only supports two of the same nfet instances. does NOT support multipliers (currently)
@@ -215,7 +215,7 @@ def two_nfet_interdigitized(
     dummy = place dummy at the edges of the interdigitized place (true by default). you can specify tuple to place only on one side
     kwargs = key word arguments for multiplier. 
     ****NOTE: These are the same as glayout.flow.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
-    tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) or well tie ring. default=("met2","met1")
+    tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) for the well tie ring. default=("met1","met1")
     """
     base_multiplier = macro_two_transistor_interdigitized(pdk, numcols, "nfet", dummy, **kwargs)
     # tie
@@ -289,7 +289,7 @@ def two_pfet_interdigitized(
     dummy: Union[bool, tuple[bool, bool]] = True,
     with_substrate_tap: bool = True,
     with_tie: bool = True,
-    tie_layers: tuple[str,str]=("met2","met1"),
+    tie_layers: tuple[str,str]=("met1","met1"),
     **kwargs
 ) -> Component:
     """Currently only supports two of the same nfet instances. does NOT support multipliers (currently)
@@ -300,7 +300,7 @@ def two_pfet_interdigitized(
     dummy = place dummy at the edges of the interdigitized place (true by default). you can specify tuple to place only on one side
     kwargs = key word arguments for multiplier. 
     ****NOTE: These are the same as glayout.flow.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
-    tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) or well tie ring. default=("met2","met1")
+    tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) for the well tie ring. default=("met1","met1")
     """
     base_multiplier = macro_two_transistor_interdigitized(pdk, numcols, "pfet", dummy, **kwargs)
     # tie
@@ -375,10 +375,16 @@ def two_transistor_interdigitized(
     dummy: Union[bool, tuple[bool, bool]] = True,
     with_substrate_tap: bool = True,
     with_tie: bool = True,
-    tie_layers: tuple[str,str]=("met2","met1"),
+    tie_layers: Optional[tuple[str,str]] = None,
     **kwargs
 ) -> Component:
+    """Dispatches to two_nfet_interdigitized / two_pfet_interdigitized. See those for details.
+    tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) for the well tie ring.
+    None (the default) leaves the callee's own default in place, so the default lives in one spot.
+    """
+    if tie_layers is not None:
+        kwargs["tie_layers"] = tie_layers
     if device=="nfet":
-        return two_nfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,tie_layers=tie_layers,**kwargs)
+        return two_nfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,**kwargs)
     else:
-        return two_pfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,tie_layers=tie_layers,**kwargs)
+        return two_pfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,**kwargs)

@@ -469,7 +469,7 @@ def nmos(
     sd_rmult: int=1,
     gate_rmult: int=1,
     interfinger_rmult: int=1,
-    tie_layers: tuple[str,str] = ("met2","met1"),
+    tie_layers: tuple[str,str] = ("met1","met1"),
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
     dummy_routes: bool=True
 ) -> Component:
@@ -614,7 +614,7 @@ def pmos(
     sd_rmult: int=1,
     gate_rmult: int=1,
     interfinger_rmult: int=1,
-    tie_layers: tuple[str,str] = ("met2","met1"),
+    tie_layers: tuple[str,str] = ("met1","met1"),
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
     dummy_routes: bool=True
 ) -> Component:

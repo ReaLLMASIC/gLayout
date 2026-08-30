@@ -153,8 +153,8 @@ def  flipped_voltage_follower(
     multipliers: tuple[int,int] = (2, 2),
         dummy_1: tuple[bool,bool] = (True,True),
         dummy_2: tuple[bool,bool] = (True,True),
-        tie_layers1: tuple[str,str] = ("met2","met1"),
-        tie_layers2: tuple[str,str] = ("met2","met1"),
+        tie_layers1: tuple[str,str] = ("met1","met1"),
+        tie_layers2: tuple[str,str] = ("met1","met1"),
         sd_rmult: int=1,
         **kwargs
         ) -> Component:
