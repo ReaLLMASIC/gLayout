@@ -57,6 +57,11 @@ _CELL_BUILDERS: Dict[str, str] = {
     # channel (CO.4 in gf180), so these exercise the dogbone path in fet.py.
     "nmos_narrow":                            "glayout.primitives.fet:nmos",
     "pmos_narrow":                            "glayout.primitives.fet:pmos",
+    # Placement helpers. These consume the multiplier's inter-finger top-metal
+    # ports (`*sd_top_met_*`), which no other cell touches, so without coverage
+    # here a change to `inter_finger_topmet` breaks them silently.
+    "two_transistor_interdigitized":          "glayout.placement:two_transistor_interdigitized",
+    "common_centroid_ab_ba":                  "glayout.placement:common_centroid_ab_ba",
 }
 
 
