@@ -76,26 +76,6 @@ def common_centroid_ab_ba(
     a_botr.movex(fetLdims[0]/2+min_spacing_x/2).movey(pdk.snap_to_2xgrid(-fetLdims[1]/2-min_spacing_y/2))
     b_botl.movex(0-fetLdims[0]/2-min_spacing_x/2).movey(pdk.snap_to_2xgrid(-fetLdims[1]/2-min_spacing_y/2))
     comcentroid.add_padding(default=0,layers=[pdk.get_glayer(well)])
-    # if substrate tap place substrate tap, and route dummy to substrate tap
-    if substrate_tap:
-        tapref = comcentroid << tapring(pdk,evaluate_bbox(comcentroid,padding=1))#,horizontal_glayer="met1")
-        comcentroid.add_ports(tapref.get_ports_list(),prefix="tap_")
-        try:
-            comcentroid<<straight_route(pdk,a_topl.ports["multiplier_0_dummy_L_gsdcon_top_met_W"],comcentroid.ports["tap_W_top_met_W"],glayer2="met1")
-        except KeyError:
-            pass
-        try:
-            comcentroid<<straight_route(pdk,b_topr.ports["multiplier_0_dummy_R_gsdcon_top_met_W"],comcentroid.ports["tap_E_top_met_E"],glayer2="met1")
-        except KeyError:
-            pass
-        try:
-            comcentroid<<straight_route(pdk,b_botl.ports["multiplier_0_dummy_L_gsdcon_top_met_W"],comcentroid.ports["tap_W_top_met_W"],glayer2="met1")
-        except KeyError:
-            pass
-        try:
-            comcentroid<<straight_route(pdk,a_botr.ports["multiplier_0_dummy_R_gsdcon_top_met_W"],comcentroid.ports["tap_E_top_met_E"],glayer2="met1")
-        except KeyError:
-            pass
     # correct pwell place, add ports, flatten, and return
     comcentroid.add_ports(a_topl.get_ports_list(),prefix="tl_")
     comcentroid.add_ports(b_topr.get_ports_list(),prefix="tr_")
@@ -213,6 +193,32 @@ def common_centroid_ab_ba(
     rename_south_portb = vgateb1.ports["top_met_S"].copy()# add B_gate_S
     rename_south_portb.name = "B_gate_S"
     comcentroid.add_ports(ports=[rename_south_portb])
+    # The guard ring has to enclose the ROUTING, not just the devices. Sizing it
+    # off the pre-routing bbox left the ring 1um clear of the transistors while the
+    # gate/drain routes reach ~1.84um above them, so a met2 route ended up 0.25um
+    # from the ring's met2 rail -- gf180 M2.2a wants 0.28um. Placing the ring after
+    # all routing makes evaluate_bbox see the real extent.
+    # if substrate tap place substrate tap, and route dummy to substrate tap
+    if substrate_tap:
+        tapref = comcentroid << tapring(pdk,evaluate_bbox(comcentroid,padding=1))#,horizontal_glayer="met1")
+        comcentroid.add_ports(tapref.get_ports_list(),prefix="tap_")
+        try:
+            comcentroid<<straight_route(pdk,a_topl.ports["multiplier_0_dummy_L_gsdcon_top_met_W"],comcentroid.ports["tap_W_top_met_W"],glayer2="met1")
+        except KeyError:
+            pass
+        try:
+            comcentroid<<straight_route(pdk,b_topr.ports["multiplier_0_dummy_R_gsdcon_top_met_W"],comcentroid.ports["tap_E_top_met_E"],glayer2="met1")
+        except KeyError:
+            pass
+        try:
+            comcentroid<<straight_route(pdk,b_botl.ports["multiplier_0_dummy_L_gsdcon_top_met_W"],comcentroid.ports["tap_W_top_met_W"],glayer2="met1")
+        except KeyError:
+            pass
+        try:
+            comcentroid<<straight_route(pdk,a_botr.ports["multiplier_0_dummy_R_gsdcon_top_met_W"],comcentroid.ports["tap_E_top_met_E"],glayer2="met1")
+        except KeyError:
+            pass
+
     # rename ports and add private ports for smart route
     comcentroid = rename_ports_by_orientation(comcentroid)
     comcentroid.add_ports(create_private_ports(comcentroid,["".join(prtp) for prtp in product(["A_","B_"],["drain","source","gate"])]))
