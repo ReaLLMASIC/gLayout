@@ -227,8 +227,9 @@ def main() -> int:
             "gf180 MIM stack the deck should extract: A (met2/FuseTop/met3) "
             "or B (met4/FuseTop/met5). They are mutually exclusive at process "
             "level, so picking the wrong one extracts no capacitor and every "
-            "MIM reports as missing from the layout. Default: $GF180_MIM_OPTION, "
-            "else A."
+            "MIM reports as missing from the layout. glayout builds option B "
+            "(mimcap/mimcap_array default to option=\"B\"), so that is the "
+            "default here too. Default: $GF180_MIM_OPTION, else B."
         ),
     )
     parser.add_argument(
