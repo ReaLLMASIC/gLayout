@@ -93,7 +93,14 @@ def two_tran_interdigitized_netlist(
     # X-prefix is sky130's magic+netgen tech expectation; klayout decks
     # that classify primitive MOSFETs by SPICE prefix get their netlist
     # X→M-rewritten by the LVS runner.
-    source_netlist = """.subckt {circuit_name} {nodes} """ + f'l={length} w={width} m={1} '+ f"""
+    # No parameters on the top-level .subckt line. KLayout's SPICE reader folds a
+    # subcircuit's default parameters into its *name* -- `l=0.28u w=3u m=1` turns the
+    # circuit into `TWO_TRANSISTOR_INTERDIGITIZED(L=0.28U,M=1,W=3U)` -- so the gf180
+    # klayout deck can no longer match it to the layout's top cell and aborts with
+    # "Can't find a schematic counterpart for the top cell". The device lines below
+    # carry l/w/m explicitly, so these defaults were never used. sky130 is unaffected
+    # (magic+netgen), which is why this only ever showed up on gf180.
+    source_netlist = """.subckt {circuit_name} {nodes}""" + f"""
 XA VDD1 VG1 VSS1 VB {model} l={length} w={width} m={mtop}
 XB VDD2 VG2 VSS2 VB {model} l={length} w={width} m={mtop}"""
     if with_dummy:

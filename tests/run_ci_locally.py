@@ -52,10 +52,12 @@ export PATH="$HOME/.local/bin:$PATH"
 uv python install 3.10 >/dev/null 2>&1
 PYTHON310="$(uv python find 3.10)"
 
-if [ ! -x /work/.drc-cache/venv/bin/python ]; then
+if [ ! -f /work/.drc-cache/venv/.installed ]; then
+    rm -rf /work/.drc-cache/venv
     "$PYTHON310" -m venv /work/.drc-cache/venv
     . /work/.drc-cache/venv/bin/activate
-    uv pip install -e . >/dev/null
+    uv pip install -e .
+    touch /work/.drc-cache/venv/.installed
 else
     # Cache hit: glayout's .pth points to /work which is the same on every
     # run, so no refresh is needed (matches the workflows).

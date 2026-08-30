@@ -301,7 +301,12 @@ def run_lvs_klayout_gf180(
     FuseTop / met3) or "B" (met4 / FuseTop / met5). The two are mutually
     exclusive at process level, so the wrong one extracts no capacitor at all
     and every MIM shows up as missing from the layout. Defaults to
-    ``$GF180_MIM_OPTION``, then to "A".
+    ``$GF180_MIM_OPTION``, then to "B" -- which is what glayout actually builds:
+    both ``mimcap`` and ``mimcap_array`` default to ``option="B"``
+    (primitives/mimcap.py). This used to default to "A", so every gf180 cell with
+    a MIM extracted zero capacitors and LVS reported "N schematic device(s)
+    missing from layout [CAP_MIM_2F0FF]". Set $GF180_MIM_OPTION=A for a layout
+    genuinely built on the met2/met3 stack.
     """
     layout_path = Path(layout)
     netlist_path = Path(netlist)
@@ -310,7 +315,7 @@ def run_lvs_klayout_gf180(
     rpt_dir.mkdir(parents=True, exist_ok=True)
 
     pdk_root = pdk_root or os.environ.get("PDK_ROOT", "/foss/pdks")
-    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "A").upper()
+    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "B").upper()
     if mim_option not in ("A", "B"):
         raise ValueError(f"mim_option must be 'A' or 'B', got {mim_option!r}")
     deck_dir = _resolve_deck_dir(pdk_root)
