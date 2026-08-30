@@ -131,66 +131,74 @@ def macro_two_transistor_interdigitized(
     deviceA_and_B = the device to place for both transistors (either nfet or pfet)
     dummy = place dummy at the edges of the interdigitized place (true by default). you can specify tuple to place only on one side
     kwargs = key word arguments for device. 
-    ****NOTE: These are the same as glayout.flow.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
+    ****NOTE: These are the same as glayout.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
     """
     if isinstance(dummy, bool):
         dummy = (dummy, dummy)
-    # override kwargs for needed options
-    kwargs["sd_route_extension"] = 0
-    kwargs["gate_route_extension"] = 0
-    kwargs["sdlayer"] = "n+s/d" if deviceA_and_B == "nfet" else "p+s/d"
-    kwargs["pdk"] = pdk
-    # create devices dummy l/r and A/B (change extension options)
-    kwargs["dummy"] = (True,False) if dummy[0] else False
-    lefttmost_devA = multiplier(**kwargs)
-    kwargs["dummy"] = False
-    center_devA = multiplier(**kwargs)
+    # create devices dummy l/r and A/B. options the macro must control are
+    # overridden on top of whatever the caller passed through in kwargs
+    common = {**kwargs, "pdk": pdk, "sdlayer": "n+s/d" if deviceA_and_B == "nfet" else "p+s/d"}
+    devA = {**common, "sd_route_extension": 0, "gate_route_extension": 0}
+    leftmost_devA = multiplier(**devA, dummy=(True,False) if dummy[0] else False)
+    center_devA = multiplier(**devA, dummy=False)
+    # device B's s/d and gate routes have to clear device A's, so push them out
     devB_sd_extension = pdk.util_max_metal_seperation() + abs(center_devA.ports["drain_N"].center[1]-center_devA.ports["diff_N"].center[1])
     devB_gate_extension = pdk.util_max_metal_seperation() + abs(center_devA.ports["row0_col0_gate_S"].center[1]-center_devA.ports["gate_S"].center[1])
-    kwargs["sd_route_extension"] = pdk.snap_to_2xgrid(devB_sd_extension)
-    kwargs["gate_route_extension"] = pdk.snap_to_2xgrid(devB_gate_extension)
-    center_devB = multiplier(**kwargs)
-    kwargs["dummy"] = (False,True) if dummy[1] else False
-    rightmost_devB = multiplier(**kwargs)
+    devB = {**common,
+            "sd_route_extension": pdk.snap_to_2xgrid(devB_sd_extension),
+            "gate_route_extension": pdk.snap_to_2xgrid(devB_gate_extension)}
+    # a numcols==1 row is just leftmost/rightmost, so the interior devices are
+    # never placed. center_devA is still built above: the extensions and xdisp
+    # are measured off it.
+    center_devB = multiplier(**devB, dummy=False) if numcols > 1 else None
+    rightmost_devB = multiplier(**devB, dummy=(False,True) if dummy[1] else False)
     # place devices
     idplace = Component()
-    dims = evaluate_bbox(center_devA)
-    xdisp = pdk.snap_to_2xgrid(dims[0]+pdk.get_grule("active_diff")["min_separation"])
+    xdisp = pdk.snap_to_2xgrid(evaluate_bbox(center_devA)[0]+pdk.get_grule("active_diff")["min_separation"])
     refs = list()
     for i in range(2*numcols):
         if i==0:
-            refs.append(idplace << lefttmost_devA)
+            device = leftmost_devA
         elif i==((2*numcols)-1):
-            refs.append(idplace << rightmost_devB)
+            device = rightmost_devB
         elif i%2: # is odd (so device B)
-            refs.append(idplace << center_devB)
+            device = center_devB
         else: # not i%2 == i is even (so device A)
-            refs.append(idplace << center_devA)
-        refs[-1].movex(i*(xdisp))
+            device = center_devA
+        ref = idplace << device
+        refs.append(ref)
+        ref.movex(i*(xdisp))
         devletter = "B" if i%2 else "A"
-        prefix=devletter+"_"+str(int(i/2))+"_"
-        idplace.add_ports(refs[-1].get_ports_list(), prefix=prefix)
-    # extend poly layer for equal parasitics
+        idplace.add_ports(ref.get_ports_list(), prefix=f"{devletter}_{i//2}_")
+    # run every device's s/d metal -- and the A devices' gate poly -- out to the
+    # east edge of the row so all fingers see matching parasitics
     for i in range(2*numcols):
         desired_end_layer = pdk.layer_to_glayer(refs[i].ports["row0_col0_rightsd_top_met_N"].layer)
         idplace << straight_route(pdk, refs[i].ports["row0_col0_rightsd_top_met_N"],refs[-1].ports["drain_E"],glayer2=desired_end_layer)
         idplace << straight_route(pdk, refs[i].ports["leftsd_top_met_N"],refs[-1].ports["drain_E"],glayer2=desired_end_layer)
         if not i%2:
-            desired_gate_end_layer = "poly"
-            idplace << straight_route(pdk, refs[i].ports["row0_col0_gate_S"], refs[-1].ports["gate_E"],glayer2=desired_gate_end_layer)
+            idplace << straight_route(pdk, refs[i].ports["row0_col0_gate_S"], refs[-1].ports["gate_E"],glayer2="poly")
     # merge s/d layer for all transistors
     idplace << straight_route(pdk, refs[0].ports["plusdoped_W"],refs[-1].ports["plusdoped_E"])
-    # create s/d/gate connections extending over entire row
-    A_src = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[0].ports["source_W"], refs[-1].ports["source_E"]), [("route_","_")]))
-    B_src = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[-1].ports["source_E"], refs[0].ports["source_W"]), [("route_","_")]))
-    A_drain = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[0].ports["drain_W"], refs[-1].ports["drain_E"]), [("route_","_")]))
-    B_drain = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[-1].ports["drain_E"], refs[0].ports["drain_W"]), [("route_","_")]))
-    A_gate = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[0].ports["gate_W"], refs[-1].ports["gate_E"]), [("route_","_")]))
-    B_gate = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[-1].ports["gate_E"], refs[0].ports["gate_W"]), [("route_","_")]))
+    # create s/d/gate connections extending over entire row.
+    # A routes W->E and B routes E->W: the direction decides the orientation of
+    # the resulting ports, so the two are not interchangeable.
+    def row_route(port1, port2):
+        return rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, port1, port2), [("route_","_")]))
+    west, east = refs[0], refs[-1]
+    row_routes = {
+        "A_source": (west.ports["source_W"], east.ports["source_E"]),
+        "B_source": (east.ports["source_E"], west.ports["source_W"]),
+        "A_drain": (west.ports["drain_W"], east.ports["drain_E"]),
+        "B_drain": (east.ports["drain_E"], west.ports["drain_W"]),
+        "A_gate": (west.ports["gate_W"], east.ports["gate_E"]),
+        "B_gate": (east.ports["gate_E"], west.ports["gate_W"]),
+    }
     # add route ports and return
-    prefixes = ["A_source","B_source","A_drain","B_drain","A_gate","B_gate"]
-    for i, ref in enumerate([A_src, B_src, A_drain, B_drain, A_gate, B_gate]):
-        idplace.add_ports(ref.get_ports_list(),prefix=prefixes[i])
+    prefixes = list(row_routes)
+    for prefix, (port1, port2) in row_routes.items():
+        ref = idplace << row_route(port1, port2)
+        idplace.add_ports(ref.get_ports_list(),prefix=prefix)
     idplace = transformed(prec_ref_center(idplace))
     idplace.unlock()
     idplace.add_ports(create_private_ports(idplace, prefixes))
@@ -214,7 +222,7 @@ def two_nfet_interdigitized(
     numcols = a single col is actually one col for both nfets (so AB). 2 cols = ABAB ... so on
     dummy = place dummy at the edges of the interdigitized place (true by default). you can specify tuple to place only on one side
     kwargs = key word arguments for multiplier. 
-    ****NOTE: These are the same as glayout.flow.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
+    ****NOTE: These are the same as glayout.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
     tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) for the well tie ring. default=("met1","met1")
     """
     base_multiplier = macro_two_transistor_interdigitized(pdk, numcols, "nfet", dummy, **kwargs)
@@ -299,7 +307,7 @@ def two_pfet_interdigitized(
     numcols = a single col is actually one col for both nfets (so AB). 2 cols = ABAB ... so on
     dummy = place dummy at the edges of the interdigitized place (true by default). you can specify tuple to place only on one side
     kwargs = key word arguments for multiplier. 
-    ****NOTE: These are the same as glayout.flow.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
+    ****NOTE: These are the same as glayout.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
     tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) for the well tie ring. default=("met1","met1")
     """
     base_multiplier = macro_two_transistor_interdigitized(pdk, numcols, "pfet", dummy, **kwargs)
