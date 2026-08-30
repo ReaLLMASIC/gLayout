@@ -159,7 +159,7 @@ def  transmission_gate(
         fingers: tuple[int,int] = (1,1),
         multipliers: tuple[int,int] = (1,1),
         substrate_tap: bool = False,
-        tie_layers: tuple[str,str] = ("met2","met1"),
+        tie_layers: tuple[str,str] = ("met1","met1"),
         **kwargs
         ) -> Component:
     """

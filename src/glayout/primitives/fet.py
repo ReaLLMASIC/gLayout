@@ -208,7 +208,7 @@ def multiplier(
     length: Optional[float] = None,
     fingers: int = 1,
     routing: bool = True,
-    inter_finger_topmet: str = "met2",
+    inter_finger_topmet: str = "met1",
     dummy: Union[bool, tuple[bool, bool]] = True,
     sd_route_topmet: str = "met2",
     gate_route_topmet: str = "met2",
@@ -469,7 +469,7 @@ def nmos(
     sd_rmult: int=1,
     gate_rmult: int=1,
     interfinger_rmult: int=1,
-    tie_layers: tuple[str,str] = ("met2","met1"),
+    tie_layers: tuple[str,str] = ("met1","met1"),
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
     dummy_routes: bool=True
 ) -> Component:
@@ -614,7 +614,7 @@ def pmos(
     sd_rmult: int=1,
     gate_rmult: int=1,
     interfinger_rmult: int=1,
-    tie_layers: tuple[str,str] = ("met2","met1"),
+    tie_layers: tuple[str,str] = ("met1","met1"),
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
     dummy_routes: bool=True
 ) -> Component:
