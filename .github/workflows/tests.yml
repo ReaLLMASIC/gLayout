@@ -36,7 +36,7 @@ jobs:
       # only. Keeping the environment small is what makes this job fast
       # enough to run on every push.
       - name: Install test dependencies
-        run: pip install pytest gdstk numpy pandas pydantic docopt
+        run: pip install pytest gdstk numpy pandas pydantic docopt 'prettyprinttree>=1.36.4,<2'
 
       # The heavier DRC/LVS workflows run the gdsfactory backend (Python
       # 3.10, gdsfactory 7.7), so gdstk currently has no CI coverage at all.
