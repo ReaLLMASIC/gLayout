@@ -196,22 +196,29 @@ def differential_to_single_ended_converter_netlist(pdk: MappedPDK, half_pload: t
     return Netlist(
         circuit_name="DIFF_TO_SINGLE",
         nodes=['VIN', 'VOUT', 'VSS', 'VSS2'],
-        source_netlist=""".subckt {circuit_name} {nodes} """ + f'l={half_pload[1]} w={half_pload[0]} mt={4*2} mb={2 * half_pload[2]} ' + """
-XTOP1 VOUT VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
-XTOP2 VSS2 VIN VSS  VSS {model} l={{l}} w={{w}} m={{mt}}
-XBOT1 VIN  VIN VOUT VSS {model} l={{l}} w={{w}} m={{mb}}
-XBOT2 VOUT VIN VSS2 VSS {model} l={{l}} w={{w}} m={{mb}}
-XDUMMY1  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY2  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY3  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY4  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY5  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY6  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY7  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY8  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY9  VSS VSS VSS VSS {model} l={{l}} w={{w}}
-XDUMMY10 VSS VSS VSS VSS {model} l={{l}} w={{w}}
-.ends {circuit_name}""",
+        # No parameters on the top-level .subckt line. KLayout's SPICE reader folds a
+        # subcircuit's defaults into its NAME -- `l=1.0 w=3.0 mt=8 mb=4` made this
+        # circuit `DIFF_TO_SINGLE(L=1.0,MT=8,MB=4,W=3.0)` -- so the gf180 deck could
+        # not match it to the layout's top cell and aborted with "Can't find a
+        # schematic counterpart for the top cell", which the runner reported as the
+        # catch-all "LVS inconclusive". Unlike two_transistor_interdigitized the body
+        # here referenced {l}/{w}/{mt}/{mb}, so those are inlined below.
+        source_netlist=""".subckt {circuit_name} {nodes}""" + f"""
+XTOP1 VOUT VIN VSS  VSS {{model}} l={half_pload[1]} w={half_pload[0]} m={4*2}
+XTOP2 VSS2 VIN VSS  VSS {{model}} l={half_pload[1]} w={half_pload[0]} m={4*2}
+XBOT1 VIN  VIN VOUT VSS {{model}} l={half_pload[1]} w={half_pload[0]} m={2*half_pload[2]}
+XBOT2 VOUT VIN VSS2 VSS {{model}} l={half_pload[1]} w={half_pload[0]} m={2*half_pload[2]}
+XDUMMY1   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY2   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY3   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY4   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY5   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY6   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY7   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY8   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY9   VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+XDUMMY10  VSS VSS VSS VSS {{model}} l={half_pload[1]} w={half_pload[0]}
+.ends {{circuit_name}}""",
         instance_format="X{name} {nodes} {circuit_name} l={length} w={width} mt={mult_top} mb={mult_bot}",
         parameters={
             'model': pdk.models['pfet'],
