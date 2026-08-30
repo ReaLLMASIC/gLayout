@@ -208,7 +208,7 @@ def multiplier(
     length: Optional[float] = None,
     fingers: int = 1,
     routing: bool = True,
-    inter_finger_topmet: str = "met2",
+    inter_finger_topmet: str = "met1",
     dummy: Union[bool, tuple[bool, bool]] = True,
     sd_route_topmet: str = "met2",
     gate_route_topmet: str = "met2",
