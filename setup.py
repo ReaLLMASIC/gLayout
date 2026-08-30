@@ -31,8 +31,7 @@ setup(
         # `ModuleNotFoundError: No module named 'docopt'` and the deck
         # never runs.
         "docopt",
-        "prettyprint",
-        "prettyprinttree",
+        "prettyprinttree>=1.36.4,<2",
         "gdstk",
         "svgutils",
         "nltk",
