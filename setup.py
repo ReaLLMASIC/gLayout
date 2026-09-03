@@ -31,8 +31,14 @@ setup(
         # `ModuleNotFoundError: No module named 'docopt'` and the deck
         # never runs.
         "docopt",
-        "prettyprint",
-        "prettyprinttree",
+        # `PortTree.print()` passes `default_orientation`, which PrettyPrintTree
+        # removed in 2.0, so an unconstrained install raises TypeError. 1.36.x
+        # keeps the argument but does not constrain its own `cmd2` dependency,
+        # and cmd2 4.x moved `cmd2.ansi`, which makes `PrettyPrint` unimportable
+        # — `port_utils` then silently falls back to its no-op shim. Both bounds
+        # are needed for the printer to actually produce output.
+        "prettyprinttree>=1.36.4,<2",
+        "cmd2<3",
         "gdstk",
         "svgutils",
         "nltk",
