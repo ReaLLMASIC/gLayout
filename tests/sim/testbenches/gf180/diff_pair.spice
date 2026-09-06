@@ -1,0 +1,38 @@
+* Testbench: NFET differential pair — gf180 (3.3 V, nfet_03v3)
+* DUT subckt: DIFF_PAIR VP VN VDD1 VDD2 VTAIL B
+*   VP/VN = gates, VDD1 = drain of the VP side, VDD2 = drain of the VN side,
+*   VTAIL = common source, B = bulk (tie to ground for nfets).
+*
+* Functional check: bias with an ideal ITAIL sink, drive both gates to the
+* same common mode, and verify the tail current splits evenly and is fully
+* recovered at the drains: i1_bal ~= i2_bal ~= ITAIL/2, itail_rec ~= ITAIL,
+* imbalance ~= 0. Each drain gets its own supply source so the branch
+* currents can be read individually.
+*
+* run_cell_sim.py injects the gf180 model setup and .includes the DUT
+* netlist, so this file is stimulus + analysis ONLY.
+.param VDD=3.3
+.param ITAIL=20u
+.param VCM=1.65
+* Per-branch drain supplies (double as current sensors).
+Vd1 VDD1 0 DC {VDD}
+Vd2 VDD2 0 DC {VDD}
+* Bulk rail.
+Vbulk VB 0 DC 0
+* Ideal tail sink: pulls ITAIL out of the common-source node.
+Itail VTAIL 0 DC {ITAIL}
+* Gate drive: VN pinned at VCM, VP swept through it; balance read AT VP=VCM.
+Vp VP 0 DC {VCM}
+Vn VN 0 DC {VCM}
+* DUT: VP VN VDD1 VDD2 VTAIL B
+X1 VP VN VDD1 VDD2 VTAIL VB DIFF_PAIR
+.dc Vp 1.35 1.95 0.005
+* Drain supplies deliver the branch currents -> i(Vd*) negative; flip sign.
+* AT literal 1.65 must match VCM above (balanced point).
+.measure dc i1_raw FIND i(Vd1) AT=1.65
+.measure dc i2_raw FIND i(Vd2) AT=1.65
+.measure dc i1_bal param='-i1_raw'
+.measure dc i2_bal param='-i2_raw'
+.measure dc itail_rec param='i1_bal + i2_bal'
+.measure dc imbalance param='(i1_bal - i2_bal)/(i1_bal + i2_bal)'
+.end

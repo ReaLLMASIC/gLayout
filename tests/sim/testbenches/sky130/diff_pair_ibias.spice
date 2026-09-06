@@ -1,0 +1,34 @@
+* Testbench: differential pair with current-mirror tail bias
+*   DIFFPAIR_CMIRROR_BIAS ports: VP VN VDD1 VDD2 IBIAS VSS B
+*   Internally the diff-pair tail (wire0) is the output of a 1:1 mirror whose
+*   reference is IBIAS, so the tail current = mirror(IBIAS).
+*
+* Functional check: set the reference current at IBIAS, then verify (a) the
+* tail current recovered at the drains tracks IBIAS, and (b) the pair is
+* balanced at VP = VN. Combines the mirror and diff-pair checks into the
+* assembled block.
+*
+* run_cell_sim.py injects the .lib + DUT .include; stimulus + analysis ONLY.
+* sky130 (1.8 V).
+.param VDD=1.8
+.param IBIAS=20u
+.param VCM=0.9
+Vss VSS 0 DC 0
+Vb B 0 DC 0
+* Reference current into the mirror's diode node.
+Iref 0 IBIAS DC {IBIAS}
+* Diff-pair drains to VDD through ammeters.
+Vdd DD 0 DC {VDD}
+Vmeas1 DD VDD1 DC 0
+Vmeas2 DD VDD2 DC 0
+* Inputs: VN at common mode, VP swept through it.
+Vn VN 0 DC {VCM}
+Vp VP 0 DC 0
+* DUT: VP VN VDD1 VDD2 IBIAS VSS B
+X1 VP VN VDD1 VDD2 IBIAS VSS B DIFFPAIR_CMIRROR_BIAS
+.dc Vp 0.6 1.2 0.01
+.measure dc i1_bal FIND i(vmeas1) AT={VCM}
+.measure dc i2_bal FIND i(vmeas2) AT={VCM}
+.measure dc itail_rec param='i1_bal + i2_bal'
+.measure dc imbalance param='(i1_bal - i2_bal)/(i1_bal + i2_bal)'
+.end

@@ -1,0 +1,37 @@
+* Testbench: low-voltage (FVF-biased cascode) current mirror — gf180 (3.3 V)
+* DUT subckt: Low_voltage_current_mirror IBIAS1 IBIAS2 GND IOUT1 IOUT2
+*   Two internal flipped-voltage-follower branches turn the injected IBIAS1 /
+*   IBIAS2 currents into the cascode and bottom gate biases; IOUT1/IOUT2 are
+*   two cascoded nfet output branches that should each sink a copy of the
+*   bias current with low compliance voltage.
+*
+* Functional check: inject IB into both bias ports, force both outputs, and
+* verify each output sinks ~IB: err1/err2 are the relative errors of the two
+* copies at a mid-rail output voltage (IOUT1 swept to also exercise
+* compliance; IOUT2 held at the operating point).
+*
+* run_cell_sim.py injects the gf180 model setup and .includes the DUT
+* netlist, so this file is stimulus + analysis ONLY.
+.param VDD=3.3
+.param IB=10u
+.param VOP=1.65
+* NOTE: ngspice aliases the node name "GND" to node 0, so a `Vgnd GND 0 0`
+* rail source would be a shorted vsource (fatal). Wire the subckt's GND port
+* straight to node 0 instead.
+* Bias injections into the two FVF-based reference branches.
+Ib1 0 IBIAS1 DC {IB}
+Ib2 0 IBIAS2 DC {IB}
+* Outputs: IOUT1 swept, IOUT2 pinned at the operating point.
+Vout1 IOUT1 0 DC 0
+Vout2 IOUT2 0 DC {VOP}
+* DUT: IBIAS1 IBIAS2 GND(=0) IOUT1 IOUT2
+X1 IBIAS1 IBIAS2 0 IOUT1 IOUT2 Low_voltage_current_mirror
+.dc Vout1 0 {VDD} 0.02
+* The output branches SINK current supplied by the Vout sources ->
+* i(Vout*) negative; flip sign. AT literal 1.65 must match VOP above.
+.measure dc iout1_raw FIND i(Vout1) AT=1.65
+.measure dc iout2_raw FIND i(Vout2) AT=1.65
+* Literal 10e-6 must match IB above.
+.measure dc err1 param='(-iout1_raw - 10e-6)/10e-6'
+.measure dc err2 param='(-iout2_raw - 10e-6)/10e-6'
+.end

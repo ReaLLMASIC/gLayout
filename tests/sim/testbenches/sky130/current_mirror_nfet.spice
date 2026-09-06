@@ -1,0 +1,32 @@
+* Testbench: NFET current mirror  (CMIRROR ports: VREF VOUT VSS B)
+*
+* Functional check: the output branch mirrors a 10 uA reference 1:1.
+*
+* run_cell_sim.py injects the .lib model line and .includes the DUT netlist,
+* so this file is stimulus + analysis ONLY (no .lib / no .include here).
+*
+* Cross-PDK note: bias uses a 0.9 V output operating point well inside
+* saturation for a 10 uA device on BOTH sky130 (1.8 V) and gf180 (3.3 V)
+* parts. The mirror *ratio* is what we test, and that's process-independent
+* as long as both transistors sit in saturation -- so one deck serves both.
+
+.param IREF=10u
+
+* Reference branch: push IREF into the diode-connected VREF node, down to VSS(0).
+Iref 0 VREF DC {IREF}
+
+* Output branch: bias VOUT through a 0 V ammeter so i(vmeas) is the mirror current.
+Vbias vom 0 DC 0.9
+Vmeas vom VOUT DC 0
+
+* DUT: shared source (VSS) and bulk (B) tied to ground for the nfet mirror.
+X1 VREF VOUT 0 0 CMIRROR
+
+* Sweep the output node 0 -> 1.8 V (triode through saturation).
+.dc Vbias 0 1.8 0.02
+
+.measure dc iout_op    FIND i(vmeas) AT=0.9
+.measure dc iout_hi    FIND i(vmeas) AT=1.6
+.measure dc mirror_err param='(iout_op-10e-6)/10e-6'
+
+.end
