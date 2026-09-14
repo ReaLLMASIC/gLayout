@@ -30,6 +30,28 @@ class GdstkBackendTests(unittest.TestCase):
         c.add_port(name="p1", center=(0, 0), width=1, orientation=0, layer=(1, 0))
         self.assertIn("p1", c.ports)
 
+    def test_add_ref_array(self):
+        """add_ref(columns=, rows=, spacing=) lays out a repeated reference.
+
+        `test_bjt_gdsfactory` builds its contact rings this way. Without it
+        the notebook dies on a TypeError halfway through.
+        """
+        from glayout.backend import Component, rectangle
+        c = Component("array_probe")
+        unit = rectangle(size=(1, 1), layer=(1, 0))
+        ref = c.add_ref(unit, columns=3, rows=2, spacing=(2, 2))
+        self.assertIsNotNone(ref)
+        # 3 columns at pitch 2 span 1 + 2*2 = 5; 2 rows span 1 + 2 = 3.
+        (x0, y0), (x1, y1) = c.bbox
+        self.assertAlmostEqual(x1 - x0, 5.0)
+        self.assertAlmostEqual(y1 - y0, 3.0)
+
+    def test_add_ref_array_needs_spacing(self):
+        from glayout.backend import Component, rectangle
+        c = Component("array_probe_nospacing")
+        with self.assertRaises(ValueError):
+            c.add_ref(rectangle(size=(1, 1), layer=(1, 0)), columns=2)
+
     def test_primitives_build(self):
         from glayout.pdk.sky130_mapped.sky130_mapped import sky130_mapped_pdk as pdk
         from glayout.primitives.via_gen import via_stack, via_array
@@ -64,6 +86,82 @@ class GdstkBackendTests(unittest.TestCase):
             path = os.path.join(td, "dp.gds")
             dp.write_gds(path)
             self.assertGreater(os.path.getsize(path), 0)
+
+
+class GridSnapTests(unittest.TestCase):
+    """The grid the backend rounds to has to come from the PDK.
+
+    gf180 and sky130 are both 5 nm processes. `snap_to_grid` used to take a
+    bare `nm: int = 1`, so a coordinate the process wants at 10.245 was kept
+    at 10.246 -- legal at 1 nm, off-grid at 5 nm, and the DRC flags every
+    such vertex: comp, metal, contact and via alike. These tests pin the
+    grid to the PDK so a 1 nm default cannot come back unnoticed.
+    """
+
+    GRID_UM = 0.005  # gf180 / sky130 manufacturing grid
+
+    @classmethod
+    def setUpClass(cls):
+        os.environ["GLAYOUT_BACKEND"] = "gdstk"
+        os.environ.setdefault("PDK_ROOT", "/tmp")
+        from glayout import backend
+        backend.set_backend("gdstk")
+
+    def _gf180(self):
+        from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
+        gf180_mapped_pdk.activate()
+        return gf180_mapped_pdk
+
+    def test_activate_derives_grid_from_precision(self):
+        """activate() must take the grid from precision, not keep the default.
+
+        precision already carries the real pitch (5e-9 m), so the grid is
+        derived from it rather than written down a second place that could
+        drift out of step with it.
+        """
+        pdk = self._gf180()
+        self.assertAlmostEqual(pdk.grid_size, self.GRID_UM, places=9)
+
+    def test_snap_lands_on_the_pdk_grid(self):
+        """The value in the bug report: 10.246 is legal at 1 nm, not at 5 nm."""
+        from glayout.backend import snap_to_grid
+        self._gf180()
+        self.assertAlmostEqual(snap_to_grid(10.2463), 10.245, places=9)
+        self.assertAlmostEqual(snap_to_grid(-0.0011), 0.0, places=9)
+        for value in (0.0012, 3.14159, 10.2463, -7.7777):
+            snapped = snap_to_grid(value)
+            self.assertAlmostEqual(
+                snapped / self.GRID_UM, round(snapped / self.GRID_UM), places=6,
+                msg=f"{value} snapped to {snapped}, which is off a 5 nm grid",
+            )
+
+    def test_explicit_pitch_still_overrides(self):
+        """Callers that need a specific pitch keep the old behaviour."""
+        from glayout.backend import snap_to_grid
+        self._gf180()
+        self.assertAlmostEqual(snap_to_grid(10.2463, nm=1), 10.246, places=9)
+
+    def test_built_geometry_lands_on_the_grid(self):
+        """The end-to-end claim: real devices come out on-grid.
+
+        Snapping scalars correctly is not the same as a built cell being
+        clean -- the generators compose dozens of snapped values. This walks
+        every vertex of a flattened device and is the check that corresponds
+        to what the DRC reports.
+        """
+        pdk = self._gf180()
+        from glayout.primitives.fet import nmos
+        device = nmos(pdk, fingers=2)
+        fuera = []
+        for polygon in device._cell.get_polygons(depth=None):
+            for x, y in polygon.points:
+                for coord in (x, y):
+                    pasos = coord / self.GRID_UM
+                    if abs(pasos - round(pasos)) > 1e-6:
+                        fuera.append(coord)
+        self.assertEqual(
+            fuera[:8], [], f"{len(fuera)} vertices off the 5 nm grid",
+        )
 
 
 if __name__ == "__main__":

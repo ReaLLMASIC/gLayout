@@ -260,6 +260,12 @@ def main() -> int:
         help="Jupyter kernel name to launch (default: python3).",
     )
     p.add_argument(
+        "--retries", type=int, default=0,
+        help="Re-run a notebook that ends in 'error' (crash/timeout, not a "
+             "cell failure) up to this many times. Transport races lose "
+             "messages; a genuinely broken notebook still fails every try.",
+    )
+    p.add_argument(
         "--only", default=None,
         help="Comma-separated notebook basenames (with or without .ipynb) to limit the run.",
     )
@@ -288,12 +294,23 @@ def main() -> int:
 
     results: List[NotebookResult] = []
     for nb in nbs:
-        r = _run_one(
-            nb, executed_dir, log_dir,
-            timeout_per_cell=args.cell_timeout,
-            timeout_per_notebook=args.notebook_timeout,
-            kernel_name=args.kernel_name,
-        )
+        for intento in range(1 + max(0, args.retries)):
+            r = _run_one(
+                nb, executed_dir, log_dir,
+                timeout_per_cell=args.cell_timeout,
+                timeout_per_notebook=args.notebook_timeout,
+                kernel_name=args.kernel_name,
+            )
+            # only "error" (nbconvert crash / timeout) is worth retrying:
+            # that is the transport-race class. A "fail" is a real cell
+            # exception and retrying it would only hide it.
+            if r.status != "error" or intento == args.retries:
+                break
+            print(f"[RETRY] {r.notebook} ({r.duration_s:.1f}s) "
+                  f"{r.error_name}: attempt {intento + 2}", flush=True)
+        temporal = nb.with_name(nb.stem + "__stripped.ipynb")
+        if temporal.exists():
+            temporal.unlink()
         print(f"[{r.status.upper()}] {r.notebook} ({r.duration_s:.1f}s)" +
               (f" — cell {r.errored_cell} {r.error_name}: {r.error_message}"
                if r.status != "pass" else ""),

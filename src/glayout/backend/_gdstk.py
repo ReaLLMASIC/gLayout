@@ -29,6 +29,7 @@ PathType = Union[str, _Path]
 # cell_decorator_settings, .activate()). Extra fields are allowed so callers
 # can pass arbitrary pdk-specific config.
 from pydantic import BaseModel, ConfigDict  # noqa: E402
+import os as _os
 
 
 class _GdsWriteSettings(BaseModel):
@@ -43,6 +44,10 @@ class _CellDecoratorSettings(BaseModel):
     cache: bool = False
 
 
+# The PDK whose grid snap_to_grid() should use. Set by Pdk.activate().
+_ACTIVE_PDK: Optional["Pdk"] = None
+
+
 class Pdk(BaseModel):
     """Minimal shim for gdsfactory.pdk.Pdk. Holds enough state for
     MappedPDK to function."""
@@ -52,15 +57,29 @@ class Pdk(BaseModel):
     name: str
     layers: Optional[dict] = None
     default_decorator: Optional[Any] = None
-    grid_size: float = 0.001  # microns; matches gdsfactory default
+    grid_size: float = 0.001  # microns; corrected in activate() from precision
     gds_write_settings: _GdsWriteSettings = _GdsWriteSettings()
     cell_decorator_settings: _CellDecoratorSettings = _CellDecoratorSettings()
 
     def activate(self) -> None:
-        """No-op. gdsfactory's activate() registered the PDK in a global
-        registry; that registry is a gdsfactory concern and isn't needed
-        once gdsfactory is out of the import graph."""
-        return None
+        """Register this PDK as the active one.
+
+        gdsfactory kept a global registry so that helpers like snap_to_grid
+        could look up the process grid. Most of that registry is a gdsfactory
+        concern, but the grid is not: snapping to the wrong pitch puts every
+        vertex off-grid, and the DRC reports it on all of them.
+        """
+        # gdsfactory filled grid_size in from its PDK database here. Without
+        # that database the class default (1 nm) survives, and snapping a 5 nm
+        # process to 1 nm puts every vertex off-grid -- the DRC then flags
+        # comp, metal, contact and via alike. precision already carries the
+        # real pitch, so derive it rather than duplicating the number.
+        precision_um = float(self.gds_write_settings.precision) * 1e6
+        if precision_um > 0 and self.grid_size != precision_um:
+            object.__setattr__(self, "grid_size", precision_um)
+
+        global _ACTIVE_PDK
+        _ACTIVE_PDK = self
 
     def validate_layers(self, layers_required) -> None:
         """Mimics gdsfactory.pdk.Pdk.validate_layers — raise if any named
@@ -248,6 +267,41 @@ def _as_layer(layer) -> Layer:
 # ---------------------------------------------------------------------------
 
 
+def _sort_ports_clockwise(ports: list) -> list:
+    """Order ports the way gdsfactory's select_ports() does.
+
+    select_ports defaults to clockwise=True, so ports come out bucketed by
+    orientation and swept west, north, east, south -- west sorted south to
+    north, north west to east, east north to south, south east to west.
+
+    The order is not cosmetic. Cells and notebooks pick ports out of
+    get_ports_list() by substring, e.g.
+
+        next(p for p in cap.get_ports_list() if "bottom_met" in p.name)
+
+    and a different order hands back a different port: on a 10x15 mimcap that
+    is array_row0_col0_bottom_met_W at (-4.250,-6.400) rather than
+    bottom_met_W at (-5.600,0.000), so the route lands somewhere else.
+    """
+    buckets = {"E": [], "N": [], "W": [], "S": []}
+    for p in ports:
+        angle = (p.orientation or 0) % 360
+        if angle <= 45 or angle >= 315:
+            buckets["E"].append(p)
+        elif 45 <= angle <= 135:
+            buckets["N"].append(p)
+        elif 135 <= angle <= 225:
+            buckets["W"].append(p)
+        else:
+            buckets["S"].append(p)
+
+    buckets["W"].sort(key=lambda p: +p.center[1])   # south to north
+    buckets["N"].sort(key=lambda p: +p.center[0])   # west to east
+    buckets["E"].sort(key=lambda p: -p.center[1])   # north to south
+    buckets["S"].sort(key=lambda p: -p.center[0])   # east to west
+    return buckets["W"] + buckets["N"] + buckets["E"] + buckets["S"]
+
+
 class ComponentReference:
     """Wraps a `gdstk.Reference`. Exposes transform mutation and transformed
     views of the parent component's ports/bbox."""
@@ -264,6 +318,9 @@ class ComponentReference:
         self._ref = gref
         # owner is the Component this reference has been added to (not the target)
         self.owner: Optional["Component"] = None
+        # a label for this placement; falls back to the target cell's name
+        self._name: Optional[str] = None
+
 
     # --- metadata ----------------------------------------------------------
     @property
@@ -308,14 +365,31 @@ class ComponentReference:
         self._ref.x_reflection = bool(value)
 
     # --- movement (mutate + return self) ----------------------------------
-    def movex(self, dx: float = 0.0) -> "ComponentReference":
+    def movex(
+        self,
+        origin: float = 0.0,
+        destination: Optional[float] = None,
+    ) -> "ComponentReference":
+        """Move along x, mirroring ``move``'s calling conventions:
+          - movex(dx)                 — translate by dx
+          - movex(destination=x)      — translate by x
+          - movex(origin=x0,
+                  destination=x1)     — translate by x1-x0
+        """
+        dx = float(origin) if destination is None else float(destination) - float(origin)
         ox, oy = self.origin
-        self.origin = (ox + float(dx), oy)
+        self.origin = (ox + dx, oy)
         return self
 
-    def movey(self, dy: float = 0.0) -> "ComponentReference":
+    def movey(
+        self,
+        origin: float = 0.0,
+        destination: Optional[float] = None,
+    ) -> "ComponentReference":
+        """Move along y. See :meth:`movex` for the calling conventions."""
+        dy = float(origin) if destination is None else float(destination) - float(origin)
         ox, oy = self.origin
-        self.origin = (ox, oy + float(dy))
+        self.origin = (ox, oy + dy)
         return self
 
     def move(
@@ -323,24 +397,37 @@ class ComponentReference:
         origin: Optional[Coord] = None,
         destination: Optional[Coord] = None,
     ) -> "ComponentReference":
-        """Move this reference. Two calling conventions:
-          - move((dx, dy))                    — translate by offset
-          - move(destination=(x, y))          — move so the ref's center lands at (x, y)
-          - move(origin=(x0, y0),
-                 destination=(x1, y1))        — translate by (x1-x0, y1-y0)
+        """Translate this reference by (destination - origin).
+
+        `origin` defaults to (0, 0), NOT to the reference's centre -- so
+        move(destination=(x, y)) is a plain translation by (x, y), the same as
+        move((x, y)). That is gdsfactory's signature, and the difference is not
+        academic: c_route places its extension rectangles with
+
+            e1_extension.move(destination=edge1.center)
+            e1_extension.movex(0 - evaluate_bbox(e1_extension)[0])
+
+        i.e. an absolute-looking call followed by relative nudges. Centring the
+        bbox on the destination instead injects an offset of half the
+        rectangle, and the route walks off: on the LIF neuron the met2 return
+        path ran to x=-8.125 instead of -1.250, widening the cell 8% and
+        raising 54 M2.2a violations that gdsfactory never produces.
+
+        Either endpoint may be a Port (or anything exposing `.center`), which
+        is how callers route to a port without unpacking it.
         """
-        if destination is None and origin is not None and not isinstance(origin, ComponentReference):
-            # single-arg form: treat as offset
-            return self.movex(origin[0]).movey(origin[1])
+        def _coord(v):
+            c = getattr(v, "center", None)
+            return (float(v[0]), float(v[1])) if c is None else (float(c[0]), float(c[1]))
+
         if destination is None:
-            return self
-        if origin is None:
-            # move by (destination - current center)
-            cx, cy = self.center
-            dx, dy = destination[0] - cx, destination[1] - cy
-        else:
-            dx, dy = destination[0] - origin[0], destination[1] - origin[1]
-        return self.movex(dx).movey(dy)
+            if origin is None:
+                return self
+            # single-arg form: move((dx, dy)) is a translation by that offset
+            destination, origin = origin, (0.0, 0.0)
+        ox, oy = _coord((0.0, 0.0) if origin is None else origin)
+        dx, dy = _coord(destination)
+        return self.movex(dx - ox).movey(dy - oy)
 
     def rotate(self, angle_deg: float, center: Coord = (0.0, 0.0)) -> "ComponentReference":
         # rotate the reference's placement about `center`
@@ -390,6 +477,21 @@ class ComponentReference:
             for name, p in self.parent.ports.items()
         }
 
+    def __getitem__(self, key: str) -> Port:
+        """comp["port_name"], como en gdsfactory.
+
+        No es azucar: primitivos como bjt indexan el componente para leer el
+        ancho de un puerto, y sin esto el error que sale ("Component object is
+        not subscriptable") no dice nada del puerto que buscaba.
+        """
+        try:
+            return self.ports[key]
+        except KeyError:
+            raise KeyError(
+                f"no port {key!r} on {getattr(self, 'name', self)!r}; "
+                f"hay {sorted(self.ports)[:8]}..."
+            ) from None
+
     def get_ports_list(self, prefix: str = "", **filters) -> list[Port]:
         """Filter ports. `prefix` filters to names starting with that prefix
         (matches gdsfactory.component.Component.get_ports_list). Extra
@@ -407,7 +509,7 @@ class ComponentReference:
                 if skip:
                     continue
             out.append(p)
-        return out
+        return _sort_ports_clockwise(out)
 
     @property
     def bbox(self) -> tuple[Coord, Coord]:
@@ -417,6 +519,16 @@ class ComponentReference:
     def center(self) -> Coord:
         (x0, y0), (x1, y1) = self.bbox
         return ((x0 + x1) / 2.0, (y0 + y1) / 2.0)
+
+    @property
+    def x(self) -> float:
+        """Centre x. gdsfactory exposes this on references, not just on cells."""
+        return self.center[0]
+
+    @property
+    def y(self) -> float:
+        """Centre y. Counterpart of :attr:`x`."""
+        return self.center[1]
 
     @property
     def xmin(self) -> float: return self.bbox[0][0]
@@ -429,7 +541,15 @@ class ComponentReference:
 
     @property
     def name(self) -> str:
-        return self.parent.name
+        return self._name if self._name is not None else self.parent.name
+
+    @name.setter
+    def name(self, value: str) -> None:
+        # gdsfactory lets callers label a placement without touching the cell it
+        # points at (``ref.name = "pfet_2"``), and cells and tutorials do exactly
+        # that. Keep it on the reference: renaming the parent here would rename
+        # every other reference to the same cell too.
+        self._name = str(value)
 
     def __repr__(self) -> str:
         return f"ComponentReference(parent={self.parent.name!r}, origin={self.origin}, rotation={self.rotation})"
@@ -468,6 +588,21 @@ class Component:
     def name(self, value: str) -> None:
         self._cell.name = str(value)
 
+    def show(self, *args, **kwargs) -> None:
+        """Open the layout in KLayout, like gdsfactory's Component.show().
+
+        Writes a temp .gds and hands it to klive when reachable. Tutorials
+        call this for interactive viewing, so it must stay quiet headless.
+        """
+        import tempfile
+        path = _os.path.join(tempfile.gettempdir(), f"{self.name}.gds")
+        self.write_gds(path)
+        try:
+            from gdsfactory.show import show as _gf_show  # type: ignore
+            _gf_show(path)
+        except Exception:
+            pass
+
     def __repr__(self) -> str:
         return f"Component(name={self.name!r}, ports={list(self.ports)}, refs={len(self._references)})"
 
@@ -481,8 +616,34 @@ class Component:
         return self
 
     # --- add / << ----------------------------------------------------------
-    def add_ref(self, component: "Component", alias: Optional[str] = None) -> ComponentReference:
-        ref = component.ref()
+    def add_ref(
+        self,
+        component: "Component",
+        alias: Optional[str] = None,
+        columns: int = 1,
+        rows: int = 1,
+        spacing: Optional[tuple] = None,
+    ) -> ComponentReference:
+        """Reference `component`, optionally as a repeated array.
+
+        gdsfactory accepts columns/rows/spacing here and the BJT tutorial
+        lays its contact rings out that way. gdstk has the same notion
+        natively, so the array stays one reference rather than becoming
+        rows*columns of them.
+        """
+        if columns != 1 or rows != 1:
+            if spacing is None:
+                raise ValueError(
+                    "add_ref: spacing is required when columns or rows > 1"
+                )
+            gref = gdstk.Reference(
+                component._cell, origin=(0.0, 0.0),
+                columns=int(columns), rows=int(rows),
+                spacing=(float(spacing[0]), float(spacing[1])),
+            )
+            ref = ComponentReference(component, gref)
+        else:
+            ref = component.ref()
         self.add(ref)
         return ref
 
@@ -564,9 +725,14 @@ class Component:
 
     def add_ports(
         self,
-        ports: Iterable[Port],
+        ports: Union[Iterable[Port], "dict[str, Port]"],
         prefix: str = "",
     ) -> "Component":
+        # gdsfactory accepts either a sequence of ports or a name->port mapping,
+        # and glayout passes `ref.ports` -- a dict -- straight through. Iterating
+        # that yields the names, so `p.name` blows up with a str.
+        if hasattr(ports, "values"):
+            ports = list(ports.values())
         for p in ports:
             new_name = f"{prefix}{p.name}" if prefix else p.name
             np = p.copy(name=new_name)
@@ -589,6 +755,21 @@ class Component:
                   % (name, p.center[0], p.center[1], p.width,
                      p.orientation or 0.0, p.layer))
 
+    def __getitem__(self, key: str) -> Port:
+        """comp["port_name"], como en gdsfactory.
+
+        No es azucar: primitivos como bjt indexan el componente para leer el
+        ancho de un puerto, y sin esto el error que sale ("Component object is
+        not subscriptable") no dice nada del puerto que buscaba.
+        """
+        try:
+            return self.ports[key]
+        except KeyError:
+            raise KeyError(
+                f"no port {key!r} on {getattr(self, 'name', self)!r}; "
+                f"hay {sorted(self.ports)[:8]}..."
+            ) from None
+
     def get_ports_list(self, prefix: str = "", **filters) -> list[Port]:
         out: list[Port] = []
         for name, p in self.ports.items():
@@ -604,7 +785,7 @@ class Component:
                 out.append(p.copy(name=f"{prefix}{name}"))
             else:
                 out.append(p)
-        return out
+        return _sort_ports_clockwise(out)
 
     # --- geometry ---------------------------------------------------------
     def add_polygon(self, points, layer: Optional[Layer] = None) -> gdstk.Polygon:
@@ -773,7 +954,20 @@ class Component:
         visit(self._cell)
         return order
 
-    def write_gds(self, filename: str, unit: float = 1e-6, precision: float = 1e-9) -> str:
+    def write_gds(
+        self,
+        filename: Optional[str] = None,
+        unit: float = 1e-6,
+        precision: float = 1e-9,
+        gdsdir: Optional[str] = None,
+    ) -> str:
+        # Match gdsfactory's write_gds(gdspath=None, gdsdir=None): the path
+        # may be omitted (defaults to "<name>.gds") and a directory may be
+        # given on its own. Tutorials use both call styles.
+        if filename is None:
+            filename = f"{self.name}.gds"
+        if gdsdir is not None:
+            filename = str(_os.path.join(str(gdsdir), str(filename)))
         lib = gdstk.Library(unit=unit, precision=precision)
         used_names: set[str] = set()
         for cell in self._collect_cells():
@@ -817,16 +1011,23 @@ def Polygon(points, layer=(0, 0), datatype=None) -> gdstk.Polygon:
 # ---------------------------------------------------------------------------
 
 
-def snap_to_grid(x, nm: int = 1):
-    """Snap `x` (in micrometers) to an `nm`-nanometer grid.
+def snap_to_grid(x, nm: Optional[int] = None, grid_factor: int = 1):
+    """Snap `x` (in micrometers) to the active PDK's grid.
 
-    Matches gdsfactory.snap.snap_to_grid semantics used in this repo.
+    Mirrors gdsfactory.snap.snap_to_grid, which reads the grid from the active
+    PDK rather than assuming one: gf180 is on 5 nm, and snapping it to 1 nm
+    leaves every vertex off-grid (the DRC then flags comp, metal, contact and
+    via alike). `nm` overrides the lookup when a caller needs a specific pitch.
+
     Accepts scalars or iterables.
     """
     if x is None:
         return None
     if isinstance(x, (list, tuple)):
-        return type(x)(snap_to_grid(v, nm) for v in x)
+        return type(x)(snap_to_grid(v, nm, grid_factor) for v in x)
+    if nm is None:
+        grid_um = _ACTIVE_PDK.grid_size if _ACTIVE_PDK is not None else 0.001
+        nm = max(1, int(round(grid_um * 1000.0 * grid_factor)))
     return round(float(x) * 1000.0 / nm) * nm / 1000.0
 
 
