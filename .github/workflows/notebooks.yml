@@ -150,7 +150,7 @@ jobs:
           set -euxo pipefail
           . "$GITHUB_WORKSPACE/.venv/bin/activate"
           python tests/notebooks/run_tutorial_notebooks.py \
-            --out-dir notebook_results --strip-displays --retries 1
+            --out-dir notebook_results --retries 1
 
       - name: Upload notebook artifacts
         if: always()
