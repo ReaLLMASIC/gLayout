@@ -1,0 +1,204 @@
+{
+  "status": "PREPARED_NOT_LAUNCHED",
+  "resource_rule": "Do not compete with current C07/TG two-worker qualification; later at most one2CPU job and actualbusy+2<=24/RAM<=190GiB",
+  "commands": [
+    {
+      "configuration_id": "anchor",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "anchor"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf2_l030",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf2_l030"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf2_l060",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf2_l060"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf2_l090",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf2_l090"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf4_l030",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf4_l030"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf4_l090",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf4_l090"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf6_l030",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf6_l030"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf6_l060",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf6_l060"
+      ]
+    },
+    {
+      "configuration_id": "dev_nf6_l090",
+      "argv": [
+        "python3",
+        "scripts/run_eda_probe.py",
+        "--script",
+        "corpus_yield_pilot.py",
+        "--magic-runtime",
+        "magic-8.3.685",
+        "--timeout",
+        "1200",
+        "--",
+        "--circuit",
+        "C01",
+        "--limit",
+        "0",
+        "--family-table",
+        "/work/configs/development/c01_independent_nf_family/configurations.json",
+        "--configuration-id",
+        "dev_nf6_l090"
+      ]
+    }
+  ]
+}

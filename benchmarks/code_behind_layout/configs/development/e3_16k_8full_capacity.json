@@ -1,0 +1,178 @@
+{
+  "status": "DRAFT_E3_RUNNER",
+  "formal_dispatch": false,
+  "preparation": "runtime/task_preparation/e3_expanded_P_20261019T035505371049Z",
+  "task_ids": [
+    "draft_E3_mirror_edit01",
+    "draft_E3_mirror_edit02",
+    "draft_E3_mirror_edit03",
+    "draft_E3_cascode_mirror_edit01",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_cascode_mirror_edit03",
+    "draft_E3_source_follower_edit01",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_source_follower_edit03",
+    "draft_E3_stacked_switch_edit01",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_stacked_switch_edit03",
+    "draft_E3_common_source_stage_edit01",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_common_source_stage_edit03",
+    "draft_E3_resistive_diff_edit01",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_resistive_diff_edit03",
+    "draft_E3_five_t_edit01",
+    "draft_E3_five_t_edit02",
+    "draft_E3_five_t_edit03",
+    "draft_E3_compact_miller_edit01",
+    "draft_E3_compact_miller_edit02",
+    "draft_E3_compact_miller_edit03"
+  ],
+  "methods": [
+    "A",
+    "R",
+    "B",
+    "C"
+  ],
+  "trials": 5,
+  "selection_seeds": [
+    41,
+    73,
+    109,
+    167,
+    223
+  ],
+  "model_config": "configs/models/gpt_e3_12k.draft.json",
+  "risk_model": "results/derived/e3_visible_risk_rule_status_predicate_v1.json",
+  "risk_weights": {
+    "failure_probability": 0,
+    "uncertainty": 1,
+    "changed_call_coverage": 0,
+    "low_margin": 1
+  },
+  "weight_status": "PREDECLARED_EQUAL_WEIGHT_TRANSPARENT_RULE_NOT_VALIDATION_TUNED",
+  "fidelity_policy": "F0_actual_full_each_selected_configuration",
+  "budget_status": "CAPACITY_CONTROL_ONLY_NOT_FORMAL",
+  "budget": {
+    "wall_seconds": 14400,
+    "decisions": 24,
+    "patches": 8,
+    "full_evaluations": 8,
+    "maximum_context_tokens": 16384,
+    "maximum_output_tokens": 1024
+  },
+  "parameter_baseline": {
+    "configuration_selector": "C",
+    "strategies": [
+      "random",
+      "gpt_feedback"
+    ],
+    "interface": "prospective_expanded_layout_grid_v1"
+  },
+  "freeze_blockers": [
+    "24 actually qualified editing states and at least12 genuine natural or clean-poor shortfalls",
+    "Actual near-full12k H100 SFT/DPO/checkpoint restore and consistent serving",
+    "Complete source plus actual feedback history calibration and real gateway control",
+    "Prospectively frozen transparent-rule artifact and explicitly disclosed unavailable probabilistic variant",
+    "All24 exact initial parameter-render byte bindings",
+    "Immutable original-program baseline plan; actual hidden vectors after global sealing release",
+    "E3 own registry, implementation, analysis and dispatch freeze"
+  ],
+  "parameter_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "instance_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "instance_trials": 1,
+  "dispatch_order_seed": 20261019,
+  "e4_methods_manifest": "runtime/protocol_freezes/E4_primary/manifest.json",
+  "global_release_parts": [
+    "gpt",
+    "parameter",
+    "local",
+    "signals",
+    "fidelity"
+  ],
+  "global_release_requires_fidelity_freeze": true,
+  "fidelity_manifest": "runtime/protocol_freezes/E3_F3_primary/manifest.json",
+  "e4_evaluation": {
+    "variants": [
+      "T0",
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "matched_evaluation_seed_slots": [
+      41,
+      73,
+      109
+    ],
+    "inference_trials": 3,
+    "T0_actual_model_count": 1,
+    "T0_independent_training_seeds": 0
+  },
+  "instance_baseline": {
+    "algorithm": "independent_arrivals_with_verified_library_exact_cache_v1",
+    "warm_start": "nearest_previous_verified_configuration_then_latest",
+    "cache": "exact_source_configuration_reference_PDK_deck_tools_fidelity",
+    "arrival_order": "configs/experiments/e3_instance_arrivals_draft.json",
+    "deployment_verification_maximum_physical_calls": 1,
+    "budget": {
+      "wall_seconds": 14400,
+      "decisions": 24,
+      "patches": 8,
+      "full_evaluations": 8,
+      "maximum_context_tokens": 16384,
+      "maximum_output_tokens": 1024
+    },
+    "budget_scope": "Same per-arrival search limits as one shared-code episode; every arrival, cache, verification and library cost is charged separately for cumulative cost comparison."
+  },
+  "signal_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "selector_ablation_weights": {
+    "without_distance": {
+      "failure_probability": 0,
+      "uncertainty": 0,
+      "changed_call_coverage": 0,
+      "low_margin": 1
+    },
+    "without_margin": {
+      "failure_probability": 0,
+      "uncertainty": 1,
+      "changed_call_coverage": 0,
+      "low_margin": 0
+    }
+  },
+  "unavailable_signal_ablation": {
+    "changed_call_coverage": "No validated current impact map; weight0 in main, so a duplicate run would not identify an effect",
+    "failure_probability": "No qualified mixed-label family vectors; transparent-rule fallback has weight0"
+  },
+  "fidelity_task_ids": [
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ]
+}

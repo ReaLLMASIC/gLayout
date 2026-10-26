@@ -1,0 +1,465 @@
+{
+  "status": "DRAFT_INDEPENDENT_SOURCE_DOMAIN",
+  "task_id": "draft_common_source_stage_area",
+  "parent_lineage": "research_common_source_stage",
+  "topology_family": "common_source_amplifier",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/source_pack",
+  "editable_paths": [
+    "src/generators/common_source_stage.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "ports": [
+    "VIN",
+    "OUT",
+    "PBIAS",
+    "VDD",
+    "VSS"
+  ],
+  "scope": "Sizing changes only through immutable configuration; source edits preserve all intent and device multiplicities.",
+  "domain_note": "Width/length scale combinations snapped to the .005um PDK grid before reference generation; visible scale .97..1.03, declared legal .955..1.045 boundary and narrow .94..1.06 extrapolation. Exact snapped device values remain immutable per point.",
+  "default_qualification": "results/derived/common_source_independent_development.json",
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "full25_baseline": null,
+  "feasible_edit_witness": null,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "domain_subtype": "anchor",
+      "parameters": {
+        "n_width": 2.0,
+        "p_width": 4.0,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/anchor.spice",
+      "reference_id": "independent_common_source_stage_anchor",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "anchor",
+        "reference_id": "independent_common_source_stage_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 1.94,
+        "p_width": 3.88,
+        "length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_01.spice",
+      "reference_id": "independent_common_source_stage_dev_01",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_common_source_stage_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 1.94,
+        "p_width": 3.88,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_02.spice",
+      "reference_id": "independent_common_source_stage_dev_02",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_common_source_stage_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 1.94,
+        "p_width": 3.88,
+        "length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_03.spice",
+      "reference_id": "independent_common_source_stage_dev_03",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_common_source_stage_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.0,
+        "p_width": 4.0,
+        "length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_04.spice",
+      "reference_id": "independent_common_source_stage_dev_04",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_common_source_stage_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.0,
+        "p_width": 4.0,
+        "length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_05.spice",
+      "reference_id": "independent_common_source_stage_dev_05",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_common_source_stage_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.06,
+        "p_width": 4.12,
+        "length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_06.spice",
+      "reference_id": "independent_common_source_stage_dev_06",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_common_source_stage_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.06,
+        "p_width": 4.12,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_07.spice",
+      "reference_id": "independent_common_source_stage_dev_07",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_common_source_stage_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.06,
+        "p_width": 4.12,
+        "length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/common_source_stage/references/dev_08.spice",
+      "reference_id": "independent_common_source_stage_dev_08",
+      "contract": {
+        "task_id": "draft_common_source_stage_area",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_common_source_stage_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "common_source_stage_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "src/generators/common_source_stage.py": "\"\"\"Triangular common-source assembly with a short right output spine.\n\nThe PMOS reference/load sit above an offset NMOS signal branch. Each circuit\nnet path is explicit; no existing amplifier or graph-to-layout compiler is used.\n\"\"\"\nimport json\nfrom pathlib import Path\nfrom gdsfactory.component import Component\nfrom glayout import sky130\nfrom glayout.primitives.fet import nmos,pmos\nfrom src.generators.terminal_access import expose,wire,via,pin,finish\nfrom src.generators.common_source_reference import DEFAULT\n\n\ndef build(output,sizing=None,pair_gap=36.,stage_gap=24.,output_width=.8):\n    size={**DEFAULT,**(sizing or {})}\n    sky130.activate();top=Component(\"common_source_stage\")\n    remove=[v for k,v in sky130.glayers.items() if k.endswith((\"_label\",\"_pin\"))]+[(64,44)]\n    ncell=nmos(sky130,width=size[\"n_width\"],length=size[\"length\"],fingers=size[\"fingers\"],\n               with_dummy=False,with_tie=True,with_dnwell=False).copy().remove_layers(remove,include_labels=True)\n    pcell=pmos(sky130,width=size[\"p_width\"],length=size[\"length\"],fingers=size[\"fingers\"],\n               with_dummy=False,with_tie=True).copy().remove_layers(remove,include_labels=True)\n    reference,load,signal=top<<pcell,top<<pcell,top<<ncell\n    reference.move(origin=(reference.xmin,reference.ymin),destination=(0,0))\n    load.move(origin=(load.xmin,load.ymin),destination=(reference.xmax+pair_gap,0))\n    signal.move(origin=signal.center,destination=((reference.xmax+load.xmin)/2,-stage_gap-ncell.ysize/2))\n    r,l,n=expose(top,reference),expose(top,load),expose(top,signal)\n    # The bias track is above the output track in the inter-stage channel.\n    bias_y=round((signal.ymax+reference.ymin)/2/.005)*.005+4\n    output_y=bias_y-8\n    for start in (r[\"D\"],r[\"G\"],l[\"G\"]):\n        stop=(start[0],bias_y);wire(top,\"met3\",start,stop,.6);via(top,\"met3\",\"met4\",stop)\n    left=-12.;right=float(load.xmax)+4\n    wire(top,\"met4\",(left,bias_y),(l[\"G\"][0],bias_y),.8);pin(top,\"PBIAS\",(left+1,bias_y))\n    for start in (n[\"D\"],l[\"D\"]):\n        stop=(start[0],output_y);wire(top,\"met3\",start,stop,output_width);via(top,\"met3\",\"met4\",stop)\n    wire(top,\"met4\",(n[\"D\"][0],output_y),(right,output_y),output_width);pin(top,\"OUT\",(right-1,output_y))\n    top_y=round((max(reference.ymax,load.ymax)+8)/.005)*.005\n    for start in (r[\"S\"],r[\"B\"],l[\"S\"],l[\"B\"]):\n        stop=(start[0],top_y);wire(top,\"met3\",start,stop,.6);via(top,\"met3\",\"met4\",stop)\n    wire(top,\"met4\",(left,top_y),(right,top_y),.8);pin(top,\"VDD\",(left+1,top_y))\n    floor=round((signal.ymin-6)/.005)*.005\n    for start in (n[\"S\"],n[\"B\"]):\n        stop=(start[0],floor);wire(top,\"met3\",start,stop,.6);via(top,\"met3\",\"met4\",stop)\n    wire(top,\"met4\",(left,floor),(n[\"S\"][0]+2,floor),.8);pin(top,\"VSS\",(left+1,floor))\n    gate=(n[\"G\"][0],floor-6)\n    wire(top,\"met3\",n[\"G\"],gate,.6);via(top,\"met3\",\"met4\",gate)\n    wire(top,\"met4\",(left,gate[1]),gate,.8);pin(top,\"VIN\",(left+1,gate[1]))\n    output=Path(output);output.mkdir(parents=True,exist_ok=True)\n    (output/\"sizing.json\").write_text(json.dumps(size,indent=2)+\"\\n\")\n    return finish(top,output)\n"
+  }
+}

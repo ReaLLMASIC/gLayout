@@ -1,0 +1,10 @@
+.subckt ratio_cs_k2_r2 VSS IREF IOUT1 IOUT2
+XMREF_f0 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f1 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f0 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f1 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f0 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f1 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f2 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f3 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+.ends ratio_cs_k2_r2

@@ -1,0 +1,76 @@
+{
+  "circuit_id": "C03",
+  "name": "wilson_current_mirror",
+  "ports": [
+    "VSS",
+    "IIN1",
+    "IOUT1"
+  ],
+  "devices": [
+    {
+      "name": "M1",
+      "kind": "nfet",
+      "nets": [
+        "IIN1",
+        "Y",
+        "VSS",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M2",
+      "kind": "nfet",
+      "nets": [
+        "Y",
+        "Y",
+        "VSS",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M3",
+      "kind": "nfet",
+      "nets": [
+        "IOUT1",
+        "IIN1",
+        "Y",
+        "VSS"
+      ],
+      "params": {}
+    }
+  ],
+  "source": {
+    "dataset": "AnalogGenie",
+    "dataset_url": "https://github.com/xz-group/AnalogGenie",
+    "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+    "dataset_license": "MIT (code and dataset repository)",
+    "analoggenie_id": 840,
+    "files": [
+      "Dataset/840/840.cir",
+      "Dataset/840/Port840.txt",
+      "Dataset/840/Pagenumber840.txt",
+      "Dataset/840/Book840.png",
+      "Dataset/840/Cadence840.png"
+    ],
+    "book": "P. R. Gray, P. J. Hurst, S. H. Lewis, R. G. Meyer, Analysis and Design of Analog Integrated Circuits, 5th ed., Wiley, 2009",
+    "book_key": "gray",
+    "page_ref": "272 (bipolar Wilson mirror; MOS form from Gray et al. Sec. 4.2.5 'Wilson current mirror', MOS subsection)",
+    "device_name_map": {
+      "M1": "Q0 (npn)",
+      "M2": "Q1 (npn)",
+      "M3": "Q2 (npn)"
+    },
+    "source_verification_level": "topology_from_textbook_section;netlist_authored (AnalogGenie has no MOS Wilson entry: isomorphism search over 3350 netlists found only bipolar versions #606 and #840)",
+    "image_review": {
+      "file": "Dataset/840/Book840.png",
+      "observation": "Gray p.272 scan: bipolar Wilson mirror Q3 (input), Q1 (diode), Q2 (output, emitter on Q1 collector); MOS form authored with identical graph"
+    },
+    "modifications": [
+      "bipolar devices replaced by NMOS with the same connection graph (C->D, B->G, E->S, bulk to VSS)"
+    ],
+    "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+  },
+  "notes": []
+}

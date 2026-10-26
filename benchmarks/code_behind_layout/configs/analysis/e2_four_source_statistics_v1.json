@@ -1,0 +1,94 @@
+{
+  "status": "FROZEN_E2_ANALYSIS_PLAN",
+  "sealed_at_utc": "2026-10-19T06:27:04.783292+00:00",
+  "activation_evidence": "results/derived/E2_actual_analysis_declaration_pause.json",
+  "activation_observation": "All five original coordinator parents were paused at 2026-10-19T06:25:05.885Z. Each had zero full, PEX and nominal acquisitions. No formal electrical outcomes were available or inspected for this declaration. Resume preserves all original sources, streams, budgets and records.",
+  "analysis_id": "E2_four_source_statistics_v1",
+  "drafted_at_utc": "2026-10-19T06:26:13Z",
+  "applies_to_backend_manifest": "/srv/code-behind-layout/runtime/protocol_freezes/E2_four_source_primary/manifest.json",
+  "scope": "Separate prospective statistics declaration. The original E2 freeze did not declare these rank/subset rules. This file does not amend execution, selection, circuits, budgets, or any original record.",
+  "activation": "Root must seal this declaration and the observed all-five-coordinators full=PEX=nominal=0 pause evidence before resuming. A DRAFT or unbound declaration is exploratory only.",
+  "candidate_denominator": 64,
+  "pool_rules": {
+    "pool_count": 12,
+    "source_families": 4,
+    "sizings_per_source": 3,
+    "generation_attempt_limit": 256,
+    "generation_failures_and_exact_mask_duplicates": "Keep every attempt and actual acquisition cost. Do not replace a later physical or electrical failure after a candidate is accepted.",
+    "incomplete_oracle": "Any unmeasured or unresolved accepted candidate keeps the 64-candidate oracle incomplete. No finite-pool regret or full-pool top-k recall is defined.",
+    "no_feasible_oracle": "Report zero verified feasible and null regret/top-k recall. Do not invent an objective for failed or unknown candidates."
+  },
+  "objective": {
+    "name": "worst_ugb_Hz",
+    "unit": "Hz",
+    "direction": "max",
+    "feasible_selection_requires": "Complete original frozen physical, device-intent, analysis and electrical constraints over tt/ss/ff, with S2=true."
+  },
+  "near_frontier": {
+    "fraction": 0.2,
+    "count": "ceil(fraction * accepted_pool_size); 13 for the declared 64",
+    "selection": "Ascending actual physical_mask_bbox_area_um2, then ascending stream_index",
+    "selection_timing": "Membership uses geometry only, before conditioning on any PEX, nominal or full electrical outcome. Do not select the subset using true UGB or S2.",
+    "report_with": "Broad-pool and near-frontier results, declared/matched/nonrankable/unknown counts, and original accepted candidate denominator."
+  },
+  "numeric_ties": {
+    "prediction_absolute_tolerance": 0.0,
+    "actual_absolute_tolerance": 0.0,
+    "relative_tolerance": 0.0,
+    "primary": "Exact saved finite numeric values; Spearman average ranks and Kendall tau-b exact ties. Ranking cutoffs use ascending stream_index to select exactly k.",
+    "evidence": "results/derived/E2_actual_repeat_precision_evidence.json",
+    "evidence_limit": "Three same-PEX/same-original-TT-deck saved repetitions have identical decks and 9-significant-digit printed AC vectors, with observed maximum difference zero. This does not establish universally zero simulation noise."
+  },
+  "precision_sensitivity": {
+    "method": "Propagate each of the two printed unity-crossing rows' 9-significant-digit half-ULP intervals through the unchanged frozen measurement interpolation. Effective pair reversal uses only pairs with nonoverlapping actual and predictor intervals.",
+    "eligibility": "Only intervals derived from the actual candidate's saved rows and exact frozen measurement rule; an absent/unverified interval yields UNAVAILABLE for this sensitivity, not an invented tolerance.",
+    "primary_results_unchanged": true
+  },
+  "rank_tables": {
+    "same_objective_estimates": [
+      "actually acquired nominal_tt_ugb_Hz",
+      "saved frozen-calibration prediction_ugb_Hz"
+    ],
+    "same_objective_metrics": [
+      "Spearman",
+      "Kendall_tau_b",
+      "effective_pair_reversal_rate",
+      "top_k_recall"
+    ],
+    "descriptive_features": [
+      "physical_mask_bbox_area_um2",
+      "union_rectilinear_proxy_um",
+      "R_sum_times_C_sum_s"
+    ],
+    "descriptive_feature_interpretation": "Negative feature score ranks smaller area/wire/RC ahead. Report rank association and top-k selection recall only; this is not calibrated UGB prediction or same-unit prediction-error/reversal evidence.",
+    "rank_eligibility": "Use matched finite actual UGB and actually acquired predictor/feature values. Full-pool primary tables require a complete oracle; explicitly labeled conditional measured-pair diagnostics may be shown for incomplete pools, with all exclusions counted. Never turn failed or unknown measurements into zero UGB."
+  },
+  "top_k": {
+    "fraction": 0.2,
+    "predicted_count": "ceil(fraction * accepted_pool_size)",
+    "actual_target_count": "min(predicted_count, number of complete S2-feasible candidates)",
+    "actual_target": "Highest worst_ugb_Hz among complete S2-feasible candidates; stream_index breaks exact ties",
+    "recall": "Size of predicted top-k intersect actual target, divided by actual_target_count. All accepted candidates must have the declared score, and the finite-pool oracle must be complete; otherwise unavailable. Known infeasible candidates still consume predicted selection slots."
+  },
+  "same_sized_netlist_prelayout": {
+    "rule": "One constant schematic benchmark per independently fixed N(z). It has no layout ranking or rank correlation. Do not rank the 64 layouts using repeated copies of the same prelayout value, and do not pool different sized netlists to manufacture a layout ranking."
+  },
+  "selection_comparisons": {
+    "finite_pool_oracle": "Complete 64-candidate reference, identified separately from execution of every online strategy.",
+    "offline_replay": "Label any retrospective replay explicitly OFFLINE_ORACLE_REPLAY; account for the actual measurements used to construct it. It is not an online saving measurement.",
+    "real_online": "Use the independently executed method's actual ordered full_evaluations and all actual geometry/PEX/nominal acquisitions. No other method's labels entered its decisions.",
+    "join_requirement": "Same frozen pool/source/N/contract/deck/PDK/tool bindings and accepted stream indices, plus actual retained-GDS mask equality. IDs, bbox summaries or a declaration alone do not prove pool equality.",
+    "regret": "Oracle best feasible worst_ugb_Hz minus best actually delivered verified feasible worst_ugb_Hz, in Hz. Null if oracle incomplete/has no feasible candidate, or the online method has no verified feasible delivery."
+  },
+  "budget_curves": {
+    "query_axis": "Actual full-query attempts in recorded order; retain physical failure and unknown attempts",
+    "time_axis": "Only actual recorded timestamps/costs. Missing timing remains unavailable. Do not infer wall or CPU from allocation, query number or theoretical simulator count.",
+    "costs": "Charge generation failures/duplicates and every actually acquired fidelity, host mask/controller work and queue/deployment work. Nested references to the same physical run are counted once; per-SPICE CPU is a component of trusted CPU, not added twice."
+  },
+  "reporting_units": "Pool results remain separate by source and sized N; 64 layouts and three sizings are not independent circuits. Any cross-pool uncertainty resamples whole source-family clusters and states that there are four source families.",
+  "no_formal_results_read_for_this_draft": true,
+  "new_model_or_EDA_calls": 0,
+  "execution_freeze_id": "E2_four_source_primary",
+  "execution_manifest": "/srv/code-behind-layout/runtime/protocol_freezes/E2_four_source_primary/manifest.json",
+  "pause_evidence": "results/derived/E2_actual_analysis_declaration_pause.json"
+}

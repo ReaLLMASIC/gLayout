@@ -1,0 +1,16 @@
+.subckt corpus_c14 VSS IIN1 IOUT1 IREF1
+XM1_f0 IIN1 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM1_f1 IIN1 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM1_f2 IIN1 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM1_f3 IIN1 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM2_f0 net11 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM2_f1 net11 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM2_f2 net11 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM2_f3 net11 IIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM3_f0 IREF1 net11 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM3_f1 IREF1 net11 VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM4_f0 IOUT1 IREF1 net11 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM4_f1 IOUT1 IREF1 net11 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM4_f2 IOUT1 IREF1 net11 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+XM4_f3 IOUT1 IREF1 net11 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=1.2
+.ends corpus_c14

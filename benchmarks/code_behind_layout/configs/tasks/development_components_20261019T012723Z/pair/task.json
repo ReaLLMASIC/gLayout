@@ -1,0 +1,1068 @@
+{
+  "status": "DRAFT_REAL_SOURCE_AND_REFERENCES_NOT_FORMAL",
+  "task_id": "draft_pair_source_quality",
+  "parent_lineage": "glayout_pair",
+  "source_revision": "d092211d7996c99159402451bc7141931d6a93c3",
+  "E1_stratum": "reuse",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/source_pack",
+  "editable_paths": [
+    "glayout/cells/elementary/diff_pair/diff_pair_core.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "evidence_origin": "/srv/code-behind-layout/results/derived/pair_three_size_domain_development.json",
+  "bench": {
+    "supply_V": 1.8,
+    "temperature_C": 27,
+    "corners": [
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "analysis_contracts": {
+      "op": {
+        "kind": "op",
+        "columns": 4,
+        "expected_rows": 1
+      },
+      "differential": {
+        "kind": "dc",
+        "columns": 6,
+        "start": -0.1,
+        "end": 0.1,
+        "points": 41,
+        "scale": "linear"
+      },
+      "common_mode": {
+        "kind": "dc",
+        "columns": 6,
+        "start": 0.65,
+        "end": 1.3,
+        "points": 14,
+        "scale": "linear"
+      },
+      "ac": {
+        "kind": "ac",
+        "columns": 3,
+        "start": 10,
+        "end": 1000000000.0,
+        "points": 241,
+        "scale": "log"
+      },
+      "transient": {
+        "kind": "transient",
+        "columns": 4,
+        "start": 0,
+        "end": 4e-06,
+        "required_windows": [
+          [
+            1.8e-06,
+            1.99e-06
+          ],
+          [
+            2.8e-06,
+            2.99e-06
+          ]
+        ]
+      }
+    },
+    "tail_current_A": 2e-05,
+    "common_mode_V": 0.9,
+    "drain_DC_clamp_V": 1.2,
+    "R_each_ohm": 10000,
+    "C_each_F": 1e-12,
+    "balance_scope": "deterministic only, no mismatch yield"
+  },
+  "natural_shortfall": {
+    "origin": "unmodified_real_generator_natural_measurement",
+    "description": "W3/L1/fingers2 and W3/L0.5/fingers4 each preserve three post-RC transient timeouts. Prelayout and partial post-RC DC/AC values do not establish full-flow success. W1/L0.5/fingers2 is the complete anchor; candidate versus tool numerical classification still needs same-configuration controls.",
+    "evidence_file": "results/derived/pair_three_size_domain_development.json",
+    "run_ids": [
+      "phase0_20261019T003758658087Z_pair_characterization",
+      "phase0_20261019T003801900834Z_pair_characterization",
+      "phase0_20261019T003804699917Z_pair_characterization"
+    ],
+    "repairability_established": false,
+    "formal_or_training_use": false
+  },
+  "immutable_sizing": "Per-configuration W/L/multiplicity and independent N(z) cannot be edited; the same source patch must serve the whole domain",
+  "source_dependency_group": "vendor_elementary_targets_shared_with_OTA_closures; not four newly qualified independent clusters",
+  "qualification": {
+    "generation_preflight": {
+      "unique_parameter_points_with_actual_GDS": 25,
+      "generation_attempts": 27,
+      "failed_generation_attempts": 2,
+      "current_snapshot_all_25_generated_in_one_run": false,
+      "raw_generation_records": [
+        "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/preflight_attempt_20261019T012813579994Z/generation/generation.json",
+        "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/preflight_attempt_20261019T013315954474Z/generation/generation.json",
+        "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/preflight_attempt_20261019T013509599240Z/generation/generation.json"
+      ],
+      "establishes_S2": false
+    },
+    "full_domain_baseline": null,
+    "feasible_edit_witness": null,
+    "isolated_evaluator_adapter": null,
+    "model_context_tokens": {
+      "kind": "pair",
+      "input_tokens_with_complete_source": 6824,
+      "reserved_output_tokens": 1024,
+      "fits_8192": true,
+      "source_truncated": false,
+      "PDK_rules_truncated": false,
+      "module_decomposition": "verbatim main algorithm plus all imports; original wrappers frozen; same lineage"
+    },
+    "anchor_geometry_equivalence": {
+      "kind": "pair",
+      "new_gds": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/preflight_attempt_20261019T013509599240Z/generation/anchor.gds",
+      "reference_gds": "/srv/code-behind-layout/runs/phase0/phase0_20261019T003804699917Z_pair_characterization/pair6.gds",
+      "units_m": 1e-06,
+      "precision_m": 1e-09,
+      "changed_layers": [],
+      "filled_geometry_equal": true,
+      "all_labels_equal": true,
+      "cell_names_excluded": true,
+      "physical_measurements_rerun": false
+    }
+  },
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "main_benchmark_frozen": false,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "width": 1.0,
+        "length": 0.5,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/anchor.spice",
+      "reference_id": "independent_pair_anchor",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "anchor",
+        "reference_id": "independent_pair_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "parameters": {
+        "width": 1.0,
+        "length": 0.6,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_01.spice",
+      "reference_id": "independent_pair_dev_01",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_pair_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "parameters": {
+        "width": 1.0,
+        "length": 0.9,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_02.spice",
+      "reference_id": "independent_pair_dev_02",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_pair_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "parameters": {
+        "width": 2.5,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_03.spice",
+      "reference_id": "independent_pair_dev_03",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_pair_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "parameters": {
+        "width": 2.0,
+        "length": 0.6,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_04.spice",
+      "reference_id": "independent_pair_dev_04",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_pair_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "parameters": {
+        "width": 2.0,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_05.spice",
+      "reference_id": "independent_pair_dev_05",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_pair_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "parameters": {
+        "width": 3.0,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_06.spice",
+      "reference_id": "independent_pair_dev_06",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_pair_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "parameters": {
+        "width": 2.0,
+        "length": 0.75,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_07.spice",
+      "reference_id": "independent_pair_dev_07",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_pair_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "parameters": {
+        "width": 3.0,
+        "length": 0.9,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/references/dev_08.spice",
+      "reference_id": "independent_pair_dev_08",
+      "contract": {
+        "task_id": "draft_pair_source_quality",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_pair_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_branch_imbalance",
+            "unit": "1",
+            "max": 0.001
+          },
+          {
+            "name": "loaded_differential_gain",
+            "unit": "1",
+            "min": 1.0
+          },
+          {
+            "name": "differential_transconductance",
+            "unit": "S",
+            "min": 0.0001
+          }
+        ],
+        "objective": {
+          "id": "pair_bandwidth_max",
+          "metric": "loaded_bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "differential": {
+            "kind": "dc",
+            "columns": 6,
+            "start": -0.1,
+            "end": 0.1,
+            "points": 41,
+            "scale": "linear"
+          },
+          "common_mode": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0.65,
+            "end": 1.3,
+            "points": 14,
+            "scale": "linear"
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "glayout/cells/elementary/diff_pair/diff_pair_core.py": "from typing import Optional, Union\n\nfrom gdsfactory.cell import cell\nfrom gdsfactory.component import Component, copy\nfrom gdsfactory.components.rectangle import rectangle\nfrom gdsfactory.routing.route_quad import route_quad\nfrom gdsfactory.routing.route_sharp import route_sharp\nfrom glayout.pdk.mappedpdk import MappedPDK\nfrom glayout.util.comp_utils import align_comp_to_port, evaluate_bbox, movex, movey\nfrom glayout.util.port_utils import (\n    add_ports_perimeter,\n    get_orientation,\n    print_ports,\n    rename_ports_by_list,\n    rename_ports_by_orientation,\n    set_port_orientation,\n)\nfrom glayout.util.snap_to_grid import component_snap_to_grid\nfrom glayout.placement.common_centroid_ab_ba import common_centroid_ab_ba\nfrom glayout.primitives.fet import nmos, pmos\nfrom glayout.primitives.guardring import tapring\nfrom glayout.primitives.via_gen import via_stack\nfrom glayout.routing.c_route import c_route\nfrom glayout.routing.smart_route import smart_route\nfrom glayout.routing.straight_route import straight_route\nfrom glayout.spice import Netlist\nfrom glayout.pdk.sky130_mapped import sky130_mapped_pdk\nfrom gdsfactory.components import text_freetype\nfrom glayout.provenance import tracked_generator\ntry:\n    from glayout.verification.evaluator_wrapper import run_evaluation\nexcept ImportError:\n    print(\"Warning: evaluator_wrapper not found. Evaluation will be skipped.\")\n    run_evaluation = None\n\n\nfrom .diff_pair_support import add_df_labels, add_df_generic_label_alias_ports, diff_pair_netlist\n\n@tracked_generator(\"diff_pair\")\n@cell\ndef diff_pair(\n\tpdk: MappedPDK,\n\twidth: float = 3,\n\tfingers: int = 4,\n\tlength: Optional[float] = None,\n\tn_or_p_fet: bool = True,\n\tplus_minus_seperation: float = 0,\n\trmult: int = 1,\n\tdummy: Union[bool, tuple[bool, bool]] = True,\n\tsubstrate_tap: bool=True\n) -> Component:\n\t\"\"\"create a diffpair with 2 transistors placed in two rows with common centroid place. Sources are shorted\n\twidth = width of the transistors\n\tfingers = number of fingers in the transistors (must be 2 or more)\n\tlength = length of the transistors, None or 0 means use min length\n\tshort_source = if true connects source of both transistors\n\tn_or_p_fet = if true the diffpair is made of nfets else it is made of pfets\n\tsubstrate_tap: if true place a tapring around the diffpair (connects on met1)\n\t\"\"\"\n\t# TODO: error checking\n\tpdk.activate()\n\tdiffpair = Component()\n\t# create transistors\n\twell = None\n\tif isinstance(dummy, bool):\n\t\tdummy = (dummy, dummy)\n\tif n_or_p_fet:\n\t\tfetL = nmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(dummy[0], False),with_dnwell=False,with_substrate_tap=False,rmult=rmult)\n\t\tfetR = nmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(False,dummy[1]),with_dnwell=False,with_substrate_tap=False,rmult=rmult)\n\t\tmin_spacing_x = pdk.get_grule(\"n+s/d\")[\"min_separation\"] - 2*(fetL.xmax - fetL.ports[\"multiplier_0_plusdoped_E\"].center[0])\n\t\twell = \"pwell\"\n\t\ttap_sdlayer = \"p+s/d\"\n\telse:\n\t\tfetL = pmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(dummy[0], False),dnwell=False,with_substrate_tap=False,rmult=rmult)\n\t\tfetR = pmos(pdk, width=width, fingers=fingers,length=length,multipliers=1,with_tie=False,with_dummy=(False,dummy[1]),dnwell=False,with_substrate_tap=False,rmult=rmult)\n\t\tmin_spacing_x = pdk.get_grule(\"p+s/d\")[\"min_separation\"] - 2*(fetL.xmax - fetL.ports[\"multiplier_0_plusdoped_E\"].center[0])\n\t\twell = \"nwell\"\n\t\ttap_sdlayer = \"n+s/d\"\n\t# place transistors\n\tviam2m3 = via_stack(pdk,\"met2\",\"met3\",centered=True)\n\tmetal_min_dim = max(pdk.get_grule(\"met2\")[\"min_width\"],pdk.get_grule(\"met3\")[\"min_width\"])\n\tmetal_space = max(pdk.get_grule(\"met2\")[\"min_separation\"],pdk.get_grule(\"met3\")[\"min_separation\"],metal_min_dim)\n\tgate_route_os = evaluate_bbox(viam2m3)[0] - fetL.ports[\"multiplier_0_gate_W\"].width + metal_space\n\tmin_spacing_y = metal_space + 2*gate_route_os\n\tmin_spacing_y = min_spacing_y - 2*abs(fetL.ports[\"well_S\"].center[1] - fetL.ports[\"multiplier_0_gate_S\"].center[1])\n\t# TODO: fix spacing where you see +-0.5\n\ta_topl = (diffpair << fetL).movey(fetL.ymax+min_spacing_y/2+0.5).movex(0-fetL.xmax-min_spacing_x/2)\n\tb_topr = (diffpair << fetR).movey(fetR.ymax+min_spacing_y/2+0.5).movex(fetL.xmax+min_spacing_x/2)\n\ta_botr = (diffpair << fetR)\n\ta_botr = a_botr.mirror_y()\n\ta_botr.movey(0-0.5-fetL.ymax-min_spacing_y/2).movex(fetL.xmax+min_spacing_x/2)\n\tb_botl = (diffpair << fetL)\n\tb_botl = b_botl.mirror_y()\n\tb_botl.movey(0-0.5-fetR.ymax-min_spacing_y/2).movex(0-fetL.xmax-min_spacing_x/2)\n\t# if substrate tap place substrate tap\n\tif substrate_tap:\n\t\ttapref = diffpair << tapring(\n\t\t\tpdk,\n\t\t\tevaluate_bbox(diffpair,padding=1),\n\t\t\tsdlayer=tap_sdlayer,\n\t\t\thorizontal_glayer=\"met1\",\n\t\t)\n\t\tdiffpair.add_ports(tapref.get_ports_list(),prefix=\"tap_\")\n\t\ttry:\n\t\t\tdiffpair<<straight_route(pdk,a_topl.ports[\"multiplier_0_dummy_L_gsdcon_top_met_W\"],diffpair.ports[\"tap_W_top_met_W\"],glayer2=\"met1\")\n\t\texcept KeyError:\n\t\t\tpass\n\t\ttry:\n\t\t\tdiffpair<<straight_route(pdk,b_topr.ports[\"multiplier_0_dummy_R_gsdcon_top_met_W\"],diffpair.ports[\"tap_E_top_met_E\"],glayer2=\"met1\")\n\t\texcept KeyError:\n\t\t\tpass\n\t\ttry:\n\t\t\tdiffpair<<straight_route(pdk,b_botl.ports[\"multiplier_0_dummy_L_gsdcon_top_met_W\"],diffpair.ports[\"tap_W_top_met_W\"],glayer2=\"met1\")\n\t\texcept KeyError:\n\t\t\tpass\n\t\ttry:\n\t\t\tdiffpair<<straight_route(pdk,a_botr.ports[\"multiplier_0_dummy_R_gsdcon_top_met_W\"],diffpair.ports[\"tap_E_top_met_E\"],glayer2=\"met1\")\n\t\texcept KeyError:\n\t\t\tpass\n\t# route sources (short sources)\n\tdiffpair << route_quad(a_topl.ports[\"multiplier_0_source_E\"], b_topr.ports[\"multiplier_0_source_W\"], layer=pdk.get_glayer(\"met2\"))\n\tdiffpair << route_quad(b_botl.ports[\"multiplier_0_source_E\"], a_botr.ports[\"multiplier_0_source_W\"], layer=pdk.get_glayer(\"met2\"))\n\tsextension = b_topr.ports[\"well_E\"].center[0] - b_topr.ports[\"multiplier_0_source_E\"].center[0]\n\tsource_routeE = diffpair << c_route(pdk, b_topr.ports[\"multiplier_0_source_E\"], a_botr.ports[\"multiplier_0_source_E\"],extension=sextension, viaoffset=False)\n\tsource_routeW = diffpair << c_route(pdk, a_topl.ports[\"multiplier_0_source_W\"], b_botl.ports[\"multiplier_0_source_W\"],extension=sextension, viaoffset=False)\n\t# route drains\n\t# place via at the drain\n\tdrain_br_via = diffpair << viam2m3\n\tdrain_bl_via = diffpair << viam2m3\n\tdrain_br_via.move(a_botr.ports[\"multiplier_0_drain_N\"].center).movey(viam2m3.ymin)\n\tdrain_bl_via.move(b_botl.ports[\"multiplier_0_drain_N\"].center).movey(viam2m3.ymin)\n\tdrain_br_viatm = diffpair << viam2m3\n\tdrain_bl_viatm = diffpair << viam2m3\n\tdrain_br_viatm.move(a_botr.ports[\"multiplier_0_drain_N\"].center).movey(viam2m3.ymin)\n\tdrain_bl_viatm.move(b_botl.ports[\"multiplier_0_drain_N\"].center).movey(-1.5 * evaluate_bbox(viam2m3)[1] - metal_space)\n\t# create route to drain via\n\twidth_drain_route = b_topr.ports[\"multiplier_0_drain_E\"].width\n\tdextension = source_routeE.xmax - b_topr.ports[\"multiplier_0_drain_E\"].center[0] + metal_space\n\tbottom_extension = viam2m3.ymax + width_drain_route/2 + 2*metal_space\n\tdrain_br_viatm.movey(0-bottom_extension - metal_space - width_drain_route/2 - viam2m3.ymax)\n\tdiffpair << route_quad(drain_br_viatm.ports[\"top_met_N\"], drain_br_via.ports[\"top_met_S\"], layer=pdk.get_glayer(\"met3\"))\n\tdiffpair << route_quad(drain_bl_viatm.ports[\"top_met_N\"], drain_bl_via.ports[\"top_met_S\"], layer=pdk.get_glayer(\"met3\"))\n\tfloating_port_drain_bottom_L = set_port_orientation(movey(drain_bl_via.ports[\"bottom_met_W\"],0-bottom_extension), get_orientation(\"E\"))\n\tfloating_port_drain_bottom_R = set_port_orientation(movey(drain_br_via.ports[\"bottom_met_E\"],0-bottom_extension - metal_space - width_drain_route), get_orientation(\"W\"))\n\tdrain_routeTR_BL = diffpair << c_route(pdk, floating_port_drain_bottom_L, b_topr.ports[\"multiplier_0_drain_E\"],extension=dextension, width1=width_drain_route,width2=width_drain_route)\n\tdrain_routeTL_BR = diffpair << c_route(pdk, floating_port_drain_bottom_R, a_topl.ports[\"multiplier_0_drain_W\"],extension=dextension, width1=width_drain_route,width2=width_drain_route)\n\t# cross gate route top with c_route. bar_minus ABOVE bar_plus\n\tget_left_extension = lambda bar, a_topl=a_topl, diffpair=diffpair, pdk=pdk : (abs(diffpair.xmin-min(a_topl.ports[\"multiplier_0_gate_W\"].center[0],bar.ports[\"e1\"].center[0])) + pdk.get_grule(\"met2\")[\"min_separation\"])\n\tget_right_extension = lambda bar, b_topr=b_topr, diffpair=diffpair, pdk=pdk : (abs(diffpair.xmax-max(b_topr.ports[\"multiplier_0_gate_E\"].center[0],bar.ports[\"e3\"].center[0])) + pdk.get_grule(\"met2\")[\"min_separation\"])\n\t# lay bar plus and PLUSgate_routeW\n\tbar_comp = rectangle(centered=True,size=(abs(b_topr.xmax-a_topl.xmin), b_topr.ports[\"multiplier_0_gate_E\"].width),layer=pdk.get_glayer(\"met2\"))\n\tbar_plus = (diffpair << bar_comp).movey(diffpair.ymax + bar_comp.ymax + pdk.get_grule(\"met2\")[\"min_separation\"])\n\tPLUSgate_routeW = diffpair << c_route(pdk, a_topl.ports[\"multiplier_0_gate_W\"], bar_plus.ports[\"e1\"], extension=get_left_extension(bar_plus))\n\t# lay bar minus and MINUSgate_routeE\n\tplus_minus_seperation = max(pdk.get_grule(\"met2\")[\"min_separation\"], plus_minus_seperation)\n\tbar_minus = (diffpair << bar_comp).movey(diffpair.ymax +bar_comp.ymax + plus_minus_seperation)\n\tMINUSgate_routeE = diffpair << c_route(pdk, b_topr.ports[\"multiplier_0_gate_E\"], bar_minus.ports[\"e3\"], extension=get_right_extension(bar_minus))\n\t# lay MINUSgate_routeW and PLUSgate_routeE\n\tMINUSgate_routeW = diffpair << c_route(pdk, set_port_orientation(b_botl.ports[\"multiplier_0_gate_E\"],\"W\"), bar_minus.ports[\"e1\"], extension=get_left_extension(bar_minus))\n\tPLUSgate_routeE = diffpair << c_route(pdk, set_port_orientation(a_botr.ports[\"multiplier_0_gate_W\"],\"E\"), bar_plus.ports[\"e3\"], extension=get_right_extension(bar_plus))\n\t# correct pwell place, add ports, flatten, and return\n\tdiffpair.add_ports(a_topl.get_ports_list(),prefix=\"tl_\")\n\tdiffpair.add_ports(b_topr.get_ports_list(),prefix=\"tr_\")\n\tdiffpair.add_ports(b_botl.get_ports_list(),prefix=\"bl_\")\n\tdiffpair.add_ports(a_botr.get_ports_list(),prefix=\"br_\")\n\tdiffpair.add_ports(source_routeE.get_ports_list(),prefix=\"source_routeE_\")\n\tdiffpair.add_ports(source_routeW.get_ports_list(),prefix=\"source_routeW_\")\n\tdiffpair.add_ports(drain_routeTR_BL.get_ports_list(),prefix=\"drain_routeTR_BL_\")\n\tdiffpair.add_ports(drain_routeTL_BR.get_ports_list(),prefix=\"drain_routeTL_BR_\")\n\tdiffpair.add_ports(MINUSgate_routeW.get_ports_list(),prefix=\"MINUSgateroute_W_\")\n\tdiffpair.add_ports(MINUSgate_routeE.get_ports_list(),prefix=\"MINUSgateroute_E_\")\n\tdiffpair.add_ports(PLUSgate_routeW.get_ports_list(),prefix=\"PLUSgateroute_W_\")\n\tdiffpair.add_ports(PLUSgate_routeE.get_ports_list(),prefix=\"PLUSgateroute_E_\")\n\tdiffpair.add_padding(layers=(pdk.get_glayer(well),), default=0)\n\n\tcomponent = component_snap_to_grid(rename_ports_by_orientation(diffpair))\n\n\tcomponent.info['netlist'] = diff_pair_netlist(fetL, fetR)\n\treturn component\n\n"
+  },
+  "domain_shape": {
+    "anchor": 1,
+    "development": 8,
+    "hidden": 16
+  },
+  "source_role": "draft_task_materialization_not_a_new_lineage",
+  "module_decomposition": {
+    "primary_algorithm": "diff_pair kept byte for byte including decorators and all original imports",
+    "support": "existing labels/netlist/generic wrappers frozen",
+    "source_lineage_changed": false,
+    "original_archive": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/original_diff_pair.py",
+    "approval": "Root explicitly approved full core decomposition; no source truncation"
+  },
+  "pdk_revision": "0fe599b2afb6708d281543108caf8310912f54af",
+  "frozen_source_pack": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/pair/source_pack",
+  "frozen_source_files": [
+    "component_build.py",
+    "generator.py",
+    "glayout/__init__.py",
+    "glayout/cells/__init__.py",
+    "glayout/cells/elementary/__init__.py",
+    "glayout/cells/elementary/diff_pair/__init__.py",
+    "glayout/cells/elementary/diff_pair/diff_pair.py",
+    "glayout/cells/elementary/diff_pair/diff_pair_support.py",
+    "glayout/pdk/__init__.py",
+    "glayout/pdk/gf180_mapped/__init__.py",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x02p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x04p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x08p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x16p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/gf180_grules.py",
+    "glayout/pdk/gf180_mapped/gf180_mapped.py",
+    "glayout/pdk/gf180_mapped/gf180mcu.drc",
+    "glayout/pdk/gf180_mapped/gf180mcu_drc.lydrc",
+    "glayout/pdk/gf180_mapped/gf180mcu_osu_sc_9T.spice",
+    "glayout/pdk/ihp130_mapped/__init__.py",
+    "glayout/pdk/ihp130_mapped/ihp130_drc.lydrc",
+    "glayout/pdk/ihp130_mapped/ihp130_grules.py",
+    "glayout/pdk/ihp130_mapped/ihp130_mapped.py",
+    "glayout/pdk/mappedpdk.py",
+    "glayout/pdk/sky130_mapped/__init__.py",
+    "glayout/pdk/sky130_mapped/sky130.lydrc",
+    "glayout/pdk/sky130_mapped/sky130_add_npc.py",
+    "glayout/pdk/sky130_mapped/sky130_fd_sc_hd.spice",
+    "glayout/pdk/sky130_mapped/sky130_grules.py",
+    "glayout/pdk/sky130_mapped/sky130_mapped.py",
+    "glayout/placement/__init__.py",
+    "glayout/placement/common_centroid_ab_ba.py",
+    "glayout/placement/four_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_place.py",
+    "glayout/primitives/__init__.py",
+    "glayout/primitives/bjt.py",
+    "glayout/primitives/fet.py",
+    "glayout/primitives/guardring.py",
+    "glayout/primitives/mimcap.py",
+    "glayout/primitives/resistor.py",
+    "glayout/primitives/via_gen.py",
+    "glayout/provenance/__init__.py",
+    "glayout/provenance/netlist_summary.py",
+    "glayout/provenance/runtime.py",
+    "glayout/routing/L_route.py",
+    "glayout/routing/__init__.py",
+    "glayout/routing/c_route.py",
+    "glayout/routing/smart_route.py",
+    "glayout/routing/straight_route.py",
+    "glayout/spice/__init__.py",
+    "glayout/spice/netlist.py",
+    "glayout/util/__init__.py",
+    "glayout/util/comp_utils.py",
+    "glayout/util/component_array_create.py",
+    "glayout/util/geometry.py",
+    "glayout/util/pattern.py",
+    "glayout/util/port_utils.py",
+    "glayout/util/print_rules.py",
+    "glayout/util/routing.py",
+    "glayout/util/snap_to_grid.py"
+  ]
+}

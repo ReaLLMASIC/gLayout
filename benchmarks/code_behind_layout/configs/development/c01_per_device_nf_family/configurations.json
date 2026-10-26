@@ -1,0 +1,275 @@
+{
+  "status": "DRAFT_DECLARED_NO_PHYSICS_OR_MODEL_REQUESTS",
+  "source_revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+  "parent_lineage": "textbook_universal_compiler_cropped",
+  "circuit_id": "C01",
+  "development_domain_id": "C01_per_device_nf",
+  "circuit_input_file": "configs/development/c01_per_device_nf_family/circuit_input.json",
+  "configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/anchor.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/anchor.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          2
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n2_2",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n2_2.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n2_2.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          2
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n2_4",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n2_4.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n2_4.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          1,
+          1
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n2_6",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n2_6.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n2_6.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          1,
+          1
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n4_2",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n4_2.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n4_2.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          1,
+          1
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n4_6",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n4_6.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n4_6.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          1,
+          1
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n6_2",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n6_2.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n6_2.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          1,
+          1
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n6_4",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n6_4.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n6_4.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          1,
+          1
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    },
+    {
+      "configuration_id": "dev_n6_6",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_per_device_nf_family/references/dev_n6_6.spice",
+      "contract_file": "configs/development/c01_per_device_nf_family/contracts/dev_n6_6.json",
+      "independently_generated_reference_before_any_candidate": true,
+      "predicted_grouping": {
+        "sharing_group_sizes": [
+          2
+        ],
+        "basis": "Actual source sharing_groups requires equal L and per-finger unit_width; graph and body remain identical. This is an algorithmic grouping expectation, not a physical pass or preference label."
+      }
+    }
+  ],
+  "hypothesis": "At fixed electrical totalW/L and1:1 ratio, independent per-device fingerization changes equal-unitwidth grouping: three diagonal two-device groups and six offdiagonal two-single-device cases. Actual current matching, ro, compliance, physical feasibility and candidate preferences remain unknown until measurement. No opposite preference or successful label is assumed.",
+  "grid_selected_from_candidate_outcomes": false,
+  "source_lineages": 1,
+  "physical_runs": 0,
+  "model_requests": 0,
+  "old_frozen_domains_and_labels_changed": false,
+  "requires_actual_original_program9point_qualification_before_collection_freeze": true
+}

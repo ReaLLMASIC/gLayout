@@ -1,0 +1,18 @@
+{
+  "status": "DRAFT_E1_RUNNER",
+  "formal_dispatch": false,
+  "phase": "development_E1_matched_runner",
+  "packet_root": "runtime/task_preparation/e1_matched_20261019T032634463771Z",
+  "task_catalog": "runtime/task_preparation/e1_matched_20261019T032634463771Z/public/catalog.json",
+  "task_ids": [],
+  "methods": ["G0", "G1", "G2"],
+  "trials": 5,
+  "model_config": "configs/models/gpt_bounded.draft.json",
+  "visible_history_policy": "current_source_and_feedback_v1",
+  "budget": {"wall_seconds": 1200, "decisions": 10, "physical_evaluations": 3, "maximum_context_tokens": 8192, "maximum_output_tokens": 1024},
+  "runtime": {"EDA": "runtime/GLdev", "magic": "runtime/magic-8.3.685", "candidate_CPUs": 2, "simultaneous_point_workers_per_episode": 1},
+  "trusted_bench_bindings": "Built independently per task by scripts/e1_matched_runner.py; no target assembly enters the trusted evaluator.",
+  "post_freeze": {"visible": "Fill current-source anchor plus eight development points without policy feedback; separately charge post_freeze_diagnostic.", "hidden": "Evaluate sixteen points once after source sealing; all raw hidden results stay on trusted backend.", "incomplete": "Stop affected episode on unknown/infrastructure, retain observed denominators and label no missing outcomes."},
+  "grouping": {"target_logics": 8, "primary_groups": 8, "merged_sensitivity_groups": 7, "strata": {"reuse": 12, "composition": 12}, "shared_domains": "Three sized tasks per target rotate roles of the same25 points, explicitly linked in private/shared_domain_relationships.json. Fresh isolated trials receive only their own fixed nine visible points."},
+  "freeze_blockers": ["Final trustedbench bindings and complete run-ready mechanical smoke", "Root review and explicit E1-only freeze; no formal dispatch has occurred"]
+}

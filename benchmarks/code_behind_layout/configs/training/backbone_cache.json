@@ -1,0 +1,89 @@
+{
+  "repo_id": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "license": "apache-2.0",
+  "weight_files": [
+    {
+      "name": "model-00001-of-00014.safetensors",
+      "bytes": 4891730992
+    },
+    {
+      "name": "model-00002-of-00014.safetensors",
+      "bytes": 4876059352
+    },
+    {
+      "name": "model-00003-of-00014.safetensors",
+      "bytes": 4876059384
+    },
+    {
+      "name": "model-00004-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00005-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00006-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00007-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00008-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00009-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00010-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00011-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00012-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00013-of-00014.safetensors",
+      "bytes": 4876059416
+    },
+    {
+      "name": "model-00014-of-00014.safetensors",
+      "bytes": 2123397800
+    }
+  ],
+  "weight_bytes": 65527841688,
+  "source": "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct/tree/381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "status": "READY_ON_SHARED_MEMORY",
+  "cache_root": "/dev/shm/cbl-hf-cache",
+  "started_at_utc": "2026-10-18T23:12:11.665969+00:00",
+  "reserve_ram_bytes": 25769803776,
+  "max_workers": 2,
+  "maximum_cpu_affinity": 4,
+  "persistence": "Weights reside in /dev/shm and disappear after reboot; rerun this command at fixed revision",
+  "redownload_command": [
+    "/srv/venvs/qwen-vllm-h100/bin/python",
+    "/srv/code-behind-layout/scripts/prepare_training.py",
+    "download",
+    "--cache-root",
+    "/dev/shm/cbl-hf-cache",
+    "--status-path",
+    "/srv/code-behind-layout/logs/backbone_download_status.json"
+  ],
+  "snapshot": "/dev/shm/cbl-hf-cache/hub/models--Qwen--Qwen2.5-Coder-32B-Instruct/snapshots/381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "completed_at_utc": "2026-10-18T23:15:48.890808+00:00",
+  "observed_download_wall_seconds": 217.224839,
+  "download_cpu_observation": {
+    "lower_bound_seconds": 203.51,
+    "scope": "Last live /proc process user+system observation; final CPU total was not captured by the initial launcher"
+  },
+  "gpu_allocated_seconds": 0
+}

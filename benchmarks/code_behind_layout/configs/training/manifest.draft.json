@@ -1,0 +1,17 @@
+{
+  "status": "draft",
+  "role": "formal_training",
+  "training_config": "pilot.json",
+  "split_registry": "../../data/splits/registry.json",
+  "trusted_evidence_manifest": null,
+  "backbone_snapshot": "/dev/shm/cbl-hf-cache/hub/models--Qwen--Qwen2.5-Coder-32B-Instruct/snapshots/381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "seeds": [41, 73, 109],
+  "methods": {
+    "T1": {"samples": null, "selected_checkpoints": {}},
+    "T2": {"samples": null},
+    "T3": {"samples": null, "starting_t1_checkpoints": {}},
+    "T4": {"samples": null, "starting_t1_checkpoints": {}}
+  },
+  "formal_training_runs": 0,
+  "formal_training_examples": 0
+}

@@ -1,0 +1,466 @@
+{
+  "status": "DRAFT_INDEPENDENT_SOURCE_DOMAIN",
+  "task_id": "draft_stacked_switch_area",
+  "parent_lineage": "research_stacked_switch",
+  "topology_family": "complementary_switch",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/source_pack",
+  "editable_paths": [
+    "src/generators/stacked_switch.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "ports": [
+    "IN",
+    "OUT",
+    "EN",
+    "ENB",
+    "VDD",
+    "VSS"
+  ],
+  "scope": "Sizing changes only through immutable configuration; source edits preserve all intent and device multiplicities.",
+  "domain_note": "Width/length scale combinations snapped to the .005um PDK grid before reference generation; visible scale .97..1.03, declared legal .955..1.045 boundary and narrow .94..1.06 extrapolation. Exact snapped device values remain immutable per point.",
+  "default_qualification": "results/derived/stacked_switch_independent_development.json",
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "full25_baseline": null,
+  "feasible_edit_witness": null,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "domain_subtype": "anchor",
+      "parameters": {
+        "n_width": 2.0,
+        "p_width": 4.0,
+        "length": 0.5,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/anchor.spice",
+      "reference_id": "independent_stacked_switch_anchor",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "anchor",
+        "reference_id": "independent_stacked_switch_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 1.94,
+        "p_width": 3.88,
+        "length": 0.485,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_01.spice",
+      "reference_id": "independent_stacked_switch_dev_01",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_stacked_switch_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 1.94,
+        "p_width": 3.88,
+        "length": 0.5,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_02.spice",
+      "reference_id": "independent_stacked_switch_dev_02",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_stacked_switch_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 1.94,
+        "p_width": 3.88,
+        "length": 0.515,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_03.spice",
+      "reference_id": "independent_stacked_switch_dev_03",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_stacked_switch_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.0,
+        "p_width": 4.0,
+        "length": 0.485,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_04.spice",
+      "reference_id": "independent_stacked_switch_dev_04",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_stacked_switch_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.0,
+        "p_width": 4.0,
+        "length": 0.515,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_05.spice",
+      "reference_id": "independent_stacked_switch_dev_05",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_stacked_switch_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.06,
+        "p_width": 4.12,
+        "length": 0.485,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_06.spice",
+      "reference_id": "independent_stacked_switch_dev_06",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_stacked_switch_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.06,
+        "p_width": 4.12,
+        "length": 0.5,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_07.spice",
+      "reference_id": "independent_stacked_switch_dev_07",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_stacked_switch_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "n_width": 2.06,
+        "p_width": 4.12,
+        "length": 0.515,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/stacked_switch/references/dev_08.spice",
+      "reference_id": "independent_stacked_switch_dev_08",
+      "contract": {
+        "task_id": "draft_stacked_switch_area",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_stacked_switch_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "off_leakage",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.1
+          },
+          {
+            "name": "loaded_gain",
+            "unit": "1",
+            "min": 0.5
+          }
+        ],
+        "objective": {
+          "id": "stacked_switch_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "src/generators/stacked_switch.py": "\"\"\"Vertical complementary switch with two shared signal columns.\n\nPlacement and six explicit net paths differ from the vendor's horizontal TG.\nOnly MOS/via/PDK and disclosed basic terminal drawing are shared dependencies.\n\"\"\"\nimport json\nfrom pathlib import Path\nfrom gdsfactory.component import Component\nfrom glayout import sky130\nfrom glayout.primitives.fet import nmos, pmos\nfrom src.generators.terminal_access import expose, wire, via, pin, finish\nfrom src.generators.stacked_switch_reference import DEFAULT\n\n\ndef build(output, sizing=None, separation=24., signal_width=.8):\n    size = {**DEFAULT, **(sizing or {})}\n    sky130.activate()\n    top = Component(\"stacked_switch\")\n    remove = [v for k,v in sky130.glayers.items() if k.endswith((\"_label\",\"_pin\"))]+[(64,44)]\n    ncell = nmos(sky130,width=size[\"n_width\"],length=size[\"length\"],fingers=size[\"fingers\"],\n                 with_dummy=False,with_tie=True,with_dnwell=False).copy().remove_layers(remove,include_labels=True)\n    pcell = pmos(sky130,width=size[\"p_width\"],length=size[\"length\"],fingers=size[\"fingers\"],\n                 with_dummy=False,with_tie=True).copy().remove_layers(remove,include_labels=True)\n    lower, upper = top << ncell, top << pcell\n    lower.movex(-lower.xmin)\n    upper.movex(-upper.xmin)\n    upper.movey(lower.ymax+separation-upper.ymin)\n    n, p = expose(top,lower), expose(top,upper)\n    # Aligning the left extents creates separate, continuous source and drain\n    # columns without a crossbar or a general netlist-to-row compiler.\n    for terminal in (\"D\",\"S\"):\n        wire(top,\"met3\",n[terminal],p[terminal],signal_width)\n    mid = round((lower.ymax+upper.ymin)/2/.005)*.005\n    endpoint = max(lower.xmax,upper.xmax)+4\n    signals = {\"OUT\":(n[\"D\"][0],mid+2),\"IN\":(n[\"S\"][0],mid-2)}\n    for net, location in signals.items():\n        via(top,\"met3\",\"met4\",location)\n        wire(top,\"met4\",location,(endpoint,location[1]),signal_width)\n        pin(top,net,(endpoint-1,location[1]))\n    # Gates and bodies terminate on opposite ends of the vertical stack; equal\n    # access-column x coordinates therefore never connect EN to ENB or VSS to VDD.\n    ends = [(\"EN\",n[\"G\"],lower.ymin-4),(\"VSS\",n[\"B\"],lower.ymin-8),\n            (\"ENB\",p[\"G\"],upper.ymax+4),(\"VDD\",p[\"B\"],upper.ymax+8)]\n    for net, start, height in ends:\n        end = (start[0],round(float(height)/.005)*.005)\n        wire(top,\"met3\",start,end,.6)\n        via(top,\"met3\",\"met4\",end)\n        wire(top,\"met4\",end,(endpoint,end[1]),.8)\n        pin(top,net,(endpoint-1,end[1]))\n    output = Path(output)\n    output.mkdir(parents=True,exist_ok=True)\n    (output/\"sizing.json\").write_text(json.dumps(size,indent=2)+\"\\n\")\n    (output/\"layout_intent.json\").write_text(json.dumps({\"placement\":\"vertical_complementary_pair\",\n        \"vertical_separation_um\":separation,\"signal_columns\":[\"source_IN\",\"drain_OUT\"],\n        \"terminal_access_dependency\":\"src/generators/terminal_access.py\",\n        \"forbidden_dependencies_used\":False},indent=2)+\"\\n\")\n    return finish(top,output)\n"
+  }
+}

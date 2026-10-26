@@ -1,0 +1,10 @@
+.subckt corpus_c01 VSS IB1 IOUT1
+XM1_f0 IB1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+XM1_f1 IB1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+XM1_f2 IB1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+XM1_f3 IB1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+XM2_f0 IOUT1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+XM2_f1 IOUT1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+XM2_f2 IOUT1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+XM2_f3 IOUT1 IB1 VSS VSS sky130_fd_pr__nfet_01v8 w=7.5 l=0.6
+.ends corpus_c01

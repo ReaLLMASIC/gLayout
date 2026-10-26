@@ -1,0 +1,32 @@
+{
+  "timestamp_utc": "2026-10-19T01:36:48.474034+00:00",
+  "phase": "prospective_v2_teacher_context_preflight_not_inference",
+  "request_example": "/srv/code-behind-layout/runtime/collection_preparation/c01_collection_v2_20261019T013548228888Z/request_example.json",
+  "mode": "train_collection_source",
+  "input_tokens": 4071,
+  "reserved_output_tokens": 3072,
+  "maximum_context_tokens": 8192,
+  "fits_complete_request": true,
+  "unchanged_complete_source_output_tokens_including_EOS": 1791,
+  "fits_original_module_output": true,
+  "tokenizer_revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_text": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "source_text"
+    ]
+  },
+  "source_modules": [
+    "textbook_sharing/layout.py"
+  ],
+  "source_text_bytes": 5937,
+  "truncation": false,
+  "model_decisions": 0,
+  "GPU_inferences": 0
+}

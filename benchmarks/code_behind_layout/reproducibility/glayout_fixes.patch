@@ -1,0 +1,345 @@
+diff --git a/src/glayout/cells/composite/fvf_based_ota/ota.py b/src/glayout/cells/composite/fvf_based_ota/ota.py
+index 3968ac5..537c33d 100644
+--- a/src/glayout/cells/composite/fvf_based_ota/ota.py
++++ b/src/glayout/cells/composite/fvf_based_ota/ota.py
+@@ -5,7 +5,7 @@ from gdsfactory.cell import cell
+ from gdsfactory.component_reference import ComponentReference
+ 
+ from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, prec_center, align_comp_to_port
+-from glayout.util.port_utils import rename_ports_by_orientation
++from glayout.util.port_utils import rename_ports_by_orientation, set_port_orientation
+ from glayout.util.snap_to_grid import component_snap_to_grid
+ from gdsfactory.components import text_freetype, rectangle
+ from glayout.spice.netlist import Netlist
+@@ -47,9 +47,9 @@ def super_class_AB_OTA_netlist(local_c_bias_1_ref: ComponentReference, local_c_b
+ 
+         netlist = Netlist(circuit_name='OTA', nodes=['AVDD', 'INP', 'INM', 'VOUT', 'NBC_10U', 'NB_10U', 'AVSS'])
+         pblock_ref = netlist.connect_netlist(get_component_netlist(pblock), [('VDD','AVDD'),('MB_2_D','VOUT')])
+-        nblock_ref = netlist.connect_netlist(get_component_netlist(nb), [('IBIAS1','NBC_10U'),('IBIAS2','NB_10U'),('GND', 'AVSS'),('ILCM1','AVDD'),('ILCM2','AVDD'),('INP','INP'),('INM','INM'),('OUT_N_2','VOUT')])
+-        cmirr_1_ref = netlist.connect_netlist(get_component_netlist(local_c_bias_1_ref), [('VREF','AVDD'),('VSS','AVDD'),('B','AVDD')])
+-        cmirr_2_ref = netlist.connect_netlist(get_component_netlist(local_c_bias_2_ref), [('VREF','AVDD'),('VSS', 'AVDD'),('B','AVDD')])
++        nblock_ref = netlist.connect_netlist(get_component_netlist(nb), [('IBIAS1','NBC_10U'),('IBIAS2','NB_10U'),('GND', 'AVSS'),('INP','INP'),('INM','INM'),('OUT_N_2','VOUT')])
++        cmirr_1_ref = netlist.connect_netlist(get_component_netlist(local_c_bias_1_ref), [('VSS','AVDD'),('B','AVDD')])
++        cmirr_2_ref = netlist.connect_netlist(get_component_netlist(local_c_bias_2_ref), [('VSS', 'AVDD'),('B','AVDD')])
+         res_1_ref = netlist.connect_netlist(get_component_netlist(res_1_ref), [('VSS','AVSS'),('VCC','AVDD'),('VGP','AVSS'),('VGN','AVDD')])
+         res_2_ref = netlist.connect_netlist(get_component_netlist(res_2_ref), [('VSS','AVSS'),('VCC','AVDD'),('VGP','AVSS'),('VGN','AVDD')])
+         
+@@ -81,12 +81,12 @@ def super_class_AB_OTA_netlist(local_c_bias_1_ref: ComponentReference, local_c_b
+         netlist.connect_subnets(
+             nblock_ref,
+             cmirr_1_ref,
+-            [('IFVF1','VOUT')]
++            [('ILCM1','VREF'),('IFVF1','VOUT')]
+         )
+         netlist.connect_subnets(
+             nblock_ref,
+             cmirr_2_ref,
+-            [('IFVF2','VOUT')]
++            [('ILCM2','VREF'),('IFVF2','VOUT')]
+         )
+ 
+         return netlist
+@@ -176,16 +176,23 @@ def super_class_AB_OTA(
+     top_level << c_route(pdk, n_block_ref.ports["fvf_1_B_gate_bottom_met_E"], local_c_bias_1_ref.ports["fet_B_drain_E"], extension=5,width1=0.29, width2=0.29, cwidth=0.29, cglayer="met3")
+     top_level << c_route(pdk, n_block_ref.ports["fvf_2_B_gate_bottom_met_E"], local_c_bias_2_ref.ports["fet_B_drain_E"], extension=5,width1=0.29, width2=0.29, cwidth=0.29, cglayer="met3")
+     
+-    top_level << straight_route(pdk, local_c_bias_1_ref.ports["fet_A_source_W"], local_c_bias_1_ref.ports["welltie_W_top_met_W"],glayer1='met1', width=0.22)
++    # L_route only joins its chosen layers at the corner. Explicit endpoint
++    # stacks are needed when moving a source bus and well tie to higher metal.
++    for bias_ref in (local_c_bias_1_ref, local_c_bias_2_ref):
++        supply_source_via = top_level << via_stack(pdk, "met3", "met4", centered=True, fullbottom=True, fulltop=True)
++        supply_source_via.move(bias_ref.ports["purposegndportscon_N"].center)
++        supply_tie_via = top_level << via_stack(pdk, "met2", "met4", centered=True, fullbottom=True, fulltop=True)
++        supply_tie_via.move(bias_ref.ports["welltie_N_top_met_N"].center)
++        top_level << L_route(pdk, supply_source_via.ports["top_met_E"], supply_tie_via.ports["top_met_N"], hwidth=0.6, vwidth=0.6)
+     top_level << straight_route(pdk, local_c_bias_1_ref.ports["fet_A_0_dummy_L_gsdcon_top_met_W"], local_c_bias_1_ref.ports["welltie_W_top_met_W"],glayer1="met1")
+     top_level << straight_route(pdk, local_c_bias_1_ref.ports["fet_B_1_dummy_R_gsdcon_top_met_E"], local_c_bias_1_ref.ports["welltie_E_top_met_E"],glayer1="met1") 
+ 
+-    top_level << straight_route(pdk, local_c_bias_2_ref.ports["fet_A_source_W"], local_c_bias_2_ref.ports["welltie_W_top_met_W"], glayer1='met1', width=0.22)
++
+     top_level << straight_route(pdk, local_c_bias_2_ref.ports["fet_A_0_dummy_L_gsdcon_top_met_W"], local_c_bias_2_ref.ports["welltie_W_top_met_W"],glayer1="met1", width=0.2)
+     top_level << straight_route(pdk, local_c_bias_2_ref.ports["fet_B_1_dummy_R_gsdcon_top_met_E"], local_c_bias_2_ref.ports["welltie_E_top_met_E"],glayer1="met1", width=0.2) 
+     
+-    top_level << c_route(pdk, local_c_bias_1_ref.ports["fet_A_drain_E"], n_block_ref.ports["cbias_M_3_A_multiplier_0_drain_W"], viaoffset=False)
+-    top_level << c_route(pdk, local_c_bias_2_ref.ports["fet_A_drain_E"], n_block_ref.ports["cbias_M_4_A_multiplier_0_drain_E"], viaoffset=False)
++    top_level << c_route(pdk, set_port_orientation(local_c_bias_1_ref.ports["reference_bus_con_N"], "W"), n_block_ref.ports["cbias_M_3_A_multiplier_0_drain_W"], e1glayer="met3", e2glayer="met2", cglayer="met5", width1=0.33, width2=0.29, cwidth=0.6, viaoffset=None, fullbottom=True, extension=8)
++    top_level << c_route(pdk, set_port_orientation(local_c_bias_2_ref.ports["reference_bus_con_N"], "E"), n_block_ref.ports["cbias_M_4_A_multiplier_0_drain_E"], e1glayer="met3", e2glayer="met2", cglayer="met5", width1=0.33, width2=0.29, cwidth=0.6, viaoffset=None, fullbottom=True, extension=8)
+ 
+ 
+     top_level.add_ports(local_c_bias_1_ref.get_ports_list(), prefix="cmirr_1_")
+diff --git a/src/glayout/cells/composite/opamp/diff_pair_stackedcmirror.py b/src/glayout/cells/composite/opamp/diff_pair_stackedcmirror.py
+index c785395..1384ec1 100644
+--- a/src/glayout/cells/composite/opamp/diff_pair_stackedcmirror.py
++++ b/src/glayout/cells/composite/opamp/diff_pair_stackedcmirror.py
+@@ -149,8 +149,8 @@ def __route_bottom_ncomps_except_drain_nbias(pdk: MappedPDK, toplevel_stacked: C
+     # common source
+     # route to gnd the sources of cmirror
+     _cref = toplevel_stacked << c_route(pdk, toplevel_stacked.ports["commonsource_cmirror_output_R_multiplier_0_source_con_S"], toplevel_stacked.ports["commonsource_cmirror_output_L_multiplier_0_source_con_S"], extension=abs(gndpin.ports["N"].center[1]-toplevel_stacked.ports["commonsource_cmirror_output_R_multiplier_0_source_con_S"].center[1]),fullbottom=True)
+-    toplevel_stacked << straight_route(pdk, toplevel_stacked.ports["commonsource_cmirror_ref_R_multiplier_0_source_E"],_cref.ports["con_E"],glayer2="met3",via2_alignment=('c','c'))
+-    toplevel_stacked << straight_route(pdk, toplevel_stacked.ports["commonsource_cmirror_ref_L_multiplier_0_source_W"],_cref.ports["con_W"],glayer2="met3",via2_alignment=('c','c'))
++    toplevel_stacked << L_route(pdk, toplevel_stacked.ports["commonsource_cmirror_ref_R_multiplier_0_source_E"], set_port_orientation(_cref.ports["con_E"], "N"), hwidth=0.58, vwidth=0.58, viaoffset=False)
++    toplevel_stacked << L_route(pdk, toplevel_stacked.ports["commonsource_cmirror_ref_L_multiplier_0_source_W"], set_port_orientation(_cref.ports["con_W"], "N"), hwidth=0.58, vwidth=0.58, viaoffset=False)
+     # connect cmirror ref drain to cmirror output gate, then short cmirror ref drain and gate
+     Ldrainport = toplevel_stacked.ports["commonsource_cmirror_ref_L_multiplier_0_drain_N"]
+     Lgateport = toplevel_stacked.ports["commonsource_cmirror_output_L_multiplier_0_gate_S"]
+diff --git a/src/glayout/cells/composite/opamp/opamp_twostage.py b/src/glayout/cells/composite/opamp/opamp_twostage.py
+index fc58fb3..8441eac 100644
+--- a/src/glayout/cells/composite/opamp/opamp_twostage.py
++++ b/src/glayout/cells/composite/opamp/opamp_twostage.py
+@@ -76,7 +76,8 @@ def __create_and_route_pins(
+     opamp_top << L_route(pdk, halfmultn_gate_routeref.ports["con_E"], vbias2.ports["e2"],hwidth=2)
+     # route + and - pins (being careful about antenna violations)
+     minusi_pin = opamp_top << rectangle(size=(5,2),layer=pdk.get_glayer("met3"),centered=True)
+-    minusi_pin.movex(opamp_top.xmin).movey(_max_metal_seperation_ps + minusi_pin.ymax + halfmultn_drain_routeref.ports["con_W"].center[1] + halfmultn_drain_routeref.ports["con_W"].width/2)
++    # Clear the complete drain-route via enclosure, not just its port width.
++    minusi_pin.movex(opamp_top.xmin).movey(halfmultn_drain_routeref.ymax + _max_metal_seperation_ps + minusi_pin.ymax)
+     iport_antenna1 = movex(minusi_pin.ports["e3"],destination=opamp_top.ports["diffpair_MINUSgateroute_W_con_N"].center[0]-9*_max_metal_seperation_ps)
+     opamp_top << L_route(pdk, opamp_top.ports["diffpair_MINUSgateroute_W_con_N"],iport_antenna1)
+     iport_antenna2 = movex(iport_antenna1,offsetx=-9*_max_metal_seperation_ps)
+@@ -123,7 +124,13 @@ def __add_mimcap_arr(pdk: MappedPDK, opamp_top: Component, mim_cap_size, mim_cap
+     # connect mimcap to gnd
+     port1 = opamp_top.ports["pcomps_mimcap_connection_con_N"]
+     port2 = mimcaps_ref.ports["row"+str(int(mim_cap_rows)-1)+"_col0_bottom_met_N"]
+-    cref2_extension = max_metalsep + opamp_top.ymax - max(port1.center[1], port2.center[1])
++    # The upper C-route must clear the cap edge with its full via enclosure,
++    # not only the route port. met4 is physical metal3 at the MiM bottom plate.
++    cap_clearance = max(max_metalsep, pdk.get_grule("met4", "capmet").get("min_separation", 0))
++    cglayer = "met" + str(int(pdk.layer_to_glayer(port1.layer)[-1]) + 1)
++    via_height = max(evaluate_bbox(via_stack(pdk, pdk.layer_to_glayer(port.layer), cglayer,
++        fullbottom=True, assume_bottom_via=True, fulltop=True))[1] for port in (port1, port2))
++    cref2_extension = cap_clearance + via_height + opamp_top.ymax - max(port1.center[1], port2.center[1])
+     opamp_top << c_route(pdk,port1,port2, extension=cref2_extension, fullbottom=True)
+     intermediate_output = set_port_orientation(n_to_p_output_route.ports["con_S"],"E")
+     mimcap_output_width = max(pdk.snap_to_2xgrid(1.2), pdk.get_grule("met5")["min_width"])
+@@ -162,8 +169,9 @@ def _row_netlist_for_gain_stage(diff_cs_netlist: Netlist) -> Netlist:
+ 
+ def _input_stage_netlist_for_twostage(input_stage_netlist: Netlist) -> Netlist:
+     netlist = deepcopy_netlist(input_stage_netlist)
+-    if "NBIAS_DRAIN" not in netlist.nodes:
+-        netlist.nodes.append("NBIAS_DRAIN")
++    for node in ("NBIAS_GATE", "NBIAS_DRAIN", "NBIAS_REF_SOURCE_L", "NBIAS_REF_SOURCE_R"):
++        if node not in netlist.nodes:
++            netlist.nodes.append(node)
+     return netlist
+ 
+ 
+@@ -183,30 +191,42 @@ def opamp_gain_stage_netlist(mimcap_netlist: Netlist, diff_cs_netlist: Netlist,
+     return netlist
+ 
+ def opamp_twostage_netlist(input_stage_netlist: Netlist, gain_stage_netlist: Netlist) -> Netlist:
+-    two_stage_netlist = Netlist(
+-        circuit_name="OPAMP_TWO_STAGE",
+-        nodes=['VIN', 'VOUT', 'VSS2', 'VSS', 'IBIAS', 'VDD2', 'VDD1', 'VN', 'VP']
+-    )
+-
+-    input_stage_ref = two_stage_netlist.connect_netlist(
+-        _input_stage_netlist_for_twostage(input_stage_netlist),
+-        [
+-            ('VP', 'VP'),
+-            ('VN', 'VN'),
+-            ('VDD1', 'VDD1'),
+-            ('VDD2', 'VDD2'),
+-            ('IBIAS', 'IBIAS'),
+-            ('VSS', 'VSS'),
+-            ('NBIAS_DRAIN', 'VN'),
+-        ],
+-    )
++    """Bind the differential input, two bias currents, supply and second-stage output."""
++    netlist = Netlist(circuit_name="OPAMP_TWO_STAGE",
++        nodes=["VDD", "GND", "DIFFPAIR_BIAS", "VP", "VN", "CS_BIAS", "VOUT"])
++    netlist.connect_netlist(_input_stage_netlist_for_twostage(input_stage_netlist), [
++        ("VP", "VP"), ("VN", "VN"), ("VDD1", "stage1_l"), ("VDD2", "stage1_r"),
++        ("IBIAS", "DIFFPAIR_BIAS"), ("VSS", "GND"), ("NBIAS_GATE", "CS_BIAS"),
++        ("NBIAS_DRAIN", "VOUT"), ("NBIAS_REF_SOURCE_L", "GND"), ("NBIAS_REF_SOURCE_R", "GND")])
++    netlist.connect_netlist(gain_stage_netlist, [
++        ("VIN1", "stage1_l"), ("VIN2", "stage1_r"), ("VOUT", "VOUT"),
++        ("VDD", "VDD"), ("VSS2", "compensation")])
++    return netlist
+ 
+-    two_stage_netlist.connect_netlist(
+-        gain_stage_netlist,
+-        [('VIN1', 'VDD1'), ('VIN2', 'VDD2'), ('VOUT', 'VN'), ('VSS2', 'VSS2')]
+-    )
+ 
+-    return two_stage_netlist
++def add_opamp_twostage_labels(component: Component, pdk: MappedPDK) -> Component:
++    # Subcell terminal names describe local interfaces. They must not merge
++    # distinct nets or become disconnected external pins in the assembled OTA.
++    annotation_layers = [layer for name, layer in pdk.glayers.items()
++        if name.endswith(("_pin", "_label"))]
++    component = component.remove_layers(annotation_layers, include_labels=True)
++    pins = {"VDD": "pin_vdd_e4", "GND": "pin_gnd_N",
++        "DIFFPAIR_BIAS": "diffpair_ibias_A_drain_E", "VP": "pin_plus_e3",
++        "VN": "pin_minus_e3", "CS_BIAS": "pin_commonsourceibias_e2",
++        "VOUT": "commonsource_output_E"}
++    for name, port_name in pins.items():
++        port = component.ports[port_name]
++        glayer = pdk.layer_to_glayer(port.layer)
++        # The north-facing ground port lies on the metal edge. Keep the pin
++        # marker inside that bar; an outward sliver violates met3 minimum width.
++        size = 0.3 if name == "GND" else 0.2
++        pin = rectangle(size=(size, size), layer=pdk.get_glayer(glayer + "_pin"), centered=True).copy()
++        pin.add_label(text=name, layer=pdk.get_glayer(glayer + "_label"))
++        marker = align_comp_to_port(pin, port, ("c", "c"))
++        if name == "GND":
++            marker.movey(-size / 2)
++        component.add(marker)
++    return component
+ 
+ @tracked_generator("opamp_twostage")
+ def opamp_twostage(
+@@ -277,4 +297,4 @@ def opamp_twostage(
+     pmos_comps.info['netlist'] = opamp_gain_stage_netlist(mimcap_netlist, pmos_comps.info['netlist'], cs_bias_netlist)
+     opamp_top.info['netlist'] = opamp_twostage_netlist(opamp_top.info['netlist'], pmos_comps.info['netlist'])
+ 
+-    return opamp_top
++    return add_opamp_twostage_labels(opamp_top, pdk)
+diff --git a/src/glayout/cells/elementary/current_mirror/current_mirror.py b/src/glayout/cells/elementary/current_mirror/current_mirror.py
+index dd00f4e..33751dd 100644
+--- a/src/glayout/cells/elementary/current_mirror/current_mirror.py
++++ b/src/glayout/cells/elementary/current_mirror/current_mirror.py
+@@ -208,6 +208,7 @@ def current_mirror(
+         top_level.add_ports(subtap_ring.get_ports_list(), prefix="substrate_tap_")
+   
+     top_level.add_ports(source_short.get_ports_list(), prefix='purposegndports')
++    top_level.add_ports(gate_short.get_ports_list(), prefix='reference_bus_')
+ 
+     netlist_obj = current_mirror_interdigitized_netlist(
+         pdk=pdk,
+diff --git a/src/glayout/pdk/sky130_mapped/sky130_grules.py b/src/glayout/pdk/sky130_mapped/sky130_grules.py
+index 37c5815..c1b4c9b 100644
+--- a/src/glayout/pdk/sky130_mapped/sky130_grules.py
++++ b/src/glayout/pdk/sky130_mapped/sky130_grules.py
+@@ -311,7 +311,8 @@ grulesobj["met4"]["via3"] = {}
+ grulesobj["met4"]["met4"] = {"min_width": 0.3, "min_separation": 0.4}
+ grulesobj["met4"]["via4"] = {"min_enclosure": 0.09}
+ grulesobj["met4"]["met5"] = {}
+-grulesobj["met4"]["capmet"] = {"min_enclosure": 0.14}
++# SKY130 Magic full DRC capm.11: unrelated physical metal3 to MiM cap.
++grulesobj["met4"]["capmet"] = {"min_enclosure": 0.14, "min_separation": 1.34}
+ grulesobj["via4"]["dnwell"] = {}
+ grulesobj["via4"]["pwell"] = {}
+ grulesobj["via4"]["nwell"] = {}
+diff --git a/src/glayout/spice/netlist.py b/src/glayout/spice/netlist.py
+index 9d5ee33..5c79b8d 100644
+--- a/src/glayout/spice/netlist.py
++++ b/src/glayout/spice/netlist.py
+@@ -267,20 +267,23 @@ class Netlist:
+ 		# GENERATE UNIQUE SUBCIRCUIT DiRECTIVES
+ 		subcircuits_netlist_map = self.get_subcircuits_netlist_map(sub_netlists_only=True)
+ 
+-		subcircuit_suffixes = dict()
+-		# Get the unique netlists' list and set their suffixes
+-		for subckt in subcircuits_netlist_map:
+-			netlists = subcircuits_netlist_map[subckt]
+-			# All of these subcircuits will have the same name, so use any one
+-			subckt_name = netlists[0].circuit_name
+-
+-			if subckt_name in subcircuit_suffixes:
+-				# If a suffix exists, use it and increment it
+-				for netlist in netlists: netlist.circuit_name = f"{netlist.circuit_name}_{subcircuit_suffixes[subckt_name]}"
+-				subcircuit_suffixes[subckt_name] += 1
+-			else:
+-				# If a suffix doesn't exist, create it.
+-				subcircuit_suffixes[subckt_name] = 1
++		# Reserve existing names before assigning suffixes: NMOS_1 may already
++		# name a different child when a second NMOS would otherwise take it.
++		reserved_names = {n.circuit_name.lower() for group in subcircuits_netlist_map.values() for n in group}
++		reserved_names.add(self.circuit_name.lower())
++		used_names = {self.circuit_name.lower()}
++		for netlists in subcircuits_netlist_map.values():
++			base = netlists[0].circuit_name
++			name = base
++			if name.lower() in used_names:
++				suffix = 1
++				while f"{base}_{suffix}".lower() in reserved_names:
++					suffix += 1
++				name = f"{base}_{suffix}"
++			for netlist in netlists:
++				netlist.circuit_name = name
++			used_names.add(name.lower())
++			reserved_names.add(name.lower())
+ 
+ 		unique_subcircuits_list = []
+ 		# Generate all the unique subcircuits (generation is done again since suffixes were updated)
+diff --git a/src/glayout/verification/evaluator_wrapper.py b/src/glayout/verification/evaluator_wrapper.py
+index e488028..1b22cb8 100644
+--- a/src/glayout/verification/evaluator_wrapper.py
++++ b/src/glayout/verification/evaluator_wrapper.py
+@@ -8,11 +8,7 @@ from datetime import datetime
+ from pathlib import Path
+ from gdsfactory.typings import Component
+ 
+-# Make run_pex.sh executable if it exists
+-_evaluator_box_dir = Path(__file__).parent
+-_run_pex_script = _evaluator_box_dir / "run_pex.sh"
+-if _run_pex_script.exists():
+-    os.chmod(_run_pex_script, 0o755)
++# Importing the evaluator must not mutate its source tree.
+ 
+ from glayout.verification.verification import run_verification
+ from glayout.verification.physical_features import run_physical_feature_extraction
+diff --git a/src/glayout/verification/physical_features.py b/src/glayout/verification/physical_features.py
+index 2ce5437..8e5256f 100644
+--- a/src/glayout/verification/physical_features.py
++++ b/src/glayout/verification/physical_features.py
+@@ -97,9 +97,8 @@ def run_physical_feature_extraction(layout_path: str, component_name: str, top_l
+         # Use the run_pex.sh from evaluator_box directory, not current directory
+         if not _RUN_PEX_SCRIPT.exists():
+             raise FileNotFoundError(f"run_pex.sh not found at {_RUN_PEX_SCRIPT}")
+-        # Make sure it's executable
+-        os.chmod(_RUN_PEX_SCRIPT, 0o755)
+-        subprocess.run([str(_RUN_PEX_SCRIPT), layout_path, component_name], check=True, capture_output=True, text=True)
++        # Invoke Bash without changing permissions on the evaluator source.
++        subprocess.run(["bash", str(_RUN_PEX_SCRIPT), layout_path, component_name], check=True, capture_output=True, text=True)
+         physical_results["pex"]["status"] = "PEX Complete"
+         total_res, total_cap = _parse_simple_parasitics(component_name)
+         physical_results["pex"]["total_resistance_ohms"] = total_res
+diff --git a/src/glayout/verification/run_pex.sh b/src/glayout/verification/run_pex.sh
+index 745e40d..41fc7f5 100755
+--- a/src/glayout/verification/run_pex.sh
++++ b/src/glayout/verification/run_pex.sh
+@@ -17,15 +17,18 @@ fi
+ 
+ magic -rcfile "$MAGICRC" -noconsole -dnull << EOF
+ gds read $GDS_FILE
+-flatten $LAYOUT_CELL
+ load $LAYOUT_CELL
+ select top cell
++flatten ${LAYOUT_CELL}_rc
++load ${LAYOUT_CELL}_rc
++select top cell
+ extract do local
+ extract all
++feedback save extraction_feedback.tcl
+ ext2sim labels on
+ ext2sim
+-extresist tolerance 10
+-extresist
++extresist simplify off
++extresist all
+ ext2spice lvs
+ ext2spice cthresh 0
+ ext2spice extresist on
+diff --git a/tests/run_smgr_regression.py b/tests/run_smgr_regression.py
+index 216a61a..04a707b 100644
+--- a/tests/run_smgr_regression.py
++++ b/tests/run_smgr_regression.py
+@@ -228,7 +228,7 @@ def _run_drc(component: Any, design_name: str, case_dir: Path) -> dict[str, Any]
+ 
+     if shutil.which("magic") is None:
+         raise RuntimeError("magic is not available in PATH")
+-    output_dir = case_dir / "magic_drc"
++    output_dir = case_dir / "magic_drc" / design_name
+     if output_dir.exists():
+         shutil.rmtree(output_dir)
+     print(f"[SMGR] Using PDK_ROOT={paths['pdk_root']}")
+@@ -250,7 +250,7 @@ def _run_lvs(component: Any, design_name: str, case_dir: Path) -> dict[str, Any]
+ 
+     if shutil.which("magic") is None or shutil.which("netgen") is None:
+         raise RuntimeError("magic/netgen are not available in PATH")
+-    output_dir = case_dir / "netgen_lvs"
++    output_dir = case_dir / "netgen_lvs" / design_name
+     if output_dir.exists():
+         shutil.rmtree(output_dir)
+     print(f"[SMGR] Using PDK_ROOT={paths['pdk_root']}")

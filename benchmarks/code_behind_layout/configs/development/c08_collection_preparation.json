@@ -1,0 +1,2236 @@
+{
+  "status": "DRAFT_READONLY_COLLECTION_CAPSULE_NOT_FROZEN",
+  "circuit_id": "C08",
+  "source_revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+  "parent_lineage": "textbook_universal_compiler_cropped",
+  "source_pack": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/source_pack",
+  "source_files": [
+    "LICENSE",
+    "circuit_input.json",
+    "generator.py",
+    "glayout/__init__.py",
+    "glayout/backend/__init__.py",
+    "glayout/backend/_gdsfactory.py",
+    "glayout/backend/_gdstk.py",
+    "glayout/pdk/__init__.py",
+    "glayout/pdk/gf180_mapped/__init__.py",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x02p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x04p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x08p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x16p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/gf180_grules.py",
+    "glayout/pdk/gf180_mapped/gf180_mapped.py",
+    "glayout/pdk/gf180_mapped/gf180mcu.drc",
+    "glayout/pdk/gf180_mapped/gf180mcu_drc.lydrc",
+    "glayout/pdk/gf180_mapped/gf180mcu_drc_wrapper.drc",
+    "glayout/pdk/gf180_mapped/gf180mcu_osu_sc_9T.spice",
+    "glayout/pdk/ihp130_mapped/__init__.py",
+    "glayout/pdk/ihp130_mapped/ihp130_drc.lydrc",
+    "glayout/pdk/ihp130_mapped/ihp130_grules.py",
+    "glayout/pdk/ihp130_mapped/ihp130_mapped.py",
+    "glayout/pdk/mappedpdk.py",
+    "glayout/pdk/sky130_mapped/__init__.py",
+    "glayout/pdk/sky130_mapped/sky130.lydrc",
+    "glayout/pdk/sky130_mapped/sky130_add_npc.py",
+    "glayout/pdk/sky130_mapped/sky130_fd_sc_hd.spice",
+    "glayout/pdk/sky130_mapped/sky130_grules.py",
+    "glayout/pdk/sky130_mapped/sky130_mapped.py",
+    "glayout/placement/__init__.py",
+    "glayout/placement/common_centroid_ab_ba.py",
+    "glayout/placement/four_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_place.py",
+    "glayout/primitives/__init__.py",
+    "glayout/primitives/bjt.py",
+    "glayout/primitives/fet.py",
+    "glayout/primitives/guardring.py",
+    "glayout/primitives/mimcap.py",
+    "glayout/primitives/resistor.py",
+    "glayout/primitives/via_gen.py",
+    "glayout/routing/L_route.py",
+    "glayout/routing/__init__.py",
+    "glayout/routing/c_route.py",
+    "glayout/routing/smart_route.py",
+    "glayout/routing/straight_route.py",
+    "glayout/sharing/README.md",
+    "glayout/sharing/__init__.py",
+    "glayout/sharing/enumeration.py",
+    "glayout/sharing/evidence.py",
+    "glayout/sharing/group.py",
+    "glayout/sharing/rules.py",
+    "glayout/sharing/spec.py",
+    "glayout/spice/__init__.py",
+    "glayout/spice/netlist.py",
+    "glayout/util/__init__.py",
+    "glayout/util/comp_utils.py",
+    "glayout/util/component_array_create.py",
+    "glayout/util/geometry.py",
+    "glayout/util/pattern.py",
+    "glayout/util/port_utils.py",
+    "glayout/util/print_rules.py",
+    "glayout/util/routing.py",
+    "glayout/util/snap_to_grid.py",
+    "sizing_input.json",
+    "textbook_sharing/__init__.py",
+    "textbook_sharing/assembly/__init__.py",
+    "textbook_sharing/assembly/adapters.py",
+    "textbook_sharing/assembly/engine.py",
+    "textbook_sharing/assembly/passives.py",
+    "textbook_sharing/assembly/pincell.py",
+    "textbook_sharing/layout.py",
+    "textbook_sharing/netlist.py"
+  ],
+  "editable_paths": [
+    "textbook_sharing/layout.py"
+  ],
+  "trusted_bundle": "/srv/code-behind-layout/runtime/collection_preparation/c08_collection_20261019T015607178027Z/trusted",
+  "trusted_files": [
+    "contracts/anchor.json",
+    "contracts/dev_len045.json",
+    "contracts/dev_len060.json",
+    "contracts/dev_nf_1half.json",
+    "contracts/dev_nf_3quarters.json",
+    "contracts/dev_nf_double.json",
+    "contracts/dev_nf_half.json",
+    "contracts/dev_unit075.json",
+    "contracts/dev_unit100.json",
+    "evaluate.py",
+    "physical.py",
+    "references/anchor.spice",
+    "references/dev_len045.spice",
+    "references/dev_len060.spice",
+    "references/dev_nf_1half.spice",
+    "references/dev_nf_3quarters.spice",
+    "references/dev_nf_double.spice",
+    "references/dev_nf_half.spice",
+    "references/dev_unit075.spice",
+    "references/dev_unit100.spice",
+    "run_pex.sh",
+    "src/__init__.py",
+    "src/corpus_metrics.py",
+    "src/measurement.py",
+    "src/physical_drc.py",
+    "src/report_parsers.py",
+    "src/spice_validation.py"
+  ],
+  "configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "reference_id": "c08_anchor_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "anchor",
+        "reference_id": "c08_anchor_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "anchor",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M3": {
+            "w": 4.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M4": {
+            "w": 2.0,
+            "l": 0.3,
+            "nf": 4
+          },
+          "M5": {
+            "w": 2.0,
+            "l": 0.3,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_nf_half",
+      "role": "development",
+      "reference_id": "c08_dev_nf_half_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_nf_half",
+        "reference_id": "c08_dev_nf_half_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_nf_half",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 2.0,
+            "l": 0.3,
+            "nf": 4
+          },
+          "M2": {
+            "w": 2.0,
+            "l": 0.3,
+            "nf": 4
+          },
+          "M3": {
+            "w": 2.0,
+            "l": 0.3,
+            "nf": 4
+          },
+          "M4": {
+            "w": 1.0,
+            "l": 0.3,
+            "nf": 2
+          },
+          "M5": {
+            "w": 1.0,
+            "l": 0.3,
+            "nf": 2
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_nf_3quarters",
+      "role": "development",
+      "reference_id": "c08_dev_nf_3quarters_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_nf_3quarters",
+        "reference_id": "c08_dev_nf_3quarters_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_nf_3quarters",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 6
+          },
+          "M3": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 6
+          },
+          "M4": {
+            "w": 1.5,
+            "l": 0.3,
+            "nf": 3
+          },
+          "M5": {
+            "w": 1.5,
+            "l": 0.3,
+            "nf": 3
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_nf_1half",
+      "role": "development",
+      "reference_id": "c08_dev_nf_1half_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_nf_1half",
+        "reference_id": "c08_dev_nf_1half_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_nf_1half",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 6.0,
+            "l": 0.3,
+            "nf": 12
+          },
+          "M2": {
+            "w": 6.0,
+            "l": 0.3,
+            "nf": 12
+          },
+          "M3": {
+            "w": 6.0,
+            "l": 0.3,
+            "nf": 12
+          },
+          "M4": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 6
+          },
+          "M5": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 6
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_nf_double",
+      "role": "development",
+      "reference_id": "c08_dev_nf_double_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_nf_double",
+        "reference_id": "c08_dev_nf_double_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_nf_double",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 8.0,
+            "l": 0.3,
+            "nf": 16
+          },
+          "M2": {
+            "w": 8.0,
+            "l": 0.3,
+            "nf": 16
+          },
+          "M3": {
+            "w": 8.0,
+            "l": 0.3,
+            "nf": 16
+          },
+          "M4": {
+            "w": 4.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M5": {
+            "w": 4.0,
+            "l": 0.3,
+            "nf": 8
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_len045",
+      "role": "development",
+      "reference_id": "c08_dev_len045_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_len045",
+        "reference_id": "c08_dev_len045_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_len045",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 0.45,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 0.45,
+            "nf": 8
+          },
+          "M3": {
+            "w": 4.0,
+            "l": 0.45,
+            "nf": 8
+          },
+          "M4": {
+            "w": 2.0,
+            "l": 0.45,
+            "nf": 4
+          },
+          "M5": {
+            "w": 2.0,
+            "l": 0.45,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_len060",
+      "role": "development",
+      "reference_id": "c08_dev_len060_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_len060",
+        "reference_id": "c08_dev_len060_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_len060",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "M3": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "M4": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M5": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_unit075",
+      "role": "development",
+      "reference_id": "c08_dev_unit075_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_unit075",
+        "reference_id": "c08_dev_unit075_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_unit075",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 6.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M2": {
+            "w": 6.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M3": {
+            "w": 6.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M4": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 4
+          },
+          "M5": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    },
+    {
+      "configuration_id": "dev_unit100",
+      "role": "development",
+      "reference_id": "c08_dev_unit100_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c08",
+        "configuration_id": "dev_unit100",
+        "reference_id": "c08_dev_unit100_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "scope": "DRAFT_COLLECTION_AFTER_ACTUAL_NINE_POINT_QUALIFICATION",
+        "objective": {
+          "id": "c08_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "specifications": [
+          {
+            "name": "gain_10Hz_dB",
+            "unit": "dB",
+            "min": 25
+          },
+          {
+            "name": "ugb_Hz",
+            "unit": "Hz",
+            "min": 10000000.0
+          },
+          {
+            "name": "phase_margin_deg",
+            "unit": "deg",
+            "min": 60
+          },
+          {
+            "name": "settled_tracking_error_V",
+            "unit": "V",
+            "max": 0.015
+          },
+          {
+            "name": "DUT_supply_power_W",
+            "unit": "W",
+            "max": 0.0001
+          }
+        ],
+        "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "temperature_C": 27,
+          "input_V": 0.9,
+          "load_C_F": 1e-12,
+          "replica_current_A": 4e-05
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0.6,
+            "end": 1.2,
+            "points": 7,
+            "scale": "linear"
+          }
+        }
+      },
+      "parameters": {
+        "configuration_id": "dev_unit100",
+        "circuit": {
+          "circuit_id": "C08",
+          "name": "five_transistor_ota",
+          "ports": [
+            "VDD",
+            "VSS",
+            "VIN1",
+            "VIN2",
+            "VOUT1",
+            "VB1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "net22",
+                "VIN1",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "VOUT1",
+                "VIN2",
+                "net23",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M3",
+              "kind": "nfet",
+              "nets": [
+                "net23",
+                "VB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M4",
+              "kind": "pfet",
+              "nets": [
+                "net22",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M5",
+              "kind": "pfet",
+              "nets": [
+                "VOUT1",
+                "net22",
+                "VDD",
+                "VDD"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 157,
+            "files": [
+              "Dataset/157/157.cir",
+              "Dataset/157/Port157.txt",
+              "Dataset/157/Pagenumber157.txt",
+              "Dataset/157/Book157.png",
+              "Dataset/157/Cadence157.png"
+            ],
+            "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+            "book_key": "razavi",
+            "page_ref": "171",
+            "device_name_map": {
+              "M1": "M2",
+              "M2": "M3",
+              "M3": "M4",
+              "M4": "M0",
+              "M5": "M1"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/157/Book157.png",
+              "observation": "Razavi p.171 scan: M1/M2 pair, M3 diode / M4 mirror PMOS load, M5 tail (Vb)"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 8.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M2": {
+            "w": 8.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M3": {
+            "w": 8.0,
+            "l": 0.3,
+            "nf": 8
+          },
+          "M4": {
+            "w": 4.0,
+            "l": 0.3,
+            "nf": 4
+          },
+          "M5": {
+            "w": 4.0,
+            "l": 0.3,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c08"
+      }
+    }
+  ],
+  "qualification_path": "/srv/code-behind-layout/results/derived/C05_C08_domain_development_qualification.json",
+  "prospective_hard_specifications": [
+    {
+      "name": "gain_10Hz_dB",
+      "unit": "dB",
+      "min": 25
+    },
+    {
+      "name": "ugb_Hz",
+      "unit": "Hz",
+      "min": 10000000.0
+    },
+    {
+      "name": "phase_margin_deg",
+      "unit": "deg",
+      "min": 60
+    },
+    {
+      "name": "settled_tracking_error_V",
+      "unit": "V",
+      "max": 0.015
+    },
+    {
+      "name": "DUT_supply_power_W",
+      "unit": "W",
+      "max": 0.0001
+    }
+  ],
+  "objective": {
+    "id": "c08_area_min",
+    "metric": "area",
+    "unit": "um2",
+    "direction": "min",
+    "corner_aggregation": "worst"
+  },
+  "label_rule_draft": {
+    "objectives": {
+      "c08_area_min": {
+        "metric": "area",
+        "unit": "um2",
+        "direction": "min",
+        "quality_absolute_tolerance": 1e-08,
+        "quality_relative_tolerance": 1e-06,
+        "quality_minimum_relative_effect": 0.01
+      }
+    }
+  },
+  "source_scope_note": "Actual generic C01-v1 source capsule is reused byte-for-byte; generator.py consumes the host configuration, not the unused frozen circuit_input.json. The sole editable layout.py is the same compiler lineage.",
+  "power_scope": "DUT supply only; external20uA/40uA diode-bias power recorded separately. Three process corners at1.8V/27C.",
+  "formal_collection_started": false,
+  "old_development_evidence_relabelled": false
+}

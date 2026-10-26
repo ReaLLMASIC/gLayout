@@ -1,0 +1,13 @@
+{
+  "status": "development_analysis_rule_v1_not_formal_protocol",
+  "objective": "worst_corner_ugb_Hz",
+  "unit": "Hz",
+  "direction": "max",
+  "numerical_tie": {"absolute_Hz": 1.0, "relative": 0.00001},
+  "calibration_evidence": "phase0_20261018T231220337791Z_ota_precision_calibration/validation.json",
+  "calibration_basis": "Tight KLU versus Sparse UGB differed by 0.057609Hz at 16.1007MHz; retain the predeclared 1e-5 waveform agreement scale and a 1Hz floor. This is a development transfer tolerance, not a new per-source noise estimate.",
+  "near_frontier": {"fraction": 0.2, "selection": "smallest_L0_footprint_area_um2", "ties": "candidate_id_ascending"},
+  "geometry_analysis": "descriptive association only; area and wirelength are not circuit-objective predictions",
+  "post_PEX_proxy": "1/(2*pi*sum_R_ohm*sum_C_F), an unfitted one-pole frequency heuristic; not a calibrated circuit model or cheap fidelity",
+  "nominal_proxy": "actual nominal-corner UGB used as an estimate of worst-corner UGB; requires nominal PEX/SPICE acquisition"
+}

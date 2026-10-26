@@ -1,0 +1,72 @@
+{
+  "status": "DEVELOPMENT_INVENTORY_NOT_FROZEN_SPLITS",
+  "source_commit": "7426852e238ee3bc656e3263212a51d4beb735dd",
+  "validated_independent_lineage_count": null,
+  "four_independent_OTAs_established": false,
+  "eight_validated_independent_lineages_established": false,
+  "complete_OTA_assemblies": [
+    {
+      "id": "miller_two_stage",
+      "source": "src/glayout/cells/composite/opamp/opamp_twostage.py",
+      "same_ancestry_wrappers": [
+        "src/glayout/cells/composite/opamp/opamp.py"
+      ],
+      "physical_status": "full_DRC_LVS_pass_full_RC_electrical_flow_active"
+    },
+    {
+      "id": "fvf_super_class_ab",
+      "source": "src/glayout/cells/composite/fvf_based_ota/ota.py",
+      "circuit_specific_helpers": [
+        "n_block.py",
+        "p_block.py",
+        "low_voltage_cmirror.py"
+      ],
+      "physical_status": "repaired_fixed_intended_LVS_and_full_DRC_positive_RC_complete_three_corner_OP_AC_transient_DC_development_only"
+    }
+  ],
+  "must_group_copies": [
+    [
+      "src/glayout/cells/composite/low_voltage_cmirror/low_voltage_cmirror.py",
+      "src/glayout/cells/composite/fvf_based_ota/low_voltage_cmirror.py"
+    ]
+  ],
+  "shared_elementary_libraries": [
+    "current_mirror",
+    "diff_pair",
+    "flipped_voltage_follower",
+    "transmission_gate"
+  ],
+  "non_independence_rules": [
+    "parameters_do_not_create_lineages",
+    "tracing_and_labels_do_not_create_lineages",
+    "same_source_checkout_copies_do_not_create_lineages",
+    "wrapper_around_same_complete_OTA_does_not_create_OTA_lineage",
+    "duplicate_low_voltage_mirror_files_are_one_ancestry"
+  ],
+  "needed_expansion": [
+    "separately_implemented_folded_cascode_OTA",
+    "separately_implemented_telescopic_or_feedforward_OTA",
+    "actual_reference_bound_flows_for_component_families"
+  ],
+  "formal_or_training_use": false,
+  "scope": "Existing vendor ancestry plus separately authored research assembly candidates; no frozen split or formal qualification count",
+  "existing_vendor_complete_OTA_assembly_count": 2,
+  "additional_research_assembly_candidates": [
+    "src/generators/five_t.py",
+    "src/generators/compact_miller.py"
+  ],
+  "additional_public_compiler_lineage": {
+    "revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+    "target": "glayout.sharing plus textbook_sharing.layout/assembly",
+    "declared_topologies": 18,
+    "independent_program_lineages": 1,
+    "source_role_candidate": "train_cropped_only"
+  },
+  "component_domain_evidence": {
+    "mirror": "results/derived/mirror_domain_development.json",
+    "pair": "results/derived/pair_three_size_domain_development.json",
+    "transmission_gate": "results/derived/tg_three_size_domain_development.json",
+    "fvf_follower": "results/derived/follower_two_size_domain_development.json"
+  },
+  "validation_candidate": "src/generators/validation_mirror.py; high-level assembly separate, disclosed general port access constraints shared"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "DRAFT_TRAIN_ONLY_ASSIGNMENT_PENDING_INDEPENDENT_QUALIFICATION",
+  "lineage_id": "research_train_ratio_current_source_array_v1",
+  "split": "train",
+  "circuit_id": "TRAIN_RATIO_CS01",
+  "topology_families": [
+    "diode_biased_two_output_ratio_current_source_array"
+  ],
+  "parent_lineages": [],
+  "qualified_independent_source_lineages_added": 0,
+  "editable_source_files": [
+    "src/train_generators/ratio_source.py"
+  ],
+  "source_package_files": [
+    "src/__init__.py",
+    "src/train_generators/__init__.py",
+    "src/train_generators/ratio_source.py"
+  ],
+  "trusted_reference_and_bench_files": [
+    "src/train_generators/ratio_source_intent.py",
+    "src/train_generators/ratio_source_bench.py"
+  ],
+  "shared_frozen_dependencies": [
+    "gdsfactory7.7 geometry/component API",
+    "glayout.primitives.fet.nmos",
+    "glayout.primitives.via_gen.via_stack",
+    "glayout.sky130 mappedPDK",
+    "src/generators/terminal_access.py"
+  ],
+  "shared_access_disclosure": "Only terminal escape, rectangle/wire/via/pin/flatten helpers reused. That library has no circuit graph, placement or net route policy. Source/body/gate/output placement and H bias tree are newly authored here.",
+  "excluded_dependencies": [
+    "all evaluation/validation circuit assemblies",
+    "glayout.cells",
+    "glayout.blocks",
+    "glayout.sharing compiler",
+    "textbook_sharing"
+  ],
+  "authorship": "New high-level assembly written for this train-only proposal, without reading or calling any evaluation assembly for this task. Shared common terminal-access source was read and is disclosed.",
+  "holdout_statement": "No Miller or FVF OTA graph/helper/data. A current-source graph is not a new topology holdout; source independence still needs actual import/ancestry/geometry qualification.",
+  "global_registry_modified": false,
+  "frozen_source_assignments_modified": false,
+  "required_before_formal_collection": [
+    "Nine-point ideal qualification with full failures retained",
+    "Actual anchor and full nine-point full-ruleDRC/independentN LVS/deviceintent/positivefullRC/postlayoutcorner qualification",
+    "Prospective global source-assignment extension preserving every prior train/validation/test source assignment",
+    "New frozen source/trusted evaluator/contracts/labels/initialstates/context preflight before fresh model proposals"
+  ],
+  "formal_training_examples": 0,
+  "model_calls": 0,
+  "physical_runs": 0,
+  "frozen_common_source_files": [
+    "src/generators/__init__.py",
+    "src/generators/terminal_access.py"
+  ],
+  "source_cli": "python src/train_generators/ratio_source.py --configuration parameters.json --output candidate.gds; configuration is the declared point.parameters object."
+}

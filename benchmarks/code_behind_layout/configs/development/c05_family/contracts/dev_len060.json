@@ -1,0 +1,72 @@
+{
+  "task_id": "development_train_domain_C05",
+  "configuration_id": "dev_len060",
+  "reference_id": "c05_dev_len060_independent_perfinger",
+  "required_corners": [
+    "tt",
+    "ss",
+    "ff"
+  ],
+  "scope": "DRAFT_DEVELOPMENT_QUALIFICATION_NOT_FORMAL",
+  "objective": {
+    "id": "c05_area_min",
+    "metric": "area",
+    "unit": "um2",
+    "direction": "min",
+    "corner_aggregation": "worst"
+  },
+  "specifications": [
+    {
+      "name": "gain_10Hz_real",
+      "unit": "1",
+      "min": 0.6
+    }
+  ],
+  "pending_before_freeze": [
+    "bandwidth_floor_Hz_from_actual_baseline_qualification",
+    "DUT_supply_power_ceiling_W_from_actual_baseline_qualification"
+  ],
+  "power_definition": "VSUPPLY supplies DUT only; separate VBIASSUPPLY feeds external diode replica. Power is -1.8*i(VSUPPLY).",
+  "nominal_operating_point": {
+    "supply_V": 1.8,
+    "temperature_C": 27,
+    "input_V": 1.17,
+    "load_C_F": 1e-12,
+    "replica_current_A": 2e-05
+  },
+  "analysis_contracts": {
+    "op": {
+      "kind": "op",
+      "columns": 4,
+      "expected_rows": 1
+    },
+    "ac": {
+      "kind": "ac",
+      "columns": 3,
+      "start": 10,
+      "end": 1000000000.0,
+      "points": 161,
+      "scale": "log"
+    },
+    "tran": {
+      "kind": "transient",
+      "columns": 3,
+      "start": 0,
+      "end": 4e-06,
+      "required_windows": [
+        [
+          1.8e-06,
+          1.99e-06
+        ]
+      ]
+    },
+    "dc": {
+      "kind": "dc",
+      "columns": 3,
+      "start": 0.8,
+      "end": 1.4,
+      "points": 13,
+      "scale": "linear"
+    }
+  }
+}

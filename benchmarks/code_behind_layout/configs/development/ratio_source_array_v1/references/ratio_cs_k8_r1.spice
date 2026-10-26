@@ -1,0 +1,26 @@
+.subckt ratio_cs_k8_r1 VSS IREF IOUT1 IOUT2
+XMREF_f0 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f1 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f2 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f3 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f4 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f5 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f6 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMREF_f7 IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f0 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f1 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f2 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f3 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f4 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f5 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f6 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT1_f7 IOUT1 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f0 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f1 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f2 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f3 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f4 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f5 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f6 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XMOUT2_f7 IOUT2 IREF VSS VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+.ends ratio_cs_k8_r1

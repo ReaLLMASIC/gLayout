@@ -1,0 +1,152 @@
+{
+  "status": "frozen",
+  "role": "train_collection",
+  "collection_id": "c01_gpt_teacher_v1",
+  "frozen_at_utc": "2026-10-19T01:46:24.844067+00:00",
+  "registry_path": "/srv/code-behind-layout/runtime/train_collections/c01_gpt_teacher_v1/registry.json",
+  "label_rule_path": "/srv/code-behind-layout/runtime/train_collections/c01_gpt_teacher_v1/label_rule.json",
+  "trusted_bundle": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/trusted",
+  "source_pack": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/source_pack",
+  "initial_states_path": "/srv/code-behind-layout/runtime/train_collections/c01_gpt_teacher_v1/initial_states.jsonl",
+  "output_root": "/srv/code-behind-layout/runs/train_collection/c01_gpt_teacher_v1",
+  "evidence_root": "/srv/code-behind-layout/runs/train_collection/c01_gpt_teacher_v1",
+  "source_smoke_evidence": "/srv/code-behind-layout/runs/development/c01_draft_bundle/executor_20261019T011845829122Z_c84f4a51",
+  "main_benchmark_protocol_status": "draft",
+  "pdk_revision": "0fe599b2afb6708d281543108caf8310912f54af",
+  "container_image": "hpretl/iic-osic-tools@sha256:7ef29be71a33b5b8994cde7f7476dfefd1af94f2922354242d1579346feec462",
+  "magic_runtime": "/srv/code-behind-layout/runtime/magic-8.3.685",
+  "sampling": {
+    "backend": "isolated_gpt_cli",
+    "mode": "train_collection_source_gpt",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "trials": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "proposal_workers": 2,
+    "seed": null,
+    "seed_control_available": false,
+    "proposal_format": "full_source_teacher",
+    "max_new_tokens": 3072,
+    "max_context_tokens": 8192,
+    "timeout_seconds": 240
+  },
+  "physical": {
+    "workers": 2,
+    "cpus_per_job": 2,
+    "generation_timeout_seconds": 240,
+    "evaluator_timeout_seconds": 720
+  },
+  "budget": {
+    "proposals_per_initial_state": 8,
+    "configurations_per_candidate": 9,
+    "effective_example_pipeline_pilot_target": 1000,
+    "initial_batch_initial_states": 3
+  },
+  "failure_policy": "Keep all attempts, duplicate/noop/invalid patches, candidate failures, infrastructure failures and measured costs; unknowns never become physical negatives.",
+  "admission": "Fresh independent GPT proposals and fresh nine-point baselines; same frozen physical contracts, source capsule and label rule as T0 v2. Native tools disabled, no manual source repair, all failed requests retained.",
+  "context": "Complete layout module, frozen circuit/domain contract and actual fresh baseline feedback; no truncation.",
+  "base_collection_manifest": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v2/collection.json",
+  "initial_state_count": 3,
+  "editable_paths": [
+    "textbook_sharing/layout.py"
+  ],
+  "frozen_additional_module": "glayout/sharing/enumeration.py",
+  "gold_controls": {
+    "train_c01_anchor": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544091046Z_6c219e3a"
+    },
+    "train_c01_dev_nf1_l030": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544092418Z_161ea9e6"
+    },
+    "train_c01_dev_nf2_l060": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544093787Z_6705eaed"
+    },
+    "train_c01_dev_nf3_l045": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544093569Z_aaa07f75"
+    },
+    "train_c01_dev_nf6_l060": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653089230Z_2548a079"
+    },
+    "train_c01_dev_nf8_l090": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653288313Z_be3e9898"
+    },
+    "train_c01_dev_w075_l045": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653860895Z_024176ee"
+    },
+    "train_c01_dev_w100_l060": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653893490Z_b05add66"
+    },
+    "train_c01_dev_l120": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012757942044Z_ed71443f"
+    }
+  },
+  "gold_control_origin": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/gold_controls.json",
+  "deduplication": {
+    "method": "exact_ast_dump",
+    "include_attributes": false,
+    "numeric_normalization": false,
+    "preserve_literals_identifiers_docstrings": true,
+    "unparseable_source": "Exact text identity only; real executor and gold required for any negative",
+    "duplicate_attempt_status": "semantic_duplicate_before_physics",
+    "all_generation_costs_retained": true
+  },
+  "prospective_change": "Separate full-source proposal generation, mechanical exact diff, complete layout-only scope; existing tested-policy ACTION_SCHEMA and v1 results/budgets unchanged.",
+  "deadline_calibration": {
+    "full_original_layout_JSON_output_tokens": 1790,
+    "observed_v1_output_tokens": [
+      273,
+      298,
+      297,
+      312,
+      325,
+      103,
+      237,
+      302
+    ],
+    "observed_v1_generation_seconds": [
+      27.1361,
+      28.4949,
+      28.4213,
+      28.445,
+      28.8337,
+      12.3011,
+      23.1488,
+      26.9524
+    ],
+    "raw_evidence": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/attempts.json",
+    "reason_for_240_seconds": "Actual approximately 10-11 tokens/s requires roughly 160-180 seconds for the complete module."
+  },
+  "old_development_outcomes_admitted": false,
+  "new_baseline9_per_state_and_new_teacher_proposals_required": true,
+  "excluded_observed_state_379": "Custom-plan assignment is overwritten immediately; distinct text did not establish distinct behavior.",
+  "formal_collection_launched": false,
+  "deduplication_scope": "Within initial state; separately report unique final programs across all states.",
+  "transport": {
+    "remote_endpoint": "http://127.0.0.1:8115",
+    "local_listen": "127.0.0.1:8115",
+    "mechanism": "SSH reverse forwarding to local authenticated GPT CLI broker; credentials remain on original host",
+    "service_script": "scripts/corpus_gpt_teacher_service.py",
+    "command_source": "command() uses the same native-capability disable flags as the existing isolated policy adapter"
+  },
+  "isolation": {
+    "fresh_ephemeral_session_per_trial": true,
+    "sandbox": "read-only",
+    "native_tools": false,
+    "web_search": false,
+    "apps_plugins_mcp_memory": false,
+    "project_instructions": false,
+    "working_directory": "opaque random UUID, never trial-index text",
+    "shared_prompt_within_state": "byte-identical source_proposal_prompt(request)"
+  },
+  "costs": "Keep every exact CLI argv/request/events/stderr/proposal/exit/wall and available public usage; no provider checkpoint, seed, hidden reasoning or billable price is inferred",
+  "output_budget_scope": "Pinned Qwen tokenizer counts complete returned JSON + EOS; excess outputs are retained but not applied, with no truncation",
+  "source_program_counting": "Same three initial AST programs as Qwen v2, not three new lineages or independent source programs; report unique terminal ASTs and useful initial states separately from DPO pairs"
+}

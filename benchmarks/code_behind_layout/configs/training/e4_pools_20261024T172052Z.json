@@ -1,0 +1,2760 @@
+{
+  "pools": [
+    {
+      "id": "c01_cfg0_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c01_cfg0_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg0_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c01_cfg1_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c01_cfg1_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg1_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c01_cfg2_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c01_cfg2_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg2_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c01_cfg3_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c01_cfg3_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg3_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c03_cfg1_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c03_cfg1_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg1_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c03_cfg2_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c03_cfg2_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg2_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c03_cfg3_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c03_cfg3_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg3_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c03_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c03_rules_v1",
+      "candidates": "candidates_recovered.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": false,
+      "exclude_rules": [
+        "reverse_port_track_order",
+        "reverse_ports_combined"
+      ]
+    },
+    {
+      "id": "c04_cfg1_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c04_cfg1_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_cfg1_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c04_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c04_rules_v1",
+      "candidates": "candidates_recovered.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": false,
+      "exclude_rules": [
+        "reverse_port_track_order",
+        "reverse_ports_combined"
+      ]
+    },
+    {
+      "id": "c06_cfg1_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c06_cfg1_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg1_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c06_cfg2_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c06_cfg2_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg2_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c06_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c06_rules_v1",
+      "candidates": "candidates_recovered.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": false,
+      "exclude_rules": [
+        "reverse_port_track_order",
+        "reverse_ports_combined"
+      ]
+    },
+    {
+      "id": "c12_cfg1_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c12_cfg1_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_cfg1_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c12_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c12_rules_v1",
+      "candidates": "candidates_recovered.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": false,
+      "exclude_rules": [
+        "reverse_port_track_order",
+        "reverse_ports_combined"
+      ]
+    },
+    {
+      "id": "c13_cfg1_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c13_cfg1_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg1_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c13_cfg2_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c13_cfg2_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg2_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c13_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c13_rules_v1",
+      "candidates": "candidates_recovered.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": false,
+      "exclude_rules": [
+        "reverse_port_track_order",
+        "reverse_ports_combined"
+      ]
+    },
+    {
+      "id": "c14_cfg1_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c14_cfg1_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg1_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c14_cfg2_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c14_cfg2_rules_v1",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg2_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c14_rules_v1",
+      "kind": "rule_collection",
+      "root": "runs/train_collection/c14_rules_v1",
+      "candidates": "candidates_recovered.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_rules_v1/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "diffusion_plan",
+        "gate_plan",
+        "combined_plan",
+        "reverse_device_order",
+        "gate_order",
+        "reverse_port_track_order",
+        "reverse_devices_combined",
+        "reverse_ports_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": false,
+      "exclude_rules": [
+        "reverse_port_track_order",
+        "reverse_ports_combined"
+      ]
+    },
+    {
+      "id": "c01_cfg0_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c01_cfg0_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg0_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c01_cfg1_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c01_cfg1_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg1_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c01_cfg2_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c01_cfg2_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg2_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c01_cfg3_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c01_cfg3_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg3_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c03_cfg2_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c03_cfg2_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg2_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c03_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c03_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c06_cfg1_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c06_cfg1_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg1_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c06_cfg2_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c06_cfg2_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg2_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c06_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c06_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c13_cfg1_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c13_cfg1_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg1_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c13_cfg2_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c13_cfg2_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg2_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c13_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c13_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c14_cfg1_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c14_cfg1_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg1_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c14_cfg2_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c14_cfg2_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg2_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "c14_lattice_v2",
+      "kind": "multistate_collection",
+      "root": "runs/train_collection/c14_lattice_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_lattice_v2/label_rule.json",
+      "order_field": "rule_id",
+      "declared_order": [
+        "set_plan_independent",
+        "set_plan_diffusion_only",
+        "set_plan_gate_only",
+        "set_plan_combined"
+      ],
+      "evidence_relative_to_root": true,
+      "bench_binds_pins_by_extracted_order": true
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg0_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg0_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg0_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg0_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg0_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg0_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg0_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg0_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg0_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg0_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg0_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg0_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg0_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg0_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg0_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg0_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg1_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg1_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg1_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg1_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg1_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg1_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg1_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg1_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg1_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg1_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg1_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg1_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg1_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg1_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg1_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg1_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg2_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg2_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg2_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg2_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg2_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg2_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg2_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg2_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg2_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg2_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg2_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg2_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg2_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg2_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg2_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg2_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg3_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg3_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg3_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg3_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg3_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg3_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg3_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg3_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg3_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg3_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg3_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg3_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c01_cfg3_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c01_cfg3_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg3_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg3_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg1_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg1_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg1_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg1_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg1_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg1_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg1_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg1_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg1_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg1_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg1_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg1_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg1_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg1_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg1_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg1_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg2_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg2_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg2_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg2_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg2_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg2_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg2_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg2_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg2_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg2_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg2_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg2_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg2_faults_v2_v1_physical_r3",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg2_faults_v2_v1_physical_r3",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg2_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg2_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg3_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg3_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg3_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg3_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg3_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg3_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg3_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg3_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg3_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg3_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg3_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg3_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg3_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_cfg3_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_cfg3_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg3_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c03_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c03_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c03_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_cfg1_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_cfg1_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_cfg1_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_cfg1_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_cfg1_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_cfg1_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_cfg1_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_cfg1_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_cfg1_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_cfg1_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_cfg1_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_cfg1_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_cfg1_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_cfg1_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_cfg1_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_cfg1_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c04_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c04_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c04_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c04_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg1_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg1_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg1_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg1_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg1_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg1_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg1_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg1_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg1_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg1_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg1_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg1_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg1_faults_v2_v1_physical_r2",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg1_faults_v2_v1_physical_r2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg1_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg1_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg2_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg2_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg2_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg2_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg2_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg2_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg2_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg2_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg2_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg2_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg2_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg2_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg2_faults_v2_v1_physical_r3",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_cfg2_faults_v2_v1_physical_r3",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg2_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg2_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c06_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c06_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_cfg1_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_cfg1_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_cfg1_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_cfg1_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_cfg1_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_cfg1_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_cfg1_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_cfg1_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_cfg1_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_cfg1_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_cfg1_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_cfg1_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_cfg1_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_cfg1_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_cfg1_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_cfg1_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c12_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c12_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c12_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg1_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg1_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg1_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg1_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg1_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg1_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg1_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg1_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg1_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg1_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg1_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg1_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg1_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg1_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg1_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg1_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg2_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg2_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg2_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg2_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg2_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg2_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg2_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg2_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg2_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg2_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg2_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg2_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_cfg2_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_cfg2_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_cfg2_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_cfg2_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c13_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c13_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c13_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c13_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg1_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg1_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg1_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg1_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg1_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg1_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg1_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg1_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg1_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg1_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg1_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg1_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg1_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg1_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg1_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg1_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg2_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg2_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg2_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg2_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg2_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg2_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg2_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg2_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg2_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg2_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg2_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg2_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_cfg2_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_cfg2_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg2_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg2_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_faults_extra_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_faults_extra_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_faults_extra_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_faults_extra_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_faults_more2_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_faults_more2_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_faults_more2_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_faults_more2_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_faults_more_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_faults_more_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_faults_more_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_faults_more_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_repair_c14_faults_v2_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_repair_c14_faults_v2_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_faults_v2/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_faults_v2"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_20261023T104641Z_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_20261023T104641Z_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "configs/training/e4_pool_label_rules/textbook_claude_span_20261023T104641Z_physical.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg2_rules_v1",
+        "c03_cfg3_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_20261023T115051Z_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_20261023T115051Z_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "configs/training/e4_pool_label_rules/textbook_claude_span_20261023T115051Z_physical.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg0_rules_v1",
+        "c01_cfg3_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_20261023T133414Z_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_20261023T133414Z_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "configs/training/e4_pool_label_rules/textbook_claude_span_20261023T133414Z_physical.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg1_rules_v1",
+        "c06_cfg1_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_20261023T141234Z_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_20261023T141234Z_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c01_cfg2_rules_v1/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c01_cfg2_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_20261023T230621Z_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_20261023T230621Z_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c06_cfg2_rules_v1/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c06_cfg2_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_20261024T064911Z_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_20261024T064911Z_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "runtime/train_collections/c14_cfg2_rules_v1/label_rule.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c14_cfg2_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_20261024T090302Z_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_20261024T090302Z_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "configs/training/e4_pool_label_rules/textbook_claude_span_20261024T090302Z_physical.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c12_cfg1_rules_v1",
+        "c13_cfg1_rules_v1",
+        "c13_cfg2_rules_v1",
+        "c14_cfg1_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_round2a_v1_physical",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_round2a_v1_physical",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "configs/training/e4_pool_label_rules/textbook_claude_span_round2a_v1_physical.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_cfg1_rules_v1",
+        "c04_cfg1_rules_v1"
+      ],
+      "parents_use_v1_bench": false
+    },
+    {
+      "id": "textbook_claude_span_v1_physical_v2",
+      "kind": "span_acceptance",
+      "root": "runs/train_collection/textbook_claude_span_v1_physical_v2",
+      "candidates": "candidates.jsonl",
+      "registry": "effective_registry.json",
+      "label_rule": "configs/training/e4_pool_label_rules/textbook_claude_span_v1_physical_v2.json",
+      "order_field": "trial_id",
+      "declared_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence_relative_to_root": false,
+      "parents": [
+        "c03_rules_v1",
+        "c04_rules_v1",
+        "c06_rules_v1",
+        "c12_rules_v1",
+        "c13_rules_v1",
+        "c14_rules_v1"
+      ],
+      "parents_use_v1_bench": true,
+      "exclude_candidates": [],
+      "audit": "runs/train_collection/textbook_claude_span_v1_physical_v2/pin_order_audit.json"
+    }
+  ],
+  "skipped": [
+    {
+      "id": "c01_rules_v1",
+      "reason": "earlier non-textbook-bench collection"
+    },
+    {
+      "id": "c05_rules_v1",
+      "reason": "earlier non-textbook-bench collection"
+    },
+    {
+      "id": "c08_rules_v1",
+      "reason": "earlier non-textbook-bench collection"
+    },
+    {
+      "id": "c01_cfg0_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c01_cfg1_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c01_cfg2_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c01_cfg3_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c03_cfg1_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c03_cfg2_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c03_cfg3_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c03_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c04_cfg1_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c04_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c06_cfg1_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c06_cfg2_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c06_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c12_cfg1_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c12_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c13_cfg1_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c13_cfg2_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c13_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c14_cfg1_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c14_cfg2_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "c14_faults_v2",
+      "reason": "baseline-only collection (states enter through their Claude repair acceptance)"
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg2_faults_v2_v1_physical",
+      "reason": "acceptance not COMPLETE: PAUSED_UNKNOWN"
+    },
+    {
+      "id": "textbook_claude_repair_c03_cfg2_faults_v2_v1_physical_r2",
+      "reason": "acceptance not COMPLETE: PAUSED_UNKNOWN"
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg1_faults_v2_v1_physical",
+      "reason": "acceptance not COMPLETE: PAUSED_UNKNOWN"
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg2_faults_v2_v1_physical",
+      "reason": "acceptance not COMPLETE: PAUSED_UNKNOWN"
+    },
+    {
+      "id": "textbook_claude_repair_c06_cfg2_faults_v2_v1_physical_r2",
+      "reason": "acceptance not COMPLETE: PAUSED_UNKNOWN"
+    },
+    {
+      "id": "textbook_claude_span_20261024T031411Z_physical",
+      "reason": "acceptance not COMPLETE: PAUSED_UNKNOWN"
+    },
+    {
+      "id": "textbook_claude_span_v1_physical",
+      "reason": "acceptance not COMPLETE: PAUSED_UNKNOWN"
+    }
+  ]
+}

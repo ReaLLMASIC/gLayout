@@ -1,0 +1,443 @@
+{
+  "task_id": "draft_follower_source_quality",
+  "goal": "Improve the declared worst-corner post-RC objective by one shared source edit while preserving the independent circuit, full-rule DRC, LVS, all analysis coverage and every declared constraint. This is an unfrozen development task; layout edits cannot change circuit sizing or dummy count.",
+  "contract": {
+    "task_id": "draft_follower_source_quality",
+    "configuration_id": "anchor",
+    "reference_id": "independent_follower_anchor",
+    "required_corners": [
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "specifications": [
+      {
+        "name": "voltage_gain_10Hz",
+        "unit": "1",
+        "min": 0.8,
+        "max": 1.05
+      },
+      {
+        "name": "output_impedance_10Hz",
+        "unit": "ohm",
+        "max": 100.0
+      }
+    ],
+    "objective": {
+      "id": "follower_bandwidth_max",
+      "metric": "bandwidth",
+      "unit": "Hz",
+      "direction": "max",
+      "corner_aggregation": "worst"
+    },
+    "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+    "analysis_contracts": {
+      "op": {
+        "kind": "op",
+        "columns": 4,
+        "expected_rows": 1
+      },
+      "gain": {
+        "kind": "ac",
+        "columns": 3,
+        "start": 10,
+        "end": 1000000000.0,
+        "points": 241,
+        "scale": "log"
+      },
+      "impedance": {
+        "kind": "ac",
+        "columns": 3,
+        "start": 10,
+        "end": 1000000000.0,
+        "points": 241,
+        "scale": "log"
+      },
+      "dc": {
+        "kind": "dc",
+        "columns": 5,
+        "start": 0.75,
+        "end": 1.25,
+        "points": 11,
+        "scale": "linear"
+      },
+      "transient": {
+        "kind": "transient",
+        "columns": 4,
+        "start": 0,
+        "end": 4e-06,
+        "required_windows": [
+          [
+            1.8e-06,
+            1.99e-06
+          ],
+          [
+            2.8e-06,
+            2.99e-06
+          ]
+        ]
+      }
+    }
+  },
+  "allowed_paths": [
+    "glayout/cells/elementary/FVF/fvf.py"
+  ],
+  "visible_sources": {
+    "glayout/cells/elementary/FVF/fvf.py": "Use read_source for the complete current module"
+  },
+  "documents": {
+    "configurations": [
+      {
+        "configuration_id": "anchor",
+        "parameters": {
+          "width": 4.15,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_anchor"
+      },
+      {
+        "configuration_id": "dev_01",
+        "parameters": {
+          "width": 4.0,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_01"
+      },
+      {
+        "configuration_id": "dev_02",
+        "parameters": {
+          "width": 3.35,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_02"
+      },
+      {
+        "configuration_id": "dev_03",
+        "parameters": {
+          "width": 4.05,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_03"
+      },
+      {
+        "configuration_id": "dev_04",
+        "parameters": {
+          "width": 3.65,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_04"
+      },
+      {
+        "configuration_id": "dev_05",
+        "parameters": {
+          "width": 3.55,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_05"
+      },
+      {
+        "configuration_id": "dev_06",
+        "parameters": {
+          "width": 3.45,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_06"
+      },
+      {
+        "configuration_id": "dev_07",
+        "parameters": {
+          "width": 4.1,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_07"
+      },
+      {
+        "configuration_id": "dev_08",
+        "parameters": {
+          "width": 3.6,
+          "length": 2.0
+        },
+        "reference_id": "independent_follower_dev_08"
+      }
+    ],
+    "bench": {
+      "supply_V": 1.8,
+      "temperature_C": 27,
+      "corners": [
+        "tt",
+        "ss",
+        "ff"
+      ],
+      "bias_current_A": 1e-05,
+      "nominal_input_V": 0.9,
+      "C_load_F": 1e-12,
+      "level_shift": "intrinsic; no unity DC-tracking specification"
+    },
+    "API": "Complete editable module is provided by read_source. Its exact imported common PDK/MOS/via/placement/routing/util/SPICE libraries and fixed marker/export wrapper are frozen; sibling target cells, complete OTAs, training compiler, trusted evaluator and hidden tables are absent. Import signatures match the existing module. Only ordinary unified source-content diffs are accepted.",
+    "circuit": "* Independent intended circuit; physical per-finger width retained\n.subckt follower4 VIN VBULK VOUT IB\nXINPUT IB VIN VOUT VBULK sky130_fd_pr__nfet_01v8 w=4.15 l=2 m=2\nXSHUNT VOUT IB VBULK VBULK sky130_fd_pr__nfet_01v8 w=4.15 l=2 m=2\nXDUMMY VBULK VBULK VBULK VBULK sky130_fd_pr__nfet_01v8 w=4.15 l=2 m=4\n.ends follower4\n",
+    "natural_shortfall": "At W4.15/L2, TT bandwidth falls from 100.3049MHz prelayout to 92.1982MHz post-RC (about 8.1%). The FVF level shift is intrinsic: unity DC tracking is not the objective. Layout bandwidth degradation is a natural quality shortfall.",
+    "PDK": {
+      "layers": {
+        "capmet": "capm",
+        "met5": "met4",
+        "via4": "via3",
+        "met4": "met3",
+        "via3": "via2",
+        "met3": "met2",
+        "via2": "via",
+        "met2": "met1",
+        "via1": "mcon",
+        "met1": "li1",
+        "mcon": "licon1",
+        "poly": "poly",
+        "active_diff": "diff",
+        "active_tap": "diff",
+        "n+s/d": "nsdm",
+        "p+s/d": "psdm",
+        "nwell": "nwell",
+        "pwell": [
+          64,
+          44
+        ],
+        "dnwell": "dnwell",
+        "met5_pin": "met4_pin",
+        "met4_pin": "met3_pin",
+        "met3_pin": "met2_pin",
+        "met2_pin": "met1_pin",
+        "met1_pin": "li1_pin",
+        "poly_pin": "poly_pin",
+        "active_diff_pin": "diff_pin",
+        "met5_label": "met4_label",
+        "met4_label": "met3_label",
+        "met3_label": "met2_label",
+        "met2_label": "met1_label",
+        "met1_label": "li1_label",
+        "poly_label": "poly_label",
+        "active_diff_label": "diff_label"
+      },
+      "rules": {
+        "dnwell": {
+          "dnwell": {
+            "min_width": 3.0,
+            "min_separation": 6.3
+          },
+          "pwell": {
+            "min_enclosure": 0.0
+          },
+          "nwell": {
+            "min_separation": 4.5
+          },
+          "active_tap": {
+            "min_separation": 0.34
+          }
+        },
+        "pwell": {
+          "active_tap": {
+            "min_enclosure": 0.18
+          }
+        },
+        "nwell": {
+          "nwell": {
+            "min_width": 0.84,
+            "min_separation": 1.27
+          },
+          "active_tap": {
+            "min_enclosure": 0.18
+          }
+        },
+        "p+s/d": {
+          "p+s/d": {
+            "min_width": 0.38,
+            "min_separation": 0.38
+          },
+          "active_diff": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          },
+          "active_tap": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          }
+        },
+        "n+s/d": {
+          "n+s/d": {
+            "min_width": 0.38,
+            "min_separation": 0.38
+          },
+          "active_diff": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          },
+          "active_tap": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          }
+        },
+        "active_diff": {
+          "active_diff": {
+            "min_width": 0.15,
+            "min_separation": 0.27
+          },
+          "active_tap": {
+            "min_separation": 0.27
+          },
+          "poly": {
+            "overhang": 0.25
+          },
+          "mcon": {
+            "min_enclosure": 0.06
+          }
+        },
+        "active_tap": {
+          "active_tap": {
+            "min_width": 0.15,
+            "min_separation": 0.27
+          },
+          "mcon": {
+            "min_enclosure": 0.12
+          }
+        },
+        "poly": {
+          "poly": {
+            "min_width": 0.15,
+            "min_separation": 0.21,
+            "extension": 0.13
+          },
+          "mcon": {
+            "min_enclosure": 0.05,
+            "min_separation": 0.06
+          }
+        },
+        "mcon": {
+          "poly": {
+            "min_enclosure": 0.08
+          },
+          "mcon": {
+            "min_width": 0.17,
+            "min_separation": 0.17,
+            "width": 0.17
+          },
+          "met1": {
+            "min_enclosure": 0.08
+          }
+        },
+        "met1": {
+          "met1": {
+            "min_width": 0.17,
+            "min_separation": 0.17
+          },
+          "via1": {
+            "min_enclosure": 0.0
+          }
+        },
+        "via1": {
+          "via1": {
+            "min_width": 0.17,
+            "min_separation": 0.19,
+            "width": 0.17
+          },
+          "met2": {
+            "min_enclosure": 0.06
+          }
+        },
+        "met2": {
+          "met2": {
+            "min_width": 0.14,
+            "min_separation": 0.14
+          },
+          "via2": {
+            "min_enclosure": 0.14
+          }
+        },
+        "via2": {
+          "via2": {
+            "min_width": 0.21,
+            "min_separation": 0.17,
+            "width": 0.15
+          },
+          "met3": {
+            "min_enclosure": 0.09
+          }
+        },
+        "met3": {
+          "met3": {
+            "min_width": 0.14,
+            "min_separation": 0.28
+          },
+          "via3": {
+            "min_enclosure": 0.19
+          }
+        },
+        "via3": {
+          "via3": {
+            "min_width": 0.2,
+            "min_separation": 0.2,
+            "width": 0.2
+          },
+          "met4": {
+            "min_enclosure": 0.65
+          }
+        },
+        "met4": {
+          "met4": {
+            "min_width": 0.3,
+            "min_separation": 0.4
+          },
+          "via4": {
+            "min_enclosure": 0.09
+          },
+          "capmet": {
+            "min_enclosure": 0.14,
+            "min_separation": 1.34
+          }
+        },
+        "via4": {
+          "via4": {
+            "width": 0.2,
+            "min_separation": 0.35
+          },
+          "met5": {
+            "min_enclosure": 0.07
+          }
+        },
+        "met5": {
+          "met5": {
+            "min_width": 0.3,
+            "min_separation": 0.4
+          }
+        },
+        "capmet": {
+          "capmet": {
+            "capmettop": [
+              71,
+              20
+            ],
+            "capmetbottom": [
+              70,
+              20
+            ],
+            "min_separation": 1.2
+          }
+        }
+      }
+    }
+  },
+  "visible_configurations": [
+    "anchor",
+    "dev_01",
+    "dev_02",
+    "dev_03",
+    "dev_04",
+    "dev_05",
+    "dev_06",
+    "dev_07",
+    "dev_08"
+  ],
+  "budget": {
+    "decisions": 10,
+    "physical_evaluations": 9,
+    "context_tokens": 8192,
+    "reserved_output_tokens": 1024,
+    "status": "DRAFT_BUDGET_REQUIRES_PILOT"
+  }
+}

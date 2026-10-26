@@ -1,0 +1,330 @@
+{
+  "status": "FROZEN_E1",
+  "formal_dispatch": true,
+  "phase": "formal_E1",
+  "packet_root": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0410Z/packets",
+  "task_catalog": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0410Z/packets/public/catalog.json",
+  "task_ids": [
+    "draft_E1_mirror_s01",
+    "draft_E1_mirror_s02",
+    "draft_E1_mirror_s03",
+    "draft_E1_cascode_mirror_s01",
+    "draft_E1_cascode_mirror_s02",
+    "draft_E1_cascode_mirror_s03",
+    "draft_E1_source_follower_s01",
+    "draft_E1_source_follower_s02",
+    "draft_E1_source_follower_s03",
+    "draft_E1_stacked_switch_s01",
+    "draft_E1_stacked_switch_s02",
+    "draft_E1_stacked_switch_s03",
+    "draft_E1_common_source_stage_s01",
+    "draft_E1_common_source_stage_s02",
+    "draft_E1_common_source_stage_s03",
+    "draft_E1_resistive_diff_s01",
+    "draft_E1_resistive_diff_s02",
+    "draft_E1_resistive_diff_s03",
+    "draft_E1_five_t_s01",
+    "draft_E1_five_t_s02",
+    "draft_E1_five_t_s03",
+    "draft_E1_compact_miller_s01",
+    "draft_E1_compact_miller_s02",
+    "draft_E1_compact_miller_s03"
+  ],
+  "methods": [
+    "G0",
+    "G1",
+    "G2"
+  ],
+  "trials": 5,
+  "model_config": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0410Z/model_config.json",
+  "visible_history_policy": "current_source_and_feedback_v1",
+  "budget": {
+    "wall_seconds": 1200,
+    "decisions": 10,
+    "physical_evaluations": 3,
+    "maximum_context_tokens": 8192,
+    "maximum_output_tokens": 1024
+  },
+  "runtime": {
+    "EDA": "runtime/GLdev",
+    "magic": "runtime/magic-8.3.685",
+    "candidate_CPUs": 2,
+    "simultaneous_point_workers_per_episode": 1
+  },
+  "trusted_bench_bindings": "Built independently per task by scripts/e1_matched_runner.py; no target assembly enters the trusted evaluator.",
+  "post_freeze": {
+    "visible": "Fill current-source anchor plus eight development points without policy feedback; separately charge post_freeze_diagnostic.",
+    "hidden": "Evaluate sixteen points once after source sealing; all raw hidden results stay on trusted backend.",
+    "incomplete": "Stop affected episode on unknown/infrastructure, retain observed denominators and label no missing outcomes."
+  },
+  "grouping": {
+    "target_logics": 8,
+    "primary_groups": 8,
+    "merged_sensitivity_groups": 7,
+    "strata": {
+      "reuse": 12,
+      "composition": 12
+    },
+    "shared_domains": "Three sized tasks per target rotate roles of the same25 points, explicitly linked in private/shared_domain_relationships.json. Fresh isolated trials receive only their own fixed nine visible points."
+  },
+  "freeze_blockers": [],
+  "freeze_id": "E1_20261019T0410Z",
+  "backend_manifest_path": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0410Z/manifest.json",
+  "frozen_at_utc": "2026-10-19T04:29:16.570135+00:00",
+  "tasks": [
+    {
+      "task_id": "draft_E1_mirror_s01",
+      "target": "mirror",
+      "stratum": "reuse",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror",
+      "shared_domain_id": "mirror_narrow_v3_shared25_mirror"
+    },
+    {
+      "task_id": "draft_E1_mirror_s02",
+      "target": "mirror",
+      "stratum": "composition",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror",
+      "shared_domain_id": "mirror_narrow_v3_shared25_mirror"
+    },
+    {
+      "task_id": "draft_E1_mirror_s03",
+      "target": "mirror",
+      "stratum": "reuse",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror",
+      "shared_domain_id": "mirror_narrow_v3_shared25_mirror"
+    },
+    {
+      "task_id": "draft_E1_cascode_mirror_s01",
+      "target": "cascode_mirror",
+      "stratum": "composition",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror",
+      "shared_domain_id": "exact_grid_v2_shared25_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E1_cascode_mirror_s02",
+      "target": "cascode_mirror",
+      "stratum": "reuse",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror",
+      "shared_domain_id": "exact_grid_v2_shared25_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E1_cascode_mirror_s03",
+      "target": "cascode_mirror",
+      "stratum": "composition",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror",
+      "shared_domain_id": "exact_grid_v2_shared25_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E1_source_follower_s01",
+      "target": "source_follower",
+      "stratum": "reuse",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower",
+      "shared_domain_id": "exact_grid_v2_shared25_source_follower"
+    },
+    {
+      "task_id": "draft_E1_source_follower_s02",
+      "target": "source_follower",
+      "stratum": "composition",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower",
+      "shared_domain_id": "exact_grid_v2_shared25_source_follower"
+    },
+    {
+      "task_id": "draft_E1_source_follower_s03",
+      "target": "source_follower",
+      "stratum": "reuse",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower",
+      "shared_domain_id": "exact_grid_v2_shared25_source_follower"
+    },
+    {
+      "task_id": "draft_E1_stacked_switch_s01",
+      "target": "stacked_switch",
+      "stratum": "composition",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch",
+      "shared_domain_id": "exact_grid_v2_shared25_stacked_switch"
+    },
+    {
+      "task_id": "draft_E1_stacked_switch_s02",
+      "target": "stacked_switch",
+      "stratum": "reuse",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch",
+      "shared_domain_id": "exact_grid_v2_shared25_stacked_switch"
+    },
+    {
+      "task_id": "draft_E1_stacked_switch_s03",
+      "target": "stacked_switch",
+      "stratum": "composition",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch",
+      "shared_domain_id": "exact_grid_v2_shared25_stacked_switch"
+    },
+    {
+      "task_id": "draft_E1_common_source_stage_s01",
+      "target": "common_source_stage",
+      "stratum": "reuse",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage",
+      "shared_domain_id": "exact_grid_v2_shared25_common_source_stage"
+    },
+    {
+      "task_id": "draft_E1_common_source_stage_s02",
+      "target": "common_source_stage",
+      "stratum": "composition",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage",
+      "shared_domain_id": "exact_grid_v2_shared25_common_source_stage"
+    },
+    {
+      "task_id": "draft_E1_common_source_stage_s03",
+      "target": "common_source_stage",
+      "stratum": "reuse",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage",
+      "shared_domain_id": "exact_grid_v2_shared25_common_source_stage"
+    },
+    {
+      "task_id": "draft_E1_resistive_diff_s01",
+      "target": "resistive_diff",
+      "stratum": "composition",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff",
+      "shared_domain_id": "exact_grid_v2_shared25_resistive_diff"
+    },
+    {
+      "task_id": "draft_E1_resistive_diff_s02",
+      "target": "resistive_diff",
+      "stratum": "reuse",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff",
+      "shared_domain_id": "exact_grid_v2_shared25_resistive_diff"
+    },
+    {
+      "task_id": "draft_E1_resistive_diff_s03",
+      "target": "resistive_diff",
+      "stratum": "composition",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff",
+      "shared_domain_id": "exact_grid_v2_shared25_resistive_diff"
+    },
+    {
+      "task_id": "draft_E1_five_t_s01",
+      "target": "five_t",
+      "stratum": "reuse",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t",
+      "shared_domain_id": "exact_grid_v2_shared25_five_t"
+    },
+    {
+      "task_id": "draft_E1_five_t_s02",
+      "target": "five_t",
+      "stratum": "composition",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t",
+      "shared_domain_id": "exact_grid_v2_shared25_five_t"
+    },
+    {
+      "task_id": "draft_E1_five_t_s03",
+      "target": "five_t",
+      "stratum": "reuse",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t",
+      "shared_domain_id": "exact_grid_v2_shared25_five_t"
+    },
+    {
+      "task_id": "draft_E1_compact_miller_s01",
+      "target": "compact_miller",
+      "stratum": "composition",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller",
+      "shared_domain_id": "exact_grid_v2_shared25_compact_miller"
+    },
+    {
+      "task_id": "draft_E1_compact_miller_s02",
+      "target": "compact_miller",
+      "stratum": "reuse",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller",
+      "shared_domain_id": "exact_grid_v2_shared25_compact_miller"
+    },
+    {
+      "task_id": "draft_E1_compact_miller_s03",
+      "target": "compact_miller",
+      "stratum": "composition",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller",
+      "shared_domain_id": "exact_grid_v2_shared25_compact_miller"
+    }
+  ],
+  "source_revision": "ece66e62e0512c8aa4180461fb323af0aa4e4978",
+  "implementation_sha256": {
+    "src/candidate_executor.py": "2aa700405ed2c52869c3c6a6a039ab2afe8ca02372cb2fe5432c04fb1c5c66e6",
+    "src/domain_runner.py": "e9ef34b451b1b0cdbe6e6275e69ebd3448c209a4718b4d7375355628f44d0ddf",
+    "src/model_adapter.py": "fa737a01c9b23dbf4ed0b4d1d6ba391637c0c769af56252ac6bcdbe4f0a71338",
+    "src/local_model_adapter.py": "24e99a3ad5d6dc0a46db7441683fcbfb36507f59f8efeee537b09dbd1be8e283",
+    "src/policy_state.py": "c8803e428d5da62aa6ad886c2cae650fb1fa27fb26d011fdc238a513543751a4",
+    "src/e1_packets.py": "03562f228f77e81577ec6a03c8ca405044ec80d4a7f7cb8492e486ed27aaa6fc",
+    "src/e1_benchmarks.py": "22e89b29bd2319fd8a6c9cf5ac9d690699b52e3432456c5d37bc5300b862dcc4",
+    "src/report_parsers.py": "4ad6a2124e2a573a40910aa13a3ee61cd00e6eb8dd4fba218e1d129cbea994f8",
+    "src/measurement.py": "1e9736325e094e023f7f5be1fba4a2328ca61a16ea1667e3f88496e6bf64f18f",
+    "src/spice_validation.py": "76b3b34fa9013f5165fd5af66b71101c2835786b2d86df2289f9641a4dd2d628",
+    "src/device_intent.py": "895976ed93024bc30aee2d7afef75eb895261a61742c9ab9a777c7ae68f2de3d",
+    "src/e1_analysis.py": "7765dafd874b3db242f0bd4b6004b0d7e00526a3c3d5edf64485a4015881b901",
+    "scripts/e1_matched_runner.py": "1658264fc4be12520231f27f0a5d15bfc185000833a7dfc14953eb81b42f8856",
+    "scripts/materialize_e1_packets.py": "51064bb1614ad32dfe20bd51eed3a066fce7c626ac8bc648ff726ae56260ea2a",
+    "scripts/e1_pcell_prepare.py": "b3bd32774eae9a79257a7cedb3d2f9d718c93023ff95268bc1434a42f5162daa",
+    "scripts/run_eda_probe.py": "1f5229c918cc7b563f1f6c03c733bb46eb06f60d0cc246aa2a70c510bd65f5f1",
+    "scripts/analyze_e1.py": "adbf72f0d475190647a6b38cc3961682452f7fdc5c682931150565cc95fd450a",
+    "scripts/run_e1_suite.py": "7f7fd2a35b75459553f1a64f62ad5f855bb15fea3c5ff3c993c230d9fc13881a",
+    "scripts/archive_e1_episode.py": "02a7d42e02df3b7cfeb86b1b0113c91e5bbeb1d2d550cd41b6d52ea79dcea540"
+  },
+  "frozen_registry": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0410Z/registry.json",
+  "qualification": {
+    "mechanical": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0410Z/mechanical_controls.json",
+    "schematic": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0410Z/circuit_feasibility.json"
+  },
+  "dispatch_order_seed": 20261018,
+  "GPT_sampling_seed": "unavailable; fresh independent trial identifiers only",
+  "primary_contrasts": [
+    "G1-G0",
+    "G2-G1"
+  ],
+  "analysis": {
+    "stratify_by": "reuse/composition",
+    "cluster_bootstrap_replicates": 2000,
+    "bootstrap_seed": 20261018
+  }
+}

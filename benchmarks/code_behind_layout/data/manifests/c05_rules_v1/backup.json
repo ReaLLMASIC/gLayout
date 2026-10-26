@@ -1,0 +1,6 @@
+{
+  "archive": "results/raw/train_domain_freezes_20261019T0207Z.tar.gz",
+  "sha256": "1edee945d8648b9697b4c6429d0379ec1547bdb99fe8e79000326adeac5b8415",
+  "dependency_archive": "c01_collection_v1_freeze.tar.gz",
+  "verified": true
+}

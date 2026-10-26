@@ -1,0 +1,12 @@
+{
+  "input_tokens": 4080,
+  "output_reserve": 3072,
+  "total_context_tokens": 7152,
+  "limit": 8192,
+  "truncated": false,
+  "complete_source_bytes": 5937,
+  "GPU_inferences": 0,
+  "GPT_requests": 0,
+  "prompt_function": "src.local_model_adapter.source_proposal_prompt",
+  "feedback_origin": "Actual completed v2 original baseline9, solely for preflight; the new collection still produces its own fresh baselines"
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "working_copy_directory_permission_only",
+  "prior_manifest": "runtime/protocol_freezes/E1_20261019T0410Z/manifest.json",
+  "prior_freeze_id": "E1_20261019T0410Z",
+  "scope": "Exactly one destination source.chmod(0o755) after copytree; no policy, information, budget or electrical change",
+  "original_planned_trials": 360,
+  "already_dispatched_trials": 3,
+  "remaining_undispatched_trials": 357,
+  "automatic_or_engineering_model_retries": 0,
+  "retained_prior_trials": [
+    {"task_id": "draft_E1_compact_miller_s03", "method": "G2", "trial_id": "5", "episode_directory": "runs/formal/E1/20261019T043205046362Z_080d610c", "post_freeze": "INCOMPLETE_UNKNOWN_CAPSULE_PERMISSION_FAILURE"},
+    {"task_id": "draft_E1_compact_miller_s03", "method": "G1", "trial_id": "5", "episode_directory": "runs/formal/E1/20261019T043211851907Z_712ecd32", "post_freeze": "COMPLETE"},
+    {"task_id": "draft_E1_compact_miller_s03", "method": "G0", "trial_id": "5", "episode_directory": "runs/formal/E1/20261019T043218444555Z_3f96cf4e", "post_freeze": "COMPLETE"}
+  ]
+}

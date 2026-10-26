@@ -1,0 +1,908 @@
+{
+  "status": "DRAFT_REAL_OTA_NATURAL_INITIAL_STATE",
+  "task_id": "draft_fvf_natural_source",
+  "initial_state_id": "fvf__natural_current_source",
+  "parent_lineage": "glayout_fvf_ota",
+  "origin": "natural",
+  "topology_family": "FVF_local_feedback_class_AB_OTA",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/fvf/source_pack",
+  "editable_paths": [
+    "fvf_layout_face.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "source_snapshot": {
+    "fvf_layout_face.py": "from glayout.pdk.mappedpdk import MappedPDK\nfrom glayout.pdk.sky130_mapped import sky130_mapped_pdk\nfrom gdsfactory import Component\nfrom gdsfactory.cell import cell\nfrom gdsfactory.component_reference import ComponentReference\nfrom glayout.util.comp_utils import evaluate_bbox, prec_ref_center, prec_center, align_comp_to_port\nfrom glayout.util.port_utils import rename_ports_by_orientation, set_port_orientation\nfrom glayout.util.snap_to_grid import component_snap_to_grid\nfrom gdsfactory.components import text_freetype, rectangle\nfrom glayout.spice.netlist import Netlist\nfrom glayout.routing.straight_route import straight_route\nfrom glayout.routing.c_route import c_route\nfrom glayout.routing.L_route import L_route\nfrom glayout.cells.elementary.FVF.fvf import fvf_netlist, flipped_voltage_follower\nfrom glayout.cells.elementary.current_mirror.current_mirror import current_mirror, current_mirror_netlist\nfrom glayout.primitives.via_gen import via_stack, via_array\nfrom glayout.primitives.fet import nmos, pmos, multiplier\nfrom glayout.cells.elementary.transmission_gate.transmission_gate import transmission_gate,tg_netlist\nfrom glayout.cells.composite.fvf_based_ota.p_block import p_block,p_block_netlist\nfrom glayout.cells.composite.fvf_based_ota.n_block import n_block,n_block_netlist\nfrom glayout.provenance import tracked_generator\n\ndef place_and_route_local_bias(pdk, top_level, n_block_ref, local_current_bias_params):\n    local_c_bias = current_mirror(pdk, numcols=2, device='pfet', width=local_current_bias_params[0]/2, length=local_current_bias_params[1], fingers=1, with_labels=False)\n    local_c_bias_2_ref = prec_ref_center(local_c_bias)\n    local_c_bias_1_ref = prec_ref_center(local_c_bias)\n    local_c_bias_1_ref.movex(n_block_ref.xmax + evaluate_bbox(local_c_bias)[0]/2 + 10).movey(n_block_ref.ymax+evaluate_bbox(local_c_bias)[1]/2 + 2)\n    local_c_bias_2_ref.movex(n_block_ref.xmax + evaluate_bbox(local_c_bias)[0]/2 + 10).movey(n_block_ref.ymax+evaluate_bbox(local_c_bias)[1]/2 + 2)\n    local_c_bias_1_ref = rename_ports_by_orientation(local_c_bias_1_ref.mirror((0,100),(0,-100)))\n\n    top_level.add(local_c_bias_1_ref)\n    top_level.add(local_c_bias_2_ref)    \n    \n    #biasing fvfs\n    top_level << c_route(pdk, n_block_ref.ports[\"fvf_1_B_gate_bottom_met_E\"], local_c_bias_1_ref.ports[\"fet_B_drain_E\"], extension=5,width1=0.29, width2=0.29, cwidth=0.29, cglayer=\"met3\")\n    top_level << c_route(pdk, n_block_ref.ports[\"fvf_2_B_gate_bottom_met_E\"], local_c_bias_2_ref.ports[\"fet_B_drain_E\"], extension=5,width1=0.29, width2=0.29, cwidth=0.29, cglayer=\"met3\")\n    \n    # L_route only joins its chosen layers at the corner. Explicit endpoint\n    # stacks are needed when moving a source bus and well tie to higher metal.\n    for bias_ref in (local_c_bias_1_ref, local_c_bias_2_ref):\n        supply_source_via = top_level << via_stack(pdk, \"met3\", \"met4\", centered=True, fullbottom=True, fulltop=True)\n        supply_source_via.move(bias_ref.ports[\"purposegndportscon_N\"].center)\n        supply_tie_via = top_level << via_stack(pdk, \"met2\", \"met4\", centered=True, fullbottom=True, fulltop=True)\n        supply_tie_via.move(bias_ref.ports[\"welltie_N_top_met_N\"].center)\n        top_level << L_route(pdk, supply_source_via.ports[\"top_met_E\"], supply_tie_via.ports[\"top_met_N\"], hwidth=0.6, vwidth=0.6)\n    top_level << straight_route(pdk, local_c_bias_1_ref.ports[\"fet_A_0_dummy_L_gsdcon_top_met_W\"], local_c_bias_1_ref.ports[\"welltie_W_top_met_W\"],glayer1=\"met1\")\n    top_level << straight_route(pdk, local_c_bias_1_ref.ports[\"fet_B_1_dummy_R_gsdcon_top_met_E\"], local_c_bias_1_ref.ports[\"welltie_E_top_met_E\"],glayer1=\"met1\") \n\n\n    top_level << straight_route(pdk, local_c_bias_2_ref.ports[\"fet_A_0_dummy_L_gsdcon_top_met_W\"], local_c_bias_2_ref.ports[\"welltie_W_top_met_W\"],glayer1=\"met1\", width=0.2)\n    top_level << straight_route(pdk, local_c_bias_2_ref.ports[\"fet_B_1_dummy_R_gsdcon_top_met_E\"], local_c_bias_2_ref.ports[\"welltie_E_top_met_E\"],glayer1=\"met1\", width=0.2) \n    \n    top_level << c_route(pdk, set_port_orientation(local_c_bias_1_ref.ports[\"reference_bus_con_N\"], \"W\"), n_block_ref.ports[\"cbias_M_3_A_multiplier_0_drain_W\"], e1glayer=\"met3\", e2glayer=\"met2\", cglayer=\"met5\", width1=0.33, width2=0.29, cwidth=0.6, viaoffset=None, fullbottom=True, extension=8)\n    top_level << c_route(pdk, set_port_orientation(local_c_bias_2_ref.ports[\"reference_bus_con_N\"], \"E\"), n_block_ref.ports[\"cbias_M_4_A_multiplier_0_drain_E\"], e1glayer=\"met3\", e2glayer=\"met2\", cglayer=\"met5\", width1=0.33, width2=0.29, cwidth=0.6, viaoffset=None, fullbottom=True, extension=8)\n\n\n    top_level.add_ports(local_c_bias_1_ref.get_ports_list(), prefix=\"cmirr_1_\")\n    top_level.add_ports(local_c_bias_2_ref.get_ports_list(), prefix=\"cmirr_2_\")\n    return local_c_bias_1_ref, local_c_bias_2_ref\n"
+  },
+  "source_face": {
+    "scope": "complete semantically extracted local-bias placement/routing helper plus complete imports",
+    "function": "place_and_route_local_bias",
+    "origin": "/srv/code-behind-layout/vendor/glayout/src/glayout/cells/composite/fvf_based_ota/ota.py",
+    "original_line_window": [
+      165,
+      199
+    ],
+    "algorithm_preserved_verbatim": false,
+    "algorithm_AST_preserved": true,
+    "presentation": "verbatim local-bias block hoisted to complete helper; constructor calls it in the same statement position; original whole module retained privately",
+    "binding": "frozen launcher executes complete face into original module namespace; original helpers/decorators/import namespace are frozen APIs",
+    "not_parameter_wrapper": "Editable body contains actual placement/routing/assembly control flow and geometry operations; immutable sizing remains an independent input."
+  },
+  "ports": [
+    "AVDD",
+    "INP",
+    "INM",
+    "VOUT",
+    "NBC_10U",
+    "NB_10U",
+    "AVSS"
+  ],
+  "cell_name": "fvf7",
+  "bench": {
+    "original_application": {
+      "supply_V": 1.8,
+      "load_F": 1e-11,
+      "common_mode_V": 0.9,
+      "temperature_C": 27,
+      "corners": [
+        "tt",
+        "ss",
+        "ff"
+      ],
+      "bench_source_unchanged": "testbench_snapshot.py",
+      "numerics": {
+        "reltol": 1e-06,
+        "abstol": 1e-14,
+        "vntol": 1e-08,
+        "chgtol": 1e-16
+      },
+      "analysis_coverage": {
+        "OP_rows": 1,
+        "AC_rows": 241,
+        "AC_Hz": [
+          10,
+          1000000000.0
+        ],
+        "transient_s": [
+          0,
+          4e-06
+        ],
+        "DC_points": 7,
+        "DC_V": [
+          0.6,
+          1.2
+        ]
+      },
+      "existing_development_feasibility": {
+        "gain_10Hz_dB_min": 30,
+        "phase_margin_deg_closed_interval": [
+          60,
+          180
+        ],
+        "ugb_Hz_min": 1000000.0,
+        "nominal_tracking_abs_V_lt": 0.01,
+        "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+        "positive_low_frequency_gain": true,
+        "power_W_max": 0.001
+      },
+      "DC_sweep_interpretation": "The complete broad tracking sweep is retained; no extra output-swing or maximum-DC-error constraint is added.",
+      "bias_currents_A": [
+        1e-05,
+        1e-05
+      ]
+    },
+    "body_reuse": "complete original analysis loop wrapped as a function by indentation only",
+    "snapshot": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/fvf/trusted_bench/original_retained_bench.py",
+    "callable_source": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/fvf/trusted_bench/analysis_function.py",
+    "SPICE_stimuli_numeric_formulas_and_completion_source_unchanged": true,
+    "transport": {
+      "adapted": true,
+      "analysis_suffix_marker": "for fidelity in ([",
+      "SPICE_and_integrity_source_identical": true,
+      "change": "Only repeated physical verification/extraction replaced by already admitted actual PEX transport",
+      "cost_disclosure": "Exactly one actual DRC/LVS/PEX acquisition per candidate; redundant benchmark extraction is omitted for every candidate in this source pool. No omitted cost is called a measurement."
+    },
+    "no_load15_substitution": true
+  },
+  "natural_shortfall": "Current repaired FVF source at original10pF has SS PM58.59deg against fixed60deg. This is a natural performance shortfall; source-only repairability is unestablished. The separate15pF control never changes this initial state.",
+  "source_dependency_group": "vendor_connected_closure",
+  "domain_note": "Declared narrow width/length domain; FVF local total width snapped.01um to preserve each parallel-finger width on.005um grid. Circuit multiplicities/topology and cap30 remain fixed within each configuration.",
+  "qualification": {
+    "generation_preflight": null,
+    "anchor_geometry_equivalence": null,
+    "full_domain_baseline": null,
+    "isolated_evaluator_adapter": null,
+    "model_context_tokens": {
+      "kind": "fvf",
+      "input_tokens_with_complete_source": 4367,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 4810,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    },
+    "feasible_edit_witness": null
+  },
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "new_physical_calls": 0,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "local_current_bias_params": [
+          3.76,
+          3.0
+        ]
+      },
+      "reference_id": "independent_fvf_anchor",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "anchor",
+        "reference_id": "independent_fvf_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.76,
+            3.0
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.65,
+          2.91
+        ]
+      },
+      "reference_id": "independent_fvf_dev_01",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_fvf_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.65,
+            2.91
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.65,
+          3.0
+        ]
+      },
+      "reference_id": "independent_fvf_dev_02",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_fvf_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.65,
+            3.0
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.65,
+          3.09
+        ]
+      },
+      "reference_id": "independent_fvf_dev_03",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_fvf_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.65,
+            3.09
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.76,
+          2.91
+        ]
+      },
+      "reference_id": "independent_fvf_dev_04",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_fvf_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.76,
+            2.91
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.76,
+          3.09
+        ]
+      },
+      "reference_id": "independent_fvf_dev_05",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_fvf_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.76,
+            3.09
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.87,
+          2.91
+        ]
+      },
+      "reference_id": "independent_fvf_dev_06",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_fvf_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.87,
+            2.91
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.87,
+          3.0
+        ]
+      },
+      "reference_id": "independent_fvf_dev_07",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_fvf_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.87,
+            3.0
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "parameters": {
+        "local_current_bias_params": [
+          3.87,
+          3.09
+        ]
+      },
+      "reference_id": "independent_fvf_dev_08",
+      "contract": {
+        "task_id": "draft_fvf_natural_source",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_fvf_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "fvf_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "local_current_bias_params": [
+            3.87,
+            3.09
+          ]
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    }
+  ],
+  "hidden_configuration_count": 16
+}

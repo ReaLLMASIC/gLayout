@@ -1,0 +1,86 @@
+{
+  "circuit_id": "C02",
+  "name": "cascode_current_mirror",
+  "ports": [
+    "VSS",
+    "IIN1",
+    "IOUT1"
+  ],
+  "devices": [
+    {
+      "name": "M1",
+      "kind": "nfet",
+      "nets": [
+        "IIN1",
+        "IIN1",
+        "net6",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M2",
+      "kind": "nfet",
+      "nets": [
+        "net6",
+        "net6",
+        "VSS",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M3",
+      "kind": "nfet",
+      "nets": [
+        "IOUT1",
+        "IIN1",
+        "net12",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M4",
+      "kind": "nfet",
+      "nets": [
+        "net12",
+        "net6",
+        "VSS",
+        "VSS"
+      ],
+      "params": {}
+    }
+  ],
+  "source": {
+    "dataset": "AnalogGenie",
+    "dataset_url": "https://github.com/xz-group/AnalogGenie",
+    "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+    "dataset_license": "MIT (code and dataset repository)",
+    "analoggenie_id": 672,
+    "files": [
+      "Dataset/672/672.cir",
+      "Dataset/672/Port672.txt",
+      "Dataset/672/Pagenumber672.txt",
+      "Dataset/672/Book672.png",
+      "Dataset/672/Cadence672.png"
+    ],
+    "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+    "book_key": "johns",
+    "page_ref": "129",
+    "device_name_map": {
+      "M1": "M3",
+      "M2": "M2",
+      "M3": "M1",
+      "M4": "M0"
+    },
+    "source_verification_level": "netlist_matched_isomorphic+image_checked",
+    "image_review": {
+      "file": "Dataset/672/Book672.png",
+      "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+    },
+    "modifications": [],
+    "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+  },
+  "notes": []
+}

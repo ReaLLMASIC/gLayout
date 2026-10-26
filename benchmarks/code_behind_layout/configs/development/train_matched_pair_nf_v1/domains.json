@@ -1,0 +1,4123 @@
+{
+  "status": "DRAFT_TRAIN_ONLY_IDEAL_QUALIFICATION",
+  "domains": [
+    {
+      "circuit_id": "C02",
+      "parent_lineage": "textbook_universal_compiler_cropped",
+      "independent_source_lineages_added": 0,
+      "matched_pairs": [
+        [
+          "M1",
+          "M3"
+        ],
+        [
+          "M2",
+          "M4"
+        ]
+      ],
+      "levels": [
+        4,
+        8,
+        12
+      ],
+      "configurations": [
+        {
+          "configuration_id": "c02_matched_nf_4_4",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M2": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M3": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M4": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_4_4",
+            "reference_id": "c02_matched_nf_4_4_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_4_4.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_4_8",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M2": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M3": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M4": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_4_8",
+            "reference_id": "c02_matched_nf_4_8_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_4_8.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_4_12",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M2": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M3": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M4": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_4_12",
+            "reference_id": "c02_matched_nf_4_12_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_4_12.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_8_4",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M2": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M3": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M4": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_8_4",
+            "reference_id": "c02_matched_nf_8_4_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_8_4.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_8_8",
+          "role": "anchor",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M2": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M3": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M4": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_8_8",
+            "reference_id": "c02_matched_nf_8_8_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_8_8.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_8_12",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M2": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M3": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M4": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_8_12",
+            "reference_id": "c02_matched_nf_8_12_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_8_12.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_12_4",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M2": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              },
+              "M3": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M4": {
+                "w": 2.0,
+                "l": 0.6,
+                "nf": 4
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_12_4",
+            "reference_id": "c02_matched_nf_12_4_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_12_4.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_12_8",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M2": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              },
+              "M3": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M4": {
+                "w": 4.0,
+                "l": 0.6,
+                "nf": 8
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_12_8",
+            "reference_id": "c02_matched_nf_12_8_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_12_8.spice"
+        },
+        {
+          "configuration_id": "c02_matched_nf_12_12",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C02",
+              "name": "cascode_current_mirror",
+              "ports": [
+                "VSS",
+                "IIN1",
+                "IOUT1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "IIN1",
+                    "IIN1",
+                    "net6",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "net6",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "nfet",
+                  "nets": [
+                    "IOUT1",
+                    "IIN1",
+                    "net12",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "nfet",
+                  "nets": [
+                    "net12",
+                    "net6",
+                    "VSS",
+                    "VSS"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 672,
+                "files": [
+                  "Dataset/672/672.cir",
+                  "Dataset/672/Port672.txt",
+                  "Dataset/672/Pagenumber672.txt",
+                  "Dataset/672/Book672.png",
+                  "Dataset/672/Cadence672.png"
+                ],
+                "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+                "book_key": "johns",
+                "page_ref": "129",
+                "device_name_map": {
+                  "M1": "M3",
+                  "M2": "M2",
+                  "M3": "M1",
+                  "M4": "M0"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/672/Book672.png",
+                  "observation": "Johns p.129 scan: Q1/Q2 bottom pair, Q3/Q4 cascode pair, Q3 and Q1 diode-connected, Iin source on top; cascode mirror"
+                },
+                "modifications": [],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M2": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M3": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              },
+              "M4": {
+                "w": 6.0,
+                "l": 0.6,
+                "nf": 12
+              }
+            },
+            "top_cell": "train_pair_nf_c02"
+          },
+          "contract": {
+            "task_id": "c02_matched_pair_nf_v1",
+            "configuration_id": "c02_matched_nf_12_12",
+            "reference_id": "c02_matched_nf_12_12_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c02_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "nominal_current_relative_error",
+                "unit": "1",
+                "max": 0.05
+              },
+              {
+                "name": "output_resistance_ohm",
+                "unit": "ohm",
+                "min": 300000
+              },
+              {
+                "name": "max_current_relative_error_1p3_to_1p7V",
+                "unit": "1",
+                "max": 0.05
+              }
+            ],
+            "prospective_application_constraints": {
+              "nominal_current_relative_error_max": 0.05,
+              "output_resistance_ohm_min": 300000,
+              "max_current_relative_error_1p3_to_1p7V": 0.05
+            },
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "reference_current_A": 5e-06,
+              "output_V": 1.5,
+              "output_DC_sweep_V": [
+                0,
+                1.8,
+                0.05
+              ],
+              "output_transient_levels_V": [
+                1.475,
+                1.525
+              ],
+              "current_compliance_application_region_V": [
+                1.3,
+                1.7
+              ],
+              "load_definition": "Output voltage source sweeps the cascode compliance region; output-port current is measured. Bias is the two diode-connected reference devices in the immutable DUT, with a5uA external source from1.8V. No0.9V mirror clamp or voltage-gain claim."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 4,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 3,
+                "start": 0,
+                "end": 1.8,
+                "points": 37,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": false,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Three-port DUT has no VDD pin. Report input-port and output-port dissipation, and external1.8V reference-source supply work separately."
+          },
+          "reference_file": "c02/references/c02_matched_nf_12_12.spice"
+        }
+      ],
+      "whole_grid_preserved": true,
+      "width_semantics": "w is total width; w/nf=.5um for every finger; matching partners always share nf and dimensions.",
+      "specifications_bias_load_corners_numerical_controls": "Copied unchanged from the actual frozen train family. No post-layout outcome used to select these points.",
+      "qualification_status": "NOT_RUN",
+      "formal_training_rows": 0,
+      "parent_frozen_registry": "runtime/train_collections/c02_action_v1/registry.json"
+    },
+    {
+      "circuit_id": "C07",
+      "parent_lineage": "textbook_universal_compiler_cropped",
+      "independent_source_lineages_added": 0,
+      "matched_pairs": [
+        [
+          "M1",
+          "M2"
+        ],
+        [
+          "M3",
+          "M4"
+        ]
+      ],
+      "levels": [
+        4,
+        8,
+        12
+      ],
+      "configurations": [
+        {
+          "configuration_id": "c07_matched_nf_4_4",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M2": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M3": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M4": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_4_4",
+            "reference_id": "c07_matched_nf_4_4_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_4_4.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_4_8",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M2": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M3": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M4": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_4_8",
+            "reference_id": "c07_matched_nf_4_8_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_4_8.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_4_12",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M2": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M3": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M4": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_4_12",
+            "reference_id": "c07_matched_nf_4_12_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_4_12.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_8_4",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M2": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M3": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M4": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_8_4",
+            "reference_id": "c07_matched_nf_8_4_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_8_4.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_8_8",
+          "role": "anchor",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M2": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M3": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M4": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_8_8",
+            "reference_id": "c07_matched_nf_8_8_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_8_8.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_8_12",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M2": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M3": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M4": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_8_12",
+            "reference_id": "c07_matched_nf_8_12_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_8_12.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_12_4",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M2": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M3": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              },
+              "M4": {
+                "w": 2.0,
+                "l": 0.3,
+                "nf": 4
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_12_4",
+            "reference_id": "c07_matched_nf_12_4_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_12_4.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_12_8",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M2": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M3": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              },
+              "M4": {
+                "w": 4.0,
+                "l": 0.3,
+                "nf": 8
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_12_8",
+            "reference_id": "c07_matched_nf_12_8_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_12_8.spice"
+        },
+        {
+          "configuration_id": "c07_matched_nf_12_12",
+          "role": "development",
+          "parameters": {
+            "circuit": {
+              "circuit_id": "C07",
+              "name": "diff_pair_current_source_loads",
+              "ports": [
+                "VDD",
+                "VSS",
+                "VIN1",
+                "VIN2",
+                "VOUT1",
+                "VOUT2",
+                "VB1",
+                "IB1"
+              ],
+              "devices": [
+                {
+                  "name": "M1",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT1",
+                    "VIN1",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M2",
+                  "kind": "nfet",
+                  "nets": [
+                    "VOUT2",
+                    "VIN2",
+                    "IB1",
+                    "VSS"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M3",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT1",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                },
+                {
+                  "name": "M4",
+                  "kind": "pfet",
+                  "nets": [
+                    "VOUT2",
+                    "VB1",
+                    "VDD",
+                    "VDD"
+                  ],
+                  "params": {}
+                }
+              ],
+              "source": {
+                "dataset": "AnalogGenie",
+                "dataset_url": "https://github.com/xz-group/AnalogGenie",
+                "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+                "dataset_license": "MIT (code and dataset repository)",
+                "analoggenie_id": 192,
+                "files": [
+                  "Dataset/192/192.cir",
+                  "Dataset/192/Port192.txt",
+                  "Dataset/192/Pagenumber192.txt",
+                  "Dataset/192/Book192.png",
+                  "Dataset/192/Cadence192.png"
+                ],
+                "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+                "book_key": "razavi",
+                "page_ref": "260",
+                "device_name_map": {
+                  "M1": "M0",
+                  "M2": "M1",
+                  "M3": "M2",
+                  "M4": "M3"
+                },
+                "source_verification_level": "netlist_matched_isomorphic+image_checked",
+                "image_review": {
+                  "file": "Dataset/192/Book192.png",
+                  "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+                },
+                "modifications": [
+                  "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+                ],
+                "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+              },
+              "notes": []
+            },
+            "sizing": {
+              "M1": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M2": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M3": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              },
+              "M4": {
+                "w": 6.0,
+                "l": 0.3,
+                "nf": 12
+              }
+            },
+            "top_cell": "train_pair_nf_c07"
+          },
+          "contract": {
+            "task_id": "c07_matched_pair_nf_v1",
+            "configuration_id": "c07_matched_nf_12_12",
+            "reference_id": "c07_matched_nf_12_12_literal_perfinger",
+            "required_corners": [
+              "tt",
+              "ss",
+              "ff"
+            ],
+            "scope": "DRAFT_TRAIN_DOMAIN_IDEAL_QUALIFICATION_ONLY",
+            "objective": {
+              "id": "c07_area_min",
+              "metric": "area",
+              "unit": "um2",
+              "direction": "min",
+              "corner_aggregation": "worst"
+            },
+            "specifications": [
+              {
+                "name": "differential_transconductance_S",
+                "unit": "S",
+                "min": 0.0001
+              },
+              {
+                "name": "differential_current_span_A",
+                "unit": "A",
+                "min": 2e-05
+              },
+              {
+                "name": "settled_current_error_vs_DC_A",
+                "unit": "A",
+                "max": 1e-09
+              },
+              {
+                "name": "main_supply_power_W",
+                "unit": "W",
+                "max": 0.0001
+              }
+            ],
+            "nominal_operating_point": {
+              "supply_V": 1.8,
+              "temperature_C": 27,
+              "input_common_mode_V": 0.9,
+              "clamped_outputs_V": [
+                0.9,
+                0.9
+              ],
+              "ideal_tail_sink_A": 4e-05,
+              "external_PMOS_replica_current_A": 2e-05,
+              "differential_AC_input_V": 1,
+              "differential_transient_levels_V": [
+                -0.01,
+                0.01
+              ],
+              "differential_DC_sweep_V": [
+                -0.1,
+                0.1,
+                0.005
+              ],
+              "load_definition": "Each output has an ideal 0.9V clamp. Measure differential output-current transconductance, systematic offset and current steering, not free-output voltage gain or mismatch yield."
+            },
+            "analysis_contracts": {
+              "op": {
+                "kind": "op",
+                "columns": 6,
+                "expected_rows": 1
+              },
+              "ac": {
+                "kind": "ac",
+                "columns": 3,
+                "start": 10,
+                "end": 1000000000.0,
+                "points": 161,
+                "scale": "log"
+              },
+              "tran": {
+                "kind": "transient",
+                "columns": 3,
+                "start": 0,
+                "end": 4e-06,
+                "required_windows": [
+                  [
+                    1.8e-06,
+                    1.99e-06
+                  ],
+                  [
+                    2.8e-06,
+                    2.99e-06
+                  ]
+                ]
+              },
+              "dc": {
+                "kind": "dc",
+                "columns": 5,
+                "start": -0.1,
+                "end": 0.1,
+                "points": 41,
+                "scale": "linear"
+              }
+            },
+            "numerical_controls": {
+              "integration_method": "trap",
+              "independent_transient_inputs": true,
+              "tight_tolerances_unchanged": true
+            },
+            "power_definition": "Main VDD supply power only; separate diode-reference and output-clamp port work are reported separately."
+          },
+          "reference_file": "c07/references/c07_matched_nf_12_12.spice"
+        }
+      ],
+      "whole_grid_preserved": true,
+      "width_semantics": "w is total width; w/nf=.5um for every finger; matching partners always share nf and dimensions.",
+      "specifications_bias_load_corners_numerical_controls": "Copied unchanged from the actual frozen train family. No post-layout outcome used to select these points.",
+      "qualification_status": "NOT_RUN",
+      "formal_training_rows": 0,
+      "parent_frozen_registry": "runtime/train_collections/c07_action_v1/registry.json"
+    }
+  ],
+  "new_model_calls": 0,
+  "new_simulations": 0,
+  "old_domain_or_frozen_collection_changed": false
+}

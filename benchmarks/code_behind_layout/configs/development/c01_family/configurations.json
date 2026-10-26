@@ -1,0 +1,233 @@
+{
+  "status": "DEVELOPMENT_FAMILY_YIELD_NOT_FROZEN",
+  "source_revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+  "parent_lineage": "textbook_universal_compiler_cropped",
+  "editable_paths": [
+    "textbook_sharing/layout.py"
+  ],
+  "configuration_schema": {
+    "circuit_id": "C01",
+    "sizing": {
+      "M1": {
+        "w": "total width um",
+        "l": "length um",
+        "nf": "positive integer fingers"
+      },
+      "M2": "identical sizing to M1, ratio remains 1:1"
+    }
+  },
+  "configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/anchor.spice",
+      "contract_file": "configs/development/c01_family/contracts/anchor.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf1_l030",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 0.5,
+            "l": 0.3,
+            "nf": 1
+          },
+          "M2": {
+            "w": 0.5,
+            "l": 0.3,
+            "nf": 1
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_nf1_l030.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_nf1_l030.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf2_l060",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "M2": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_nf2_l060.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_nf2_l060.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf3_l045",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 1.5,
+            "l": 0.45,
+            "nf": 3
+          },
+          "M2": {
+            "w": 1.5,
+            "l": 0.45,
+            "nf": 3
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_nf3_l045.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_nf3_l045.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf6_l060",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_nf6_l060.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_nf6_l060.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf8_l090",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 0.9,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 0.9,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_nf8_l090.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_nf8_l090.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_w075_l045",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.45,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.45,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_w075_l045.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_w075_l045.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_w100_l060",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_w100_l060.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_w100_l060.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_l120",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 2.0,
+            "l": 1.2,
+            "nf": 4
+          },
+          "M2": {
+            "w": 2.0,
+            "l": 1.2,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_family/references/dev_l120.spice",
+      "contract_file": "configs/development/c01_family/contracts/dev_l120.json",
+      "independently_generated_reference_before_any_candidate": true
+    }
+  ],
+  "formal_training_rows": 0,
+  "coverage_scope": "nine discrete geometries, three corners each; no continuous guarantee",
+  "label_rule_proposal": {
+    "direction": "min",
+    "quality_absolute_tolerance": 0.0001,
+    "coverage_absolute_tolerance": 0,
+    "family_priority": "S1_hard_correctness_then_S2_coverage_then_regression_count_then_mean_worst_corner_error_when_all_pass",
+    "initial_state": "original_unmodified_compiler_same_full_source_for_all_candidates",
+    "proposal_source": "eight_transparent_heuristic_source_edits_from_corpus_yield_pilot.variants",
+    "phase": "development_only"
+  },
+  "planned_new_physical_cases": 72,
+  "previous_anchor_pilot": "phase0_20261018T234700264280Z_corpus_yield_pilot",
+  "baseline_feasibility_status": "new_eight_geometries_pending_actual_schematic_and_physical_checks_no_feasibility_claim"
+}

@@ -1,0 +1,93 @@
+{
+  "circuit_id": "C07",
+  "name": "diff_pair_current_source_loads",
+  "ports": [
+    "VDD",
+    "VSS",
+    "VIN1",
+    "VIN2",
+    "VOUT1",
+    "VOUT2",
+    "VB1",
+    "IB1"
+  ],
+  "devices": [
+    {
+      "name": "M1",
+      "kind": "nfet",
+      "nets": [
+        "VOUT1",
+        "VIN1",
+        "IB1",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M2",
+      "kind": "nfet",
+      "nets": [
+        "VOUT2",
+        "VIN2",
+        "IB1",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M3",
+      "kind": "pfet",
+      "nets": [
+        "VOUT1",
+        "VB1",
+        "VDD",
+        "VDD"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M4",
+      "kind": "pfet",
+      "nets": [
+        "VOUT2",
+        "VB1",
+        "VDD",
+        "VDD"
+      ],
+      "params": {}
+    }
+  ],
+  "source": {
+    "dataset": "AnalogGenie",
+    "dataset_url": "https://github.com/xz-group/AnalogGenie",
+    "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+    "dataset_license": "MIT (code and dataset repository)",
+    "analoggenie_id": 192,
+    "files": [
+      "Dataset/192/192.cir",
+      "Dataset/192/Port192.txt",
+      "Dataset/192/Pagenumber192.txt",
+      "Dataset/192/Book192.png",
+      "Dataset/192/Cadence192.png"
+    ],
+    "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+    "book_key": "razavi",
+    "page_ref": "260",
+    "device_name_map": {
+      "M1": "M0",
+      "M2": "M1",
+      "M3": "M2",
+      "M4": "M3"
+    },
+    "source_verification_level": "netlist_matched_isomorphic+image_checked",
+    "image_review": {
+      "file": "Dataset/192/Book192.png",
+      "observation": "Razavi p.260 scan: M1/M2 pair with ideal tail current source symbol, M3/M4 PMOS current sources (Vb)"
+    },
+    "modifications": [
+      "tail node IB1 is a port: the tail current source is an ideal (disclosed) testbench source"
+    ],
+    "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+  },
+  "notes": []
+}

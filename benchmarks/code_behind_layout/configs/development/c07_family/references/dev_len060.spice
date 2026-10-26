@@ -1,0 +1,34 @@
+.subckt corpus_c07 VDD VSS VIN1 VIN2 VOUT1 VOUT2 VB1 IB1
+XM1_f0 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM1_f1 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM1_f2 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM1_f3 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM1_f4 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM1_f5 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM1_f6 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM1_f7 VOUT1 VIN1 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f0 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f1 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f2 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f3 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f4 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f5 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f6 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM2_f7 VOUT2 VIN2 IB1 VSS sky130_fd_pr__nfet_01v8 w=0.5 l=0.6
+XM3_f0 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM3_f1 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM3_f2 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM3_f3 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM3_f4 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM3_f5 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM3_f6 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM3_f7 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f0 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f1 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f2 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f3 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f4 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f5 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f6 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+XM4_f7 VOUT2 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=0.5 l=0.6
+.ends corpus_c07

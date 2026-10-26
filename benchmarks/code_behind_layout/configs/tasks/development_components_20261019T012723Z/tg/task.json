@@ -1,0 +1,926 @@
+{
+  "status": "DRAFT_REAL_SOURCE_AND_REFERENCES_NOT_FORMAL",
+  "task_id": "draft_tg_source_quality",
+  "parent_lineage": "glayout_tg",
+  "source_revision": "d092211d7996c99159402451bc7141931d6a93c3",
+  "E1_stratum": "reuse",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/source_pack",
+  "editable_paths": [
+    "glayout/cells/elementary/transmission_gate/transmission_gate.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "evidence_origin": "/srv/code-behind-layout/results/derived/tg_three_size_domain_development.json",
+  "bench": {
+    "supply_V": 1.8,
+    "temperature_C": 27,
+    "corners": [
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "analysis_contracts": {
+      "on": {
+        "kind": "dc",
+        "columns": 5,
+        "start": 0.05,
+        "end": 1.75,
+        "points": 35,
+        "scale": "linear"
+      },
+      "off": {
+        "kind": "dc",
+        "columns": 5,
+        "start": 0.05,
+        "end": 1.75,
+        "points": 35,
+        "scale": "linear"
+      },
+      "transient": {
+        "kind": "transient",
+        "columns": 5,
+        "start": 0,
+        "end": 4e-06,
+        "required_windows": [
+          [
+            1.8e-06,
+            1.99e-06
+          ],
+          [
+            2.8e-06,
+            2.99e-06
+          ]
+        ]
+      }
+    },
+    "R_load_ohm": 100000,
+    "C_load_F": 1e-12,
+    "input_pulse_V": [
+      0.2,
+      1.6
+    ],
+    "terminal_difference_V": 0.01,
+    "on_gates_V": {
+      "VGN": 1.8,
+      "VGP": 0
+    },
+    "off_gates_V": {
+      "VGN": 0,
+      "VGP": 1.8
+    }
+  },
+  "natural_shortfall": {
+    "origin": "unmodified_real_generator_natural_measurement",
+    "description": "The measured W1/L0.5 loaded high plateau misses 1.6V by up to 0.28296V; W4 reduces the sampled error to 0.06964V. Device size is immutable within a configuration, so the intrinsic loss cannot be repaired by silently upsizing. The draft constraints are the explicit 0.3V/10mV limits, not a retroactive 0.1V pass claim.",
+    "evidence_file": "results/derived/tg_three_size_domain_development.json",
+    "run_ids": [
+      "phase0_20261019T004042632869Z_tg_characterization",
+      "phase0_20261018T234625109110Z_tg_characterization",
+      "phase0_20261019T004102707080Z_tg_characterization"
+    ],
+    "repairability_established": false,
+    "formal_or_training_use": false
+  },
+  "immutable_sizing": "Per-configuration W/L/multiplicity and independent N(z) cannot be edited; the same source patch must serve the whole domain",
+  "source_dependency_group": "vendor_elementary_targets_shared_with_OTA_closures; not four newly qualified independent clusters",
+  "qualification": {
+    "generation_preflight": {
+      "unique_parameter_points_with_actual_GDS": 25,
+      "generation_attempts": 25,
+      "failed_generation_attempts": 0,
+      "current_snapshot_all_25_generated_in_one_run": true,
+      "raw_generation_records": [
+        "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/preflight_attempt_20261019T013037193712Z/generation/generation.json"
+      ],
+      "establishes_S2": false
+    },
+    "full_domain_baseline": null,
+    "feasible_edit_witness": null,
+    "isolated_evaluator_adapter": null,
+    "model_context_tokens": {
+      "kind": "tg",
+      "input_tokens_with_complete_source": 6357,
+      "reserved_output_tokens": 1024,
+      "fits_8192": true,
+      "source_truncated": false,
+      "PDK_rules_truncated": false
+    },
+    "anchor_geometry_equivalence": {
+      "kind": "tg",
+      "new_gds": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/preflight_attempt_20261019T013037193712Z/generation/anchor.gds",
+      "reference_gds": "/srv/code-behind-layout/runs/phase0/phase0_20261018T234625109110Z_tg_characterization/tg6.gds",
+      "units_m": 1e-06,
+      "precision_m": 1e-09,
+      "changed_layers": [],
+      "filled_geometry_equal": true,
+      "all_labels_equal": true,
+      "cell_names_excluded": true,
+      "physical_measurements_rerun": false
+    }
+  },
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "main_benchmark_frozen": false,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "width": 2.0,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/anchor.spice",
+      "reference_id": "independent_tg_anchor",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "anchor",
+        "reference_id": "independent_tg_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "parameters": {
+        "width": 1.375,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_01.spice",
+      "reference_id": "independent_tg_dev_01",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_tg_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "parameters": {
+        "width": 1.125,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_02.spice",
+      "reference_id": "independent_tg_dev_02",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_tg_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "parameters": {
+        "width": 2.875,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_03.spice",
+      "reference_id": "independent_tg_dev_03",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_tg_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "parameters": {
+        "width": 2.75,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_04.spice",
+      "reference_id": "independent_tg_dev_04",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_tg_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "parameters": {
+        "width": 1.5,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_05.spice",
+      "reference_id": "independent_tg_dev_05",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_tg_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "parameters": {
+        "width": 3.5,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_06.spice",
+      "reference_id": "independent_tg_dev_06",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_tg_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "parameters": {
+        "width": 1.875,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_07.spice",
+      "reference_id": "independent_tg_dev_07",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_tg_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "parameters": {
+        "width": 1.25,
+        "length": 0.5
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/references/dev_08.spice",
+      "reference_id": "independent_tg_dev_08",
+      "contract": {
+        "task_id": "draft_tg_source_quality",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_tg_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_off_current",
+            "unit": "A",
+            "max": 1e-09
+          },
+          {
+            "name": "high_settled_error",
+            "unit": "V",
+            "max": 0.3
+          },
+          {
+            "name": "low_settled_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "tg_resistance_min",
+          "metric": "on_resistance_at_0p9V",
+          "unit": "ohm",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "on": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "off": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.05,
+            "end": 1.75,
+            "points": 35,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 5,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "glayout/cells/elementary/transmission_gate/transmission_gate.py": "from glayout import MappedPDK, sky130,gf180\nfrom gdsfactory.cell import cell\nfrom gdsfactory.component import Component\nfrom gdsfactory import Component\nfrom glayout.primitives.fet import nmos, pmos, multiplier\nfrom glayout.util.comp_utils import evaluate_bbox, prec_center, align_comp_to_port, movex, movey\nfrom glayout.util.snap_to_grid import component_snap_to_grid\nfrom glayout.util.port_utils import rename_ports_by_orientation\nfrom glayout.routing.straight_route import straight_route\nfrom glayout.routing.c_route import c_route\nfrom glayout.routing.L_route import L_route\nfrom glayout.primitives.guardring import tapring\nfrom glayout.util.port_utils import add_ports_perimeter\nfrom glayout.spice.netlist import Netlist\nfrom glayout.primitives.via_gen import via_stack\nfrom gdsfactory.components import text_freetype, rectangle\nfrom glayout.provenance import tracked_generator\ntry:\n    from glayout.verification.evaluator_wrapper import run_evaluation\nexcept ImportError:\n    print(\"Warning: evaluator_wrapper not found. Evaluation will be skipped.\")\n    run_evaluation = None\n\ndef add_tg_labels(tg_in: Component,\n                        pdk: MappedPDK\n                        ) -> Component:\n\t\n    tg_in.unlock()\n    \n    # list that will contain all port/comp info\n    move_info = list()\n    # create labels and append to info list\n    # vin\n    vinlabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=(0.27,0.27),centered=True).copy()\n    vinlabel.add_label(text=\"VIN\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((vinlabel,tg_in.ports[\"N_multiplier_0_source_E\"],None))\n    \n    # vout\n    voutlabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=(0.27,0.27),centered=True).copy()\n    voutlabel.add_label(text=\"VOUT\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((voutlabel,tg_in.ports[\"P_multiplier_0_drain_W\"],None))\n    \n    # vcc\n    vcclabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=(0.5,0.5),centered=True).copy()\n    vcclabel.add_label(text=\"VCC\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((vcclabel,tg_in.ports[\"P_tie_S_top_met_S\"],None))\n    \n    # vss\n    vsslabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=(0.5,0.5),centered=True).copy()\n    vsslabel.add_label(text=\"VSS\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((vsslabel,tg_in.ports[\"N_tie_S_top_met_N\"], None))\n    \n    # VGP\n    vgplabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=(0.27,0.27),centered=True).copy()\n    vgplabel.add_label(text=\"VGP\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((vgplabel,tg_in.ports[\"P_multiplier_0_gate_E\"], None))\n    \n    # VGN\n    vgnlabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=(0.27,0.27),centered=True).copy()\n    vgnlabel.add_label(text=\"VGN\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((vgnlabel,tg_in.ports[\"N_multiplier_0_gate_E\"], None))\n\n    # move everything to position\n    for comp, prt, alignment in move_info:\n        alignment = ('c','b') if alignment is None else alignment\n        compref = align_comp_to_port(comp, prt, alignment=alignment)\n        tg_in.add(compref)\n    return tg_in.flatten() \n\n\ndef get_component_netlist(component):\n    \"\"\"Helper function to get netlist object from component info, compatible with all gdsfactory versions\"\"\"\n    from glayout.spice.netlist import Netlist\n    \n    # Try to get stored object first (for older gdsfactory versions)\n    if 'netlist_obj' in component.info:\n        return component.info['netlist_obj']\n    \n    # Try to reconstruct from netlist_data (for newer gdsfactory versions)\n    if 'netlist_data' in component.info:\n        data = component.info['netlist_data']\n        netlist = Netlist(\n            circuit_name=data['circuit_name'],\n            nodes=data['nodes']\n        )\n        netlist.source_netlist = data['source_netlist']\n        return netlist\n    \n    # Fallback: return the string representation (should not happen in normal operation)\n    return component.info.get('netlist', '')\n\ndef sky130_add_tg_labels(tg_in: Component) -> Component:\n\t\n    tg_in.unlock()\n    \n    # define layers`\n    met1_pin = (68,16)\n    met1_label = (68,5)\n    li1_pin = (67,16)\n    li1_label = (67,5)\n    # list that will contain all port/comp info\n    move_info = list()\n    # create labels and append to info list\n    # vin\n    vinlabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()\n    vinlabel.add_label(text=\"VIN\",layer=met1_label)\n    move_info.append((vinlabel,tg_in.ports[\"N_multiplier_0_source_E\"],None))\n    \n    # vout\n    voutlabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()\n    voutlabel.add_label(text=\"VOUT\",layer=met1_label)\n    move_info.append((voutlabel,tg_in.ports[\"P_multiplier_0_drain_W\"],None))\n    \n    # vcc\n    vcclabel = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()\n    vcclabel.add_label(text=\"VCC\",layer=met1_label)\n    move_info.append((vcclabel,tg_in.ports[\"P_tie_S_top_met_S\"],None))\n    \n    # vss\n    vsslabel = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()\n    vsslabel.add_label(text=\"VSS\",layer=met1_label)\n    move_info.append((vsslabel,tg_in.ports[\"N_tie_S_top_met_N\"], None))\n    \n    # VGP\n    vgplabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()\n    vgplabel.add_label(text=\"VGP\",layer=met1_label)\n    move_info.append((vgplabel,tg_in.ports[\"P_multiplier_0_gate_E\"], None))\n    \n    # VGN\n    vgnlabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()\n    vgnlabel.add_label(text=\"VGN\",layer=met1_label)\n    move_info.append((vgnlabel,tg_in.ports[\"N_multiplier_0_gate_E\"], None))\n\n    # move everything to position\n    for comp, prt, alignment in move_info:\n        alignment = ('c','b') if alignment is None else alignment\n        compref = align_comp_to_port(comp, prt, alignment=alignment)\n        tg_in.add(compref)\n    return tg_in.flatten() \n\n\ndef tg_netlist(nfet: Component, pfet: Component) -> Netlist:\n\n         netlist = Netlist(circuit_name='Transmission_Gate', nodes=['VIN', 'VSS', 'VOUT', 'VCC', 'VGP', 'VGN'])\n         # Use helper function to get netlist objects regardless of gdsfactory version\n         nfet_netlist = get_component_netlist(nfet)\n         pfet_netlist = get_component_netlist(pfet)\n         netlist.connect_netlist(nfet_netlist, [('D', 'VOUT'), ('G', 'VGN'), ('S', 'VIN'), ('B', 'VSS')])\n         netlist.connect_netlist(pfet_netlist, [('D', 'VOUT'), ('G', 'VGP'), ('S', 'VIN'), ('B', 'VCC')])\n\n         return netlist\n\n@tracked_generator(\"transmission_gate\")\n@cell\ndef  transmission_gate(\n        pdk: MappedPDK,\n        width: tuple[float,float] = (1,1),\n        length: tuple[float,float] = (None,None),\n        fingers: tuple[int,int] = (1,1),\n        multipliers: tuple[int,int] = (1,1),\n        substrate_tap: bool = False,\n        tie_layers: tuple[str,str] = (\"met2\",\"met1\"),\n        with_labels: bool = True,\n        **kwargs\n        ) -> Component:\n    \"\"\"\n    creates a transmission gate\n    tuples are in (NMOS,PMOS) order\n    **kwargs are any kwarg that is supported by nmos and pmos\n    \"\"\"\n   \n    #top level component\n    top_level = Component(name=\"transmission_gate\")\n\n    #two fets\n    nfet = nmos(pdk, width=width[0], fingers=fingers[0], multipliers=multipliers[0], with_dummy=True, with_dnwell=False,  with_substrate_tap=False, length=length[0], **kwargs)\n    pfet = pmos(pdk, width=width[1], fingers=fingers[1], multipliers=multipliers[1], with_dummy=True, with_substrate_tap=False, length=length[1], **kwargs)\n    nfet_ref = top_level << nfet\n    pfet_ref = top_level << pfet \n    pfet_ref = rename_ports_by_orientation(pfet_ref.mirror_y())\n\n    #Relative move\n    pfet_ref.movey(nfet_ref.ymax + evaluate_bbox(pfet_ref)[1]/2 + pdk.util_max_metal_seperation())\n    \n    #Routing\n    top_level << c_route(pdk, nfet_ref.ports[\"multiplier_0_source_E\"], pfet_ref.ports[\"multiplier_0_source_E\"])\n    top_level << c_route(pdk, nfet_ref.ports[\"multiplier_0_drain_W\"], pfet_ref.ports[\"multiplier_0_drain_W\"], viaoffset=False)\n    \n    #Renaming Ports\n    top_level.add_ports(nfet_ref.get_ports_list(), prefix=\"N_\")\n    top_level.add_ports(pfet_ref.get_ports_list(), prefix=\"P_\")\n\n    #substrate tap\n    if substrate_tap:\n            substrate_tap_encloses =((evaluate_bbox(top_level)[0]+pdk.util_max_metal_seperation()), (evaluate_bbox(top_level)[1]+pdk.util_max_metal_seperation()))\n            guardring_ref = top_level << tapring(\n            pdk,\n            enclosed_rectangle=substrate_tap_encloses,\n            sdlayer=\"p+s/d\",\n            horizontal_glayer='met2',\n            vertical_glayer='met1',\n        )\n            guardring_ref.move(nfet_ref.center).movey(evaluate_bbox(pfet_ref)[1]/2 + pdk.util_max_metal_seperation()/2)\n            top_level.add_ports(guardring_ref.get_ports_list(),prefix=\"tap_\")\n    \n    netlist_obj = tg_netlist(nfet, pfet)\n    component = component_snap_to_grid(rename_ports_by_orientation(top_level))\n    if with_labels:\n        component = add_tg_labels(component, pdk)\n    # Store netlist as string to avoid gymnasium info dict type restrictions\n    # Compatible with both gdsfactory 7.7.0 and 7.16.0+ strict Pydantic validation\n    component.info['netlist'] = netlist_obj.generate_netlist()\n    # Store the Netlist object for hierarchical netlist building\n    component.info['netlist_obj'] = netlist_obj\n    # Store serialized netlist data for reconstruction if needed\n    component.info['netlist_data'] = {\n        'circuit_name': netlist_obj.circuit_name,\n        'nodes': netlist_obj.nodes,\n        'source_netlist': netlist_obj.source_netlist\n    }\n\n\n    return component\nif __name__ == \"__main__\":\n    # OLD EVAL CODE\n    # comp = transmission_gate(sky130)\n    # # comp.pprint_ports()\n    # comp = add_tg_labels(comp,sky130)\n    # comp.name = \"TG\"\n    # comp.show()\n    # #print(comp.info['netlist'].generate_netlist())\n    # print(\"...Running DRC...\")\n    # drc_result = sky130.drc_magic(comp, \"TG\")\n    # ## Klayout DRC\n    # #drc_result = gf180.drc(comp)\\n\n    \n    # time.sleep(5)\n        \n    # print(\"...Running LVS...\")\n    # lvs_res=sky130.lvs_netgen(comp, \"TG\")\n    # #print(\"...Saving GDS...\")\n    # #comp.write_gds('out_TG.gds')\n\n    # NEW EVAL CODE\n    #transmission_gate = transmission_gate(sky130_mapped_pdk)\n    transmission_gate = add_tg_labels(transmission_gate(sky130),sky130)\n    transmission_gate.show()\n    transmission_gate.name = \"Transmission_Gate\"\n    #magic_drc_result = sky130_mapped_pdk.drc_magic(transmission_gate, transmission_gate.name)\n    #netgen_lvs_result = sky130_mapped_pdk.lvs_netgen(transmission_gate, transmission_gate.name)\n    transmission_gate_gds = transmission_gate.write_gds(\"transmission_gate.gds\")\n    res = run_evaluation(\"transmission_gate.gds\", transmission_gate.name, transmission_gate)\n"
+  },
+  "domain_shape": {
+    "anchor": 1,
+    "development": 8,
+    "hidden": 16
+  },
+  "source_role": "draft_task_materialization_not_a_new_lineage",
+  "pdk_revision": "0fe599b2afb6708d281543108caf8310912f54af",
+  "frozen_source_pack": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/tg/source_pack",
+  "frozen_source_files": [
+    "component_build.py",
+    "generator.py",
+    "glayout/__init__.py",
+    "glayout/cells/__init__.py",
+    "glayout/cells/elementary/__init__.py",
+    "glayout/cells/elementary/transmission_gate/__init__.py",
+    "glayout/pdk/__init__.py",
+    "glayout/pdk/gf180_mapped/__init__.py",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x02p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x04p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x08p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x16p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/gf180_grules.py",
+    "glayout/pdk/gf180_mapped/gf180_mapped.py",
+    "glayout/pdk/gf180_mapped/gf180mcu.drc",
+    "glayout/pdk/gf180_mapped/gf180mcu_drc.lydrc",
+    "glayout/pdk/gf180_mapped/gf180mcu_osu_sc_9T.spice",
+    "glayout/pdk/ihp130_mapped/__init__.py",
+    "glayout/pdk/ihp130_mapped/ihp130_drc.lydrc",
+    "glayout/pdk/ihp130_mapped/ihp130_grules.py",
+    "glayout/pdk/ihp130_mapped/ihp130_mapped.py",
+    "glayout/pdk/mappedpdk.py",
+    "glayout/pdk/sky130_mapped/__init__.py",
+    "glayout/pdk/sky130_mapped/sky130.lydrc",
+    "glayout/pdk/sky130_mapped/sky130_add_npc.py",
+    "glayout/pdk/sky130_mapped/sky130_fd_sc_hd.spice",
+    "glayout/pdk/sky130_mapped/sky130_grules.py",
+    "glayout/pdk/sky130_mapped/sky130_mapped.py",
+    "glayout/placement/__init__.py",
+    "glayout/placement/common_centroid_ab_ba.py",
+    "glayout/placement/four_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_place.py",
+    "glayout/primitives/__init__.py",
+    "glayout/primitives/bjt.py",
+    "glayout/primitives/fet.py",
+    "glayout/primitives/guardring.py",
+    "glayout/primitives/mimcap.py",
+    "glayout/primitives/resistor.py",
+    "glayout/primitives/via_gen.py",
+    "glayout/provenance/__init__.py",
+    "glayout/provenance/netlist_summary.py",
+    "glayout/provenance/runtime.py",
+    "glayout/routing/L_route.py",
+    "glayout/routing/__init__.py",
+    "glayout/routing/c_route.py",
+    "glayout/routing/smart_route.py",
+    "glayout/routing/straight_route.py",
+    "glayout/spice/__init__.py",
+    "glayout/spice/netlist.py",
+    "glayout/util/__init__.py",
+    "glayout/util/comp_utils.py",
+    "glayout/util/component_array_create.py",
+    "glayout/util/geometry.py",
+    "glayout/util/pattern.py",
+    "glayout/util/port_utils.py",
+    "glayout/util/print_rules.py",
+    "glayout/util/routing.py",
+    "glayout/util/snap_to_grid.py"
+  ]
+}

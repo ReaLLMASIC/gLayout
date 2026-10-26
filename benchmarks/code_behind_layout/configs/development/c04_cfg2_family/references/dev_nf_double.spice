@@ -1,0 +1,14 @@
+.subckt corpus_c04 VDD VSS VIN1 VOUT1 VB1
+XM1_f0 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM1_f1 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM1_f2 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM1_f3 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM1_f4 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM1_f5 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM1_f6 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM1_f7 VOUT1 VB1 VDD VDD sky130_fd_pr__pfet_01v8 w=1 l=0.3
+XM2_f0 VOUT1 VIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=1 l=0.3
+XM2_f1 VOUT1 VIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=1 l=0.3
+XM2_f2 VOUT1 VIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=1 l=0.3
+XM2_f3 VOUT1 VIN1 VSS VSS sky130_fd_pr__nfet_01v8 w=1 l=0.3
+.ends corpus_c04

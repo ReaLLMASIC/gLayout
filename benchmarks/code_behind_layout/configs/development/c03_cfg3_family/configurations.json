@@ -1,0 +1,248 @@
+{
+  "scope": "DRAFT_DEVELOPMENT_QUALIFICATION_ONLY",
+  "source_revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+  "parent_lineage": "textbook_universal_compiler_cropped",
+  "circuit_id": "C03",
+  "domain_id": "C03_cfg3",
+  "textbook_sizing_source": "presimulated size configuration cfg3 of the textbook benchmark",
+  "circuit_name": "wilson_current_mirror",
+  "bench_category": "mirror",
+  "circuit_input_file": "configs/development/c03_cfg3_family/circuit_input.json",
+  "configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 1.8,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 1.8,
+            "nf": 8
+          },
+          "M3": {
+            "w": 4.0,
+            "l": 1.8,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/anchor.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/anchor.json"
+    },
+    {
+      "configuration_id": "dev_nf_half",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 2.0,
+            "l": 1.8,
+            "nf": 4
+          },
+          "M2": {
+            "w": 2.0,
+            "l": 1.8,
+            "nf": 4
+          },
+          "M3": {
+            "w": 2.0,
+            "l": 1.8,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_nf_half.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_nf_half.json"
+    },
+    {
+      "configuration_id": "dev_nf_3quarters",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 1.8,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 1.8,
+            "nf": 6
+          },
+          "M3": {
+            "w": 3.0,
+            "l": 1.8,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_nf_3quarters.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_nf_3quarters.json"
+    },
+    {
+      "configuration_id": "dev_nf_1half",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 6.0,
+            "l": 1.8,
+            "nf": 12
+          },
+          "M2": {
+            "w": 6.0,
+            "l": 1.8,
+            "nf": 12
+          },
+          "M3": {
+            "w": 6.0,
+            "l": 1.8,
+            "nf": 12
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_nf_1half.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_nf_1half.json"
+    },
+    {
+      "configuration_id": "dev_nf_double",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 8.0,
+            "l": 1.8,
+            "nf": 16
+          },
+          "M2": {
+            "w": 8.0,
+            "l": 1.8,
+            "nf": 16
+          },
+          "M3": {
+            "w": 8.0,
+            "l": 1.8,
+            "nf": 16
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_nf_double.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_nf_double.json"
+    },
+    {
+      "configuration_id": "dev_len075",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 1.35,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 1.35,
+            "nf": 8
+          },
+          "M3": {
+            "w": 4.0,
+            "l": 1.35,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_len075.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_len075.json"
+    },
+    {
+      "configuration_id": "dev_len150",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 2.7,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 2.7,
+            "nf": 8
+          },
+          "M3": {
+            "w": 4.0,
+            "l": 2.7,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_len150.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_len150.json"
+    },
+    {
+      "configuration_id": "dev_unit075",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 6.0,
+            "l": 1.8,
+            "nf": 8
+          },
+          "M2": {
+            "w": 6.0,
+            "l": 1.8,
+            "nf": 8
+          },
+          "M3": {
+            "w": 6.0,
+            "l": 1.8,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_unit075.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_unit075.json"
+    },
+    {
+      "configuration_id": "dev_unit100",
+      "role": "development",
+      "parameters": {
+        "sizing": {
+          "M1": {
+            "w": 8.0,
+            "l": 1.8,
+            "nf": 8
+          },
+          "M2": {
+            "w": 8.0,
+            "l": 1.8,
+            "nf": 8
+          },
+          "M3": {
+            "w": 8.0,
+            "l": 1.8,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "configs/development/c03_cfg3_family/references/dev_unit100.spice",
+      "contract_file": "configs/development/c03_cfg3_family/contracts/dev_unit100.json"
+    }
+  ],
+  "textbook_specification_floors": {
+    "err": {
+      "abs_max": 0.1
+    },
+    "vmin": {
+      "max": 1.1700000000000002
+    }
+  },
+  "declared_by": "scripts/prepare_textbook_train_domains.py",
+  "ancestry": "Same cropped universal compiler source; no new source lineage. Geometry and per-finger references are fixed before any layout."
+}

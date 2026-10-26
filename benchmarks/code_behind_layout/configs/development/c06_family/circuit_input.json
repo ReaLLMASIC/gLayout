@@ -1,0 +1,90 @@
+{
+  "circuit_id": "C06",
+  "name": "cascode_amplifier_cascode_load",
+  "ports": [
+    "VDD",
+    "VSS",
+    "VIN1",
+    "VOUT1",
+    "VB1",
+    "VB2",
+    "VB3"
+  ],
+  "devices": [
+    {
+      "name": "M1",
+      "kind": "pfet",
+      "nets": [
+        "VOUT1",
+        "VB2",
+        "net10",
+        "VDD"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M2",
+      "kind": "pfet",
+      "nets": [
+        "net10",
+        "VB3",
+        "VDD",
+        "VDD"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M3",
+      "kind": "nfet",
+      "nets": [
+        "net9",
+        "VIN1",
+        "VSS",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M4",
+      "kind": "nfet",
+      "nets": [
+        "VOUT1",
+        "VB1",
+        "net9",
+        "VSS"
+      ],
+      "params": {}
+    }
+  ],
+  "source": {
+    "dataset": "AnalogGenie",
+    "dataset_url": "https://github.com/xz-group/AnalogGenie",
+    "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+    "dataset_license": "MIT (code and dataset repository)",
+    "analoggenie_id": 38,
+    "files": [
+      "Dataset/38/38.cir",
+      "Dataset/38/Port38.txt",
+      "Dataset/38/Pagenumber38.txt",
+      "Dataset/38/Book38.png",
+      "Dataset/38/Cadence38.png"
+    ],
+    "book": "B. Razavi, Design of Analog CMOS Integrated Circuits, 2nd ed., McGraw-Hill, 2017",
+    "book_key": "razavi",
+    "page_ref": "88",
+    "device_name_map": {
+      "M1": "M1",
+      "M2": "M0",
+      "M3": "M3",
+      "M4": "M2"
+    },
+    "source_verification_level": "netlist_matched_isomorphic+image_checked",
+    "image_review": {
+      "file": "Dataset/38/Book38.png",
+      "observation": "Razavi p.88 scan: M1/M2 NMOS cascode, M3/M4 PMOS cascode current source (Vb1..Vb3)"
+    },
+    "modifications": [],
+    "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+  },
+  "notes": []
+}

@@ -1,0 +1,14 @@
+{
+  "status": "DRAFT_NEW_INITIAL_STATES_NOT_FROZEN",
+  "circuit_id": "C08",
+  "capsule_preparation": "/srv/code-behind-layout/runtime/collection_preparation/c08_collection_20261019T015607178027Z/preparation.json",
+  "initial_states_path": "/srv/code-behind-layout/runtime/collection_preparation/c08_observed_states_20261019T015857390853Z/initial_states.jsonl",
+  "initial_state_count": 3,
+  "complete_editable_paths": [
+    "textbook_sharing/layout.py"
+  ],
+  "old_evidence_labels_admitted": false,
+  "fresh_baselines_and_new_proposals_required": true,
+  "source_counting": "One universal compiler lineage. Identical source ASTs across topologies/teachers are the same program, even when task contexts differ.",
+  "inverse_injection_note": "Each intermediate is byte-exact actual T0 output, bound by its raw diff and real executed source; no artificial fault or hand-written repair supplied."
+}

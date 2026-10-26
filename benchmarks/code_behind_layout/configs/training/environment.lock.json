@@ -1,0 +1,51 @@
+{
+  "role": "engineering_preparation_not_training",
+  "backbone": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "snapshot": "/dev/shm/cbl-hf-cache/hub/models--Qwen--Qwen2.5-Coder-32B-Instruct/snapshots/381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "weight_bytes": 65527841688,
+  "versions": {
+    "torch": "2.11.0",
+    "transformers": "5.9.0",
+    "peft": "0.19.1",
+    "accelerate": "1.13.0",
+    "bitsandbytes": "0.50.2",
+    "safetensors": "0.7.0",
+    "huggingface_hub": "1.16.1",
+    "numpy": "2.3.5",
+    "packaging": "26.2"
+  },
+  "python": "3.12.3",
+  "private_environment": "/srv/code-behind-layout/runtime/training-venv",
+  "shared_dependency_path": "/srv/venvs/qwen-vllm-h100/lib/python3.12/site-packages",
+  "tokenizer_class": "Qwen2Tokenizer",
+  "tokenizer_eos_token_id": 151645,
+  "chat_template_tokenizer_smoke_tokens": 59,
+  "architecture": {
+    "hidden_size": 5120,
+    "intermediate_size": 27648,
+    "layers": 64,
+    "heads": 40,
+    "kv_heads": 8,
+    "max_positions": 32768,
+    "vocab_size": 152064
+  },
+  "bitsandbytes_cuda_libraries": [
+    "libbitsandbytes_cuda121.so",
+    "libbitsandbytes_cuda130.so",
+    "libbitsandbytes_cuda128.so",
+    "libbitsandbytes_cuda132.so",
+    "libbitsandbytes_cuda126.so",
+    "libbitsandbytes_cuda124.so",
+    "libbitsandbytes_cuda118.so"
+  ],
+  "gpu_allocation": false,
+  "formal_samples": 0,
+  "formal_training_runs": 0,
+  "actual_backbone_completion_mask_smoke": {
+    "prompt_tokens": 59,
+    "completion_tokens": 30,
+    "total_tokens": 89,
+    "passed": true
+  }
+}

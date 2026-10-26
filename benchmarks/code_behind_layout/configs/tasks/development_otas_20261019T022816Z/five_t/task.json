@@ -1,0 +1,1046 @@
+{
+  "status": "DRAFT_REAL_OTA_NATURAL_INITIAL_STATE",
+  "task_id": "draft_five_t_natural_source",
+  "initial_state_id": "five_t__natural_current_source",
+  "parent_lineage": "research_five_t",
+  "origin": "natural",
+  "topology_family": "single_stage_mirror_load_OTA",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/five_t/source_pack",
+  "editable_paths": [
+    "src/generators/five_t.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "source_snapshot": {
+    "src/generators/five_t.py": "\"\"\"Independent row placement and explicit channel routing for a 5T OTA core.\n\nOnly MOS, via-stack and rectangle primitives are borrowed from gLayout. No\nexisting OTA, differential-pair, current-mirror or benchmark assembly is called.\nThe separate five_t_reference module owns the intended electrical schematic.\n\"\"\"\nimport json\nfrom pathlib import Path\n\nimport gdstk\nfrom gdsfactory.component import Component\nfrom glayout import sky130\nfrom glayout.primitives.fet import nmos, pmos\nfrom glayout.primitives.via_gen import via_stack\n\nfrom src.generators.five_t_reference import DEFAULT, PORTS\n\n\ndef snap(value):\n    return round(round(float(value) / .005) * .005, 3)\n\n\ndef rectangle(component, layer, x0, y0, x1, y1):\n    component.add_polygon([(snap(x0), snap(y0)), (snap(x1), snap(y0)),\n                           (snap(x1), snap(y1)), (snap(x0), snap(y1))], layer=layer)\n\n\ndef build(output, config=None):\n    sizes = {**DEFAULT, **(config or {})}\n    sky130.activate()\n    top = Component(\"five_t_ota\")\n    escape_width, drop_width, trunk_width = .2, .6, .8\n    # The row is a deliberate independent placement strategy. Wide routing\n    # channels keep each device's terminal escape separate from the next device.\n    devices = [\n        (\"NREF\", \"n\", \"tail\", {\"D\": \"IBIAS\", \"G\": \"IBIAS\", \"S\": \"GND\", \"B\": \"GND\"}),\n        (\"NTAIL\", \"n\", \"tail\", {\"D\": \"tail\", \"G\": \"IBIAS\", \"S\": \"GND\", \"B\": \"GND\"}),\n        (\"NIP\", \"n\", \"input\", {\"D\": \"mirror\", \"G\": \"VP\", \"S\": \"tail\", \"B\": \"GND\"}),\n        (\"NIM\", \"n\", \"input\", {\"D\": \"VOUT\", \"G\": \"VN\", \"S\": \"tail\", \"B\": \"GND\"}),\n        (\"PLD\", \"p\", \"load\", {\"D\": \"mirror\", \"G\": \"mirror\", \"S\": \"VDD\", \"B\": \"VDD\"}),\n        (\"POUT\", \"p\", \"load\", {\"D\": \"VOUT\", \"G\": \"mirror\", \"S\": \"VDD\", \"B\": \"VDD\"})]\n    terminals = {\"D\": \"multiplier_0_drain_W\", \"G\": \"multiplier_0_gate_W\",\n                 \"S\": \"multiplier_0_source_W\", \"B\": \"tie_S_top_met_S\"}\n    records, cursor, top_edge = [], 0.0, 0.0\n    removable = [value for key, value in sky130.glayers.items() if key.endswith((\"_label\", \"_pin\"))] + [(64, 44)]\n    for name, kind, category, connections in devices:\n        kwargs = dict(width=sizes[category + \"_width\"], length=sizes[category + \"_length\"],\n                      fingers=sizes[category + \"_fingers\"], with_dummy=False, with_tie=True)\n        cell = (nmos(sky130, with_dnwell=False, **kwargs) if kind == \"n\" else pmos(sky130, dnwell=False, **kwargs)).copy()\n        cell = cell.remove_layers(removable, include_labels=True)\n        reference = top << cell\n        reference.movex(snap(cursor - reference.xmin))\n        top_edge = max(top_edge, reference.ymax)\n        for index, (terminal, port_name) in enumerate(terminals.items()):\n            port = reference.ports[port_name]\n            x, y = map(snap, port.center)\n            track_x = snap(reference.xmin - 2 - 2 * index)\n            layer = sky130.layer_to_glayer(port.layer)\n            # Source/drain access bars can be only 0.43 um apart. A wide local\n            # strap would short them before reaching the separated via tracks.\n            rectangle(top, sky130.get_glayer(layer), track_x - escape_width / 2, y - escape_width / 2,\n                      x + escape_width / 2, y + escape_width / 2)\n            # A complete M1/M2 via landing is wider than the original access\n            # bars. Lift the drain landing outside the neighbouring source\n            # escape before changing layers; shortening the wire alone is not\n            # sufficient to clear that landing.\n            via_y = snap(y + 2) if terminal == \"D\" else y\n            if via_y != y:\n                rectangle(top, sky130.get_glayer(layer), track_x - escape_width / 2, y - escape_width / 2,\n                          track_x + escape_width / 2, via_y + escape_width / 2)\n            via = top << via_stack(sky130, layer, \"met3\", fullbottom=True, fulltop=True)\n            via.move((track_x, via_y))\n            records.append({\"device\": name, \"terminal\": terminal, \"net\": connections[terminal],\n                            \"port_name\": port_name, \"port_xy_um\": [x, y], \"port_layer\": layer,\n                            \"track_x_um\": track_x, \"track_start_y_um\": via_y})\n        cursor = snap(reference.xmax + 22)\n    buses = {}\n    for index, net in enumerate(PORTS + [\"tail\", \"mirror\"]):\n        members = [value for value in records if value[\"net\"] == net]\n        y = snap(top_edge + 8 + 3 * index)\n        x0 = snap(min(value[\"track_x_um\"] for value in members) - 2)\n        x1 = snap(max(value[\"track_x_um\"] for value in members) + 2)\n        rectangle(top, sky130.get_glayer(\"met4\"), x0, y - trunk_width / 2, x1, y + trunk_width / 2)\n        for member in members:\n            x, start_y = member[\"track_x_um\"], member[\"track_start_y_um\"]\n            rectangle(top, sky130.get_glayer(\"met3\"), x - drop_width / 2, start_y - drop_width / 2,\n                      x + drop_width / 2, y + drop_width / 2)\n            via = top << via_stack(sky130, \"met3\", \"met4\", fullbottom=True, fulltop=True)\n            via.move((x, y))\n        buses[net] = {\"y_um\": y, \"x_range_um\": [x0, x1]}\n        if net in PORTS:\n            pin_x = snap(x0 + 1)\n            rectangle(top, sky130.get_glayer(\"met4_pin\"), pin_x - .2, y - .2, pin_x + .2, y + .2)\n            top.add_label(net, position=(pin_x, y), layer=sky130.get_glayer(\"met4_label\"))\n    output = Path(output)\n    output.mkdir(parents=True, exist_ok=True)\n    gds = output / \"five_t_ota.gds\"\n    top.write_gds(gds)\n    actual, = gdstk.read_gds(gds).top_level()\n    actual.flatten()\n    actual.name = \"five_t_ota\"\n    library = gdstk.Library()\n    library.add(actual)\n    library.write_gds(gds)\n    metadata = {\"generator\": \"independent_row_5T_OTA_assembly\", \"sizing\": sizes,\n                \"source_dependencies\": [\"glayout.primitives.fet.nmos\", \"glayout.primitives.fet.pmos\",\n                    \"glayout.primitives.via_gen.via_stack\", \"gdsfactory.component.Component\", \"gdstk\"],\n                \"terminals\": records, \"buses\": buses, \"bbox_um\": [list(point) for point in actual.bounding_box()],\n                \"formal_lineage_assignment\": None}\n    (output / \"layout_intent.json\").write_text(json.dumps(metadata, indent=2) + \"\\n\")\n    return gds\n"
+  },
+  "source_face": {
+    "scope": "complete unchanged current module",
+    "origin": "/srv/code-behind-layout/src/generators/five_t.py",
+    "algorithm_preserved_verbatim": true
+  },
+  "ports": [
+    "VDD",
+    "GND",
+    "IBIAS",
+    "VP",
+    "VN",
+    "VOUT"
+  ],
+  "cell_name": "five_t_ota",
+  "bench": {
+    "original_application": {
+      "supply_V": 1.8,
+      "load_F": 2e-12,
+      "common_mode_V": 1.1,
+      "reference_current_A": 2e-05,
+      "temperature_C": 27,
+      "corners": [
+        "tt",
+        "ss",
+        "ff"
+      ],
+      "bench_source_unchanged": "testbench_snapshot.py",
+      "numerics": {
+        "reltol": 1e-06,
+        "abstol": 1e-14,
+        "vntol": 1e-08,
+        "chgtol": 1e-16
+      },
+      "analysis_coverage": {
+        "OP_rows": 1,
+        "AC_rows": 401,
+        "AC_Hz": [
+          10,
+          1000000000.0
+        ],
+        "transient_s": [
+          0,
+          4e-06
+        ],
+        "DC_points": 9,
+        "DC_V": [
+          0.9,
+          1.3
+        ]
+      },
+      "existing_development_feasibility": {
+        "tail_V_open_interval": [
+          0.15,
+          0.8
+        ],
+        "mirror_V_open_interval": [
+          0.4,
+          1.6
+        ],
+        "nominal_tracking_abs_V_lt": 0.01,
+        "supply_current_A_open_interval": [
+          2e-05,
+          8e-05
+        ],
+        "phase_margin_deg_closed_interval": [
+          60,
+          180
+        ],
+        "positive_low_frequency_gain": true,
+        "gain_10Hz_dB_min": 30,
+        "ugb_Hz_min": 1000000.0,
+        "settled_tracking_error_V_lt": 0.01
+      },
+      "DC_sweep_interpretation": "The complete broad tracking sweep is retained; no extra output-swing or maximum-DC-error constraint is added."
+    },
+    "body_reuse": "exact AST function source segment",
+    "snapshot": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/five_t/trusted_bench/original_retained_bench.py",
+    "callable_source": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/five_t/trusted_bench/analysis_function.py",
+    "SPICE_stimuli_numeric_formulas_and_completion_source_unchanged": true,
+    "transport": {
+      "adapted": false
+    },
+    "no_load15_substitution": true
+  },
+  "natural_shortfall": "Unmodified research5T source; complete default is feasible. Minimize actual GDS area while preserving every electrical constraint; an improvement witness is pending.",
+  "source_dependency_group": "research_five_t",
+  "domain_note": "Declared narrow width/length domain; FVF local total width snapped.01um to preserve each parallel-finger width on.005um grid. Circuit multiplicities/topology and cap30 remain fixed within each configuration.",
+  "qualification": {
+    "generation_preflight": null,
+    "anchor_geometry_equivalence": null,
+    "full_domain_baseline": null,
+    "isolated_evaluator_adapter": null,
+    "model_context_tokens": {
+      "kind": "five_t",
+      "input_tokens_with_complete_source": 4820,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 6181,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    },
+    "feasible_edit_witness": null
+  },
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "new_physical_calls": 0,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "input_width": 3.0,
+        "input_fingers": 2,
+        "input_length": 1.0,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_anchor",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "anchor",
+        "reference_id": "independent_five_t_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.0,
+          "input_fingers": 2,
+          "input_length": 1.0,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "parameters": {
+        "input_width": 2.91,
+        "input_fingers": 2,
+        "input_length": 0.97,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_01",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_five_t_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 2.91,
+          "input_fingers": 2,
+          "input_length": 0.97,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "parameters": {
+        "input_width": 2.91,
+        "input_fingers": 2,
+        "input_length": 1.0,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_02",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_five_t_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 2.91,
+          "input_fingers": 2,
+          "input_length": 1.0,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "parameters": {
+        "input_width": 2.91,
+        "input_fingers": 2,
+        "input_length": 1.03,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_03",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_five_t_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 2.91,
+          "input_fingers": 2,
+          "input_length": 1.03,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.0,
+        "input_fingers": 2,
+        "input_length": 0.97,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_04",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_five_t_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.0,
+          "input_fingers": 2,
+          "input_length": 0.97,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.0,
+        "input_fingers": 2,
+        "input_length": 1.03,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_05",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_five_t_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.0,
+          "input_fingers": 2,
+          "input_length": 1.03,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.09,
+        "input_fingers": 2,
+        "input_length": 0.97,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_06",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_five_t_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.09,
+          "input_fingers": 2,
+          "input_length": 0.97,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.09,
+        "input_fingers": 2,
+        "input_length": 1.0,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_07",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_five_t_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.09,
+          "input_fingers": 2,
+          "input_length": 1.0,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.09,
+        "input_fingers": 2,
+        "input_length": 1.03,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0
+      },
+      "reference_id": "independent_five_t_dev_08",
+      "contract": {
+        "task_id": "draft_five_t_natural_source",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_five_t_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          }
+        ],
+        "objective": {
+          "id": "five_t_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.09,
+          "input_fingers": 2,
+          "input_length": 1.03,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0
+        },
+        "strict_development_predicate": {
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "mirror_V_open_interval": [
+            0.4,
+            1.6
+          ],
+          "nominal_tracking_abs_V_lt": 0.01,
+          "supply_current_A_open_interval": [
+            2e-05,
+            8e-05
+          ],
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "positive_low_frequency_gain": true,
+          "gain_10Hz_dB_min": 30,
+          "ugb_Hz_min": 1000000.0,
+          "settled_tracking_error_V_lt": 0.01
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    }
+  ],
+  "hidden_configuration_count": 16
+}

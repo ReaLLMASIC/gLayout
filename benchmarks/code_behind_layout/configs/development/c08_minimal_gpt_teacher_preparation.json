@@ -1,0 +1,75 @@
+{
+  "status": "DRAFT_NOT_FROZEN",
+  "role": "train_collection",
+  "collection_id": "c08_minimal_gpt_teacher_v1",
+  "base_collection_manifest": "/srv/code-behind-layout/runtime/train_collections/c08_collection_v1/collection.json",
+  "source_pack": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/source_pack",
+  "trusted_bundle": "/srv/code-behind-layout/runtime/train_collections/c08_collection_v1/trusted",
+  "registry_path": "/srv/code-behind-layout/runtime/train_collections/c08_collection_v1/registry.json",
+  "label_rule_path": "/srv/code-behind-layout/runtime/train_collections/c08_collection_v1/label_rule.json",
+  "initial_states_path": "/srv/code-behind-layout/runtime/collection_preparation/c08_minimal_gpt_teacher_v1_20261019T021018631546Z/initial_states.jsonl",
+  "initial_state_count": 3,
+  "editable_paths": [
+    "textbook_sharing/layout.py"
+  ],
+  "gold_controls": {},
+  "teacher_instruction_version": "minimal_source_edit_v1",
+  "student_preselection": {
+    "student_interface_version": "ordinary_policy_action_v1",
+    "max_new_tokens": 1024,
+    "max_context_tokens": 8192,
+    "stage": "before_physics"
+  },
+  "sampling": {
+    "mode": "train_collection_source_gpt",
+    "backend": "isolated_gpt_cli",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "trials": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "proposal_workers": 2,
+    "seed": null,
+    "seed_control_available": false,
+    "proposal_format": "full_source_teacher",
+    "max_new_tokens": 3072,
+    "max_context_tokens": 8192,
+    "timeout_seconds": 240
+  },
+  "physical": {
+    "workers": 2,
+    "cpus_per_job": 2,
+    "generation_timeout_seconds": 240,
+    "evaluator_timeout_seconds": 720
+  },
+  "budget": {
+    "proposals_per_initial_state": 8,
+    "configurations_per_candidate": 9,
+    "effective_example_pipeline_pilot_target": 1000,
+    "initial_batch_initial_states": 3
+  },
+  "deduplication": {
+    "method": "exact_ast_dump",
+    "include_attributes": false,
+    "numeric_normalization": false
+  },
+  "prospective_change": "Preserve every unaffected line/comment/docstring/import/name/order. Reject oversized canonical ordinary actions before physics, retaining complete raw source and all generation costs. Never repair/shorten a proposal.",
+  "output_budget_scope": "3072 pinned student-tokenizer tokens for complete source JSON + EOS. Distinct student preselection is ordinary ACTION_JSON <=1024 and complete source/contract/action <=8192.",
+  "isolation": {
+    "fresh_ephemeral_session_per_trial": true,
+    "native_tools": false,
+    "no_sampling_seed_exposed": true,
+    "concurrent_slots_global": 2
+  },
+  "source_program_counting": "New teacher contexts do not create independent source programs or lineages. Count useful initial programs and unique terminal ASTs separately from pair counts.",
+  "new_baseline9_per_state_and_new_teacher_proposals_required": true,
+  "old_development_outcomes_admitted": false,
+  "formal_collection_launched": false
+}

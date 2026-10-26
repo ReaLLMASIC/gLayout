@@ -1,0 +1,118 @@
+{
+  "status": "DRAFT_PROSPECTIVE_RULE_COLLECTION_NOT_FROZEN",
+  "role": "train_collection",
+  "circuit_id": "C05",
+  "collection_id": "c05_rules_v1",
+  "capsule_preparation": "/srv/code-behind-layout/runtime/collection_preparation/c05_collection_20261019T015456849898Z/preparation.json",
+  "source_pack": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/source_pack",
+  "trusted_bundle": "/srv/code-behind-layout/runtime/collection_preparation/c05_collection_20261019T015456849898Z/trusted",
+  "initial_states_path": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/initial_states.jsonl",
+  "initial_state_count": 1,
+  "editable_paths": [
+    "textbook_sharing/layout.py"
+  ],
+  "parent_lineage": "textbook_universal_compiler_cropped",
+  "source_revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+  "rule_proposer_path": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/rule_proposer.py",
+  "rule_ids": [
+    "diffusion_plan",
+    "gate_plan",
+    "combined_plan",
+    "reverse_device_order",
+    "gate_order",
+    "reverse_port_track_order",
+    "reverse_devices_combined",
+    "reverse_ports_combined"
+  ],
+  "borrowed_from": "scripts/corpus_yield_pilot.py:variants; same eight development planning rules",
+  "candidates": [
+    {
+      "rule_id": "diffusion_plan",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/diffusion_plan.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -84,7 +84,7 @@\n             plan = SharingPlan.from_json(plans[str(gi)]); src = \"explicit\"\n         else:\n             nm = named_plans(pdk, g)\n-            plan = nm.get(mode) or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n+            plan = nm.get(\"diffusion_only\") or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n         res = build_mos_group(pdk, g, plan=plan, name=f\"grp{gi}\")\n         rows[pol].append(from_group_result(res, f\"grp{gi}\", pol, g[0].b))\n         applied.append({\"group\": gi, \"devices\": [d.logical_id for d in g], \"plan\": res.applied_plan, \"mode_requested\": mode, \"plan_source\": src,\n",
+      "draft_generation_wall_seconds": 0.009358872659504414,
+      "draft_generation_process_cpu_seconds": 0.009349593999999989
+    },
+    {
+      "rule_id": "gate_plan",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/gate_plan.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -84,7 +84,7 @@\n             plan = SharingPlan.from_json(plans[str(gi)]); src = \"explicit\"\n         else:\n             nm = named_plans(pdk, g)\n-            plan = nm.get(mode) or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n+            plan = nm.get(\"gate_only\") or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n         res = build_mos_group(pdk, g, plan=plan, name=f\"grp{gi}\")\n         rows[pol].append(from_group_result(res, f\"grp{gi}\", pol, g[0].b))\n         applied.append({\"group\": gi, \"devices\": [d.logical_id for d in g], \"plan\": res.applied_plan, \"mode_requested\": mode, \"plan_source\": src,\n",
+      "draft_generation_wall_seconds": 0.006915218196809292,
+      "draft_generation_process_cpu_seconds": 0.006916275999999999
+    },
+    {
+      "rule_id": "combined_plan",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/combined_plan.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -84,7 +84,7 @@\n             plan = SharingPlan.from_json(plans[str(gi)]); src = \"explicit\"\n         else:\n             nm = named_plans(pdk, g)\n-            plan = nm.get(mode) or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n+            plan = nm.get(\"combined\") or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n         res = build_mos_group(pdk, g, plan=plan, name=f\"grp{gi}\")\n         rows[pol].append(from_group_result(res, f\"grp{gi}\", pol, g[0].b))\n         applied.append({\"group\": gi, \"devices\": [d.logical_id for d in g], \"plan\": res.applied_plan, \"mode_requested\": mode, \"plan_source\": src,\n",
+      "draft_generation_wall_seconds": 0.005978642031550407,
+      "draft_generation_process_cpu_seconds": 0.005979662999999996
+    },
+    {
+      "rule_id": "reverse_device_order",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/reverse_device_order.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -26,7 +26,7 @@\n         if d.kind in (\"nfet\", \"pfet\"):\n             sz = sizing[d.name]\n             out.append(DeviceSpec(d.name, d.kind, d.nets[0], d.nets[1], d.nets[2], d.nets[3], float(sz[\"w\"]), float(sz[\"l\"]), int(sz.get(\"nf\", 1))))\n-    return out\n+    return list(reversed(out))\n \n \n def sharing_groups(devs: list[DeviceSpec]) -> list[list[DeviceSpec]]:\n",
+      "draft_generation_wall_seconds": 0.0063867708668112755,
+      "draft_generation_process_cpu_seconds": 0.006387592999999997
+    },
+    {
+      "rule_id": "gate_order",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/gate_order.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -26,7 +26,7 @@\n         if d.kind in (\"nfet\", \"pfet\"):\n             sz = sizing[d.name]\n             out.append(DeviceSpec(d.name, d.kind, d.nets[0], d.nets[1], d.nets[2], d.nets[3], float(sz[\"w\"]), float(sz[\"l\"]), int(sz.get(\"nf\", 1))))\n-    return out\n+    return sorted(out, key=lambda d: (d.g, d.d, d.logical_id))\n \n \n def sharing_groups(devs: list[DeviceSpec]) -> list[list[DeviceSpec]]:\n",
+      "draft_generation_wall_seconds": 0.006433086935430765,
+      "draft_generation_process_cpu_seconds": 0.006434009000000004
+    },
+    {
+      "rule_id": "reverse_port_track_order",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/reverse_port_track_order.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -95,6 +95,6 @@\n     if rows[\"p\"]: row_specs.append(RowSpec(rows[\"p\"], \"p\", True, rows[\"p\"][0].body_net))\n     if rows[\"passive\"]: row_specs.append(RowSpec(rows[\"passive\"], \"passive\", True, None, taps=False))\n     top = name or f\"{circuit.circuit_id}_{pdk.name}_{mode}\"\n-    asm = assemble(pdk, row_specs, circuit.ports, name=top)\n+    asm = assemble(pdk, row_specs, list(reversed(circuit.ports)), name=top)\n     return {\"component\": asm[\"component\"], \"name\": top, \"groups\": [[d.logical_id for d in g] for g in groups], \"applied_plans\": applied, \"evidence\": evidence,\n             \"assembly_stats\": asm[\"stats\"], \"expected_fingers\": nf_total, \"trunks\": asm[\"trunks\"]}\n",
+      "draft_generation_wall_seconds": 0.005433342885226011,
+      "draft_generation_process_cpu_seconds": 0.005434557999999992
+    },
+    {
+      "rule_id": "reverse_devices_combined",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/reverse_devices_combined.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -26,7 +26,7 @@\n         if d.kind in (\"nfet\", \"pfet\"):\n             sz = sizing[d.name]\n             out.append(DeviceSpec(d.name, d.kind, d.nets[0], d.nets[1], d.nets[2], d.nets[3], float(sz[\"w\"]), float(sz[\"l\"]), int(sz.get(\"nf\", 1))))\n-    return out\n+    return list(reversed(out))\n \n \n def sharing_groups(devs: list[DeviceSpec]) -> list[list[DeviceSpec]]:\n@@ -84,7 +84,7 @@\n             plan = SharingPlan.from_json(plans[str(gi)]); src = \"explicit\"\n         else:\n             nm = named_plans(pdk, g)\n-            plan = nm.get(mode) or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n+            plan = nm.get(\"combined\") or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n         res = build_mos_group(pdk, g, plan=plan, name=f\"grp{gi}\")\n         rows[pol].append(from_group_result(res, f\"grp{gi}\", pol, g[0].b))\n         applied.append({\"group\": gi, \"devices\": [d.logical_id for d in g], \"plan\": res.applied_plan, \"mode_requested\": mode, \"plan_source\": src,\n",
+      "draft_generation_wall_seconds": 0.005064679775387049,
+      "draft_generation_process_cpu_seconds": 0.005065766999999999
+    },
+    {
+      "rule_id": "reverse_ports_combined",
+      "complete_source_file": "/srv/code-behind-layout/runtime/collection_preparation/c05_rule_collection_20261019T020138561581Z/reverse_ports_combined.py",
+      "candidate_patch": "--- a/textbook_sharing/layout.py\n+++ b/textbook_sharing/layout.py\n@@ -84,7 +84,7 @@\n             plan = SharingPlan.from_json(plans[str(gi)]); src = \"explicit\"\n         else:\n             nm = named_plans(pdk, g)\n-            plan = nm.get(mode) or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n+            plan = nm.get(\"combined\") or nm[\"independent\"]; src = \"named\" if nm.get(mode) else \"named_fallback_independent\"\n         res = build_mos_group(pdk, g, plan=plan, name=f\"grp{gi}\")\n         rows[pol].append(from_group_result(res, f\"grp{gi}\", pol, g[0].b))\n         applied.append({\"group\": gi, \"devices\": [d.logical_id for d in g], \"plan\": res.applied_plan, \"mode_requested\": mode, \"plan_source\": src,\n@@ -95,6 +95,6 @@\n     if rows[\"p\"]: row_specs.append(RowSpec(rows[\"p\"], \"p\", True, rows[\"p\"][0].body_net))\n     if rows[\"passive\"]: row_specs.append(RowSpec(rows[\"passive\"], \"passive\", True, None, taps=False))\n     top = name or f\"{circuit.circuit_id}_{pdk.name}_{mode}\"\n-    asm = assemble(pdk, row_specs, circuit.ports, name=top)\n+    asm = assemble(pdk, row_specs, list(reversed(circuit.ports)), name=top)\n     return {\"component\": asm[\"component\"], \"name\": top, \"groups\": [[d.logical_id for d in g] for g in groups], \"applied_plans\": applied, \"evidence\": evidence,\n             \"assembly_stats\": asm[\"stats\"], \"expected_fingers\": nf_total, \"trunks\": asm[\"trunks\"]}\n",
+      "draft_generation_wall_seconds": 0.005146315786987543,
+      "draft_generation_process_cpu_seconds": 0.005147376999999981
+    }
+  ],
+  "proposed_collection_mode": "train_collection_rules",
+  "sampling": {
+    "backend": "frozen_rule_proposer",
+    "rule_ids": [
+      "diffusion_plan",
+      "gate_plan",
+      "combined_plan",
+      "reverse_device_order",
+      "gate_order",
+      "reverse_port_track_order",
+      "reverse_devices_combined",
+      "reverse_ports_combined"
+    ],
+    "model": null,
+    "seed": null,
+    "model_inferences": 0,
+    "generation_timeout_seconds": 5
+  },
+  "physical": {
+    "workers": 2,
+    "cpus_per_job": 2,
+    "generation_timeout_seconds": 240,
+    "evaluator_timeout_seconds": 720
+  },
+  "new_physical_point_budget": 81,
+  "source_diversity": "Eight programs, one original initial AST and the same one public compiler lineage; no extra lineage from rule count.",
+  "label_scope": "Use new frozen-contract physical runs only, with one fresh nine-point baseline and every candidate at all nine points. Old development outcomes stay excluded.",
+  "student_context": "Teacher source/format is provenance. Student supervision must retain full source/contract/feedback while requesting the frozen unified-diff action format.",
+  "counting": "Report unique useful initial states, unique terminal ASTs, per-method matched examples, anchor versus family winners, opposite non-tie pair preferences, and ties separately.",
+  "no_inverse_fault_injection": true,
+  "formal_collection_started": false,
+  "old_outcomes_relabelled": false
+}

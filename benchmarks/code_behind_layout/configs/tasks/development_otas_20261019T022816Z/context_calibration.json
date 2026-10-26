@@ -1,0 +1,50 @@
+{
+  "scope": "actual_pinned_Qwen_tokenizer_DRAFT_context_preflight_no_inference_no_physics",
+  "tokenizer_revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "full_editable_source_preserved": true,
+  "records": [
+    {
+      "kind": "five_t",
+      "input_tokens_with_complete_source": 4820,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 6181,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    },
+    {
+      "kind": "compact_miller",
+      "input_tokens_with_complete_source": 6149,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 9470,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    },
+    {
+      "kind": "fvf",
+      "input_tokens_with_complete_source": 4367,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 4810,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    },
+    {
+      "kind": "legacy_miller",
+      "input_tokens_with_complete_source": 4094,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 4226,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    }
+  ],
+  "all_initial_contexts_fit": true,
+  "formal_tasks": 0,
+  "new_physical_calls": 0
+}

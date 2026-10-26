@@ -1,0 +1,64 @@
+{
+  "objectives": {
+    "c03_area_min": {
+      "metric": "area",
+      "unit": "um2",
+      "direction": "min",
+      "quality_absolute_tolerance": 1e-08,
+      "quality_relative_tolerance": 1e-06,
+      "quality_minimum_relative_effect": 0.01
+    },
+    "c04_area_min": {
+      "metric": "area",
+      "unit": "um2",
+      "direction": "min",
+      "quality_absolute_tolerance": 1e-08,
+      "quality_relative_tolerance": 1e-06,
+      "quality_minimum_relative_effect": 0.01
+    },
+    "c06_area_min": {
+      "metric": "area",
+      "unit": "um2",
+      "direction": "min",
+      "quality_absolute_tolerance": 1e-08,
+      "quality_relative_tolerance": 1e-06,
+      "quality_minimum_relative_effect": 0.01
+    },
+    "c12_area_min": {
+      "metric": "area",
+      "unit": "um2",
+      "direction": "min",
+      "quality_absolute_tolerance": 1e-08,
+      "quality_relative_tolerance": 1e-06,
+      "quality_minimum_relative_effect": 0.01
+    },
+    "c13_area_min": {
+      "metric": "area",
+      "unit": "um2",
+      "direction": "min",
+      "quality_absolute_tolerance": 1e-08,
+      "quality_relative_tolerance": 1e-06,
+      "quality_minimum_relative_effect": 0.01
+    },
+    "c14_area_min": {
+      "metric": "area",
+      "unit": "um2",
+      "direction": "min",
+      "quality_absolute_tolerance": 1e-08,
+      "quality_relative_tolerance": 1e-06,
+      "quality_minimum_relative_effect": 0.01
+    }
+  },
+  "status": "frozen",
+  "version": "textbook_claude_span_v1_physical_v2_merged_parent_rules_v1",
+  "coverage_absolute_tolerance": 0.0,
+  "family_quality_aggregation": "arithmetic_mean_of_same_unit_per_configuration_worst_corner_objectives",
+  "parent_rule_versions": [
+    "c03_rules_v1_area_v1",
+    "c04_rules_v1_area_v1",
+    "c06_rules_v1_area_v1",
+    "c12_rules_v1_area_v1",
+    "c13_rules_v1_area_v1",
+    "c14_rules_v1_area_v1"
+  ]
+}

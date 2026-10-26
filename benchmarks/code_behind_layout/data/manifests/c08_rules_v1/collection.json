@@ -1,0 +1,57 @@
+{
+  "status": "frozen",
+  "role": "train_collection",
+  "collection_id": "c08_rules_v1",
+  "frozen_at_utc": "2026-10-19T02:07:25.465855+00:00",
+  "registry_path": "/srv/code-behind-layout/runtime/train_collections/c08_rules_v1/registry.json",
+  "label_rule_path": "/srv/code-behind-layout/runtime/train_collections/c08_rules_v1/label_rule.json",
+  "trusted_bundle": "/srv/code-behind-layout/runtime/train_collections/c08_rules_v1/trusted",
+  "source_pack": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/source_pack",
+  "initial_states_path": "/srv/code-behind-layout/runtime/train_collections/c08_rules_v1/initial_states.jsonl",
+  "output_root": "/srv/code-behind-layout/runs/train_collection/c08_rules_v1",
+  "evidence_root": "/srv/code-behind-layout/runs/train_collection/c08_rules_v1",
+  "source_smoke_evidence": "/srv/code-behind-layout/runs/development/additional_capsule_smoke/20261019T015613860722Z/physical/executor_20261019T015613863092Z_efa85975",
+  "main_benchmark_protocol_status": "draft",
+  "pdk_revision": "0fe599b2afb6708d281543108caf8310912f54af",
+  "container_image": "hpretl/iic-osic-tools@sha256:7ef29be71a33b5b8994cde7f7476dfefd1af94f2922354242d1579346feec462",
+  "magic_runtime": "/srv/code-behind-layout/runtime/magic-8.3.685",
+  "sampling": {
+    "mode": "train_collection_rules",
+    "backend": "frozen_rule_proposer",
+    "rule_ids": [
+      "diffusion_plan",
+      "gate_plan",
+      "combined_plan",
+      "reverse_device_order",
+      "gate_order",
+      "reverse_port_track_order",
+      "reverse_devices_combined",
+      "reverse_ports_combined"
+    ],
+    "rule_proposer_path": "/srv/code-behind-layout/runtime/train_collections/c08_rules_v1/rule_proposer.py",
+    "model": null,
+    "seed": null,
+    "max_new_tokens": 0,
+    "max_context_tokens": 8192,
+    "timeout_seconds": 5
+  },
+  "physical": {
+    "workers": 1,
+    "cpus_per_job": 2,
+    "generation_timeout_seconds": 240,
+    "evaluator_timeout_seconds": 720
+  },
+  "budget": {
+    "proposals_per_initial_state": 8,
+    "configurations_per_candidate": 9,
+    "effective_example_pipeline_pilot_target": 1000,
+    "initial_batch_initial_states": 1
+  },
+  "failure_policy": "Keep all attempts, duplicate/noop/invalid patches, candidate failures, infrastructure failures and measured costs; unknowns never become physical negatives.",
+  "admission": "Fresh nine-point baseline per state and fresh proposals under this frozen contract. Old development outcomes are excluded. One compiler lineage across all train topologies.",
+  "context": "Full editable modules, compact complete circuit/domain contract and visible feedback; reject oversize without truncating source or contract.",
+  "source_scope": "Only layout.py is editable in these states; the original complete enumeration module remains byte-exact and frozen for each candidate.",
+  "deduplication_scope": "Within state; separately report unique final AST programs across states, circuits and proposal sources.",
+  "teacher_kind": "deterministic_rules",
+  "old_outcomes_relabelled": false
+}

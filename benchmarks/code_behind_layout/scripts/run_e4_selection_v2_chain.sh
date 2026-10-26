@@ -1,0 +1,24 @@
+#!/bin/bash
+# Server-side: re-run all twelve E4 checkpoint selections under validation plan v2 (amendment A9) into a fresh
+# validation root, T1 first. The T1 selections under plan v1 fixed the starting adapters of the trained T3/T4 runs,
+# so the chain stops if any T1 v2 selection differs from its v1 selection.
+# Usage: run_e4_selection_v2_chain.sh <data_dir> <frozen_plan_v2.json> <validation_root_v2>
+set -u
+cd "$(dirname "$0")/.."
+DATA="$1"; PLAN="$2"; VROOT="$3"; FREEZE=$(basename "$DATA")
+log() { echo "$(date -u +%FT%TZ) $*"; }
+sel() { python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(d.get('status'), d.get('selected_checkpoint',''))" "$1" 2>/dev/null; }
+wait_gpu() { for i in $(seq 1 60); do FREE=$(nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits | head -1); [ "$FREE" -ge 66560 ] && return 0; sleep 10; done; log "GPU not free ($FREE MiB)"; return 1; }
+for m in T1 T2 T3 T4; do for s in 41 73 109; do
+  log "$m seed $s selection (plan v2)"; wait_gpu || exit 1
+  bash scripts/run_e4_validation_selection.sh $DATA $PLAN $m $s $VROOT >> logs/e4_selection_v2_${FREEZE}_${m}_seed$s.log 2>&1
+  read st ck <<< "$(sel $VROOT/$FREEZE/$m/seed-$s/selection.json)"
+  log "$m seed $s status '$st' selected ${ck##*/}"
+  [ "$st" = "COMPLETED_E4_VALIDATION_CHECKPOINT_SELECTION" ] || { log "chain stops"; exit 1; }
+  if [ "$m" = "T1" ]; then
+    read st1 ck1 <<< "$(sel runs/e4_validation/$FREEZE/T1/seed-$s/selection.json)"
+    [ "$ck1" = "$ck" ] || { log "T1 seed $s v2 selection ${ck##*/} differs from v1 ${ck1##*/}; DPO starting adapter would not match; chain stops"; exit 1; }
+    log "T1 seed $s matches the v1 selection used to start DPO"
+  fi
+done; done
+log "v2 selection chain finished: 12 selections complete"

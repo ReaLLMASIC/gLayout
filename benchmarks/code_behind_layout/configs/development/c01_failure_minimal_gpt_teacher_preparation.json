@@ -1,0 +1,107 @@
+{
+  "status": "DRAFT_NOT_FROZEN",
+  "role": "train_collection",
+  "collection_id": "c01_failure_minimal_gpt_teacher_v1",
+  "base_collection_manifest": "/srv/code-behind-layout/runtime/train_collections/c01_gpt_teacher_v1/collection.json",
+  "source_pack": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/source_pack",
+  "trusted_bundle": "/srv/code-behind-layout/runtime/train_collections/c01_collection_v1/trusted",
+  "registry_path": "/srv/code-behind-layout/runtime/train_collections/c01_gpt_teacher_v1/registry.json",
+  "label_rule_path": "/srv/code-behind-layout/runtime/train_collections/c01_gpt_teacher_v1/label_rule.json",
+  "initial_states_path": "/srv/code-behind-layout/runtime/collection_preparation/c01_failure_minimal_gpt_teacher_v1_20261019T021023837897Z/initial_states.jsonl",
+  "initial_state_count": 1,
+  "editable_paths": [
+    "textbook_sharing/layout.py"
+  ],
+  "gold_controls": {
+    "train_c01_anchor": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544091046Z_6c219e3a"
+    },
+    "train_c01_dev_nf1_l030": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544092418Z_161ea9e6"
+    },
+    "train_c01_dev_nf2_l060": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544093787Z_6705eaed"
+    },
+    "train_c01_dev_nf3_l045": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012544093569Z_aaa07f75"
+    },
+    "train_c01_dev_nf6_l060": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653089230Z_2548a079"
+    },
+    "train_c01_dev_nf8_l090": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653288313Z_be3e9898"
+    },
+    "train_c01_dev_w075_l045": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653860895Z_024176ee"
+    },
+    "train_c01_dev_w100_l060": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012653893490Z_b05add66"
+    },
+    "train_c01_dev_l120": {
+      "run_directory": "/srv/code-behind-layout/runs/train_collection/c01_collection_v1/physical/executor_20261019T012757942044Z_ed71443f"
+    }
+  },
+  "teacher_instruction_version": "minimal_source_edit_v1",
+  "student_preselection": {
+    "student_interface_version": "ordinary_policy_action_v1",
+    "max_new_tokens": 1024,
+    "max_context_tokens": 8192,
+    "stage": "before_physics"
+  },
+  "sampling": {
+    "mode": "train_collection_source_gpt",
+    "backend": "isolated_gpt_cli",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "trials": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "proposal_workers": 2,
+    "seed": null,
+    "seed_control_available": false,
+    "proposal_format": "full_source_teacher",
+    "max_new_tokens": 3072,
+    "max_context_tokens": 8192,
+    "timeout_seconds": 240
+  },
+  "physical": {
+    "workers": 2,
+    "cpus_per_job": 2,
+    "generation_timeout_seconds": 240,
+    "evaluator_timeout_seconds": 720
+  },
+  "budget": {
+    "proposals_per_initial_state": 8,
+    "configurations_per_candidate": 9,
+    "effective_example_pipeline_pilot_target": 1000,
+    "initial_batch_initial_states": 1
+  },
+  "deduplication": {
+    "method": "exact_ast_dump",
+    "include_attributes": false,
+    "numeric_normalization": false,
+    "preserve_literals_identifiers_docstrings": true,
+    "unparseable_source": "Exact text identity only; real executor and gold required for any negative",
+    "duplicate_attempt_status": "semantic_duplicate_before_physics",
+    "all_generation_costs_retained": true
+  },
+  "prospective_change": "Preserve every unaffected line/comment/docstring/import/name/order. Reject oversized canonical ordinary actions before physics, retaining complete raw source and all generation costs. Never repair/shorten a proposal.",
+  "output_budget_scope": "3072 pinned student-tokenizer tokens for complete source JSON + EOS. Distinct student preselection is ordinary ACTION_JSON <=1024 and complete source/contract/action <=8192.",
+  "isolation": {
+    "fresh_ephemeral_session_per_trial": true,
+    "native_tools": false,
+    "no_sampling_seed_exposed": true,
+    "concurrent_slots_global": 2
+  },
+  "source_program_counting": "New teacher contexts do not create independent source programs or lineages. Count useful initial programs and unique terminal ASTs separately from pair counts.",
+  "new_baseline9_per_state_and_new_teacher_proposals_required": true,
+  "old_development_outcomes_admitted": false,
+  "formal_collection_launched": false
+}

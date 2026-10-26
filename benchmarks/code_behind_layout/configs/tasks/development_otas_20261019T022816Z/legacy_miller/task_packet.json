@@ -1,0 +1,498 @@
+{
+  "task_id": "draft_legacy_miller_natural_source",
+  "goal": "Improve the declared objective by one shared actual source edit across the visible domain, preserving immutable devices, intended connectivity, all constraints and exact fullRC analysis. Naturally infeasible points remain failures; an objective is ranked only after feasibility.",
+  "contract": {
+    "task_id": "draft_legacy_miller_natural_source",
+    "configuration_id": "anchor",
+    "reference_id": "independent_legacy_miller_anchor",
+    "required_corners": [
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "specifications": [
+      {
+        "name": "gain",
+        "unit": "dB",
+        "min": 30
+      },
+      {
+        "name": "phase_margin",
+        "unit": "deg",
+        "min": 60.0,
+        "max": 180.0
+      },
+      {
+        "name": "ugb",
+        "unit": "Hz",
+        "min": 1000000.0
+      },
+      {
+        "name": "nominal_tracking_error",
+        "unit": "V",
+        "max": 0.01
+      },
+      {
+        "name": "settled_tracking_error",
+        "unit": "V",
+        "max": 0.01
+      },
+      {
+        "name": "power",
+        "unit": "W",
+        "max": 0.001
+      }
+    ],
+    "objective": {
+      "id": "legacy_miller_ugb_max",
+      "metric": "ugb",
+      "unit": "Hz",
+      "direction": "max",
+      "corner_aggregation": "worst"
+    },
+    "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+    "immutable_parameters": {
+      "half_diffpair_params": [
+        6.0,
+        1.0,
+        4
+      ],
+      "mim_cap_size": [
+        30,
+        30
+      ],
+      "rmult": 2
+    },
+    "strict_development_predicate": {
+      "gain_10Hz_dB_min": 30,
+      "phase_margin_deg_closed_interval": [
+        60,
+        180
+      ],
+      "ugb_Hz_min": 1000000.0,
+      "nominal_tracking_abs_V_lt": 0.01,
+      "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+      "positive_low_frequency_gain": true,
+      "power_W_max": 0.001
+    },
+    "numeric_options": {
+      "reltol": 1e-06,
+      "abstol": 1e-14,
+      "vntol": 1e-08,
+      "chgtol": 1e-16
+    }
+  },
+  "allowed_paths": [
+    "legacy_miller_layout_face.py"
+  ],
+  "visible_sources": {
+    "legacy_miller_layout_face.py": "Use read_source to obtain the complete editable semantic module"
+  },
+  "documents": {
+    "PDK": {
+      "layers": {
+        "capmet": "capm",
+        "met5": "met4",
+        "via4": "via3",
+        "met4": "met3",
+        "via3": "via2",
+        "met3": "met2",
+        "via2": "via",
+        "met2": "met1",
+        "via1": "mcon",
+        "met1": "li1",
+        "mcon": "licon1",
+        "poly": "poly",
+        "active_diff": "diff",
+        "active_tap": "diff",
+        "n+s/d": "nsdm",
+        "p+s/d": "psdm",
+        "nwell": "nwell",
+        "pwell": [
+          64,
+          44
+        ],
+        "dnwell": "dnwell",
+        "met5_pin": "met4_pin",
+        "met4_pin": "met3_pin",
+        "met3_pin": "met2_pin",
+        "met2_pin": "met1_pin",
+        "met1_pin": "li1_pin",
+        "poly_pin": "poly_pin",
+        "active_diff_pin": "diff_pin",
+        "met5_label": "met4_label",
+        "met4_label": "met3_label",
+        "met3_label": "met2_label",
+        "met2_label": "met1_label",
+        "met1_label": "li1_label",
+        "poly_label": "poly_label",
+        "active_diff_label": "diff_label"
+      },
+      "rules": {
+        "dnwell": {
+          "dnwell": {
+            "min_width": 3.0,
+            "min_separation": 6.3
+          },
+          "pwell": {
+            "min_enclosure": 0.0
+          },
+          "nwell": {
+            "min_separation": 4.5
+          },
+          "active_tap": {
+            "min_separation": 0.34
+          }
+        },
+        "pwell": {
+          "active_tap": {
+            "min_enclosure": 0.18
+          }
+        },
+        "nwell": {
+          "nwell": {
+            "min_width": 0.84,
+            "min_separation": 1.27
+          },
+          "active_tap": {
+            "min_enclosure": 0.18
+          }
+        },
+        "p+s/d": {
+          "p+s/d": {
+            "min_width": 0.38,
+            "min_separation": 0.38
+          },
+          "active_diff": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          },
+          "active_tap": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          }
+        },
+        "n+s/d": {
+          "n+s/d": {
+            "min_width": 0.38,
+            "min_separation": 0.38
+          },
+          "active_diff": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          },
+          "active_tap": {
+            "min_enclosure": 0.13,
+            "min_separation": 0.13
+          }
+        },
+        "active_diff": {
+          "active_diff": {
+            "min_width": 0.15,
+            "min_separation": 0.27
+          },
+          "active_tap": {
+            "min_separation": 0.27
+          },
+          "poly": {
+            "overhang": 0.25
+          },
+          "mcon": {
+            "min_enclosure": 0.06
+          }
+        },
+        "active_tap": {
+          "active_tap": {
+            "min_width": 0.15,
+            "min_separation": 0.27
+          },
+          "mcon": {
+            "min_enclosure": 0.12
+          }
+        },
+        "poly": {
+          "poly": {
+            "min_width": 0.15,
+            "min_separation": 0.21,
+            "extension": 0.13
+          },
+          "mcon": {
+            "min_enclosure": 0.05,
+            "min_separation": 0.06
+          }
+        },
+        "mcon": {
+          "poly": {
+            "min_enclosure": 0.08
+          },
+          "mcon": {
+            "min_width": 0.17,
+            "min_separation": 0.17,
+            "width": 0.17
+          },
+          "met1": {
+            "min_enclosure": 0.08
+          }
+        },
+        "met1": {
+          "met1": {
+            "min_width": 0.17,
+            "min_separation": 0.17
+          },
+          "via1": {
+            "min_enclosure": 0.0
+          }
+        },
+        "via1": {
+          "via1": {
+            "min_width": 0.17,
+            "min_separation": 0.19,
+            "width": 0.17
+          },
+          "met2": {
+            "min_enclosure": 0.06
+          }
+        },
+        "met2": {
+          "met2": {
+            "min_width": 0.14,
+            "min_separation": 0.14
+          },
+          "via2": {
+            "min_enclosure": 0.14
+          }
+        },
+        "via2": {
+          "via2": {
+            "min_width": 0.21,
+            "min_separation": 0.17,
+            "width": 0.15
+          },
+          "met3": {
+            "min_enclosure": 0.09
+          }
+        },
+        "met3": {
+          "met3": {
+            "min_width": 0.14,
+            "min_separation": 0.28
+          },
+          "via3": {
+            "min_enclosure": 0.19
+          }
+        },
+        "via3": {
+          "via3": {
+            "min_width": 0.2,
+            "min_separation": 0.2,
+            "width": 0.2
+          },
+          "met4": {
+            "min_enclosure": 0.65
+          }
+        },
+        "met4": {
+          "met4": {
+            "min_width": 0.3,
+            "min_separation": 0.4
+          },
+          "via4": {
+            "min_enclosure": 0.09
+          },
+          "capmet": {
+            "min_enclosure": 0.14,
+            "min_separation": 1.34
+          }
+        },
+        "via4": {
+          "via4": {
+            "width": 0.2,
+            "min_separation": 0.35
+          },
+          "met5": {
+            "min_enclosure": 0.07
+          }
+        },
+        "met5": {
+          "met5": {
+            "min_width": 0.3,
+            "min_separation": 0.4
+          }
+        },
+        "capmet": {
+          "capmet": {
+            "capmettop": [
+              71,
+              20
+            ],
+            "capmetbottom": [
+              70,
+              20
+            ],
+            "min_separation": 1.2
+          }
+        }
+      }
+    },
+    "configuration_defaults": {
+      "half_diffpair_params": [
+        6.0,
+        1.0,
+        4
+      ],
+      "mim_cap_size": [
+        30,
+        30
+      ],
+      "rmult": 2
+    },
+    "configurations": [
+      {
+        "configuration_id": "anchor",
+        "reference_id": "independent_legacy_miller_anchor",
+        "parameter_overrides": {}
+      },
+      {
+        "configuration_id": "dev_01",
+        "reference_id": "independent_legacy_miller_dev_01",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            5.82,
+            0.97,
+            4
+          ]
+        }
+      },
+      {
+        "configuration_id": "dev_02",
+        "reference_id": "independent_legacy_miller_dev_02",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            5.82,
+            1.0,
+            4
+          ]
+        }
+      },
+      {
+        "configuration_id": "dev_03",
+        "reference_id": "independent_legacy_miller_dev_03",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            5.82,
+            1.03,
+            4
+          ]
+        }
+      },
+      {
+        "configuration_id": "dev_04",
+        "reference_id": "independent_legacy_miller_dev_04",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            6.0,
+            0.97,
+            4
+          ]
+        }
+      },
+      {
+        "configuration_id": "dev_05",
+        "reference_id": "independent_legacy_miller_dev_05",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            6.0,
+            1.03,
+            4
+          ]
+        }
+      },
+      {
+        "configuration_id": "dev_06",
+        "reference_id": "independent_legacy_miller_dev_06",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            6.18,
+            0.97,
+            4
+          ]
+        }
+      },
+      {
+        "configuration_id": "dev_07",
+        "reference_id": "independent_legacy_miller_dev_07",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            6.18,
+            1.0,
+            4
+          ]
+        }
+      },
+      {
+        "configuration_id": "dev_08",
+        "reference_id": "independent_legacy_miller_dev_08",
+        "parameter_overrides": {
+          "half_diffpair_params": [
+            6.18,
+            1.03,
+            4
+          ]
+        }
+      }
+    ],
+    "configuration_reconstruction": "Each visible configuration is exactly configuration_defaults updated by its complete parameter_overrides. No sizing value is omitted or inferred from hidden data.",
+    "bench": {
+      "supply_V": 1.8,
+      "load_F": 5e-13,
+      "common_mode_V": 0.9,
+      "temperature_C": 27,
+      "analysis_coverage": {
+        "OP_rows": 1,
+        "AC_rows": 241,
+        "AC_Hz": [
+          10,
+          1000000000.0
+        ],
+        "transient_s": [
+          0,
+          4e-06
+        ],
+        "DC_points": 7,
+        "DC_V": [
+          0.6,
+          1.2
+        ]
+      },
+      "bias_currents_A": [
+        1e-05,
+        1e-05
+      ]
+    },
+    "API": {
+      "module": "glayout.cells.composite.opamp.opamp_twostage",
+      "editable_function": "__add_mimcap_arr",
+      "source_scope": "complete original semantic function plus complete import declarations",
+      "helpers": "All retained imported primitive/router and own-circuit helpers are frozen APIs. The complete actual assembly/helper body is editable; this is not an immutable generator behind an editable sizing wrapper."
+    },
+    "natural_shortfall": "Current repaired Miller source at original.5pF has post-RC PM26..29deg against fixed60deg. This is a natural performance shortfall. No intrinsic-versus-layout repairability claim is made; the separate15pF load hypothesis does not change this task."
+  },
+  "visible_configurations": [
+    "anchor",
+    "dev_01",
+    "dev_02",
+    "dev_03",
+    "dev_04",
+    "dev_05",
+    "dev_06",
+    "dev_07",
+    "dev_08"
+  ],
+  "budget": {
+    "decisions": 10,
+    "physical_evaluations": 9,
+    "context_tokens": 8192,
+    "reserved_output_tokens": 1024,
+    "status": "DRAFT_CALIBRATION_PENDING"
+  }
+}

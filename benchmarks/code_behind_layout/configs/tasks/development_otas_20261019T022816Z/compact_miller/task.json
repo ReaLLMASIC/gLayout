@@ -1,0 +1,1219 @@
+{
+  "status": "DRAFT_REAL_OTA_NATURAL_INITIAL_STATE",
+  "task_id": "draft_compact_miller_natural_source",
+  "initial_state_id": "compact_miller__natural_current_source",
+  "parent_lineage": "research_compact_miller",
+  "origin": "natural",
+  "topology_family": "conventional_two_stage_Miller_OTA",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/compact_miller/source_pack",
+  "editable_paths": [
+    "src/generators/compact_miller.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "source_snapshot": {
+    "src/generators/compact_miller.py": "\"\"\"Independent block placement and local interconnect for a two-stage OTA.\n\nThis assembly does not invoke the row-OTA implementation or a netlist compiler.\nThe first-stage mirror and gain node use separate local vertical spines; the\nsecond-stage output reaches the MIM bottom plate and gain node its top. Inputs,\nbias references and power rails have explicit topology-specific paths.\n\"\"\"\nimport json\nfrom pathlib import Path\nimport gdstk\nfrom gdsfactory.component import Component\nfrom glayout import sky130\nfrom glayout.primitives.fet import nmos, pmos\nfrom glayout.primitives.mimcap import mimcap\nfrom glayout.primitives.via_gen import via_stack\nfrom src.generators.compact_miller_reference import DEFAULT, PORTS\n\n\ndef build(output, config=None):\n    sizes = {**DEFAULT, **(config or {})}\n    sky130.activate()\n    top = Component(\"compact_miller_ota\")\n    routes, placement = [], {}\n    snap = lambda value: round(round(float(value) / .005) * .005, 3)\n    remove = [value for key, value in sky130.glayers.items() if key.endswith((\"_label\", \"_pin\"))] + [(64, 44)]\n\n    def segment(layer, first, last, width=.6, net=None):\n        x0, y0 = map(snap, first); x1, y1 = map(snap, last)\n        if x0 != x1 and y0 != y1:\n            raise ValueError(\"Explicit Miller route must be Manhattan\")\n        top.add_polygon([(min(x0,x1)-width/2,min(y0,y1)-width/2),\n                         (max(x0,x1)+width/2,min(y0,y1)-width/2),\n                         (max(x0,x1)+width/2,max(y0,y1)+width/2),\n                         (min(x0,x1)-width/2,max(y0,y1)+width/2)], layer=sky130.get_glayer(layer))\n        if net:\n            routes.append({\"net\":net,\"layer\":layer,\"first_um\":[x0,y0],\"last_um\":[x1,y1],\"width_um\":width})\n\n    def via(lower, upper, point):\n        instance = top << via_stack(sky130, lower, upper, fullbottom=True, fulltop=True)\n        instance.move(tuple(map(snap, point)))\n\n    def transistor(name, kind, category, center):\n        kwargs = {\"width\":sizes[category+\"_width\"], \"length\":sizes[category+\"_length\"],\n                  \"fingers\":sizes[category+\"_fingers\"],\"with_dummy\":False,\"with_tie\":True}\n        cell = (nmos(sky130,with_dnwell=False,**kwargs) if kind==\"n\" else pmos(sky130,dnwell=False,**kwargs)).copy()\n        reference = top << cell.remove_layers(remove, include_labels=True)\n        reference.move(origin=reference.center,destination=center)\n        placement[name] = {\"kind\":kind,\"category\":category,\"center_um\":list(center),\"bbox_um\":[list(p) for p in reference.bbox]}\n        return reference\n\n    # Independent stage placement: diode references left, differential first\n    # stage in the middle, vertically stacked common-source output stage right.\n    cells = {\n        \"NREF\":transistor(\"NREF\",\"n\",\"tail\",(0,-15)),\n        \"NTAIL\":transistor(\"NTAIL\",\"n\",\"tail\",(20,-15)),\n        \"NLEFT\":transistor(\"NLEFT\",\"n\",\"input\",(40,0)),\n        \"NRIGHT\":transistor(\"NRIGHT\",\"n\",\"input\",(64,0)),\n        \"NSECOND\":transistor(\"NSECOND\",\"n\",\"second_n\",(95,0)),\n        \"PREF\":transistor(\"PREF\",\"p\",\"p_ref\",(0,20)),\n        \"PLEFT\":transistor(\"PLEFT\",\"p\",\"load\",(38,20)),\n        \"PRIGHT\":transistor(\"PRIGHT\",\"p\",\"load\",(62,20)),\n        \"PSECOND\":transistor(\"PSECOND\",\"p\",\"second_p\",(100,20))}\n    access = {}\n    ports = {\"D\":\"multiplier_0_drain_W\",\"G\":\"multiplier_0_gate_W\",\n             \"S\":\"multiplier_0_source_E\",\"B\":\"tie_S_top_met_S\"}\n    for name, reference in cells.items():\n        access[name] = {}\n        for terminal, port_name in ports.items():\n            port = reference.ports[port_name]\n            x,y = map(snap,port.center)\n            # Sources leave east; drains/gates/body ties leave west. This gives\n            # the complete via landing room without crossing the source bar or\n            # taking an LI path through the outer substrate contact ring.\n            endpoint_x = snap(reference.xmax+3) if terminal==\"S\" else snap(reference.xmin-{\"D\":2,\"G\":4,\"B\":6}[terminal])\n            # These two actual body risers otherwise leave only 0.11/0.06 um\n            # to the neighbouring source/gain-node via landings (met2.2).\n            if terminal == \"B\" and name in {\"NTAIL\", \"NRIGHT\"}:\n                endpoint_x = snap(endpoint_x-2)\n            segment(sky130.layer_to_glayer(port.layer),(x,y),(endpoint_x,y),width=.2)\n            via(sky130.layer_to_glayer(port.layer),\"met3\",(endpoint_x,y))\n            access[name][terminal]=(endpoint_x,y)\n\n    def point(name, terminal):\n        return access[name][terminal]\n\n    def rail(net, endpoints, y, left=None, right=None):\n        xmin=min(p[0] for p in endpoints)-2 if left is None else left\n        xmax=max(p[0] for p in endpoints)+2 if right is None else right\n        segment(\"met4\",(xmin,y),(xmax,y),width=.8,net=net)\n        for endpoint in endpoints:\n            segment(\"met3\",endpoint,(endpoint[0],y),net=net)\n            via(\"met3\",\"met4\",(endpoint[0],y))\n        return xmin,xmax,y\n\n    def spine(net, endpoints, x, lower=None, upper=None):\n        low=min(p[1] for p in endpoints) if lower is None else lower\n        high=max(p[1] for p in endpoints) if upper is None else upper\n        segment(\"met3\",(x,low),(x,high),net=net)\n        for endpoint in endpoints:\n            via(\"met3\",\"met4\",endpoint)\n            segment(\"met4\",endpoint,(x,endpoint[1]),width=.8,net=net)\n            via(\"met3\",\"met4\",(x,endpoint[1]))\n\n    pins = {}\n    # Global supply rails are independent of the gain/mirror interconnects.\n    pins[\"VDD\"] = rail(\"VDD\",[point(name,terminal) for name in [\"PREF\",\"PLEFT\",\"PRIGHT\",\"PSECOND\"] for terminal in [\"S\",\"B\"]],38,left=-16)\n    ground_points=[point(name,\"B\") for name in [\"NREF\",\"NTAIL\",\"NLEFT\",\"NRIGHT\",\"NSECOND\"]]\n    ground_points += [point(name,\"S\") for name in [\"NREF\",\"NTAIL\",\"NSECOND\"]]\n    pins[\"GND\"] = rail(\"GND\",ground_points,-34,left=-16)\n\n    # The shared source of the input pair joins the tail drain below the pair.\n    rail(\"tail\",[point(\"NLEFT\",\"S\"),point(\"NRIGHT\",\"S\"),point(\"NTAIL\",\"D\")],-8)\n\n    # First-stage mirror: local vertical spine plus horizontal diode/gate links.\n    mirror_x = point(\"PLEFT\",\"D\")[0]\n    spine(\"mirror\",[point(\"NLEFT\",\"D\"),point(\"PLEFT\",\"D\"),point(\"PLEFT\",\"G\"),point(\"PRIGHT\",\"G\")],mirror_x)\n\n    # High-impedance gain node has its own spine, directly drives the output\n    # NMOS gate, and continues locally to the MIM top plate below.\n    stage1_x = point(\"PRIGHT\",\"D\")[0]\n    stage1_endpoints=[point(\"NRIGHT\",\"D\"),point(\"PRIGHT\",\"D\"),point(\"NSECOND\",\"G\")]\n    spine(\"stage1\",stage1_endpoints,stage1_x,lower=min(p[1] for p in stage1_endpoints),upper=max(p[1] for p in stage1_endpoints))\n\n    # Explicit independent diode-reference networks and their bias feeds.\n    pins[\"IBIASN\"] = rail(\"IBIASN\",[point(\"NREF\",\"D\"),point(\"NREF\",\"G\"),point(\"NTAIL\",\"G\")],-26,left=-16)\n    pins[\"IBIASP\"] = rail(\"IBIASP\",[point(\"PREF\",\"D\"),point(\"PREF\",\"G\"),point(\"PSECOND\",\"G\")],30,left=-16)\n    pins[\"VP\"] = rail(\"VP\",[point(\"NRIGHT\",\"G\")],-18,left=-16)\n    pins[\"VN\"] = rail(\"VN\",[point(\"NLEFT\",\"G\")],-15,left=-16)\n\n    cap = top << mimcap(sky130,size=(sizes[\"cap_size\"],sizes[\"cap_size\"])).copy().remove_layers(remove,include_labels=True)\n    cap.move(origin=cap.center,destination=(130,10))\n    bottom=tuple(map(snap,cap.ports[\"bottom_met_W\"].center))\n    cap_top=tuple(map(snap,cap.ports[\"top_met_W\"].center))\n    # The independent gold's model pin 1 is stage1. Magic extracts the top\n    # plate as pin 1, so preserve that intended orientation in the geometry.\n    via(\"met3\",\"met5\",(stage1_x,cap_top[1]))\n    segment(\"met5\",(stage1_x,cap_top[1]),cap_top,width=.8,net=\"stage1\")\n\n    # Output joins the bottom M3 plate directly. Its external pin rail stays\n    # below the plate, with a separate M2 spine joining the output devices.\n    output_points=[point(\"NSECOND\",\"D\"),point(\"PSECOND\",\"D\")]\n    output_x=max(p[0] for p in output_points)+2\n    spine(\"VOUT\",output_points,output_x,lower=-9)\n    landing=(snap(cap.xmax+4),bottom[1])\n    via(\"met3\",\"met4\",(output_x,bottom[1]))\n    segment(\"met4\",(output_x,bottom[1]),bottom,width=.8,net=\"VOUT\")\n    segment(\"met4\",(output_x,-9),(landing[0],-9),width=.8,net=\"VOUT\")\n    via(\"met3\",\"met4\",(output_x,-9))\n    pins[\"VOUT\"]=(output_x,landing[0],-9)\n\n    for net in PORTS:\n        left,right,y=pins[net]\n        x=snap(left+1 if net!=\"VOUT\" else right-1)\n        top.add_polygon([(x-.2,y-.2),(x+.2,y-.2),(x+.2,y+.2),(x-.2,y+.2)],layer=sky130.get_glayer(\"met4_pin\"))\n        top.add_label(net,position=(x,y),layer=sky130.get_glayer(\"met4_label\"))\n    output=Path(output);output.mkdir(parents=True,exist_ok=True)\n    gds=output/\"compact_miller_ota.gds\"\n    top.write_gds(gds)\n    actual,=gdstk.read_gds(gds).top_level();actual.flatten();actual.name=\"compact_miller_ota\"\n    library=gdstk.Library();library.add(actual);library.write_gds(gds)\n    (output/\"layout_intent.json\").write_text(json.dumps({\"generator\":\"independent_block_Miller_OTA_assembly\",\n        \"sizing\":sizes,\"placement\":placement,\"terminal_access\":access,\"critical_interconnects\":routes,\n        \"capacitor\":{\"bottom_output\":bottom,\"top_stage1\":cap_top,\"output_pin_extent\":landing},\n        \"bbox_um\":[list(p) for p in actual.bounding_box()],\n        \"source_dependencies\":[\"glayout.primitives.fet.nmos\",\"glayout.primitives.fet.pmos\",\n            \"glayout.primitives.mimcap.mimcap\",\"glayout.primitives.via_gen.via_stack\",\"gdsfactory.component.Component\",\"gdstk\"],\n        \"existing_OTA_or_benchmark_compiler_called\":False,\"formal_lineage_assignment\":None},indent=2)+\"\\n\")\n    return gds\n"
+  },
+  "source_face": {
+    "scope": "complete unchanged current module",
+    "origin": "/srv/code-behind-layout/src/generators/compact_miller.py",
+    "algorithm_preserved_verbatim": true
+  },
+  "ports": [
+    "VDD",
+    "GND",
+    "IBIASN",
+    "IBIASP",
+    "VP",
+    "VN",
+    "VOUT"
+  ],
+  "cell_name": "compact_miller_ota",
+  "bench": {
+    "original_application": {
+      "supply_V": 1.8,
+      "load_F": 2e-12,
+      "common_mode_V": 1.05,
+      "temperature_C": 27,
+      "corners": [
+        "tt",
+        "ss",
+        "ff"
+      ],
+      "bench_source_unchanged": "testbench_snapshot.py",
+      "numerics": {
+        "reltol": 1e-06,
+        "abstol": 1e-14,
+        "vntol": 1e-08,
+        "chgtol": 1e-16
+      },
+      "analysis_coverage": {
+        "OP_rows": 1,
+        "AC_rows": 401,
+        "AC_Hz": [
+          10,
+          1000000000.0
+        ],
+        "transient_s": [
+          0,
+          4e-06
+        ],
+        "DC_points": 5,
+        "DC_V": [
+          0.95,
+          1.15
+        ]
+      },
+      "existing_development_feasibility": {
+        "gain_10Hz_dB_min": 55,
+        "phase_margin_deg_closed_interval": [
+          60,
+          180
+        ],
+        "ugb_Hz_min": 1000000.0,
+        "nominal_tracking_abs_V_lt": 0.005,
+        "settled_tracking_error_V_lt": 0.005,
+        "tail_V_open_interval": [
+          0.15,
+          0.8
+        ],
+        "stage1_V_open_interval": [
+          0.3,
+          1.2
+        ],
+        "supply_current_A_open_interval": [
+          5e-05,
+          0.00016
+        ]
+      },
+      "DC_sweep_interpretation": "The complete broad tracking sweep is retained; no extra output-swing or maximum-DC-error constraint is added.",
+      "n_reference_current_A": 2e-05,
+      "p_reference_current_A": 1e-05
+    },
+    "body_reuse": "exact AST function source segment",
+    "snapshot": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/compact_miller/trusted_bench/original_retained_bench.py",
+    "callable_source": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/compact_miller/trusted_bench/analysis_function.py",
+    "SPICE_stimuli_numeric_formulas_and_completion_source_unchanged": true,
+    "transport": {
+      "adapted": false,
+      "SPICE_and_integrity_source_identical": true
+    },
+    "no_load15_substitution": true
+  },
+  "natural_shortfall": "Unmodified research compactMiller source with per-configuration cap30 at anchor. Default2pF application is feasible. Minimize area while preserving performance; improvement witness pending.",
+  "source_dependency_group": "research_compact_miller",
+  "domain_note": "Declared narrow width/length domain; FVF local total width snapped.01um to preserve each parallel-finger width on.005um grid. Circuit multiplicities/topology and cap30 remain fixed within each configuration.",
+  "qualification": {
+    "generation_preflight": null,
+    "anchor_geometry_equivalence": null,
+    "full_domain_baseline": null,
+    "isolated_evaluator_adapter": null,
+    "model_context_tokens": {
+      "kind": "compact_miller",
+      "input_tokens_with_complete_source": 6149,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 9470,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    },
+    "feasible_edit_witness": null
+  },
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "new_physical_calls": 0,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "input_width": 3.0,
+        "input_fingers": 2,
+        "input_length": 1.0,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_anchor",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "anchor",
+        "reference_id": "independent_compact_miller_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.0,
+          "input_fingers": 2,
+          "input_length": 1.0,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "parameters": {
+        "input_width": 2.91,
+        "input_fingers": 2,
+        "input_length": 0.97,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_01",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_compact_miller_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 2.91,
+          "input_fingers": 2,
+          "input_length": 0.97,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "parameters": {
+        "input_width": 2.91,
+        "input_fingers": 2,
+        "input_length": 1.0,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_02",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_compact_miller_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 2.91,
+          "input_fingers": 2,
+          "input_length": 1.0,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "parameters": {
+        "input_width": 2.91,
+        "input_fingers": 2,
+        "input_length": 1.03,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_03",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_compact_miller_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 2.91,
+          "input_fingers": 2,
+          "input_length": 1.03,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.0,
+        "input_fingers": 2,
+        "input_length": 0.97,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_04",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_compact_miller_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.0,
+          "input_fingers": 2,
+          "input_length": 0.97,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.0,
+        "input_fingers": 2,
+        "input_length": 1.03,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_05",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_compact_miller_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.0,
+          "input_fingers": 2,
+          "input_length": 1.03,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.09,
+        "input_fingers": 2,
+        "input_length": 0.97,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_06",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_compact_miller_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.09,
+          "input_fingers": 2,
+          "input_length": 0.97,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.09,
+        "input_fingers": 2,
+        "input_length": 1.0,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_07",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_compact_miller_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.09,
+          "input_fingers": 2,
+          "input_length": 1.0,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "parameters": {
+        "input_width": 3.09,
+        "input_fingers": 2,
+        "input_length": 1.03,
+        "load_width": 3.0,
+        "load_fingers": 4,
+        "load_length": 1.0,
+        "tail_width": 3.0,
+        "tail_fingers": 4,
+        "tail_length": 1.0,
+        "second_n_width": 3.0,
+        "second_n_fingers": 12,
+        "second_n_length": 0.5,
+        "second_p_width": 3.0,
+        "second_p_fingers": 16,
+        "second_p_length": 1.0,
+        "p_ref_width": 3.0,
+        "p_ref_fingers": 4,
+        "p_ref_length": 1.0,
+        "cap_size": 30.0
+      },
+      "reference_id": "independent_compact_miller_dev_08",
+      "contract": {
+        "task_id": "draft_compact_miller_natural_source",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_compact_miller_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 55
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.005
+          }
+        ],
+        "objective": {
+          "id": "compact_miller_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "input_width": 3.09,
+          "input_fingers": 2,
+          "input_length": 1.03,
+          "load_width": 3.0,
+          "load_fingers": 4,
+          "load_length": 1.0,
+          "tail_width": 3.0,
+          "tail_fingers": 4,
+          "tail_length": 1.0,
+          "second_n_width": 3.0,
+          "second_n_fingers": 12,
+          "second_n_length": 0.5,
+          "second_p_width": 3.0,
+          "second_p_fingers": 16,
+          "second_p_length": 1.0,
+          "p_ref_width": 3.0,
+          "p_ref_fingers": 4,
+          "p_ref_length": 1.0,
+          "cap_size": 30.0
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 55,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.005,
+          "settled_tracking_error_V_lt": 0.005,
+          "tail_V_open_interval": [
+            0.15,
+            0.8
+          ],
+          "stage1_V_open_interval": [
+            0.3,
+            1.2
+          ],
+          "supply_current_A_open_interval": [
+            5e-05,
+            0.00016
+          ]
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    }
+  ],
+  "hidden_configuration_count": 16
+}

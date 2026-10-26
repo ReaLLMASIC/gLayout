@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+/checkpoints/
+/runs/
+/logs/
+/results/
+/tmp/
+/runtime/*
+!/runtime/telescopic_sizing_qualification_20261019/
+!/runtime/e3_fidelity_control_20261019/

@@ -1,0 +1,636 @@
+{
+  "status": "DRAFT_CANDIDATE_CATALOG_NOT_FORMAL_TASKS",
+  "scope": "E1_E3_shared_circuit_targets_E2_OTA_subset",
+  "actual_formal_tasks": 0,
+  "candidate_slots": 24,
+  "qualified_independent_evaluation_lineages": null,
+  "candidate_target_implementations": [
+    {
+      "lineage_id": "glayout_mirror",
+      "target_kind": "current_mirror",
+      "source": "src/glayout/cells/elementary/current_mirror/current_mirror.py",
+      "topology_family": "mirror",
+      "qualification": "three_corner_OP_available_DC_characterization_active",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "remote_research_glayout",
+      "editable_paths_pending_source_snapshot": true
+    },
+    {
+      "lineage_id": "glayout_pair",
+      "target_kind": "differential_pair",
+      "source": "src/glayout/cells/elementary/diff_pair/diff_pair.py",
+      "topology_family": "differential_pair",
+      "qualification": "independent_full_characterization_required",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "remote_research_glayout",
+      "editable_paths_pending_source_snapshot": true
+    },
+    {
+      "lineage_id": "glayout_fvf",
+      "target_kind": "flipped_voltage_follower",
+      "source": "src/glayout/cells/elementary/FVF/fvf.py",
+      "topology_family": "fvf_feedback",
+      "qualification": "full_physical_OP_available_dynamic_domain_required",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "remote_research_glayout",
+      "editable_paths_pending_source_snapshot": true
+    },
+    {
+      "lineage_id": "glayout_tg",
+      "target_kind": "transmission_gate",
+      "source": "src/glayout/cells/elementary/transmission_gate/transmission_gate.py",
+      "topology_family": "transmission_gate",
+      "qualification": "full_physical_OP_available_Ron_leakage_contract_required",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "remote_research_glayout",
+      "editable_paths_pending_source_snapshot": true
+    },
+    {
+      "lineage_id": "glayout_miller",
+      "target_kind": "two_stage_ota",
+      "source": "src/glayout/cells/composite/opamp/opamp_twostage.py",
+      "topology_family": "miller_ota",
+      "qualification": "full_three_corner_flow_available_performance_feasible_domain_pending",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "remote_research_glayout",
+      "editable_paths_pending_source_snapshot": true
+    },
+    {
+      "lineage_id": "glayout_fvf_ota",
+      "target_kind": "fvf_class_ab_ota",
+      "source": "src/glayout/cells/composite/fvf_based_ota/ota.py",
+      "topology_family": "fvf_feedback",
+      "qualification": "full_three_corner_flow_available_58_to66deg_PM_at10p_development",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "remote_research_glayout",
+      "editable_paths_pending_source_snapshot": true
+    },
+    {
+      "lineage_id": "research_five_t",
+      "target_kind": "five_transistor_ota",
+      "source": "src/generators/five_t.py",
+      "topology_family": "five_t_ota",
+      "qualification": "full_three_corner_flow_available",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "research_local",
+      "editable_paths_pending_source_snapshot": true
+    },
+    {
+      "lineage_id": "research_compact_miller",
+      "target_kind": "compact_two_stage_ota",
+      "source": "src/generators/compact_miller.py",
+      "topology_family": "miller_ota",
+      "qualification": "physical_qualification_active",
+      "independence": "candidate_target_implementation_not_yet_qualified_independent_cluster",
+      "source_root": "research_local",
+      "editable_paths_pending_source_snapshot": true
+    }
+  ],
+  "candidate_tasks": [
+    {
+      "task_id": "mirror_01",
+      "parent_lineage": "glayout_mirror",
+      "topology_family": "mirror",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "mirror_02",
+      "parent_lineage": "glayout_mirror",
+      "topology_family": "mirror",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "mirror_03",
+      "parent_lineage": "glayout_mirror",
+      "topology_family": "mirror",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "pair_01",
+      "parent_lineage": "glayout_pair",
+      "topology_family": "differential_pair",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "pair_02",
+      "parent_lineage": "glayout_pair",
+      "topology_family": "differential_pair",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "pair_03",
+      "parent_lineage": "glayout_pair",
+      "topology_family": "differential_pair",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "follower_01",
+      "parent_lineage": "glayout_fvf",
+      "topology_family": "fvf_feedback",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "follower_02",
+      "parent_lineage": "glayout_fvf",
+      "topology_family": "fvf_feedback",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "follower_03",
+      "parent_lineage": "glayout_fvf",
+      "topology_family": "fvf_feedback",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "passgate_01",
+      "parent_lineage": "glayout_tg",
+      "topology_family": "transmission_gate",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "passgate_02",
+      "parent_lineage": "glayout_tg",
+      "topology_family": "transmission_gate",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "passgate_03",
+      "parent_lineage": "glayout_tg",
+      "topology_family": "transmission_gate",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "legacy_ota_01",
+      "parent_lineage": "glayout_miller",
+      "topology_family": "miller_ota",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "legacy_ota_02",
+      "parent_lineage": "glayout_miller",
+      "topology_family": "miller_ota",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "legacy_ota_03",
+      "parent_lineage": "glayout_miller",
+      "topology_family": "miller_ota",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "fvf_ota_01",
+      "parent_lineage": "glayout_fvf_ota",
+      "topology_family": "fvf_feedback",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "fvf_ota_02",
+      "parent_lineage": "glayout_fvf_ota",
+      "topology_family": "fvf_feedback",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "fvf_ota_03",
+      "parent_lineage": "glayout_fvf_ota",
+      "topology_family": "fvf_feedback",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "five_t_01",
+      "parent_lineage": "research_five_t",
+      "topology_family": "five_t_ota",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "five_t_02",
+      "parent_lineage": "research_five_t",
+      "topology_family": "five_t_ota",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "five_t_03",
+      "parent_lineage": "research_five_t",
+      "topology_family": "five_t_ota",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "compact_miller_01",
+      "parent_lineage": "research_compact_miller",
+      "topology_family": "miller_ota",
+      "editing_face": "geometry_at_legal_boundaries",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "compact_miller_02",
+      "parent_lineage": "research_compact_miller",
+      "topology_family": "miller_ota",
+      "editing_face": "terminal_connectivity_and_port_routing",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "natural_or_disclosed_controlled_injection",
+      "E1_stratum": "reuse",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    },
+    {
+      "task_id": "compact_miller_03",
+      "parent_lineage": "research_compact_miller",
+      "topology_family": "miller_ota",
+      "editing_face": "post_RC_quality_and_regression",
+      "status": "DEVELOPMENT_CANDIDATE_REQUIRES_ACTUAL_CASE_HARVEST",
+      "origin": null,
+      "origin_requirement": "observed_natural_failure_or_shortfall_preferred",
+      "E1_stratum": "composition",
+      "domain_shape": {
+        "anchor": 1,
+        "development": 8,
+        "hidden": 16
+      },
+      "actual_configurations": [],
+      "contract": null,
+      "baseline_evidence": [],
+      "known_feasible_evidence": [],
+      "formal_admission": false,
+      "engineering_pilot_cases_must_be_excluded": true
+    }
+  ],
+  "E2_candidate_source_programs": [
+    "glayout_miller",
+    "glayout_fvf_ota",
+    "research_five_t",
+    "research_compact_miller"
+  ],
+  "split_proposal": {
+    "train": [
+      "textbook_universal_compiler_cropped"
+    ],
+    "validation": [],
+    "test": [
+      "glayout_mirror",
+      "glayout_pair",
+      "glayout_fvf",
+      "glayout_tg",
+      "glayout_miller",
+      "glayout_fvf_ota",
+      "research_five_t",
+      "research_compact_miller"
+    ],
+    "topology_holdouts": [
+      "miller_ota",
+      "fvf_feedback"
+    ]
+  },
+  "live_admission_gaps": [
+    "independent_validation_source",
+    "source_similarity_and_cross_target_ancestry_clustering",
+    "observed_case_harvest_for_at_least_half_natural_tasks",
+    "per_configuration_independent_N_z_and_feasible_specs",
+    "25_new_configurations_per_task_not_prior_engineering_points",
+    "E1_same_task_G0_G1_G2_budget_pilot",
+    "1000_train_domain_candidate_yield_pilot_before_formal_counts"
+  ],
+  "hard_constraints": [
+    "No formal success/coverage inferred from candidate slots",
+    "No width/finger/copy variant counted as new source lineage",
+    "Frozen circuit-specific helper closures stay within split",
+    "Training compiler pack excludes evaluation target source and Miller/FVF descriptors"
+  ]
+}

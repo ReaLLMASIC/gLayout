@@ -1,0 +1,521 @@
+{
+  "status": "DRAFT_INDEPENDENT_SOURCE_DOMAIN",
+  "task_id": "draft_resistive_diff_area",
+  "parent_lineage": "research_resistive_diff",
+  "topology_family": "resistor_loaded_differential_amplifier",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/source_pack",
+  "editable_paths": [
+    "src/generators/resistive_diff.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "ports": [
+    "VINP",
+    "VINN",
+    "OUTP",
+    "OUTN",
+    "IBIAS",
+    "TAIL",
+    "VSS"
+  ],
+  "scope": "Sizing changes only through immutable configuration; source edits preserve all intent and device multiplicities.",
+  "domain_note": "Width/length scale combinations snapped to the .005um PDK grid before reference generation; visible scale .97..1.03, declared legal .955..1.045 boundary and narrow .94..1.06 extrapolation. Exact snapped device values remain immutable per point.",
+  "default_qualification": "results/derived/resistive_diff_independent_development.json",
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "full25_baseline": null,
+  "feasible_edit_witness": null,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "domain_subtype": "anchor",
+      "parameters": {
+        "input_width": 2.0,
+        "input_length": 0.6,
+        "bias_width": 2.0,
+        "bias_length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/anchor.spice",
+      "reference_id": "independent_resistive_diff_anchor",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "anchor",
+        "reference_id": "independent_resistive_diff_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 1.94,
+        "input_length": 0.58,
+        "bias_width": 1.94,
+        "bias_length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_01.spice",
+      "reference_id": "independent_resistive_diff_dev_01",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_resistive_diff_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 1.94,
+        "input_length": 0.6,
+        "bias_width": 1.94,
+        "bias_length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_02.spice",
+      "reference_id": "independent_resistive_diff_dev_02",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_resistive_diff_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 1.94,
+        "input_length": 0.62,
+        "bias_width": 1.94,
+        "bias_length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_03.spice",
+      "reference_id": "independent_resistive_diff_dev_03",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_resistive_diff_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 2.0,
+        "input_length": 0.58,
+        "bias_width": 2.0,
+        "bias_length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_04.spice",
+      "reference_id": "independent_resistive_diff_dev_04",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_resistive_diff_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 2.0,
+        "input_length": 0.62,
+        "bias_width": 2.0,
+        "bias_length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_05.spice",
+      "reference_id": "independent_resistive_diff_dev_05",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_resistive_diff_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 2.06,
+        "input_length": 0.58,
+        "bias_width": 2.06,
+        "bias_length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_06.spice",
+      "reference_id": "independent_resistive_diff_dev_06",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_resistive_diff_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 2.06,
+        "input_length": 0.6,
+        "bias_width": 2.06,
+        "bias_length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_07.spice",
+      "reference_id": "independent_resistive_diff_dev_07",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_resistive_diff_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 2.06,
+        "input_length": 0.62,
+        "bias_width": 2.06,
+        "bias_length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/resistive_diff/references/dev_08.spice",
+      "reference_id": "independent_resistive_diff_dev_08",
+      "contract": {
+        "task_id": "draft_resistive_diff_area",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_resistive_diff_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "differential_gain",
+            "unit": "1",
+            "min": 8
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 9e-05
+          },
+          {
+            "name": "absolute_imbalance",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "bandwidth",
+            "unit": "Hz",
+            "min": 1000000.0
+          }
+        ],
+        "objective": {
+          "id": "resistive_diff_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "src/generators/resistive_diff.py": "\"\"\"Four-group differential stage with separated upper inputs and lower bias.\n\nExplicit M4 branch paths meet distinct M5 collectors outside the device block.\nNo existing differential-pair assembly or graph-to-layout compiler is imported.\n\"\"\"\nimport json\nfrom pathlib import Path\nfrom gdsfactory.component import Component\nfrom glayout import sky130\nfrom glayout.primitives.fet import nmos\nfrom src.generators.terminal_access import expose, wire, via, pin, finish\nfrom src.generators.resistive_diff_reference import DEFAULT\n\n\ndef build(output, sizing=None, input_gap=48., row_gap=28., collector_width=.8):\n    s = {**DEFAULT, **(sizing or {})}\n    sky130.activate()\n    top = Component(\"resistive_diff\")\n    remove = [v for k, v in sky130.glayers.items() if k.endswith((\"_label\", \"_pin\"))] + [(64, 44)]\n    inp = nmos(sky130, width=s[\"input_width\"], length=s[\"input_length\"], fingers=s[\"fingers\"],\n        with_dummy=False, with_tie=True, with_dnwell=False).copy().remove_layers(remove, include_labels=True)\n    bias = nmos(sky130, width=s[\"bias_width\"], length=s[\"bias_length\"], fingers=s[\"fingers\"],\n        with_dummy=False, with_tie=True, with_dnwell=False).copy().remove_layers(remove, include_labels=True)\n    positive, negative, tail, reference = top << inp, top << inp, top << bias, top << bias\n    positive.move(origin=(positive.xmin, positive.ymin), destination=(0, 0))\n    negative.move(origin=(negative.xmin, negative.ymin), destination=(positive.xmax + input_gap, 0))\n    tail.move(origin=(tail.xmin, tail.ymax), destination=((positive.xmax + negative.xmin) / 2, -row_gap))\n    reference.move(origin=(reference.xmax, reference.ymax), destination=(-28, -row_gap))\n    p, n, t, b = [expose(top, device) for device in (positive, negative, tail, reference)]\n    left = float(reference.xmin) - 28\n    right = float(negative.xmax) + 20\n    middle = -row_gap / 2\n\n    def branch(start, track_y, collector_x, width=.6):\n        turn = (start[0], track_y)\n        wire(top, \"met3\", start, turn, width)\n        via(top, \"met3\", \"met4\", turn)\n        wire(top, \"met4\", turn, (collector_x, track_y), width)\n        via(top, \"met4\", \"met5\", (collector_x, track_y))\n\n    def collector(name, x, points):\n        ys = [point[1] for point in points]\n        wire(top, \"met5\", (x, min(ys)), (x, max(ys)), collector_width)\n        # Labels remain on M4 so the existing port extraction contract applies.\n        via(top, \"met4\", \"met5\", (x, ys[0]))\n        wire(top, \"met4\", (x - 1, ys[0]), (x + 1, ys[0]), collector_width)\n        pin(top, name, (x, ys[0]))\n\n    # The source-coupled tail takes three separated branch levels in the channel.\n    x = left + 12\n    levels = [middle + 6, middle + 3, middle]\n    for start, y in zip((p[\"S\"], n[\"S\"], t[\"D\"]), levels):\n        branch(start, y, x)\n    collector(\"TAIL\", x, [(x, y) for y in levels])\n    # Diode reference and tail gate occupy a lower set of levels and collector.\n    x = left + 4\n    levels = [middle - 4, middle - 7, middle - 10]\n    for start, y in zip((b[\"D\"], b[\"G\"], t[\"G\"]), levels):\n        branch(start, y, x)\n    collector(\"IBIAS\", x, [(x, y) for y in levels])\n    # Four body contacts and two lower sources use distinct ground branches.\n    x = right\n    floor = float(min(reference.ymin, tail.ymin)) - 8\n    levels = [floor - 3 * i for i in range(6)]\n    for start, y in zip((p[\"B\"], n[\"B\"], t[\"B\"], b[\"B\"], t[\"S\"], b[\"S\"]), levels):\n        branch(start, y, x)\n    collector(\"VSS\", x, [(x, y) for y in levels])\n    # Each signal has its own high-level output or input path, without a common bus.\n    for name, start, y, x in [\n        (\"OUTP\", p[\"D\"], float(positive.ymax) + 6, left + 20),\n        (\"OUTN\", n[\"D\"], float(negative.ymax) + 10, right - 4),\n        (\"VINP\", p[\"G\"], float(positive.ymax) + 14, left + 16),\n        (\"VINN\", n[\"G\"], float(negative.ymax) + 18, right - 8)]:\n        branch(start, y, x)\n        collector(name, x, [(x, y), (x, y + 2)])\n    output = Path(output)\n    output.mkdir(parents=True, exist_ok=True)\n    (output / \"sizing.json\").write_text(json.dumps(s, indent=2) + \"\\n\")\n    return finish(top, output)\n"
+  }
+}

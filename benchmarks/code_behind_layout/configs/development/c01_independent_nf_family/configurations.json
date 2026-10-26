@@ -1,0 +1,215 @@
+{
+  "status": "DRAFT_DECLARED_NO_PHYSICS_OR_MODEL_REQUESTS",
+  "source_revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+  "parent_lineage": "textbook_universal_compiler_cropped",
+  "circuit_id": "C01",
+  "development_domain_id": "C01_independent_nf",
+  "circuit_input_file": "configs/development/c01_independent_nf_family/circuit_input.json",
+  "configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/anchor.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/anchor.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf2_l030",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 2
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf2_l030.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf2_l030.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf2_l060",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf2_l060.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf2_l060.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf2_l090",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.9,
+            "nf": 2
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.9,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf2_l090.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf2_l090.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf4_l030",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf4_l030.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf4_l030.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf4_l090",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.9,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.9,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf4_l090.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf4_l090.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf6_l030",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.3,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf6_l030.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf6_l030.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf6_l060",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf6_l060.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf6_l060.json",
+      "independently_generated_reference_before_any_candidate": true
+    },
+    {
+      "configuration_id": "dev_nf6_l090",
+      "role": "development",
+      "parameters": {
+        "circuit_id": "C01",
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.9,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.9,
+            "nf": 6
+          }
+        }
+      },
+      "reference_file": "configs/development/c01_independent_nf_family/references/dev_nf6_l090.spice",
+      "contract_file": "configs/development/c01_independent_nf_family/contracts/dev_nf6_l090.json",
+      "independently_generated_reference_before_any_candidate": true
+    }
+  ],
+  "hypothesis": "At fixed totalW, changing nf changes legal per-finger width, grouping and placement. Test whether these independent axes produce actual configuration-dependent area/feasibility rankings. The current domain already varies nf1..8 with mostly coupled totalW; no causal claim is made about its zero observed preference conflicts.",
+  "grid_selected_from_candidate_outcomes": false,
+  "source_lineages": 1,
+  "physical_runs": 0,
+  "model_requests": 0,
+  "old_frozen_domains_and_labels_changed": false,
+  "requires_actual_original_program9point_qualification_before_collection_freeze": true
+}

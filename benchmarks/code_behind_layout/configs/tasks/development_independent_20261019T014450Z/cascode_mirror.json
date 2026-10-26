@@ -1,0 +1,410 @@
+{
+  "status": "DRAFT_INDEPENDENT_SOURCE_DOMAIN",
+  "task_id": "draft_cascode_mirror_area",
+  "parent_lineage": "research_cascode_mirror",
+  "topology_family": "cascode_current_mirror",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/source_pack",
+  "editable_paths": [
+    "src/generators/cascode_mirror.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "ports": [
+    "GND",
+    "IREF",
+    "IOUT",
+    "IBIAS"
+  ],
+  "scope": "Sizing changes only through immutable configuration; source edits preserve all intent and device multiplicities.",
+  "domain_note": "Width/length scale combinations snapped to the .005um PDK grid before reference generation; visible scale .97..1.03, declared legal .955..1.045 boundary and narrow .94..1.06 extrapolation. Exact snapped device values remain immutable per point.",
+  "default_qualification": "results/derived/cascode_mirror_independent_development.json",
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "full25_baseline": null,
+  "feasible_edit_witness": null,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "domain_subtype": "anchor",
+      "parameters": {
+        "width": 3.0,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/anchor.spice",
+      "reference_id": "independent_cascode_mirror_anchor",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "anchor",
+        "reference_id": "independent_cascode_mirror_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 2.91,
+        "length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_01.spice",
+      "reference_id": "independent_cascode_mirror_dev_01",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_cascode_mirror_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 2.91,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_02.spice",
+      "reference_id": "independent_cascode_mirror_dev_02",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_cascode_mirror_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 2.91,
+        "length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_03.spice",
+      "reference_id": "independent_cascode_mirror_dev_03",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_cascode_mirror_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 3.0,
+        "length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_04.spice",
+      "reference_id": "independent_cascode_mirror_dev_04",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_cascode_mirror_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 3.0,
+        "length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_05.spice",
+      "reference_id": "independent_cascode_mirror_dev_05",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_cascode_mirror_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 3.09,
+        "length": 0.97,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_06.spice",
+      "reference_id": "independent_cascode_mirror_dev_06",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_cascode_mirror_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 3.09,
+        "length": 1.0,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_07.spice",
+      "reference_id": "independent_cascode_mirror_dev_07",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_cascode_mirror_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "width": 3.09,
+        "length": 1.03,
+        "fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/cascode_mirror/references/dev_08.spice",
+      "reference_id": "independent_cascode_mirror_dev_08",
+      "contract": {
+        "task_id": "draft_cascode_mirror_area",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_cascode_mirror_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "absolute_current_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 10000000.0
+          }
+        ],
+        "objective": {
+          "id": "cascode_mirror_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "src/generators/cascode_mirror.py": "\"\"\"Independent three-column stacked cascode assembly and dedicated spine paths.\n\nOnly MOS/via/PDK primitives are shared. No circuit assembly or universal netlist\ncompiler is imported. Local narrow escapes obey the same common PDK terminal\naccess constraints as other development generators; the circuit placement and\nits internal, bias, output and ground paths are defined here.\n\"\"\"\nimport json\nfrom pathlib import Path\nimport gdstk\nfrom gdsfactory.component import Component\nfrom glayout import sky130\nfrom glayout.primitives.fet import nmos\nfrom glayout.primitives.via_gen import via_stack\nfrom src.generators.cascode_mirror_reference import DEFAULT\n\n\ndef build(output, config=None):\n    z = {**DEFAULT, **(config or {})}\n    sky130.activate()\n    top = Component(\"cascode_mirror\")\n    snap = lambda v: round(round(float(v)/.005)*.005, 3)\n    def segment(layer, a, b, width=.6):\n        x0,y0=map(snap,a);x1,y1=map(snap,b)\n        if x0!=x1 and y0!=y1: raise ValueError(\"Cascode path must be orthogonal\")\n        top.add_polygon([(min(x0,x1)-width/2,min(y0,y1)-width/2),\n            (max(x0,x1)+width/2,min(y0,y1)-width/2),\n            (max(x0,x1)+width/2,max(y0,y1)+width/2),\n            (min(x0,x1)-width/2,max(y0,y1)+width/2)],layer=sky130.get_glayer(layer))\n    def via(a,b,p):\n        v=top<<via_stack(sky130,a,b,fullbottom=True,fulltop=True);v.move(tuple(map(snap,p)))\n    remove=[v for k,v in sky130.glayers.items() if k.endswith((\"_label\",\"_pin\"))]+[(64,44)]\n    device=nmos(sky130,width=z[\"width\"],length=z[\"length\"],fingers=z[\"fingers\"],\n        with_dummy=False,with_tie=True,with_dnwell=False).copy().remove_layers(remove,include_labels=True)\n    cells={};access={}\n    for name,center in [(\"BLOW\",(0,-35)),(\"BHIGH\",(0,15)),(\"RLOW\",(60,-35)),\n                        (\"RHIGH\",(60,15)),(\"OLOW\",(120,-35)),(\"OHIGH\",(120,15))]:\n        ref=top<<device;ref.move(origin=ref.center,destination=center);cells[name]=ref\n        access[name]={}\n        for terminal,key,direction in [(\"D\",\"multiplier_0_drain_W\",(-3,0)),\n                (\"G\",\"multiplier_0_gate_W\",(-3,0)),(\"S\",\"multiplier_0_source_E\",(3,0)),\n                (\"B\",\"tie_S_top_met_S\",(0,-3))]:\n            port=ref.ports[key];point=tuple(map(snap,port.center))\n            layer=sky130.layer_to_glayer(port.layer)\n            if terminal==\"D\":\n                # The north M1 path crosses the primitive's upper body strap.\n                # Leave west first, then lift outside the contact ring.\n                elbow=(snap(ref.xmin-3),point[1]);landing=(elbow[0],snap(point[1]+2))\n                segment(layer,point,elbow,.2);segment(layer,elbow,landing,.2)\n            else:\n                landing=(snap(point[0]+direction[0]),snap(point[1]+direction[1]))\n                segment(layer,point,landing,.2)\n            via(layer,\"met3\",landing)\n            access[name][terminal]=landing\n    def p(name,terminal):return access[name][terminal]\n    # Private stack nodes use vertical M4 spines and M3 lateral branches.\n    def stack(members,x):\n        ys=[]\n        for name,terminal in members:\n            endpoint=p(name,terminal);ys.append(endpoint[1]);segment(\"met3\",endpoint,(x,endpoint[1]))\n            via(\"met3\",\"met4\",(x,endpoint[1]))\n        segment(\"met4\",(x,min(ys)),(x,max(ys)),.8)\n    stack([(\"BLOW\",\"D\"),(\"BLOW\",\"G\"),(\"BHIGH\",\"S\")],-18)\n    stack([(\"RLOW\",\"D\"),(\"RLOW\",\"G\"),(\"RHIGH\",\"S\"),(\"OLOW\",\"G\")],42)\n    stack([(\"OLOW\",\"D\"),(\"OHIGH\",\"S\")],144)\n    pins={}\n    # The independently fed bias stack controls both upper cascodes.\n    for name,terminal in [(\"BHIGH\",\"D\"),(\"BHIGH\",\"G\"),(\"RHIGH\",\"G\"),(\"OHIGH\",\"G\")]:\n        endpoint=p(name,terminal);via(\"met3\",\"met4\",endpoint)\n        segment(\"met4\",endpoint,(endpoint[0],70))\n        via(\"met4\",\"met5\",(endpoint[0],70))\n    segment(\"met5\",(-30,70),(130,70),1);pins[\"IBIAS\"]=(\"met5\",(-27,70))\n    # Ground travels below every device; upper body connections descend on M4.\n    for name in cells:\n        members=[\"B\"]+([\"S\"]if name.endswith(\"LOW\")else[])\n        for terminal in members:\n            endpoint=p(name,terminal);via(\"met3\",\"met4\",endpoint)\n            segment(\"met4\",endpoint,(endpoint[0],-65));via(\"met4\",\"met5\",(endpoint[0],-65))\n    segment(\"met5\",(-30,-65),(145,-65),1);pins[\"GND\"]=(\"met5\",(-27,-65))\n    for name,net,y,left,right in [(\"RHIGH\",\"IREF\",82,35,70),(\"OHIGH\",\"IOUT\",94,108,160)]:\n        endpoint=p(name,\"D\");via(\"met3\",\"met4\",endpoint)\n        segment(\"met4\",endpoint,(endpoint[0],y));via(\"met4\",\"met5\",(endpoint[0],y))\n        segment(\"met5\",(left,y),(right,y),1);pins[net]=(\"met5\",(right-2,y))\n    for net,(layer,point)in pins.items():\n        x,y=point;top.add_polygon([(x-.2,y-.2),(x+.2,y-.2),(x+.2,y+.2),(x-.2,y+.2)],layer=sky130.get_glayer(layer+\"_pin\"))\n        top.add_label(net,position=point,layer=sky130.get_glayer(layer+\"_label\"))\n    out=Path(output);out.mkdir(parents=True,exist_ok=True);path=out/\"cascode_mirror.gds\";top.write_gds(path)\n    actual,=gdstk.read_gds(path).top_level();actual.flatten();actual.name=\"cascode_mirror\"\n    lib=gdstk.Library();lib.add(actual);lib.write_gds(path)\n    (out/\"layout_intent.json\").write_text(json.dumps({\"sizing\":z,\"terminal_access\":access,\n        \"placement\":\"three columns; independent bias/reference/output stacks\",\n        \"routing\":\"private M4 stack spines, dedicated M5 external rails and M3 branches\",\n        \"shared_dependencies\":[\"MOS\",\"via_stack\",\"SKY130 PDK\"],\"imported_circuit_assemblies\":[],\n        \"bbox_um\":[list(v)for v in actual.bounding_box()]},indent=2)+\"\\n\")\n    return path\n"
+  }
+}

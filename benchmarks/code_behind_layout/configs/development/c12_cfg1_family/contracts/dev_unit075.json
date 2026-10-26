@@ -1,0 +1,82 @@
+{
+  "task_id": "development_train_domain_c12_cfg1",
+  "configuration_id": "dev_unit075",
+  "reference_id": "c12_cfg1_dev_unit075_perfinger",
+  "required_corners": [
+    "tt",
+    "ss",
+    "ff"
+  ],
+  "scope": "DRAFT_DEVELOPMENT_QUALIFICATION_NOT_FORMAL",
+  "bench_category": "single",
+  "objective": {
+    "id": "c12_cfg1_area_min",
+    "metric": "area",
+    "unit": "um2",
+    "direction": "min",
+    "corner_aggregation": "worst"
+  },
+  "specifications": [],
+  "pending_before_freeze": [
+    "Actual schematic and full physical domain qualification; prospective application constraints are not formal labels."
+  ],
+  "prospective_application_constraints": {
+    "gain_lf_dB_min": 15.0,
+    "f3db_Hz_min": 1000000.0
+  },
+  "nominal_operating_point": {
+    "supply_V": 1.8,
+    "temperature_C": 27,
+    "load_capacitance_F": 1e-13,
+    "input_step_V": 0.001,
+    "replica_bias": {},
+    "dc_servo": "Disclosed DC servo of the textbook benchmark: a 1e6 H inductor from VOUT1 to VIN1 and a 1e6 F capacitor from the AC/step source to VIN1 fix V_in,dc = V_out,dc and leave AC and step behaviour untouched; the DC transfer sweep drives VIN1 directly.",
+    "power_definition": "Main 1.8 V supply current of the DUT; replica bias generators are fed from a separate 1.8 V bias supply.",
+    "textbook_case": {
+      "load": {
+        "CL": 1e-13
+      },
+      "bias": {},
+      "rule": "textbook_sharing.nominal first-pass point"
+    }
+  },
+  "analysis_contracts": {
+    "op": {
+      "kind": "op",
+      "columns": 4,
+      "expected_rows": 1
+    },
+    "ac": {
+      "kind": "ac",
+      "columns": 3,
+      "start": 10,
+      "end": 1000000000.0,
+      "points": 161,
+      "scale": "log"
+    },
+    "tran": {
+      "kind": "transient",
+      "columns": 3,
+      "start": 0,
+      "end": 4e-06,
+      "required_windows": [
+        [
+          1.8e-06,
+          1.99e-06
+        ],
+        [
+          2.8e-06,
+          2.99e-06
+        ]
+      ]
+    },
+    "dc": {
+      "kind": "dc",
+      "columns": 3,
+      "start": 0,
+      "end": 1.8,
+      "points": 37,
+      "scale": "linear"
+    }
+  }
+}

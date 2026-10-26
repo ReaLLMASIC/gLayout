@@ -1,0 +1,204 @@
+{
+  "status": "DEVELOPMENT_REAL_SOURCE_EDIT_SURFACES_NOT_FROZEN_TASKS",
+  "formal_tasks_established": 0,
+  "registry_modified": false,
+  "source_group_proposal": "docs/source_group_partition.md",
+  "qualified_eight_lineages_established": false,
+  "validation_source_group_established": false,
+  "targets": [
+    {
+      "source_implementation": "mirror",
+      "topology": "current_mirror",
+      "source_path": "src/glayout/cells/elementary/current_mirror/current_mirror.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "relative_current_error",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "dc_output_resistance",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "compliance_voltage",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    },
+    {
+      "source_implementation": "pair",
+      "topology": "differential_pair",
+      "source_path": "src/glayout/cells/elementary/diff_pair/diff_pair.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "transconductance",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "differential_branch_balance",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "output_bandwidth",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    },
+    {
+      "source_implementation": "fvf",
+      "topology": "local_feedback_follower",
+      "source_path": "src/glayout/cells/elementary/FVF/fvf.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "dc_tracking_error",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "output_resistance",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "follower_bandwidth",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    },
+    {
+      "source_implementation": "tg",
+      "topology": "transmission_gate",
+      "source_path": "src/glayout/cells/elementary/transmission_gate/transmission_gate.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "on_resistance",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "off_leakage",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "loaded_switching_delay",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    },
+    {
+      "source_implementation": "miller",
+      "topology": "miller_ota",
+      "source_path": "src/glayout/cells/composite/opamp/opamp_twostage.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "phase_margin",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "unity_gain_frequency",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "settling_error",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    },
+    {
+      "source_implementation": "fvf_ota",
+      "topology": "fvf_class_ab_ota",
+      "source_path": "src/glayout/cells/composite/fvf_based_ota/ota.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "phase_margin",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "unity_gain_frequency",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "tracking_error",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    },
+    {
+      "source_implementation": "row_5t",
+      "topology": "five_transistor_ota",
+      "source_path": "src/generators/five_t.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "gain",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "unity_gain_frequency",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "settling_error",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    },
+    {
+      "source_implementation": "block_miller",
+      "topology": "miller_ota",
+      "source_path": "src/generators/compact_miller.py",
+      "proposed_role": "E1_E2_E3_eval",
+      "editing_surfaces": [
+        {
+          "metric_to_characterize": "phase_margin",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "unity_gain_frequency",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        },
+        {
+          "metric_to_characterize": "settling_error",
+          "admission": "requires_actual_legal_configuration_domain_and_frozen_contract",
+          "formal_task_id": null
+        }
+      ]
+    }
+  ],
+  "real_source_implementation_candidates": 8,
+  "proposed_editing_surfaces": 24,
+  "missing_before_task_admission": [
+    "independent_validation_source",
+    "per_target_legal_parameters_and_reference_binding",
+    "actual_electrical_metric_and_limit_contracts",
+    "source_similarity_and_dependency_group_assignment",
+    "anchor_and_8_development_16_hidden_legal_configurations",
+    "independent_candidate_interface_and_budget_admission"
+  ]
+}

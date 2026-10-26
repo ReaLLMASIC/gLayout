@@ -1,0 +1,61 @@
+{
+ "status": "frozen",
+ "backbone": "Qwen/Qwen2.5-Coder-32B-Instruct",
+ "revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+ "license": "apache-2.0",
+ "seeds": [
+  41,
+  73,
+  109
+ ],
+ "quantization": {
+  "load_in_4bit": true,
+  "bnb_4bit_quant_type": "nf4",
+  "bnb_4bit_use_double_quant": true,
+  "compute_dtype": "bfloat16"
+ },
+ "lora": {
+  "r": 32,
+  "alpha": 64,
+  "dropout": 0.05,
+  "target_modules": [
+   "q_proj",
+   "k_proj",
+   "v_proj",
+   "o_proj",
+   "gate_proj",
+   "up_proj",
+   "down_proj"
+  ]
+ },
+ "max_sequence_length": 16384,
+ "padding": "actual_sequence_length",
+ "truncation": "reject_oversize_no_automatic_truncation",
+ "microbatch": 1,
+ "gradient_accumulation": 32,
+ "gradient_checkpointing": true,
+ "max_gradient_norm": 1.0,
+ "optimizer": "torch.optim.AdamW",
+ "weight_decay": 0.0,
+ "warmup_fraction": 0.03,
+ "schedule": "cosine",
+ "sft": {
+  "learning_rate": 0.0002,
+  "epochs": 2
+ },
+ "dpo": {
+  "learning_rate": 1e-05,
+  "epochs": 1,
+  "beta": 0.1,
+  "dropout": 0.0,
+  "sequence_log_probability": "sum_completion_tokens",
+  "reference": "same_seed_selected_T1_separate_frozen_adapter"
+ },
+ "checkpoint_interval_updates": 100,
+ "checkpoint_selection": "external_frozen_validation_physical_editing_metrics",
+ "formal_data_ready": true,
+ "scope": "formal E4 recipe: QLoRA rank 32 on the pinned Qwen2.5-Coder-32B-Instruct snapshot, 16,384-token context, 1,024-token output; T1/T2 SFT 2 epochs, T3/T4 DPO 1 epoch from the same-seed validation-selected T1 adapter; seeds 41/73/109",
+ "frozen_at_utc": "2026-10-23T09:45:00+00:00",
+ "derived_from": "configs/training/pilot.json (draft) with the 16k context calibration results/derived/gpu16384_actual_calibration.json",
+ "padding_note": "microbatch 1 with attention masking: each sample (or chosen/rejected pair) is padded to its own longest sequence, never truncated; the frozen 16,384 window remains the admission limit"
+}

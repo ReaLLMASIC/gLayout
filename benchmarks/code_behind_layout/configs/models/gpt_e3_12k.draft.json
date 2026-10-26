@@ -1,0 +1,13 @@
+{
+  "status": "DRAFT_E3_PROPOSED12K_PENDING_ACTUAL_H100_CALIBRATION",
+  "backend": "authenticated_gpt_cli",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "timeout_seconds_per_decision": 600,
+  "max_context_tokens": 12288,
+  "max_new_tokens": 1024,
+  "budget_tokenizer_backbone": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "budget_tokenizer_revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7",
+  "output_enforcement": "Posthoc shared-tokenizer cap; overlong raw actions are retained with provider usage and rejected before execution. Provider reasoning tokens are separately reported.",
+  "model_identity_scope": "Explicit catalog slug; provider checkpoint, sampling seed and reasoning compute cap unavailable"
+}

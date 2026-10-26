@@ -1,0 +1,6 @@
+{
+  "archive": "results/raw/c01_collection_v1_freeze.tar.gz",
+  "bytes": 443035,
+  "sha256": "a88f8899b933147b416a4499e1a78f40f4e14823b7570a91d6bae55a1195bb86",
+  "scope": "full_frozen_train_source_and_trusted_capsule_no_hidden_tests"
+}

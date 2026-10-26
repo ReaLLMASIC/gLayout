@@ -1,0 +1,87 @@
+
+Circuit 1 cell sky130_fd_pr__nfet_01v8 and Circuit 2 cell sky130_fd_pr__nfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__nfet_01v8         |Circuit 2: sky130_fd_pr__nfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__nfet_01v8 and sky130_fd_pr__nfet_01v8 are equivalent.
+
+Circuit 1 cell sky130_fd_pr__cap_mim_m3_1 and Circuit 2 cell sky130_fd_pr__cap_mim_m3_1 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__cap_mim_m3_1 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__cap_mim_m3_1 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__cap_mim_m3_1      |Circuit 2: sky130_fd_pr__cap_mim_m3_1      
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__cap_mim_m3_1 and sky130_fd_pr__cap_mim_m3_1 are equivalent.
+
+Circuit 1 cell sky130_fd_pr__pfet_01v8 and Circuit 2 cell sky130_fd_pr__pfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__pfet_01v8         |Circuit 2: sky130_fd_pr__pfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__pfet_01v8 and sky130_fd_pr__pfet_01v8 are equivalent.
+Flattening unmatched subcell INPUT_STAGE in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell DIFFPAIR_CMIRROR_BIAS in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell DIFF_PAIR in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell NMOS in circuit ota7 (1)(4 instances)
+Flattening unmatched subcell CMIRROR in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell NMOS_1 in circuit ota7 (1)(2 instances)
+Flattening unmatched subcell COMMON_SOURCE_NBIAS in circuit ota7 (1)(2 instances)
+Flattening unmatched subcell NMOS_2 in circuit ota7 (1)(2 instances)
+Flattening unmatched subcell NMOS_3 in circuit ota7 (1)(2 instances)
+Flattening unmatched subcell GAIN_STAGE in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell DIFF_TO_SINGLE_CS in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell MIMCAP_ARR in circuit ota7 (1)(1 instance)
+Flattening unmatched subcell MIMCap in circuit ota7 (1)(6 instances)
+
+Class ota7 (0):  Merged 212 parallel devices.
+Class ota7 (1):  Merged 205 parallel devices.
+Subcircuit summary:
+Circuit 1: ota7                            |Circuit 2: ota7                            
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__nfet_01v8 (100->9)           |sky130_fd_pr__nfet_01v8 (100->9)           
+sky130_fd_pr__pfet_01v8 (122->6)           |sky130_fd_pr__pfet_01v8 (122->6)           
+sky130_fd_pr__cap_mim_m3_1 (6->1)          |sky130_fd_pr__cap_mim_m3_1 (6->1)          
+Number of devices: 16                      |Number of devices: 16                      
+Number of nets: 12                         |Number of nets: 12                         
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: ota7                            |Circuit 2: ota7                            
+-------------------------------------------|-------------------------------------------
+VDD                                        |VDD                                        
+VP                                         |VP                                         
+VN                                         |VN                                         
+GND                                        |GND                                        
+DIFFPAIR_BIAS                              |DIFFPAIR_BIAS                              
+CS_BIAS                                    |CS_BIAS                                    
+VOUT                                       |VOUT                                       
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes ota7 and ota7 are equivalent.
+
+Final result: Circuits match uniquely.
+.

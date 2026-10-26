@@ -1,0 +1,534 @@
+{
+  "status": "FROZEN_E3",
+  "formal_dispatch": true,
+  "preparation": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/packets",
+  "task_ids": [
+    "draft_E3_mirror_edit01",
+    "draft_E3_mirror_edit02",
+    "draft_E3_mirror_edit03",
+    "draft_E3_cascode_mirror_edit01",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_cascode_mirror_edit03",
+    "draft_E3_source_follower_edit01",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_source_follower_edit03",
+    "draft_E3_stacked_switch_edit01",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_stacked_switch_edit03",
+    "draft_E3_common_source_stage_edit01",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_common_source_stage_edit03",
+    "draft_E3_resistive_diff_edit01",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_resistive_diff_edit03",
+    "draft_E3_five_t_edit01",
+    "draft_E3_five_t_edit02",
+    "draft_E3_five_t_edit03",
+    "draft_E3_compact_miller_edit01",
+    "draft_E3_compact_miller_edit02",
+    "draft_E3_compact_miller_edit03"
+  ],
+  "methods": [
+    "A",
+    "R",
+    "B",
+    "C"
+  ],
+  "trials": 3,
+  "selection_seeds": [
+    41,
+    73,
+    109,
+    167,
+    223
+  ],
+  "model_config": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2_claude/model_config.json",
+  "risk_model": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/risk_model.json",
+  "risk_weights": {
+    "failure_probability": 0,
+    "uncertainty": 1,
+    "changed_call_coverage": 0,
+    "low_margin": 1
+  },
+  "weight_status": "PREDECLARED_EQUAL_WEIGHT_TRANSPARENT_RULE_NOT_VALIDATION_TUNED",
+  "fidelity_policy": "F0_actual_full_each_selected_configuration",
+  "budget_status": "ACTUAL_96PACKET_AND_EIGHT_REAL_FEEDBACK_STRESS_FIT_16K_PENDING_GPU_AND_POLICY_CONTROL",
+  "budget": {
+    "wall_seconds": 14400,
+    "decisions": 24,
+    "patches": 8,
+    "full_evaluations": 8,
+    "maximum_context_tokens": 16384,
+    "maximum_output_tokens": 1024
+  },
+  "parameter_baseline": {
+    "configuration_selector": "C",
+    "strategies": [
+      "random",
+      "gpt_feedback"
+    ],
+    "interface": "prospective_expanded_layout_grid_v1"
+  },
+  "freeze_blockers": [],
+  "parameter_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "instance_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "instance_trials": 1,
+  "dispatch_order_seed": 20261019,
+  "e4_methods_manifest": "runtime/protocol_freezes/E4_primary/manifest.json",
+  "global_release_parts": [
+    "gpt",
+    "parameter",
+    "signals",
+    "local"
+  ],
+  "global_release_requires_fidelity_freeze": false,
+  "fidelity_manifest": "runtime/protocol_freezes/E3_F3_primary/manifest.json",
+  "e4_evaluation": {
+    "variants": [
+      "T0",
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "matched_evaluation_seed_slots": [
+      41,
+      73,
+      109
+    ],
+    "inference_trials": 1,
+    "T0_actual_model_count": 1,
+    "T0_independent_training_seeds": 0
+  },
+  "instance_baseline": {
+    "algorithm": "independent_arrivals_with_verified_library_exact_cache_v1",
+    "warm_start": "nearest_previous_verified_configuration_then_latest",
+    "cache": "exact_source_configuration_reference_PDK_deck_tools_fidelity",
+    "arrival_order": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/instance_arrival_order.json",
+    "deployment_verification_maximum_physical_calls": 1,
+    "budget": {
+      "wall_seconds": 14400,
+      "decisions": 24,
+      "patches": 8,
+      "full_evaluations": 8,
+      "maximum_context_tokens": 16384,
+      "maximum_output_tokens": 1024
+    },
+    "budget_scope": "Same per-arrival search limits as one shared-code episode; every arrival, cache, verification and library cost is charged separately for cumulative cost comparison."
+  },
+  "signal_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "selector_ablation_weights": {
+    "without_distance": {
+      "failure_probability": 0,
+      "uncertainty": 0,
+      "changed_call_coverage": 0,
+      "low_margin": 1
+    },
+    "without_margin": {
+      "failure_probability": 0,
+      "uncertainty": 1,
+      "changed_call_coverage": 0,
+      "low_margin": 0
+    }
+  },
+  "unavailable_signal_ablation": {
+    "changed_call_coverage": "No validated current impact map; weight0 in main, so a duplicate run would not identify an effect",
+    "failure_probability": "No qualified mixed-label family vectors; transparent-rule fallback has weight0"
+  },
+  "fidelity_task_ids": [
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "phase": "formal_E3",
+  "freeze_id": "E3_primary_v2_claude",
+  "frozen_at_utc": "2026-10-20T01:53:25.800485+00:00",
+  "backend_manifest_path": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2_claude/manifest.json",
+  "source_revision": "58565680a3a4d52b83ac09d37888307404a47d53",
+  "implementation_sha256": {
+    "docs/e3_protocol.md": "01a83a5c1010c888f98016597b7f3d5692a0b864bdf552131c4e8ae3db9d4127",
+    "scripts/analyze_e1.py": "adbf72f0d475190647a6b38cc3961682452f7fdc5c682931150565cc95fd450a",
+    "scripts/archive_e1_episode.py": "02a7d42e02df3b7cfeb86b1b0113c91e5bbeb1d2d550cd41b6d52ea79dcea540",
+    "scripts/archive_e3_evidence.py": "b7688f12cf1269588edb9d74d95ba2cad5942949aa444008328ebe30a4627126",
+    "scripts/e1_matched_runner.py": "1658264fc4be12520231f27f0a5d15bfc185000833a7dfc14953eb81b42f8856",
+    "scripts/e1_pcell_prepare.py": "b3bd32774eae9a79257a7cedb3d2f9d718c93023ff95268bc1434a42f5162daa",
+    "scripts/e3_anchor_qualify.py": "b044766a322fbc0d3d81163a4e2b8321545d0a69d8602aeed234beeece209b53",
+    "scripts/e3_episode.py": "c6865e14f729bcb02d65840829895da97447de9f215697e5e24768c2a66b70fa",
+    "scripts/e3_gateway_control.py": "89396040abceec97ce2d0fc8c1275bcf820409fb6249d4653b5ea39688798143",
+    "scripts/e3_generation_qualify.py": "fd098c15060910133c4153986c9ef188a116be6232fec15f3e9febf955f6752c",
+    "scripts/e3_history_preflight.py": "b4e49d8ce4e78af0d5cec93d98d59336c7f1715e654f748b75fdc6bfc911a7cc",
+    "scripts/e3_instance_episode.py": "dc3ec817156dec42d1834f913d964558b8e423ffc3741fc9f9a2100fa9351447",
+    "scripts/e3_original_baseline.py": "178f7d8d86c21169821d472463e168834b69fd9cb2e75fbe70d49d5f9807ebf8",
+    "scripts/e3_parameter_binding_check.py": "6a40b5c098aed65e37ceb3d9b24570a8441f32593d7851d177ea5d4aeb4f4b6d",
+    "scripts/e3_parameter_episode.py": "32d919e68999721c16e794215fb72c09c987ba44197835e0f63ea3dd6823f40d",
+    "scripts/e3_physical_point.py": "dda0cf99e81626020ab3cc002a6f36111fb1858314e97553521100460e091eb0",
+    "scripts/e3_summarize_qualification.py": "41c18e23697e6dc4b8915c878968b2f736825b2ad03a79a6d206d3d8382a7caf",
+    "scripts/e3_task_prepare.py": "60062e9c5b743adcb0e95ae61f64a52239beb44dada0d5e8f595e86d4c5416d3",
+    "scripts/e3_trusted_objective.py": "76abbcff773fb27dc817ec8c541deea096d1bb4a59772e17399c85d2980ef812",
+    "scripts/freeze_e3.py": "662fb1828fd170a8907b65a47792871bd46de7598c582896226e05e0b3dc8ff1",
+    "scripts/materialize_e1_packets.py": "e0a467cee0e70b18013eba3c02eb2af34be562a3869bf746ab4d0f07d0755349",
+    "scripts/release_e3_hidden.py": "31bf926e6811707028075716254891eb6ef4aad3ed9a6adeb9fbe84c377b3f59",
+    "scripts/request_frozen_policy.py": "fc6595360a910f7fe398c4539fb26fe85f92f6055701c53efb75e144c8053e59",
+    "scripts/run_e1_suite.py": "7f7fd2a35b75459553f1a64f62ad5f855bb15fea3c5ff3c993c230d9fc13881a",
+    "scripts/run_e3_evaluation.py": "b7043794ca07a1ac461c888f81f1272963baa4a61fcc17278ecc0151ae6fc47e",
+    "scripts/run_e3_suite.py": "814c47923a664b2a3f39eeac6c2bded1b47489d942a3978cfe71f57fab89a0c9",
+    "scripts/run_eda_probe.py": "1f5229c918cc7b563f1f6c03c733bb46eb06f60d0cc246aa2a70c510bd65f5f1",
+    "src/candidate_executor.py": "2aa700405ed2c52869c3c6a6a039ab2afe8ca02372cb2fe5432c04fb1c5c66e6",
+    "src/device_intent.py": "895976ed93024bc30aee2d7afef75eb895261a61742c9ab9a777c7ae68f2de3d",
+    "src/domain_runner.py": "e9ef34b451b1b0cdbe6e6275e69ebd3448c209a4718b4d7375355628f44d0ddf",
+    "src/e1_analysis.py": "7765dafd874b3db242f0bd4b6004b0d7e00526a3c3d5edf64485a4015881b901",
+    "src/e1_benchmarks.py": "22e89b29bd2319fd8a6c9cf5ac9d690699b52e3432456c5d37bc5300b862dcc4",
+    "src/e1_packets.py": "03562f228f77e81577ec6a03c8ca405044ec80d4a7f7cb8492e486ed27aaa6fc",
+    "src/e3_analysis.py": "0576f220be4144015612182374e9b7348d7f75bfc18e0d1af113cde549a5a3ef",
+    "src/e3_dispatch.py": "6944c06f44825efd2aa0038639c8962e9343e4c36c6ffdb414517daabb764053",
+    "src/e3_episode_state.py": "05fa6f50b3b271c494f31bc9670c1ab1343b45699031ef4c1137ea2a820cad6f",
+    "src/e3_feedback.py": "42061fd32c96f07f3d7d1e88a6446a9d7f54908dda1e588d9a328ad1eccf1a8b",
+    "src/e3_parameters.py": "256bba3d482eee78ad883825b6e2ba2210e5d2fd5542c5d86f876f8a578bfcd2",
+    "src/e3_policy_models.py": "11b07b2b90118849185d3990524ca6d77ccc8e567d74ca188c5ae2022aafcefb",
+    "src/e3_regression.py": "428d079a752d5c55e586a788b512f1120fa7ac3ab6d4db9ad13d9430ed880eb2",
+    "src/e3_risk_model.py": "2131da5f253e63f51454c91c24f9d3a98073f3e06d40b5226bf0af9fa8b6d6ce",
+    "src/e3_task_prepare.py": "f44c34cfbd448947b5060287a7d6c8065613d94a5a963f89fd58b5563b785ad6",
+    "src/local_model_adapter.py": "24e99a3ad5d6dc0a46db7441683fcbfb36507f59f8efeee537b09dbd1be8e283",
+    "src/measurement.py": "1e9736325e094e023f7f5be1fba4a2328ca61a16ea1667e3f88496e6bf64f18f",
+    "src/model_adapter.py": "fa737a01c9b23dbf4ed0b4d1d6ba391637c0c769af56252ac6bcdbe4f0a71338",
+    "src/policy_state.py": "c8803e428d5da62aa6ad886c2cae650fb1fa27fb26d011fdc238a513543751a4",
+    "src/regression_selector.py": "54994e94b514e27f37289520e065c97d8c3bc0950cb01b624d876789c4b8aed4",
+    "src/report_parsers.py": "4ad6a2124e2a573a40910aa13a3ee61cd00e6eb8dd4fba218e1d129cbea994f8",
+    "src/spice_validation.py": "76b3b34fa9013f5165fd5af66b71101c2835786b2d86df2289f9641a4dd2d628",
+    "src/opus_cli_adapter.py": "05c80a37429921f2247dfc9522ed950bbea4fd480acfcb5349922465c774fc9a",
+    "scripts/opus_cohort/__init__.py": "640263ae5bf6af6b3d6bd1c68045204d276ea437fe507c92e9b09439ad9f9046",
+    "scripts/opus_cohort/common.py": "bc1d92112ec47bfcc427df703397a6d188f78f8dbde482245f0c277afcb49ad6",
+    "scripts/opus_cohort/e3_episode_opus.py": "cf6e6e56763f927c8c90a3d756387846e52da644c652135eb6656235b640ed48",
+    "scripts/opus_cohort/e3_parameter_episode_opus.py": "c773ab6c2ae162968f372710c1c055d97677a52f863664b9f5e63fefc0988a6b",
+    "scripts/opus_cohort/e1_scope_runner_opus.py": "06d3c6af41843f438aff5b5182c76ae88be9d73f589af6263abd76e3e5633b31",
+    "scripts/opus_cohort/run_e3_suite_opus.py": "4da23faf625d55b02d3eb379a4e241b2bf292b43c618e7360988ff647821723b",
+    "scripts/opus_cohort/run_e1_scope_suite_opus.py": "d6d806c4dee71349a3e09f27ed717aff3168702d8a0e5ba6c41dd7b735a5d167",
+    "scripts/opus_cohort/freeze_cohorts_opus.py": "f1b3a31bdc909118ea4be426ad31cc439c4c688cda19100d166d7a98848d4261",
+    "scripts/opus_cohort/pilot_opus_policy.py": "81b9c63b24880701c7882e85e6a18f246f826a0bcd28337ecadcf48b38c71be7"
+  },
+  "original_baseline_plan": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/original_baseline/plan.json",
+  "hidden_release_file": "/srv/code-behind-layout/runtime/evaluation_releases/E3_E3_primary_v2_claude.json",
+  "hidden_evaluation": "Deferred per cohort (amendment A2): released once every declared E3-C search is sealed and the E4 training data, split registry and recipe are frozen.",
+  "frozen_registry": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/registry.json",
+  "E1_manifest": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0449Z_permission_fix/manifest.json",
+  "tasks": [
+    {
+      "task_id": "draft_E3_mirror_edit01",
+      "target": "mirror",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror"
+    },
+    {
+      "task_id": "draft_E3_mirror_edit02",
+      "target": "mirror",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror"
+    },
+    {
+      "task_id": "draft_E3_mirror_edit03",
+      "target": "mirror",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror"
+    },
+    {
+      "task_id": "draft_E3_cascode_mirror_edit01",
+      "target": "cascode_mirror",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E3_cascode_mirror_edit02",
+      "target": "cascode_mirror",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E3_cascode_mirror_edit03",
+      "target": "cascode_mirror",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E3_source_follower_edit01",
+      "target": "source_follower",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower"
+    },
+    {
+      "task_id": "draft_E3_source_follower_edit02",
+      "target": "source_follower",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower"
+    },
+    {
+      "task_id": "draft_E3_source_follower_edit03",
+      "target": "source_follower",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower"
+    },
+    {
+      "task_id": "draft_E3_stacked_switch_edit01",
+      "target": "stacked_switch",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch"
+    },
+    {
+      "task_id": "draft_E3_stacked_switch_edit02",
+      "target": "stacked_switch",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch"
+    },
+    {
+      "task_id": "draft_E3_stacked_switch_edit03",
+      "target": "stacked_switch",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch"
+    },
+    {
+      "task_id": "draft_E3_common_source_stage_edit01",
+      "target": "common_source_stage",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage"
+    },
+    {
+      "task_id": "draft_E3_common_source_stage_edit02",
+      "target": "common_source_stage",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage"
+    },
+    {
+      "task_id": "draft_E3_common_source_stage_edit03",
+      "target": "common_source_stage",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage"
+    },
+    {
+      "task_id": "draft_E3_resistive_diff_edit01",
+      "target": "resistive_diff",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff"
+    },
+    {
+      "task_id": "draft_E3_resistive_diff_edit02",
+      "target": "resistive_diff",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff"
+    },
+    {
+      "task_id": "draft_E3_resistive_diff_edit03",
+      "target": "resistive_diff",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit01",
+      "target": "five_t",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit02",
+      "target": "five_t",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit03",
+      "target": "five_t",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit01",
+      "target": "compact_miller",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit02",
+      "target": "compact_miller",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit03",
+      "target": "compact_miller",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller"
+    }
+  ],
+  "primary_source_groups": 8,
+  "merged_sensitivity_groups": 7,
+  "qualification": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/qualification",
+  "original_baseline_declared_points": 600,
+  "analysis": {
+    "primary_contrasts": [
+      "C-R",
+      "C-B"
+    ],
+    "cluster_bootstrap_replicates": 2000,
+    "bootstrap_seed": 20261019,
+    "group_units": [
+      8,
+      7
+    ],
+    "baseline_regression": "Private original-pass denominator join"
+  },
+  "GPT_sampling_seed": "Unavailable; five fresh trial identities, not claimed provider random seeds",
+  "parent_freeze_id": "E3_primary_v2",
+  "parent_manifest_path": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/manifest.json",
+  "parent_manifest_sha256": "94d7c817510e950eaa3e019894801bc88349473003e1d7cffdbfaa2d53e59120",
+  "policy_backend": "claude_cli",
+  "policy_model": "claude-opus-5-5",
+  "cohort_label": "E3-C",
+  "minimum_tier": {
+    "e3_trials": 3,
+    "e1_trials": 2,
+    "parameter_tasks": 4,
+    "signal_tasks": 4,
+    "local_tasks": 8,
+    "local_inference_trials": 1,
+    "local_seed_slots": [
+      41,
+      73,
+      109
+    ]
+  },
+  "protocol_amendment": "docs/protocol_amendments_20261019.md",
+  "cohort_rule": "Same tasks, anchors, visible and hidden configurations, references, benches, budgets, selection rules and gateway as the parent freeze; only the policy backend, the adapter implementation and the Minimum-tier matrix differ. Parent trials stay a separate matrix.",
+  "parameter_task_ids_minimum": [
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_stacked_switch_edit02"
+  ],
+  "signal_task_ids_minimum": [
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_stacked_switch_edit02"
+  ],
+  "local_task_ids_minimum": [
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_compact_miller_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_mirror_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02"
+  ],
+  "subset_rule": "random.Random(dispatch_order_seed).sample(sorted(parent common subset), 4); local-model searches use the parent common eight-task subset",
+  "declared_searches": {
+    "gpt": 288,
+    "parameter": 24,
+    "signals": 24,
+    "local": 104
+  },
+  "pilot_evidence": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2_claude/pilot_evidence",
+  "pilot_reinspection": {
+    "summary": "runtime/opus_cohort_pilots/E3/summary.json",
+    "jobs": [
+      {
+        "method": "C",
+        "invocations": [
+          "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/C/decisions/e173f040-e676-4324-afba-d569c034eb27/decision_000/invocation.json",
+          "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/C/decisions/e173f040-e676-4324-afba-d569c034eb27/decision_001/invocation.json"
+        ],
+        "real_replies": [
+          {
+            "path": "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/C/decisions/e173f040-e676-4324-afba-d569c034eb27/decision_000/invocation.json",
+            "status": "COMPLETED"
+          },
+          {
+            "path": "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/C/decisions/e173f040-e676-4324-afba-d569c034eb27/decision_001/invocation.json",
+            "status": "COMPLETED"
+          }
+        ],
+        "episode_directory": "/srv/code-behind-layout/runs/development/E3_episodes/20261020T014706774150Z_3b81ee4e",
+        "search_status": "DECISION_BUDGET_EXHAUSTED",
+        "actions_accepted": 2,
+        "hidden_calls": 0
+      },
+      {
+        "method": "A",
+        "invocations": [
+          "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/A/decisions/7ab89526-c6b8-4499-82ba-f5fc4d5faaa8/decision_000/invocation.json",
+          "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/A/decisions/7ab89526-c6b8-4499-82ba-f5fc4d5faaa8/decision_001/invocation.json"
+        ],
+        "real_replies": [
+          {
+            "path": "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/A/decisions/7ab89526-c6b8-4499-82ba-f5fc4d5faaa8/decision_000/invocation.json",
+            "status": "COMPLETED"
+          },
+          {
+            "path": "/srv/code-behind-layout/runtime/opus_cohort_pilots/E3/policy/A/decisions/7ab89526-c6b8-4499-82ba-f5fc4d5faaa8/decision_001/invocation.json",
+            "status": "COMPLETED"
+          }
+        ],
+        "episode_directory": "/srv/code-behind-layout/runs/development/E3_episodes/20261020T014905563877Z_1ce7d3b1",
+        "search_status": "DECISION_BUDGET_EXHAUSTED",
+        "actions_accepted": 2,
+        "hidden_calls": 0
+      }
+    ],
+    "rule": "Bounded development interface control: at most two Claude decisions and one visible full evaluation per session, no hidden or post-freeze call, raw CLI envelopes retained."
+  },
+  "pilot_runtime_differences": {
+    "files_changed_after_pilot": {},
+    "allowed": [
+      "scripts/opus_cohort/freeze_cohorts_opus.py"
+    ],
+    "reason": "The freeze tool itself was amended after the pilot (relaxed evidence rule, runtime-difference record); no runtime file changed."
+  }
+}

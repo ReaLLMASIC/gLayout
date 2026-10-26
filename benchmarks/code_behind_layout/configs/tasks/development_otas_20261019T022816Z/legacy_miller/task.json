@@ -1,0 +1,1016 @@
+{
+  "status": "DRAFT_REAL_OTA_NATURAL_INITIAL_STATE",
+  "task_id": "draft_legacy_miller_natural_source",
+  "initial_state_id": "legacy_miller__natural_current_source",
+  "parent_lineage": "glayout_twostage_ota",
+  "origin": "natural",
+  "topology_family": "vendor_two_stage_Miller_OTA",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/legacy_miller/source_pack",
+  "editable_paths": [
+    "legacy_miller_layout_face.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "source_snapshot": {
+    "legacy_miller_layout_face.py": "from gdsfactory.cell import cell, clear_cache\nfrom gdsfactory.component import Component, copy\nfrom gdsfactory.component_reference import ComponentReference\nfrom gdsfactory.components.rectangle import rectangle\nfrom glayout.pdk.mappedpdk import MappedPDK\nimport re\nfrom copy import deepcopy as deepcopy_netlist\nfrom typing import Optional, Union\nfrom glayout.primitives.fet import nmos, pmos, multiplier\nfrom glayout.cells.elementary.diff_pair import diff_pair\nfrom glayout.primitives.guardring import tapring\nfrom glayout.primitives.mimcap import mimcap_array, mimcap\nfrom glayout.routing.L_route import L_route\nfrom glayout.routing.c_route import c_route\nfrom glayout.primitives.via_gen import via_stack, via_array\nfrom gdsfactory.routing.route_quad import route_quad\nfrom glayout.util.comp_utils import evaluate_bbox, prec_ref_center, movex, movey, to_decimal, to_float, move, align_comp_to_port, get_padding_points_cc\nfrom glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, add_ports_perimeter, print_ports, set_port_orientation, rename_component_ports\nfrom glayout.routing.straight_route import straight_route\nfrom glayout.util.snap_to_grid import component_snap_to_grid\nfrom pydantic import validate_arguments\nfrom glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized\nfrom glayout.cells.composite.diffpair_cmirror_bias import diff_pair_ibias\nfrom glayout.cells.composite.stacked_current_mirror import stacked_nfet_current_mirror\nfrom glayout.cells.composite.differential_to_single_ended_converter import differential_to_single_ended_converter\nfrom glayout.cells.composite.opamp.row_csamplifier_diff_to_single_ended_converter import row_csamplifier_diff_to_single_ended_converter\nfrom glayout.provenance import tracked_generator\nfrom glayout.cells.composite.opamp.diff_pair_stackedcmirror import diff_pair_stackedcmirror\nfrom glayout.spice import Netlist\nfrom glayout.cells.elementary.current_mirror import current_mirror_netlist\n\n@validate_arguments\ndef __add_mimcap_arr(pdk: MappedPDK, opamp_top: Component, mim_cap_size, mim_cap_rows, ymin: float, n_to_p_output_route) -> tuple[Component, Netlist]:\n    mim_cap_size = pdk.snap_to_2xgrid(mim_cap_size, return_type=\"float\")\n    max_metalsep = pdk.util_max_metal_seperation()\n    mimcaps_ref = opamp_top << mimcap_array(pdk,mim_cap_rows,2,size=mim_cap_size,rmult=6)\n    if int(mim_cap_rows) < 1:\n        raise ValueError(\"mim_cap_rows should be a positive integer\")\n    mimcap_netlist = mimcaps_ref.info['netlist']\n\n    displace_fact = max(max_metalsep,pdk.get_grule(\"capmet\")[\"min_separation\"])\n    mimcaps_ref.movex(pdk.snap_to_2xgrid(opamp_top.xmax + displace_fact + mim_cap_size[0]/2))\n    mimcaps_ref.movey(pdk.snap_to_2xgrid(ymin + mim_cap_size[1]/2))\n    # connect mimcap to gnd\n    port1 = opamp_top.ports[\"pcomps_mimcap_connection_con_N\"]\n    port2 = mimcaps_ref.ports[\"row\"+str(int(mim_cap_rows)-1)+\"_col0_bottom_met_N\"]\n    # The upper C-route must clear the cap edge with its full via enclosure,\n    # not only the route port. met4 is physical metal3 at the MiM bottom plate.\n    cap_clearance = max(max_metalsep, pdk.get_grule(\"met4\", \"capmet\").get(\"min_separation\", 0))\n    cglayer = \"met\" + str(int(pdk.layer_to_glayer(port1.layer)[-1]) + 1)\n    via_height = max(evaluate_bbox(via_stack(pdk, pdk.layer_to_glayer(port.layer), cglayer,\n        fullbottom=True, assume_bottom_via=True, fulltop=True))[1] for port in (port1, port2))\n    cref2_extension = cap_clearance + via_height + opamp_top.ymax - max(port1.center[1], port2.center[1])\n    opamp_top << c_route(pdk,port1,port2, extension=cref2_extension, fullbottom=True)\n    intermediate_output = set_port_orientation(n_to_p_output_route.ports[\"con_S\"],\"E\")\n    mimcap_output_width = max(pdk.snap_to_2xgrid(1.2), pdk.get_grule(\"met5\")[\"min_width\"])\n    opamp_top << L_route(\n        pdk,\n        mimcaps_ref.ports[\"row0_col0_top_met_S\"],\n        intermediate_output,\n        hwidth=3,\n        vwidth=mimcap_output_width,\n    )\n    opamp_top.add_ports(mimcaps_ref.get_ports_list(),prefix=\"mimcap_\")\n    # add the cs output as a port\n    opamp_top.add_port(name=\"commonsource_output_E\", port=intermediate_output)\n    return opamp_top, mimcap_netlist\n\n"
+  },
+  "source_face": {
+    "scope": "complete original semantic function plus complete import declarations",
+    "function": "__add_mimcap_arr",
+    "origin": "/srv/code-behind-layout/vendor/glayout/src/glayout/cells/composite/opamp/opamp_twostage.py",
+    "original_line_window": [
+      112,
+      147
+    ],
+    "algorithm_preserved_verbatim": true,
+    "algorithm_AST_preserved": true,
+    "presentation": "unchanged original function",
+    "binding": "frozen launcher executes complete face into original module namespace; original helpers/decorators/import namespace are frozen APIs",
+    "not_parameter_wrapper": "Editable body contains actual placement/routing/assembly control flow and geometry operations; immutable sizing remains an independent input."
+  },
+  "ports": [
+    "VDD",
+    "GND",
+    "DIFFPAIR_BIAS",
+    "VP",
+    "VN",
+    "CS_BIAS",
+    "VOUT"
+  ],
+  "cell_name": "ota7",
+  "bench": {
+    "original_application": {
+      "supply_V": 1.8,
+      "load_F": 5e-13,
+      "common_mode_V": 0.9,
+      "temperature_C": 27,
+      "corners": [
+        "tt",
+        "ss",
+        "ff"
+      ],
+      "bench_source_unchanged": "testbench_snapshot.py",
+      "numerics": {
+        "reltol": 1e-06,
+        "abstol": 1e-14,
+        "vntol": 1e-08,
+        "chgtol": 1e-16
+      },
+      "analysis_coverage": {
+        "OP_rows": 1,
+        "AC_rows": 241,
+        "AC_Hz": [
+          10,
+          1000000000.0
+        ],
+        "transient_s": [
+          0,
+          4e-06
+        ],
+        "DC_points": 7,
+        "DC_V": [
+          0.6,
+          1.2
+        ]
+      },
+      "existing_development_feasibility": {
+        "gain_10Hz_dB_min": 30,
+        "phase_margin_deg_closed_interval": [
+          60,
+          180
+        ],
+        "ugb_Hz_min": 1000000.0,
+        "nominal_tracking_abs_V_lt": 0.01,
+        "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+        "positive_low_frequency_gain": true,
+        "power_W_max": 0.001
+      },
+      "DC_sweep_interpretation": "The complete broad tracking sweep is retained; no extra output-swing or maximum-DC-error constraint is added.",
+      "bias_currents_A": [
+        1e-05,
+        1e-05
+      ]
+    },
+    "body_reuse": "complete original analysis loop wrapped as a function by indentation only",
+    "snapshot": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/legacy_miller/trusted_bench/original_retained_bench.py",
+    "callable_source": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/legacy_miller/trusted_bench/analysis_function.py",
+    "SPICE_stimuli_numeric_formulas_and_completion_source_unchanged": true,
+    "transport": {
+      "adapted": true,
+      "analysis_suffix_marker": "for fidelity, netlist in [",
+      "SPICE_and_integrity_source_identical": true,
+      "change": "Only repeated physical verification/extraction replaced by already admitted actual PEX transport",
+      "cost_disclosure": "Exactly one actual DRC/LVS/PEX acquisition per candidate; redundant benchmark extraction is omitted for every candidate in this source pool. No omitted cost is called a measurement."
+    },
+    "no_load15_substitution": true
+  },
+  "natural_shortfall": "Current repaired Miller source at original.5pF has post-RC PM26..29deg against fixed60deg. This is a natural performance shortfall. No intrinsic-versus-layout repairability claim is made; the separate15pF load hypothesis does not change this task.",
+  "source_dependency_group": "vendor_connected_closure",
+  "domain_note": "Declared narrow width/length domain; FVF local total width snapped.01um to preserve each parallel-finger width on.005um grid. Circuit multiplicities/topology and cap30 remain fixed within each configuration.",
+  "qualification": {
+    "generation_preflight": null,
+    "anchor_geometry_equivalence": null,
+    "full_domain_baseline": null,
+    "isolated_evaluator_adapter": null,
+    "model_context_tokens": {
+      "kind": "legacy_miller",
+      "input_tokens_with_complete_source": 4094,
+      "reserved_output_tokens": 1024,
+      "max_context_tokens": 8192,
+      "fits_initial_complete_source_context": true,
+      "source_bytes": 4226,
+      "history_scope": "Initial complete source+all9visibleparameters+anchorcontract+PDK+documents. Later physical history is not measured; runtime must budget each complete episode turn without truncation.",
+      "GPT_native_token_count": null
+    },
+    "feasible_edit_witness": null
+  },
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "new_physical_calls": 0,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "half_diffpair_params": [
+          6.0,
+          1.0,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_anchor",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "anchor",
+        "reference_id": "independent_legacy_miller_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            6.0,
+            1.0,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          5.82,
+          0.97,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_01",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_legacy_miller_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            5.82,
+            0.97,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          5.82,
+          1.0,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_02",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_legacy_miller_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            5.82,
+            1.0,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          5.82,
+          1.03,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_03",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_legacy_miller_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            5.82,
+            1.03,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          6.0,
+          0.97,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_04",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_legacy_miller_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            6.0,
+            0.97,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          6.0,
+          1.03,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_05",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_legacy_miller_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            6.0,
+            1.03,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          6.18,
+          0.97,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_06",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_legacy_miller_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            6.18,
+            0.97,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          6.18,
+          1.0,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_07",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_legacy_miller_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            6.18,
+            1.0,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "parameters": {
+        "half_diffpair_params": [
+          6.18,
+          1.03,
+          4
+        ],
+        "mim_cap_size": [
+          30,
+          30
+        ],
+        "rmult": 2
+      },
+      "reference_id": "independent_legacy_miller_dev_08",
+      "contract": {
+        "task_id": "draft_legacy_miller_natural_source",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_legacy_miller_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "gain",
+            "unit": "dB",
+            "min": 30
+          },
+          {
+            "name": "phase_margin",
+            "unit": "deg",
+            "min": 60.0,
+            "max": 180.0
+          },
+          {
+            "name": "ugb",
+            "unit": "Hz",
+            "min": 1000000.0
+          },
+          {
+            "name": "nominal_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "settled_tracking_error",
+            "unit": "V",
+            "max": 0.01
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 0.001
+          }
+        ],
+        "objective": {
+          "id": "legacy_miller_ugb_max",
+          "metric": "ugb",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "immutable_parameters": {
+          "half_diffpair_params": [
+            6.18,
+            1.03,
+            4
+          ],
+          "mim_cap_size": [
+            30,
+            30
+          ],
+          "rmult": 2
+        },
+        "strict_development_predicate": {
+          "gain_10Hz_dB_min": 30,
+          "phase_margin_deg_closed_interval": [
+            60,
+            180
+          ],
+          "ugb_Hz_min": 1000000.0,
+          "nominal_tracking_abs_V_lt": 0.01,
+          "settled_plateau_mean_tracking_abs_V_lt": 0.01,
+          "positive_low_frequency_gain": true,
+          "power_W_max": 0.001
+        },
+        "numeric_options": {
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        }
+      }
+    }
+  ],
+  "hidden_configuration_count": 16
+}

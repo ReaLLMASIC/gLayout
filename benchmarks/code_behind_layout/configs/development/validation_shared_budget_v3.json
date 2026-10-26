@@ -1,0 +1,19 @@
+{
+  "interface_id": "validation_shared_budget_v3",
+  "status": "FROZEN_DEVELOPMENT_INTERFACE",
+  "frozen_at_utc": "2026-10-19T02:14:32.487258+00:00",
+  "scope": "Prospective validation only; main benchmark DRAFT",
+  "input_output_contract": "Exact ordinary serving decision_prompt, single-user chat;8192 total with1024 full output reserve; exact returned output plusEOS\u22641024 shared Qwen-tokenizer tokens. No source/history truncation. Overlong provider output rejected before action; all raw output/public usage retained.",
+  "target_geometry_interface": "validation_named_top_v2 unchanged",
+  "generic_library": "runs/development/validation_bundles/20261019T015648213799Z",
+  "budgets": {
+    "decisions": 10,
+    "physical_evaluations": 3,
+    "wall_seconds": 1200,
+    "simultaneous_physical_pipelines": 1
+  },
+  "prior_evidence": "results/derived/gpt_shared_budget_calibration.json",
+  "prior_batch_regraded_or_rerun": false,
+  "formal_trials": 0,
+  "training_examples": 0
+}

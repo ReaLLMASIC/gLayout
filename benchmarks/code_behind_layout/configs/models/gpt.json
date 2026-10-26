@@ -1,0 +1,9 @@
+{
+  "status": "development_candidate_not_formal_freeze",
+  "backend": "authenticated_gpt_cli",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "timeout_seconds_per_decision": 600,
+  "model_identity_scope": "Explicit catalog slug; no checkpoint or sampling seed is exposed",
+  "cli_version_observed": "gpt-cli 0.163.0-alpha.10.2"
+}

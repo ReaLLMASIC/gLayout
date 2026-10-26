@@ -1,0 +1,27 @@
+{
+  "preparation_path": "/srv/code-behind-layout/runtime/collection_preparation/c05_collection_20261019T015456849898Z/preparation.json",
+  "result_path": "/srv/code-behind-layout/runs/development/additional_capsule_smoke/20261019T020001226593Z/result.json",
+  "run_directory": "/srv/code-behind-layout/runs/development/additional_capsule_smoke/20261019T015551873469Z/physical/executor_20261019T015551875450Z_7b284cdc",
+  "circuit_id": "C05",
+  "status": "EVALUATED",
+  "assessment": {
+    "S0": true,
+    "S1": true,
+    "S2": true,
+    "reasons": []
+  },
+  "point_evaluation_complete": true,
+  "phase": "development_boundary_calibration",
+  "formal_training_rows": 0,
+  "unchanged_physical_smoke_reused_from": "/srv/code-behind-layout/runs/development/additional_capsule_smoke/20261019T015551873469Z",
+  "input_tokens": 3786,
+  "output_reserve": 3072,
+  "context_limit": 8192,
+  "context_fits": true,
+  "source_complete": true,
+  "source_bytes": {
+    "textbook_sharing/layout.py": 5937
+  },
+  "request_example": "/srv/code-behind-layout/runs/development/additional_capsule_smoke/20261019T020001226593Z/request_example.json",
+  "baseline_feedback_scope": "actual development qualification; formal runner obtains new nine-point baselines"
+}

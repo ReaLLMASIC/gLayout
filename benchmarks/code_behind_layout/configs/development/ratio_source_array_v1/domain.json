@@ -1,0 +1,1875 @@
+{
+  "status": "DRAFT_NEW_TRAIN_SOURCE_NINE_POINT_IDEAL_QUALIFICATION",
+  "lineage_id": "research_train_ratio_current_source_array_v1",
+  "circuit_id": "TRAIN_RATIO_CS01",
+  "split": "train",
+  "configurations": [
+    {
+      "configuration_id": "ratio_cs_k2_r1",
+      "domain_role": "development",
+      "parameters": {
+        "K": 2,
+        "R": 1,
+        "top_cell": "ratio_cs_k2_r1",
+        "sizing": {
+          "MREF": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "MOUT1": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "MOUT2": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k2_r1.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k2_r1",
+        "reference_id": "ratio_cs_k2_r1_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            5e-06
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k2_r2",
+      "domain_role": "development",
+      "parameters": {
+        "K": 2,
+        "R": 2,
+        "top_cell": "ratio_cs_k2_r2",
+        "sizing": {
+          "MREF": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "MOUT1": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "MOUT2": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k2_r2.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k2_r2",
+        "reference_id": "ratio_cs_k2_r2_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            1e-05
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 150000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k2_r4",
+      "domain_role": "development",
+      "parameters": {
+        "K": 2,
+        "R": 4,
+        "top_cell": "ratio_cs_k2_r4",
+        "sizing": {
+          "MREF": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "MOUT1": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "MOUT2": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k2_r4.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k2_r4",
+        "reference_id": "ratio_cs_k2_r4_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            2e-05
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 75000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k4_r1",
+      "domain_role": "development",
+      "parameters": {
+        "K": 4,
+        "R": 1,
+        "top_cell": "ratio_cs_k4_r1",
+        "sizing": {
+          "MREF": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "MOUT1": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "MOUT2": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k4_r1.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k4_r1",
+        "reference_id": "ratio_cs_k4_r1_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            5e-06
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k4_r2",
+      "domain_role": "anchor",
+      "parameters": {
+        "K": 4,
+        "R": 2,
+        "top_cell": "ratio_cs_k4_r2",
+        "sizing": {
+          "MREF": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "MOUT1": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "MOUT2": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k4_r2.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k4_r2",
+        "reference_id": "ratio_cs_k4_r2_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            1e-05
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 150000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k4_r4",
+      "domain_role": "development",
+      "parameters": {
+        "K": 4,
+        "R": 4,
+        "top_cell": "ratio_cs_k4_r4",
+        "sizing": {
+          "MREF": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "MOUT1": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "MOUT2": {
+            "w": 8.0,
+            "l": 0.6,
+            "nf": 16
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k4_r4.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k4_r4",
+        "reference_id": "ratio_cs_k4_r4_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            2e-05
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 75000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k8_r1",
+      "domain_role": "development",
+      "parameters": {
+        "K": 8,
+        "R": 1,
+        "top_cell": "ratio_cs_k8_r1",
+        "sizing": {
+          "MREF": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "MOUT1": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "MOUT2": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k8_r1.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k8_r1",
+        "reference_id": "ratio_cs_k8_r1_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            5e-06
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k8_r2",
+      "domain_role": "development",
+      "parameters": {
+        "K": 8,
+        "R": 2,
+        "top_cell": "ratio_cs_k8_r2",
+        "sizing": {
+          "MREF": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "MOUT1": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "MOUT2": {
+            "w": 8.0,
+            "l": 0.6,
+            "nf": 16
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k8_r2.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k8_r2",
+        "reference_id": "ratio_cs_k8_r2_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            1e-05
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 150000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    },
+    {
+      "configuration_id": "ratio_cs_k8_r4",
+      "domain_role": "development",
+      "parameters": {
+        "K": 8,
+        "R": 4,
+        "top_cell": "ratio_cs_k8_r4",
+        "sizing": {
+          "MREF": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "MOUT1": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 8
+          },
+          "MOUT2": {
+            "w": 16.0,
+            "l": 0.6,
+            "nf": 32
+          }
+        }
+      },
+      "reference_file": "references/ratio_cs_k8_r4.spice",
+      "contract": {
+        "task_id": "train_ratio_current_source_array_v1",
+        "configuration_id": "ratio_cs_k8_r4",
+        "reference_id": "ratio_cs_k8_r4_independent_perfinger",
+        "status": "DRAFT_UNMEASURED_PRIOR_SPECIFICATION",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "ports": [
+          "VSS",
+          "IREF",
+          "IOUT1",
+          "IOUT2"
+        ],
+        "nominal_operating_point": {
+          "reference_supply_V": 1.8,
+          "temperature_C": 27,
+          "reference_current_A": 5e-06,
+          "output_clamps_V": [
+            0.9,
+            0.9
+          ],
+          "expected_output_currents_A": [
+            5e-06,
+            2e-05
+          ],
+          "DC_output_sweep_V": [
+            0,
+            1.8,
+            0.1
+          ],
+          "AC_output_excitation_V": 1,
+          "transient_output_levels_V": [
+            0.875,
+            0.925
+          ],
+          "transient_period_s": 2e-06,
+          "other_output_during_single_port_analysis_V": 0.9
+        },
+        "specifications": [
+          {
+            "name": "branch1_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch1_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 300000.0
+          },
+          {
+            "name": "branch2_nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_sampled_compliance_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "branch2_output_resistance_ohm",
+            "unit": "ohm",
+            "min": 75000.0
+          },
+          {
+            "name": "max_settled_relative_current_error_vs_DC",
+            "unit": "1",
+            "max": 0.001
+          }
+        ],
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 5,
+            "expected_rows": 1
+          },
+          "dc1": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac1": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran1": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          },
+          "dc2": {
+            "kind": "dc",
+            "columns": 6,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          },
+          "ac2": {
+            "kind": "ac",
+            "columns": 5,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran2": {
+            "kind": "transient",
+            "columns": 7,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        },
+        "sampled_compliance_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "output_resistance_difference_interval_V": [
+          0.8,
+          1.0
+        ],
+        "settling_definition": "Both branch currents during each single-output step are compared with that same port DC sweep, using linear interpolation between declared0.1V samples; error normalized by each branch target current.",
+        "power_definition": "DUT has noVDDpin. Report diode-input port work plus each output-clamp port work; report external1.8V/5uA reference-source work separately.",
+        "specification_rationale": "5% current transfer/regulation over the declared sampled application band; Iout*ro>=1.5V for either current ratio;0.1% settled current error relative to corresponding DC controls. Thresholds fixed before any ideal or physical measurement.",
+        "objective": {
+          "id": "ratio_cs_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "numerical_controls": {
+          "integration_method": "trap",
+          "reltol": 1e-06,
+          "abstol": 1e-14,
+          "vntol": 1e-08,
+          "chgtol": 1e-16
+        },
+        "scope": "DRAFT_NEW_TRAIN_LINEAGE_QUALIFICATION_NOT_FORMAL_DATA"
+      }
+    }
+  ],
+  "whole_grid_definition": {
+    "K": [
+      2,
+      4,
+      8
+    ],
+    "R": [
+      1,
+      2,
+      4
+    ],
+    "points": 9,
+    "no_post_result_filtering": true
+  },
+  "reference_binding": "Each readonly literal per-finger N is independently generated from its own declared K/R/sizing and fixed transistor graph; layout source cannot redefine it.",
+  "counts": {
+    "ideal_qualified_points": 0,
+    "physical_qualified_points": 0,
+    "model_calls": 0,
+    "formal_training_examples": 0,
+    "qualified_independent_source_lineages_added": 0
+  }
+}

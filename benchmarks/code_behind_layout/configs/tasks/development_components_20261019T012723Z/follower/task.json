@@ -1,0 +1,1008 @@
+{
+  "status": "DRAFT_REAL_SOURCE_AND_REFERENCES_NOT_FORMAL",
+  "task_id": "draft_follower_source_quality",
+  "parent_lineage": "glayout_fvf",
+  "source_revision": "d092211d7996c99159402451bc7141931d6a93c3",
+  "E1_stratum": "reuse",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/source_pack",
+  "editable_paths": [
+    "glayout/cells/elementary/FVF/fvf.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "evidence_origin": "/srv/code-behind-layout/results/derived/follower_two_size_domain_development.json",
+  "bench": {
+    "supply_V": 1.8,
+    "temperature_C": 27,
+    "corners": [
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "analysis_contracts": {
+      "op": {
+        "kind": "op",
+        "columns": 4,
+        "expected_rows": 1
+      },
+      "gain": {
+        "kind": "ac",
+        "columns": 3,
+        "start": 10,
+        "end": 1000000000.0,
+        "points": 241,
+        "scale": "log"
+      },
+      "impedance": {
+        "kind": "ac",
+        "columns": 3,
+        "start": 10,
+        "end": 1000000000.0,
+        "points": 241,
+        "scale": "log"
+      },
+      "dc": {
+        "kind": "dc",
+        "columns": 5,
+        "start": 0.75,
+        "end": 1.25,
+        "points": 11,
+        "scale": "linear"
+      },
+      "transient": {
+        "kind": "transient",
+        "columns": 4,
+        "start": 0,
+        "end": 4e-06,
+        "required_windows": [
+          [
+            1.8e-06,
+            1.99e-06
+          ],
+          [
+            2.8e-06,
+            2.99e-06
+          ]
+        ]
+      }
+    },
+    "bias_current_A": 1e-05,
+    "nominal_input_V": 0.9,
+    "C_load_F": 1e-12,
+    "level_shift": "intrinsic; no unity DC-tracking specification"
+  },
+  "natural_shortfall": {
+    "origin": "unmodified_real_generator_natural_measurement",
+    "description": "At W4.15/L2, TT bandwidth falls from 100.3049MHz prelayout to 92.1982MHz post-RC (about 8.1%). The FVF level shift is intrinsic: unity DC tracking is not the objective. Layout bandwidth degradation is a natural quality shortfall.",
+    "evidence_file": "results/derived/follower_two_size_domain_development.json",
+    "run_ids": [
+      "phase0_20261019T004600334942Z_follower_characterization",
+      "phase0_20261019T004603565583Z_follower_characterization"
+    ],
+    "repairability_established": false,
+    "formal_or_training_use": false
+  },
+  "immutable_sizing": "Per-configuration W/L/multiplicity and independent N(z) cannot be edited; the same source patch must serve the whole domain",
+  "source_dependency_group": "vendor_elementary_targets_shared_with_OTA_closures; not four newly qualified independent clusters",
+  "qualification": {
+    "generation_preflight": {
+      "unique_parameter_points_with_actual_GDS": 25,
+      "generation_attempts": 25,
+      "failed_generation_attempts": 0,
+      "current_snapshot_all_25_generated_in_one_run": true,
+      "raw_generation_records": [
+        "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/preflight_attempt_20261019T013048353435Z/generation/generation.json"
+      ],
+      "establishes_S2": false
+    },
+    "full_domain_baseline": null,
+    "feasible_edit_witness": null,
+    "isolated_evaluator_adapter": null,
+    "model_context_tokens": {
+      "kind": "follower",
+      "input_tokens_with_complete_source": 6610,
+      "reserved_output_tokens": 1024,
+      "fits_8192": true,
+      "source_truncated": false,
+      "PDK_rules_truncated": false
+    },
+    "anchor_geometry_equivalence": {
+      "kind": "follower",
+      "new_gds": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/preflight_attempt_20261019T013048353435Z/generation/anchor.gds",
+      "reference_gds": "/srv/code-behind-layout/runs/phase0/phase0_20261019T004600334942Z_follower_characterization/follower4.gds",
+      "units_m": 1e-06,
+      "precision_m": 1e-09,
+      "changed_layers": [],
+      "filled_geometry_equal": true,
+      "all_labels_equal": true,
+      "cell_names_excluded": true,
+      "physical_measurements_rerun": false
+    }
+  },
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "main_benchmark_frozen": false,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "parameters": {
+        "width": 4.15,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/anchor.spice",
+      "reference_id": "independent_follower_anchor",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "anchor",
+        "reference_id": "independent_follower_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "parameters": {
+        "width": 4.0,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_01.spice",
+      "reference_id": "independent_follower_dev_01",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_follower_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "parameters": {
+        "width": 3.35,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_02.spice",
+      "reference_id": "independent_follower_dev_02",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_follower_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "parameters": {
+        "width": 4.05,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_03.spice",
+      "reference_id": "independent_follower_dev_03",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_follower_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "parameters": {
+        "width": 3.65,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_04.spice",
+      "reference_id": "independent_follower_dev_04",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_follower_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "parameters": {
+        "width": 3.55,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_05.spice",
+      "reference_id": "independent_follower_dev_05",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_follower_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "parameters": {
+        "width": 3.45,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_06.spice",
+      "reference_id": "independent_follower_dev_06",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_follower_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "parameters": {
+        "width": 4.1,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_07.spice",
+      "reference_id": "independent_follower_dev_07",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_follower_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "parameters": {
+        "width": 3.6,
+        "length": 2.0
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/references/dev_08.spice",
+      "reference_id": "independent_follower_dev_08",
+      "contract": {
+        "task_id": "draft_follower_source_quality",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_follower_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain_10Hz",
+            "unit": "1",
+            "min": 0.8,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance_10Hz",
+            "unit": "ohm",
+            "max": 100.0
+          }
+        ],
+        "objective": {
+          "id": "follower_bandwidth_max",
+          "metric": "bandwidth",
+          "unit": "Hz",
+          "direction": "max",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_NOT_FROZEN_NOT_MEASURED",
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "gain": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "impedance": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 241,
+            "scale": "log"
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 5,
+            "start": 0.75,
+            "end": 1.25,
+            "points": 11,
+            "scale": "linear"
+          },
+          "transient": {
+            "kind": "transient",
+            "columns": 4,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ],
+              [
+                2.8e-06,
+                2.99e-06
+              ]
+            ]
+          }
+        }
+      },
+      "physical_result": null
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "glayout/cells/elementary/FVF/fvf.py": "from glayout.pdk.mappedpdk import MappedPDK\nfrom glayout.pdk.sky130_mapped import sky130_mapped_pdk\nfrom gdsfactory.cell import cell\nfrom gdsfactory.component import Component\nfrom gdsfactory import Component\nfrom glayout.primitives.fet import nmos, pmos, multiplier\nfrom glayout.util.comp_utils import evaluate_bbox, prec_center, prec_ref_center, align_comp_to_port\nfrom glayout.util.snap_to_grid import component_snap_to_grid\nfrom glayout.util.port_utils import rename_ports_by_orientation\nfrom glayout.routing.straight_route import straight_route\nfrom glayout.routing.c_route import c_route\nfrom glayout.routing.L_route import L_route\nfrom glayout.primitives.guardring import tapring\nfrom glayout.util.port_utils import add_ports_perimeter\nfrom glayout.spice.netlist import Netlist\nfrom glayout.primitives.via_gen import via_stack\nfrom gdsfactory.components import text_freetype, rectangle\nfrom glayout.provenance import tracked_generator\ntry:\n    from glayout.verification.evaluator_wrapper import run_evaluation\nexcept ImportError:\n    print(\"Warning: evaluator_wrapper not found. Evaluation will be skipped.\")\n    run_evaluation = None\n\ndef get_component_netlist(component):\n    \"\"\"Helper function to get netlist object from component info, compatible with all gdsfactory versions\"\"\"\n    from glayout.spice.netlist import Netlist\n    \n    # Try to get stored object first (for older gdsfactory versions)\n    if 'netlist_obj' in component.info:\n        return component.info['netlist_obj']\n    \n    # Try to reconstruct from netlist_data (for newer gdsfactory versions)\n    if 'netlist_data' in component.info:\n        data = component.info['netlist_data']\n        netlist = Netlist(\n            circuit_name=data['circuit_name'],\n            nodes=data['nodes']\n        )\n        netlist.source_netlist = data['source_netlist']\n        return netlist\n    \n    # Fallback: return the string representation (should not happen in normal operation)\n    return component.info.get('netlist', '')\n\ndef fvf_netlist(fet_1: Component, fet_2: Component) -> Netlist:\n\n         netlist = Netlist(circuit_name='FLIPPED_VOLTAGE_FOLLOWER', nodes=['VIN', 'VBULK', 'VOUT', 'Ib'])\n         \n         # Use helper function to get netlist objects regardless of gdsfactory version\n         fet_1_netlist = get_component_netlist(fet_1)\n         fet_2_netlist = get_component_netlist(fet_2)\n         netlist.connect_netlist(fet_1_netlist, [('D', 'Ib'), ('G', 'VIN'), ('S', 'VOUT'), ('B', 'VBULK')])\n         netlist.connect_netlist(fet_2_netlist, [('D', 'VOUT'), ('G', 'Ib'), ('S', 'VBULK'), ('B', 'VBULK')])\n\n         return netlist\n\ndef add_fvf_labels(fvf_in: Component, pdk: MappedPDK) -> Component:\n    \n    fvf_in.unlock()\n    move_info = list()\n    label_pin_size = (0.27, 0.27)\n\n    gnd2label = rectangle(layer=pdk.get_glayer(\"met1_pin\"),size=label_pin_size,centered=True).copy()\n    gnd2label.add_label(text=\"VBULK\",layer=pdk.get_glayer(\"met1_label\"))\n    move_info.append((gnd2label,fvf_in.ports[\"B_tie_N_top_met_N\"],None))\n    \n    ibiaslabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=label_pin_size,centered=True).copy()\n    ibiaslabel.add_label(text=\"Ib\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((ibiaslabel,fvf_in.ports[\"A_drain_bottom_met_N\"],None))\n    \n    outputlabel = rectangle(layer=pdk.get_glayer(\"met2_pin\"),size=label_pin_size,centered=True).copy()\n    outputlabel.add_label(text=\"VOUT\",layer=pdk.get_glayer(\"met2_label\"))\n    move_info.append((outputlabel,fvf_in.ports[\"A_source_bottom_met_N\"],None))\n    \n    inputlabel = rectangle(layer=pdk.get_glayer(\"met1_pin\"),size=label_pin_size,centered=True).copy()\n    inputlabel.add_label(text=\"VIN\",layer=pdk.get_glayer(\"met1_label\"))\n    move_info.append((inputlabel,fvf_in.ports[\"A_multiplier_0_gate_N\"], None))\n    \n    for comp, prt, alignment in move_info:\n        alignment = ('c','b') if alignment is None else alignment\n        compref = align_comp_to_port(comp, prt, alignment=alignment)\n        fvf_in.add(compref)\n    return fvf_in.flatten()\n\ndef sky130_add_fvf_labels(fvf_in: Component) -> Component:\n    \n    fvf_in.unlock()\n    # define layers`\n    met1_pin = (68,16)\n    met1_label = (68,5)\n    met2_pin = (69,16)\n    met2_label = (69,5)\n    # list that will contain all port/comp info\n    move_info = list()\n    # create labels and append to info list\n    # gnd\n    gnd2label = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()\n    gnd2label.add_label(text=\"VBULK\",layer=met1_label)\n    move_info.append((gnd2label,fvf_in.ports[\"B_tie_N_top_met_N\"],None))\n    \n    #currentbias\n    ibiaslabel = rectangle(layer=met2_pin,size=(0.5,0.5),centered=True).copy()\n    ibiaslabel.add_label(text=\"Ib\",layer=met2_label)\n    move_info.append((ibiaslabel,fvf_in.ports[\"A_drain_bottom_met_N\"],None))\n    \n    # output (3rd stage)\n    outputlabel = rectangle(layer=met2_pin,size=(0.5,0.5),centered=True).copy()\n    outputlabel.add_label(text=\"VOUT\",layer=met2_label)\n    move_info.append((outputlabel,fvf_in.ports[\"A_source_bottom_met_N\"],None))\n    \n    # input\n    inputlabel = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()\n    inputlabel.add_label(text=\"VIN\",layer=met1_label)\n    move_info.append((inputlabel,fvf_in.ports[\"A_multiplier_0_gate_N\"], None))\n    \n    # move everything to position\n    for comp, prt, alignment in move_info:\n        alignment = ('c','b') if alignment is None else alignment\n        compref = align_comp_to_port(comp, prt, alignment=alignment)\n        fvf_in.add(compref)\n    return fvf_in.flatten() \n\n@tracked_generator(\"flipped_voltage_follower\")\n@cell\ndef  flipped_voltage_follower(\n    pdk: MappedPDK,\n    device_type: str = \"nmos\", \n    placement: str = \"horizontal\",\n    width: tuple[float,float] = (6.605703928526579, 3.713220935212418),\n    length: tuple[float,float] = (2.3659471990041707, 1.9639325665440608),\n    fingers: tuple[int,int] = (1, 1),\n    multipliers: tuple[int,int] = (2, 2),\n        dummy_1: tuple[bool,bool] = (True,True),\n        dummy_2: tuple[bool,bool] = (True,True),\n        tie_layers1: tuple[str,str] = (\"met2\",\"met1\"),\n        tie_layers2: tuple[str,str] = (\"met2\",\"met1\"),\n        sd_rmult: int=1,\n        with_labels: bool = True,\n        **kwargs\n        ) -> Component:\n    \"\"\"\n    creates a Flipped Voltage Follower\n    pdk: pdk to use\n    device_type: either \"nmos\" or \"pmos\"\n    placement: either \"horizontal\" or \"vertical\"\n    width: (input fet, feedback fet)\n    length: (input fet, feedback fet)\n    fingers: (input fet, feedback fet)\n    multipliers: (input fet, feedback fet)\n    dummy_1: dummy for input fet\n    dummy_2: dummy for feedback fet\n    tie_layers1: tie layers for input fet\n    tie_layers2: tie layers for feedback fet\n    sd_rmult: sd_rmult for both fets\n    with_labels: if true, add top-level LVS labels for standalone use\n    **kwargs: any kwarg that is supported by nmos and pmos\n    \"\"\"\n   \n    #top level component\n    top_level = Component(name=\"flipped_voltage_follower\")\n\n    #two fets\n    device_map = {\n            \"nmos\": nmos,\n            \"pmos\": pmos,\n            }\n    device = device_map.get(device_type)\n\n    if device_type == \"nmos\":\n        kwargs[\"with_dnwell\"] = False  # Set the parameter dynamically\n\n    \n    fet_1 = device(pdk, width=width[0], fingers=fingers[0], multipliers=multipliers[0], with_dummy=dummy_1, with_substrate_tap=False, length=length[0], tie_layers=tie_layers1, sd_rmult=sd_rmult, **kwargs)\n    fet_2 = device(pdk, width=width[1], fingers=fingers[1], multipliers=multipliers[1], with_dummy=dummy_2, with_substrate_tap=False, length=length[1], tie_layers=tie_layers2, sd_rmult=sd_rmult, **kwargs)\n    well = \"pwell\" if device == nmos else \"nwell\" \n    fet_1_ref = top_level << fet_1\n    fet_2_ref = top_level << fet_2 \n\n    #Relative move\n    ref_dimensions = evaluate_bbox(fet_2)\n    if placement == \"horizontal\":\n        fet_2_ref.movex(fet_1_ref.xmax + ref_dimensions[0]/2 + pdk.util_max_metal_seperation())\n    if placement == \"vertical\":\n        fet_2_ref.movey(fet_1_ref.ymin - ref_dimensions[1]/2 - pdk.util_max_metal_seperation()-1)\n    \n    #Routing\n    viam2m3 = via_stack(pdk, \"met2\", \"met3\", centered=True)\n    drain_1_via = top_level << viam2m3\n    source_1_via = top_level << viam2m3\n    drain_2_via = top_level << viam2m3\n    gate_2_via = top_level << viam2m3\n    drain_1_via.move(fet_1_ref.ports[\"multiplier_0_drain_W\"].center).movex(-0.5*evaluate_bbox(fet_1)[1])\n    source_1_via.move(fet_1_ref.ports[\"multiplier_0_source_E\"].center).movex(1.5)\n    drain_2_via.move(fet_2_ref.ports[\"multiplier_0_drain_W\"].center).movex(-1.6)\n    gate_2_via.move(fet_2_ref.ports[\"multiplier_0_gate_E\"].center).movex(1.15)\n\n    top_level << straight_route(pdk, fet_1_ref.ports[\"multiplier_0_source_E\"], source_1_via.ports[\"bottom_met_W\"])\n    top_level << straight_route(pdk, fet_2_ref.ports[\"multiplier_0_drain_W\"], drain_2_via.ports[\"bottom_met_E\"])\n    top_level << c_route(pdk, source_1_via.ports[\"top_met_N\"], drain_2_via.ports[\"top_met_N\"], extension=1.2*max(width[0],width[1]), e1glayer=\"met3\", e2glayer=\"met3\", cglayer=\"met2\", cwidth=0.4, viaoffset=False)\n    top_level << straight_route(pdk, fet_1_ref.ports[\"multiplier_0_drain_W\"], drain_1_via.ports[\"bottom_met_E\"])\n    top_level << c_route(pdk, drain_1_via.ports[\"top_met_S\"], gate_2_via.ports[\"top_met_S\"], extension=1.2*max(width[0],width[1]), cglayer=\"met2\", cwidth=0.4, viaoffset=False)\n    top_level << straight_route(pdk, fet_2_ref.ports[\"multiplier_0_gate_E\"], gate_2_via.ports[\"bottom_met_W\"], fullbottom=True)\n    try:\n        top_level << straight_route(pdk, fet_2_ref.ports[\"multiplier_0_source_W\"], fet_2_ref.ports[\"tie_W_top_met_W\"], glayer1=tie_layers2[1], width=0.2*sd_rmult, fullbottom=True)\n    except:\n        pass\n    #Renaming Ports\n    top_level.add_ports(fet_1_ref.get_ports_list(), prefix=\"A_\")\n    top_level.add_ports(fet_2_ref.get_ports_list(), prefix=\"B_\")\n    top_level.add_ports(drain_1_via.get_ports_list(), prefix=\"A_drain_\")\n    top_level.add_ports(source_1_via.get_ports_list(), prefix=\"A_source_\")\n    top_level.add_ports(drain_2_via.get_ports_list(), prefix=\"B_drain_\")\n    top_level.add_ports(gate_2_via.get_ports_list(), prefix=\"B_gate_\")\n    #add nwell\n    if well == \"nwell\": \n        top_level.add_padding(layers=(pdk.get_glayer(\"nwell\"),),default= 1 )\n \n    netlist_obj = fvf_netlist(fet_1, fet_2)\n    component = component_snap_to_grid(rename_ports_by_orientation(top_level))\n    if with_labels:\n        component = add_fvf_labels(component, pdk)\n    # Store netlist as string for LVS (avoids gymnasium info dict type restrictions)\n    # Compatible with both gdsfactory 7.7.0 and 7.16.0+ strict Pydantic validation\n    component.info['netlist'] = netlist_obj.generate_netlist()\n    # Store the Netlist object for hierarchical netlist building (used by lvcm.py etc.)\n    component.info['netlist_obj'] = netlist_obj\n    # Store serialized netlist data for reconstruction if needed\n    component.info['netlist_data'] = {\n        'circuit_name': netlist_obj.circuit_name,\n        'nodes': netlist_obj.nodes,\n        'source_netlist': netlist_obj.source_netlist\n    }\n    \n    return component\n\nif __name__==\"__main__\":\n    fvf = sky130_add_fvf_labels(flipped_voltage_follower(sky130_mapped_pdk, width=(2,1), sd_rmult=3))\n    fvf.show()\n    fvf.name = \"fvf\"\n    fvf_gds = fvf.write_gds(\"fvf.gds\")\n    result = run_evaluation(\"fvf.gds\",fvf.name,fvf)\n    print(result)\n"
+  },
+  "domain_shape": {
+    "anchor": 1,
+    "development": 8,
+    "hidden": 16
+  },
+  "source_role": "draft_task_materialization_not_a_new_lineage",
+  "pdk_revision": "0fe599b2afb6708d281543108caf8310912f54af",
+  "frozen_source_pack": "/srv/code-behind-layout/runtime/task_preparation/components_20261019T012723731624Z/private/follower/source_pack",
+  "frozen_source_files": [
+    "component_build.py",
+    "generator.py",
+    "glayout/__init__.py",
+    "glayout/cells/__init__.py",
+    "glayout/cells/elementary/FVF/__init__.py",
+    "glayout/cells/elementary/__init__.py",
+    "glayout/pdk/__init__.py",
+    "glayout/pdk/gf180_mapped/__init__.py",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x02p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x04p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x08p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x16p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/gf180_grules.py",
+    "glayout/pdk/gf180_mapped/gf180_mapped.py",
+    "glayout/pdk/gf180_mapped/gf180mcu.drc",
+    "glayout/pdk/gf180_mapped/gf180mcu_drc.lydrc",
+    "glayout/pdk/gf180_mapped/gf180mcu_osu_sc_9T.spice",
+    "glayout/pdk/ihp130_mapped/__init__.py",
+    "glayout/pdk/ihp130_mapped/ihp130_drc.lydrc",
+    "glayout/pdk/ihp130_mapped/ihp130_grules.py",
+    "glayout/pdk/ihp130_mapped/ihp130_mapped.py",
+    "glayout/pdk/mappedpdk.py",
+    "glayout/pdk/sky130_mapped/__init__.py",
+    "glayout/pdk/sky130_mapped/sky130.lydrc",
+    "glayout/pdk/sky130_mapped/sky130_add_npc.py",
+    "glayout/pdk/sky130_mapped/sky130_fd_sc_hd.spice",
+    "glayout/pdk/sky130_mapped/sky130_grules.py",
+    "glayout/pdk/sky130_mapped/sky130_mapped.py",
+    "glayout/placement/__init__.py",
+    "glayout/placement/common_centroid_ab_ba.py",
+    "glayout/placement/four_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_place.py",
+    "glayout/primitives/__init__.py",
+    "glayout/primitives/bjt.py",
+    "glayout/primitives/fet.py",
+    "glayout/primitives/guardring.py",
+    "glayout/primitives/mimcap.py",
+    "glayout/primitives/resistor.py",
+    "glayout/primitives/via_gen.py",
+    "glayout/provenance/__init__.py",
+    "glayout/provenance/netlist_summary.py",
+    "glayout/provenance/runtime.py",
+    "glayout/routing/L_route.py",
+    "glayout/routing/__init__.py",
+    "glayout/routing/c_route.py",
+    "glayout/routing/smart_route.py",
+    "glayout/routing/straight_route.py",
+    "glayout/spice/__init__.py",
+    "glayout/spice/netlist.py",
+    "glayout/util/__init__.py",
+    "glayout/util/comp_utils.py",
+    "glayout/util/component_array_create.py",
+    "glayout/util/geometry.py",
+    "glayout/util/pattern.py",
+    "glayout/util/port_utils.py",
+    "glayout/util/print_rules.py",
+    "glayout/util/routing.py",
+    "glayout/util/snap_to_grid.py"
+  ]
+}

@@ -1,0 +1,1715 @@
+{
+  "status": "DRAFT_READONLY_COLLECTION_CAPSULE_NOT_FROZEN",
+  "source_revision": "1f90e33913208e572744b7c5a144a7da8c073235",
+  "parent_lineage": "textbook_universal_compiler_cropped",
+  "source_pack": "/srv/code-behind-layout/runtime/collection_preparation/c01_20261019T011833920147Z/source_pack",
+  "source_files": [
+    "LICENSE",
+    "circuit_input.json",
+    "generator.py",
+    "glayout/__init__.py",
+    "glayout/backend/__init__.py",
+    "glayout/backend/_gdsfactory.py",
+    "glayout/backend/_gdstk.py",
+    "glayout/pdk/__init__.py",
+    "glayout/pdk/gf180_mapped/__init__.py",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x02p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x04p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x08p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_00p54x16p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/npn_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_05p00x05p00.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x00p42.gds",
+    "glayout/pdk/gf180_mapped/bjt/pnp_10p00x10p00.gds",
+    "glayout/pdk/gf180_mapped/gf180_grules.py",
+    "glayout/pdk/gf180_mapped/gf180_mapped.py",
+    "glayout/pdk/gf180_mapped/gf180mcu.drc",
+    "glayout/pdk/gf180_mapped/gf180mcu_drc.lydrc",
+    "glayout/pdk/gf180_mapped/gf180mcu_drc_wrapper.drc",
+    "glayout/pdk/gf180_mapped/gf180mcu_osu_sc_9T.spice",
+    "glayout/pdk/ihp130_mapped/__init__.py",
+    "glayout/pdk/ihp130_mapped/ihp130_drc.lydrc",
+    "glayout/pdk/ihp130_mapped/ihp130_grules.py",
+    "glayout/pdk/ihp130_mapped/ihp130_mapped.py",
+    "glayout/pdk/mappedpdk.py",
+    "glayout/pdk/sky130_mapped/__init__.py",
+    "glayout/pdk/sky130_mapped/sky130.lydrc",
+    "glayout/pdk/sky130_mapped/sky130_add_npc.py",
+    "glayout/pdk/sky130_mapped/sky130_fd_sc_hd.spice",
+    "glayout/pdk/sky130_mapped/sky130_grules.py",
+    "glayout/pdk/sky130_mapped/sky130_mapped.py",
+    "glayout/placement/__init__.py",
+    "glayout/placement/common_centroid_ab_ba.py",
+    "glayout/placement/four_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_interdigitized.py",
+    "glayout/placement/two_transistor_place.py",
+    "glayout/primitives/__init__.py",
+    "glayout/primitives/bjt.py",
+    "glayout/primitives/fet.py",
+    "glayout/primitives/guardring.py",
+    "glayout/primitives/mimcap.py",
+    "glayout/primitives/resistor.py",
+    "glayout/primitives/via_gen.py",
+    "glayout/routing/L_route.py",
+    "glayout/routing/__init__.py",
+    "glayout/routing/c_route.py",
+    "glayout/routing/smart_route.py",
+    "glayout/routing/straight_route.py",
+    "glayout/sharing/README.md",
+    "glayout/sharing/__init__.py",
+    "glayout/sharing/enumeration.py",
+    "glayout/sharing/evidence.py",
+    "glayout/sharing/group.py",
+    "glayout/sharing/rules.py",
+    "glayout/sharing/spec.py",
+    "glayout/spice/__init__.py",
+    "glayout/spice/netlist.py",
+    "glayout/util/__init__.py",
+    "glayout/util/comp_utils.py",
+    "glayout/util/component_array_create.py",
+    "glayout/util/geometry.py",
+    "glayout/util/pattern.py",
+    "glayout/util/port_utils.py",
+    "glayout/util/print_rules.py",
+    "glayout/util/routing.py",
+    "glayout/util/snap_to_grid.py",
+    "sizing_input.json",
+    "textbook_sharing/__init__.py",
+    "textbook_sharing/assembly/__init__.py",
+    "textbook_sharing/assembly/adapters.py",
+    "textbook_sharing/assembly/engine.py",
+    "textbook_sharing/assembly/passives.py",
+    "textbook_sharing/assembly/pincell.py",
+    "textbook_sharing/layout.py",
+    "textbook_sharing/netlist.py"
+  ],
+  "editable_paths": [
+    "textbook_sharing/layout.py",
+    "glayout/sharing/enumeration.py"
+  ],
+  "trusted_bundle": "/srv/code-behind-layout/runtime/collection_preparation/c01_20261019T011833920147Z/trusted",
+  "trusted_files": [
+    "contracts/anchor.json",
+    "contracts/dev_l120.json",
+    "contracts/dev_nf1_l030.json",
+    "contracts/dev_nf2_l060.json",
+    "contracts/dev_nf3_l045.json",
+    "contracts/dev_nf6_l060.json",
+    "contracts/dev_nf8_l090.json",
+    "contracts/dev_w075_l045.json",
+    "contracts/dev_w100_l060.json",
+    "evaluate.py",
+    "physical.py",
+    "references/anchor.spice",
+    "references/dev_l120.spice",
+    "references/dev_nf1_l030.spice",
+    "references/dev_nf2_l060.spice",
+    "references/dev_nf3_l045.spice",
+    "references/dev_nf6_l060.spice",
+    "references/dev_nf8_l090.spice",
+    "references/dev_w075_l045.spice",
+    "references/dev_w100_l060.spice",
+    "run_pex.sh",
+    "src/__init__.py",
+    "src/corpus_metrics.py",
+    "src/measurement.py",
+    "src/physical_drc.py",
+    "src/report_parsers.py",
+    "src/spice_validation.py"
+  ],
+  "configurations": [
+    {
+      "configuration_id": "anchor",
+      "parameters": {
+        "configuration_id": "anchor",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 2.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_anchor_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "anchor",
+        "reference_id": "c01_anchor_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "anchor"
+    },
+    {
+      "configuration_id": "dev_nf1_l030",
+      "parameters": {
+        "configuration_id": "dev_nf1_l030",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 0.5,
+            "l": 0.3,
+            "nf": 1
+          },
+          "M2": {
+            "w": 0.5,
+            "l": 0.3,
+            "nf": 1
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_nf1_l030_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_nf1_l030",
+        "reference_id": "c01_dev_nf1_l030_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    },
+    {
+      "configuration_id": "dev_nf2_l060",
+      "parameters": {
+        "configuration_id": "dev_nf2_l060",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          },
+          "M2": {
+            "w": 1.0,
+            "l": 0.6,
+            "nf": 2
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_nf2_l060_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_nf2_l060",
+        "reference_id": "c01_dev_nf2_l060_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    },
+    {
+      "configuration_id": "dev_nf3_l045",
+      "parameters": {
+        "configuration_id": "dev_nf3_l045",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 1.5,
+            "l": 0.45,
+            "nf": 3
+          },
+          "M2": {
+            "w": 1.5,
+            "l": 0.45,
+            "nf": 3
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_nf3_l045_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_nf3_l045",
+        "reference_id": "c01_dev_nf3_l045_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    },
+    {
+      "configuration_id": "dev_nf6_l060",
+      "parameters": {
+        "configuration_id": "dev_nf6_l060",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.6,
+            "nf": 6
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_nf6_l060_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_nf6_l060",
+        "reference_id": "c01_dev_nf6_l060_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    },
+    {
+      "configuration_id": "dev_nf8_l090",
+      "parameters": {
+        "configuration_id": "dev_nf8_l090",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 0.9,
+            "nf": 8
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 0.9,
+            "nf": 8
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_nf8_l090_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_nf8_l090",
+        "reference_id": "c01_dev_nf8_l090_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    },
+    {
+      "configuration_id": "dev_w075_l045",
+      "parameters": {
+        "configuration_id": "dev_w075_l045",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 3.0,
+            "l": 0.45,
+            "nf": 4
+          },
+          "M2": {
+            "w": 3.0,
+            "l": 0.45,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_w075_l045_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_w075_l045",
+        "reference_id": "c01_dev_w075_l045_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    },
+    {
+      "configuration_id": "dev_w100_l060",
+      "parameters": {
+        "configuration_id": "dev_w100_l060",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 4
+          },
+          "M2": {
+            "w": 4.0,
+            "l": 0.6,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_w100_l060_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_w100_l060",
+        "reference_id": "c01_dev_w100_l060_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    },
+    {
+      "configuration_id": "dev_l120",
+      "parameters": {
+        "configuration_id": "dev_l120",
+        "circuit": {
+          "circuit_id": "C01",
+          "name": "basic_current_mirror",
+          "ports": [
+            "VSS",
+            "IB1",
+            "IOUT1"
+          ],
+          "devices": [
+            {
+              "name": "M1",
+              "kind": "nfet",
+              "nets": [
+                "IB1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            },
+            {
+              "name": "M2",
+              "kind": "nfet",
+              "nets": [
+                "IOUT1",
+                "IB1",
+                "VSS",
+                "VSS"
+              ],
+              "params": {}
+            }
+          ],
+          "source": {
+            "dataset": "AnalogGenie",
+            "dataset_url": "https://github.com/xz-group/AnalogGenie",
+            "dataset_sha": "efc25358939c6bedd247f28d3df61066964f3a90",
+            "dataset_license": "MIT (code and dataset repository)",
+            "analoggenie_id": 726,
+            "files": [
+              "Dataset/726/726.cir",
+              "Dataset/726/Port726.txt",
+              "Dataset/726/Pagenumber726.txt",
+              "Dataset/726/Book726.png",
+              "Dataset/726/Cadence726.png"
+            ],
+            "book": "T. C. Carusone, D. A. Johns, K. W. Martin, Analog Integrated Circuit Design, 2nd ed., Wiley, 2012",
+            "book_key": "johns",
+            "page_ref": "305",
+            "device_name_map": {
+              "M1": "M3",
+              "M2": "M5"
+            },
+            "source_verification_level": "netlist_matched_isomorphic+image_checked",
+            "image_review": {
+              "file": "Dataset/726/Book726.png",
+              "observation": "Johns p.305 scan: Q1 diode-connected NMOS, Q2 output NMOS gate tied through a long wire (bias-distribution figure); basic 1:1 mirror"
+            },
+            "modifications": [],
+            "textbook_image_note": "Book<id>.png (textbook scan) and Cadence<id>.png (schematic capture) ship inside the public AnalogGenie repository; for entries marked 'image_checked' the scan was compared with the netlist when the benchmark was built.  The scans are not redistributed here."
+          },
+          "notes": []
+        },
+        "sizing": {
+          "M1": {
+            "w": 2.0,
+            "l": 1.2,
+            "nf": 4
+          },
+          "M2": {
+            "w": 2.0,
+            "l": 1.2,
+            "nf": 4
+          }
+        },
+        "top_cell": "corpus_c01"
+      },
+      "reference_id": "c01_dev_l120_independent_perfinger",
+      "contract": {
+        "task_id": "train_collection_c01",
+        "configuration_id": "dev_l120",
+        "reference_id": "c01_dev_l120_independent_perfinger",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "nominal_current_relative_error",
+            "unit": "1",
+            "max": 0.05
+          },
+          {
+            "name": "output_resistance",
+            "unit": "ohm",
+            "min": 300000
+          },
+          {
+            "name": "compliance_band_max_relative_error",
+            "unit": "1",
+            "max": 0.05
+          }
+        ],
+        "objective": {
+          "id": "c01_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "analysis_contracts": {
+          "op": {
+            "kind": "op",
+            "columns": 4,
+            "expected_rows": 1
+          },
+          "ac": {
+            "kind": "ac",
+            "columns": 3,
+            "start": 10,
+            "end": 1000000000.0,
+            "points": 161,
+            "scale": "log"
+          },
+          "tran": {
+            "kind": "transient",
+            "columns": 3,
+            "start": 0,
+            "end": 4e-06,
+            "required_windows": [
+              [
+                1.8e-06,
+                1.99e-06
+              ]
+            ]
+          },
+          "dc": {
+            "kind": "dc",
+            "columns": 3,
+            "start": 0,
+            "end": 1.8,
+            "points": 19,
+            "scale": "linear"
+          }
+        },
+        "scope": "DRAFT_NOT_FROZEN",
+        "nominal_operating_point": {
+          "supply_V": 1.8,
+          "reference_current_A": 2e-05,
+          "output_voltage_V": 0.9,
+          "temperature_C": 27
+        },
+        "intent": {
+          "mirror_ratio": 1,
+          "all_nmos_bulk_source": "VSS",
+          "graph_and_sizes_immutable": true
+        },
+        "diagnostic_dc_sweep_not_intrinsic_compliance_spec": {
+          "start_V": 0,
+          "end_V": 1.8,
+          "step_V": 0.1
+        },
+        "declared_compliance_sample_grid_V": [
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ]
+      },
+      "role": "development"
+    }
+  ],
+  "formal_training_rows": 0,
+  "formal_collection_started": false,
+  "per_task_context_scope": "complete modules only; actual length gate, no truncation; C08 uses a separate narrower scope if necessary",
+  "candidate_boundary": "explicit source/library only, sole GDS handoff to trusted process",
+  "label_rule_draft": {
+    "objectives": {
+      "c01_area_min": {
+        "metric": "area",
+        "unit": "um2",
+        "direction": "min",
+        "quality_absolute_tolerance": 1e-08,
+        "quality_relative_tolerance": 1e-06,
+        "quality_minimum_relative_effect": 0.01
+      }
+    }
+  }
+}

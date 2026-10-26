@@ -1,0 +1,76 @@
+{
+  "status": "DRAFT_LOCAL_PREPARATION_NO_MEASUREMENTS",
+  "source_identity": "research_telescopic_cascode_mirror_ota_v1",
+  "layout_source": "src/generators/telescopic_ota.py",
+  "independent_reference": "src/generators/telescopic_ota_reference.py",
+  "topology": "NMOS differential pair, two NMOS cascodes, cascoded PMOS mirror load, NMOS tail plus explicit diode-connected bias reference",
+  "functional_device_groups": 10,
+  "signal_core_transistors": 9,
+  "default_per_finger_device_count": 32,
+  "application": {
+    "supply_V": 1.8,
+    "common_mode_V": 1.0,
+    "bias_reference_current_A": 1e-05,
+    "load_F": 2e-12,
+    "temperature_C": 27
+  },
+  "four_predeclared_bias_controls": [
+    {
+      "id": "b00",
+      "VBN_V": 1.25,
+      "VBP_V": 0.45
+    },
+    {
+      "id": "b01",
+      "VBN_V": 1.25,
+      "VBP_V": 0.6
+    },
+    {
+      "id": "b10",
+      "VBN_V": 1.4,
+      "VBP_V": 0.45
+    },
+    {
+      "id": "b11",
+      "VBN_V": 1.4,
+      "VBP_V": 0.6
+    }
+  ],
+  "corners": [
+    "tt",
+    "ss",
+    "ff"
+  ],
+  "fixed_OP_AC_requirements": {
+    "gain_at_10Hz_dB_min": 30,
+    "ugb_Hz_min": 1000000,
+    "phase_margin_deg_min": 60,
+    "phase_margin_deg_max": 180,
+    "output_OP_acceptance_min_V": 0.7,
+    "output_OP_acceptance_max_V": 1.2,
+    "total_VDD_and_cascode_bias_power_W_max": 0.0005,
+    "minimum_absolute_channel_voltage_V": 0.05,
+    "minimum_abs_Vds_over_abs_Vdsat": 1.0
+  },
+  "OP_interpretation": "The AC fixture closes external negative feedback at DC through an inductor and opens it at AC. The declared0.7..1.2V window accepts a headroom-valid operating point; it is not a claim of intrinsic CMFB, precision tracking, or continuous usable swing across that entire interval. Each actual MOS must additionally pass the explicit channel-voltage and saturation checks.",
+  "power_accounting": "Total DC power is P_VDD+P_VBN+P_VBP, from actual source currents. IREF is connected from VDD into IBIAS; its entire VDD*10u reference branch is already included in P_VDD. Report (VDD-Vbias)*10u for the ideal current-source dissipation and Vbias*10u for its reference MOS as components, without adding them again. Input stimulus driver power is outside the quiescent circuit budget. VBN/VBP are ideal external voltage-bias ports. Their actual source output power is included, while the implementation overhead of an on-chip bias generator is outside this fixture; no zero-overhead bias-generator claim is made.",
+  "electrical_basis": "The two cascode stacks increase output resistance; the output load supplies the dominant pole. Upper PMOS gates sense the lower left collector across the entire reference stack, allowing external VBP to set cascode-source headroom without fixing the mirror input transistor's drain to its gate. VBN covers nominal lower-stack headroom; VBP covers upper-stack headroom. These are design hypotheses, not observed operation or a stability guarantee.",
+  "source_ancestry": {
+    "new_high_level_assembly": true,
+    "existing_OTA_or_circuit_assembly_imported": false,
+    "five_t_source_copied_or_parameterized": false,
+    "netlist_to_layout_compiler_used": false,
+    "shared_dependencies": [
+      "glayout MOS",
+      "glayout via",
+      "SKY130 PDK",
+      "src/generators/terminal_access.py"
+    ],
+    "independence_limit": "High-level topology and assembly logic are new; basic primitive/access constraints are shared. This is not a claim of zero source dependency overlap."
+  },
+  "selection_rule": "Measure all four fixed controls at all three corners once. If any passes every declared OP/AC requirement, the first in the declared order is the prospective physical-control bias. Do not search further if none passes. A passing ideal OP/AC control does not establish DRC, LVS, positive RC, transient/DC correctness or S2.",
+  "new_GDS_DRC_LVS_PEX_SPICE_calls": 0,
+  "old_legacy_domains_or_results_modified": false,
+  "formal_trials": 0,
+  "training_examples": 0
+}

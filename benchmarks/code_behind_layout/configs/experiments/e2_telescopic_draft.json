@@ -1,0 +1,749 @@
+{
+  "status": "DRAFT_CONDITIONAL_ON_FIRST_DECLARED_PHYSICAL_POSITIVE_CONTROL",
+  "scope": "Prospective fourth feasible independent E2 source proposal; no formal labels collected",
+  "new_source_identity": "independent_telescopic_mirror_ota",
+  "source": "src/generators/telescopic_ota.py",
+  "independent_reference": "src/generators/telescopic_ota_reference.py",
+  "baseline_ideal_control": "phase0_20261019T045154472544Z_telescopic_ota_characterization",
+  "first_predeclared_bias": "b00",
+  "bias_V": {
+    "VBN": 1.25,
+    "VBP": 0.45
+  },
+  "application": {
+    "VDD_V": 1.8,
+    "common_mode_V": 1.0,
+    "IREF_A": 1e-05,
+    "load_F": 2e-12,
+    "temperature_C": 27
+  },
+  "electrical_contract": "configs/development/telescopic_ota_fullflow.json",
+  "frozen_fixed_N_per_pool": true,
+  "sizings": [
+    {
+      "sizing_id": "s0",
+      "sizing": {
+        "input_width": 2.7,
+        "input_length": 1.0,
+        "input_fingers": 2,
+        "ncas_width": 3.0,
+        "ncas_length": 0.5,
+        "ncas_fingers": 2,
+        "mirror_width": 3.0,
+        "mirror_length": 1.0,
+        "mirror_fingers": 4,
+        "pcas_width": 3.0,
+        "pcas_length": 0.5,
+        "pcas_fingers": 4,
+        "tail_width": 3.0,
+        "tail_length": 1.0,
+        "tail_fingers": 4
+      },
+      "independent_N_rule": "src.generators.telescopic_ota_reference.schematic(sizing)",
+      "intent_fingers": 32
+    },
+    {
+      "sizing_id": "s1",
+      "sizing": {
+        "input_width": 3.0,
+        "input_length": 1.0,
+        "input_fingers": 2,
+        "ncas_width": 3.0,
+        "ncas_length": 0.5,
+        "ncas_fingers": 2,
+        "mirror_width": 3.0,
+        "mirror_length": 1.0,
+        "mirror_fingers": 4,
+        "pcas_width": 3.0,
+        "pcas_length": 0.5,
+        "pcas_fingers": 4,
+        "tail_width": 3.0,
+        "tail_length": 1.0,
+        "tail_fingers": 4
+      },
+      "independent_N_rule": "src.generators.telescopic_ota_reference.schematic(sizing)",
+      "intent_fingers": 32
+    },
+    {
+      "sizing_id": "s2",
+      "sizing": {
+        "input_width": 3.3,
+        "input_length": 1.0,
+        "input_fingers": 2,
+        "ncas_width": 3.0,
+        "ncas_length": 0.5,
+        "ncas_fingers": 2,
+        "mirror_width": 3.0,
+        "mirror_length": 1.0,
+        "mirror_fingers": 4,
+        "pcas_width": 3.0,
+        "pcas_length": 0.5,
+        "pcas_fingers": 4,
+        "tail_width": 3.0,
+        "tail_length": 1.0,
+        "tail_fingers": 4
+      },
+      "independent_N_rule": "src.generators.telescopic_ota_reference.schematic(sizing)",
+      "intent_fingers": 32
+    }
+  ],
+  "additional_sizing_qualification_before_freeze": "Six exact idealOPAC corner calls at s0/s2, then two real nondefault source-to-GDS fullflow controls; not dispatched by this file",
+  "geometry_controls_only": [
+    "branch_gap",
+    "stack_pitch",
+    "join_width",
+    "track_stagger"
+  ],
+  "candidate_stream": [
+    {
+      "stream_index": 0,
+      "candidate_id": "c00",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 1,
+      "candidate_id": "c01",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 2,
+      "candidate_id": "c02",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 3,
+      "candidate_id": "c03",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 4,
+      "candidate_id": "c04",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 5,
+      "candidate_id": "c05",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 6,
+      "candidate_id": "c06",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 7,
+      "candidate_id": "c07",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 8,
+      "candidate_id": "c08",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 9,
+      "candidate_id": "c09",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 10,
+      "candidate_id": "c10",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 11,
+      "candidate_id": "c11",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 12,
+      "candidate_id": "c12",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 13,
+      "candidate_id": "c13",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 14,
+      "candidate_id": "c14",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 15,
+      "candidate_id": "c15",
+      "controls": {
+        "branch_gap": 110.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 16,
+      "candidate_id": "c16",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 17,
+      "candidate_id": "c17",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 18,
+      "candidate_id": "c18",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 19,
+      "candidate_id": "c19",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 20,
+      "candidate_id": "c20",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 21,
+      "candidate_id": "c21",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 22,
+      "candidate_id": "c22",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 23,
+      "candidate_id": "c23",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 24,
+      "candidate_id": "c24",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 25,
+      "candidate_id": "c25",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 26,
+      "candidate_id": "c26",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 27,
+      "candidate_id": "c27",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 28,
+      "candidate_id": "c28",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 29,
+      "candidate_id": "c29",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 30,
+      "candidate_id": "c30",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 31,
+      "candidate_id": "c31",
+      "controls": {
+        "branch_gap": 125.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 32,
+      "candidate_id": "c32",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 33,
+      "candidate_id": "c33",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 34,
+      "candidate_id": "c34",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 35,
+      "candidate_id": "c35",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 36,
+      "candidate_id": "c36",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 37,
+      "candidate_id": "c37",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 38,
+      "candidate_id": "c38",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 39,
+      "candidate_id": "c39",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 40,
+      "candidate_id": "c40",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 41,
+      "candidate_id": "c41",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 42,
+      "candidate_id": "c42",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 43,
+      "candidate_id": "c43",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 44,
+      "candidate_id": "c44",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 45,
+      "candidate_id": "c45",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 46,
+      "candidate_id": "c46",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 47,
+      "candidate_id": "c47",
+      "controls": {
+        "branch_gap": 140.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 48,
+      "candidate_id": "c48",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 49,
+      "candidate_id": "c49",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 80.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 50,
+      "candidate_id": "c50",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 51,
+      "candidate_id": "c51",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 80.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 52,
+      "candidate_id": "c52",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 53,
+      "candidate_id": "c53",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 90.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 54,
+      "candidate_id": "c54",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 55,
+      "candidate_id": "c55",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 90.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 56,
+      "candidate_id": "c56",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 57,
+      "candidate_id": "c57",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 100.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 58,
+      "candidate_id": "c58",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 59,
+      "candidate_id": "c59",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 100.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 60,
+      "candidate_id": "c60",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 61,
+      "candidate_id": "c61",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 110.0,
+        "join_width": 0.8,
+        "track_stagger": 28.0
+      }
+    },
+    {
+      "stream_index": 62,
+      "candidate_id": "c62",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 24.0
+      }
+    },
+    {
+      "stream_index": 63,
+      "candidate_id": "c63",
+      "controls": {
+        "branch_gap": 155.0,
+        "stack_pitch": 110.0,
+        "join_width": 1.0,
+        "track_stagger": 28.0
+      }
+    }
+  ],
+  "distinctness_requirement": "64 unique filled masks using all-layer Boolean-union/XOR after common translation normalization; names/labels do not establish distinctness",
+  "generation_attempt_cap_per_sizing": 256,
+  "duplicates_and_failures": "Retain original stream, dispatch, cost and geometry duplicate dispositions; no retrospective label or silent replacement",
+  "formal_labels_or_policy_trials": 0,
+  "physical_control_required": "Original first-declared b00 exact source N and new contract must complete fullruleDRC/independentLVS/exactdevicegraph/positivefullRC/all3cornerOPACTranDC; failure stays unadmitted",
+  "source_ancestry": "Independent explicit two-column four-tier cascode-mirror assembly. Shared MOS/via/PDK/terminal_access constraints disclosed; no existing OTA target assembly import/copy or universal circuit compiler. Full source-dependency/merged-cluster sensitivity retained.",
+  "development_selection_disclosure": "Range written after ideal12 predeclared bias controls, before returned physical fullflow; no telescopic layout outcome used. Existing 5T/compact/FVF development experience informed choosing noncrowding spacing and legal metal widths. This is prospective development-informed E2 design, not a blind validation claim.",
+  "legacy_disposition": "All old legacy pools, N, spec failures and cost remain unchanged and censored where no feasible oracle; this new source never replaces their labels or denominator",
+  "execution_adapter_status": "Pending independent source-specific frozen trusted adapter; existing E1/F3 measurement snapshots are not modified",
+  "formal_execution_allowed": false
+}

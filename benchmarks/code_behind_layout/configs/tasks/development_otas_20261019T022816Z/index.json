@@ -1,0 +1,91 @@
+{
+  "status": "DRAFT_NOT_FORMAL",
+  "preparation": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z",
+  "tasks": [
+    {
+      "kind": "five_t",
+      "initial_state_id": "five_t__natural_current_source",
+      "parent_lineage": "research_five_t",
+      "public_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/public/five_t/task.json",
+      "private_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/five_t/task.json",
+      "editable_paths": [
+        "src/generators/five_t.py"
+      ],
+      "source_bytes": 6181,
+      "points": 25,
+      "objective": {
+        "id": "five_t_area_min",
+        "metric": "area",
+        "unit": "um2",
+        "direction": "min",
+        "corner_aggregation": "worst"
+      },
+      "natural_application_load_F": 2e-12
+    },
+    {
+      "kind": "compact_miller",
+      "initial_state_id": "compact_miller__natural_current_source",
+      "parent_lineage": "research_compact_miller",
+      "public_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/public/compact_miller/task.json",
+      "private_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/compact_miller/task.json",
+      "editable_paths": [
+        "src/generators/compact_miller.py"
+      ],
+      "source_bytes": 9470,
+      "points": 25,
+      "objective": {
+        "id": "compact_miller_area_min",
+        "metric": "area",
+        "unit": "um2",
+        "direction": "min",
+        "corner_aggregation": "worst"
+      },
+      "natural_application_load_F": 2e-12
+    },
+    {
+      "kind": "fvf",
+      "initial_state_id": "fvf__natural_current_source",
+      "parent_lineage": "glayout_fvf_ota",
+      "public_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/public/fvf/task.json",
+      "private_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/fvf/task.json",
+      "editable_paths": [
+        "fvf_layout_face.py"
+      ],
+      "source_bytes": 4810,
+      "points": 25,
+      "objective": {
+        "id": "fvf_ugb_max",
+        "metric": "ugb",
+        "unit": "Hz",
+        "direction": "max",
+        "corner_aggregation": "worst"
+      },
+      "natural_application_load_F": 1e-11
+    },
+    {
+      "kind": "legacy_miller",
+      "initial_state_id": "legacy_miller__natural_current_source",
+      "parent_lineage": "glayout_twostage_ota",
+      "public_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/public/legacy_miller/task.json",
+      "private_task": "/srv/code-behind-layout/runtime/task_preparation/otas_20261019T022816023029Z/private/legacy_miller/task.json",
+      "editable_paths": [
+        "legacy_miller_layout_face.py"
+      ],
+      "source_bytes": 4226,
+      "points": 25,
+      "objective": {
+        "id": "legacy_miller_ugb_max",
+        "metric": "ugb",
+        "unit": "Hz",
+        "direction": "max",
+        "corner_aggregation": "worst"
+      },
+      "natural_application_load_F": 5e-13
+    }
+  ],
+  "task_count": 4,
+  "formal_trials": 0,
+  "new_physical_calls": 0,
+  "hidden_tables_exportable": false,
+  "materialization_wall_seconds": 0.42220863373950124
+}

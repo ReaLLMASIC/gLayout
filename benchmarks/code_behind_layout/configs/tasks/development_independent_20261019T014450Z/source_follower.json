@@ -1,0 +1,492 @@
+{
+  "status": "DRAFT_INDEPENDENT_SOURCE_DOMAIN",
+  "task_id": "draft_source_follower_area",
+  "parent_lineage": "research_source_follower",
+  "topology_family": "common_drain_buffer",
+  "source_pack": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/source_pack",
+  "editable_paths": [
+    "src/generators/source_follower.py"
+  ],
+  "entrypoint": "generator.py",
+  "representation": "G2",
+  "ports": [
+    "VDD",
+    "GND",
+    "VIN",
+    "VOUT",
+    "IBIAS"
+  ],
+  "scope": "Sizing changes only through immutable configuration; source edits preserve all intent and device multiplicities.",
+  "domain_note": "Width/length scale combinations snapped to the .005um PDK grid before reference generation; visible scale .97..1.03, declared legal .955..1.045 boundary and narrow .94..1.06 extrapolation. Exact snapped device values remain immutable per point.",
+  "default_qualification": "results/derived/source_follower_independent_development.json",
+  "formal_admission": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "full25_baseline": null,
+  "feasible_edit_witness": null,
+  "visible_configurations": [
+    {
+      "configuration_id": "anchor",
+      "role": "anchor",
+      "domain_subtype": "anchor",
+      "parameters": {
+        "input_width": 6.0,
+        "input_length": 0.5,
+        "input_fingers": 2,
+        "bias_width": 3.0,
+        "bias_length": 2.0,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/anchor.spice",
+      "reference_id": "independent_source_follower_anchor",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "anchor",
+        "reference_id": "independent_source_follower_anchor",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_01",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 5.82,
+        "input_length": 0.485,
+        "input_fingers": 2,
+        "bias_width": 2.91,
+        "bias_length": 1.94,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_01.spice",
+      "reference_id": "independent_source_follower_dev_01",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_01",
+        "reference_id": "independent_source_follower_dev_01",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_02",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 5.82,
+        "input_length": 0.5,
+        "input_fingers": 2,
+        "bias_width": 2.91,
+        "bias_length": 2.0,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_02.spice",
+      "reference_id": "independent_source_follower_dev_02",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_02",
+        "reference_id": "independent_source_follower_dev_02",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_03",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 5.82,
+        "input_length": 0.515,
+        "input_fingers": 2,
+        "bias_width": 2.91,
+        "bias_length": 2.06,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_03.spice",
+      "reference_id": "independent_source_follower_dev_03",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_03",
+        "reference_id": "independent_source_follower_dev_03",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_04",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 6.0,
+        "input_length": 0.485,
+        "input_fingers": 2,
+        "bias_width": 3.0,
+        "bias_length": 1.94,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_04.spice",
+      "reference_id": "independent_source_follower_dev_04",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_04",
+        "reference_id": "independent_source_follower_dev_04",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_05",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 6.0,
+        "input_length": 0.515,
+        "input_fingers": 2,
+        "bias_width": 3.0,
+        "bias_length": 2.06,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_05.spice",
+      "reference_id": "independent_source_follower_dev_05",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_05",
+        "reference_id": "independent_source_follower_dev_05",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_06",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 6.18,
+        "input_length": 0.485,
+        "input_fingers": 2,
+        "bias_width": 3.09,
+        "bias_length": 1.94,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_06.spice",
+      "reference_id": "independent_source_follower_dev_06",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_06",
+        "reference_id": "independent_source_follower_dev_06",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_07",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 6.18,
+        "input_length": 0.5,
+        "input_fingers": 2,
+        "bias_width": 3.09,
+        "bias_length": 2.0,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_07.spice",
+      "reference_id": "independent_source_follower_dev_07",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_07",
+        "reference_id": "independent_source_follower_dev_07",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    },
+    {
+      "configuration_id": "dev_08",
+      "role": "development",
+      "domain_subtype": "visible_combination",
+      "parameters": {
+        "input_width": 6.18,
+        "input_length": 0.515,
+        "input_fingers": 2,
+        "bias_width": 3.09,
+        "bias_length": 2.06,
+        "bias_fingers": 2
+      },
+      "reference_file": "/srv/code-behind-layout/runtime/task_preparation/independent_20261019T014450461270Z/private/source_follower/references/dev_08.spice",
+      "reference_id": "independent_source_follower_dev_08",
+      "contract": {
+        "task_id": "draft_source_follower_area",
+        "configuration_id": "dev_08",
+        "reference_id": "independent_source_follower_dev_08",
+        "required_corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "specifications": [
+          {
+            "name": "voltage_gain",
+            "unit": "1",
+            "min": 0.7,
+            "max": 1.05
+          },
+          {
+            "name": "output_impedance",
+            "unit": "ohm",
+            "max": 10000
+          },
+          {
+            "name": "power",
+            "unit": "W",
+            "max": 8e-05
+          }
+        ],
+        "objective": {
+          "id": "source_follower_area_min",
+          "metric": "area",
+          "unit": "um2",
+          "direction": "min",
+          "corner_aggregation": "worst"
+        },
+        "scope": "DRAFT_QUALIFICATION_NOT_FORMAL"
+      }
+    }
+  ],
+  "hidden_configuration_count": 16,
+  "source_snapshot": {
+    "src/generators/source_follower.py": "\"\"\"Independent L-shaped common-drain buffer with a separate sink/reference pair.\n\nThe output has a right-side vertical collector, bias uses a short lower crossbar\nand power/input leave above the input device. No existing FVF, mirror, OTA or\nnetlist-driven circuit assembly is called.\n\"\"\"\nimport json\nfrom pathlib import Path\nimport gdstk\nfrom gdsfactory.component import Component\nfrom glayout import sky130\nfrom glayout.primitives.fet import nmos\nfrom glayout.primitives.via_gen import via_stack\nfrom src.generators.source_follower_reference import DEFAULT\n\n\ndef build(output, config=None):\n    z={**DEFAULT,**(config or {})};sky130.activate();top=Component(\"source_follower\")\n    snap=lambda v:round(round(float(v)/.005)*.005,3)\n    def line(layer,a,b,width=.6):\n        x0,y0=map(snap,a);x1,y1=map(snap,b)\n        if x0!=x1 and y0!=y1:raise ValueError(\"Buffer path must be orthogonal\")\n        top.add_polygon([(min(x0,x1)-width/2,min(y0,y1)-width/2),(max(x0,x1)+width/2,min(y0,y1)-width/2),\n            (max(x0,x1)+width/2,max(y0,y1)+width/2),(min(x0,x1)-width/2,max(y0,y1)+width/2)],layer=sky130.get_glayer(layer))\n    def lift(lower,upper,point):\n        v=top<<via_stack(sky130,lower,upper,fullbottom=True,fulltop=True);v.move(tuple(map(snap,point)))\n    remove=[v for k,v in sky130.glayers.items()if k.endswith((\"_label\",\"_pin\"))]+[(64,44)]\n    access={}\n    for name,category,center in [(\"IN\",\"input\",(40,35)),(\"SINK\",\"bias\",(40,-15)),(\"BIAS\",\"bias\",(-15,-15))]:\n        mos=nmos(sky130,width=z[category+\"_width\"],length=z[category+\"_length\"],fingers=z[category+\"_fingers\"],\n            with_dummy=False,with_tie=True,with_dnwell=False).copy().remove_layers(remove,include_labels=True)\n        ref=top<<mos;ref.move(origin=ref.center,destination=center);access[name]={}\n        for terminal,key,offset in [(\"D\",\"multiplier_0_drain_W\",(-3,0)),(\"G\",\"multiplier_0_gate_W\",(-3,0)),\n                (\"S\",\"multiplier_0_source_E\",(3,0)),(\"B\",\"tie_S_top_met_S\",(0,-3))]:\n            port=ref.ports[key];a=tuple(map(snap,port.center));layer=sky130.layer_to_glayer(port.layer)\n            if terminal==\"D\":\n                elbow=(snap(ref.xmin-3),a[1]);b=(elbow[0],snap(a[1]+2))\n                line(layer,a,elbow,.2);line(layer,elbow,b,.2)\n            else:\n                b=(snap(a[0]+offset[0]),snap(a[1]+offset[1]));line(layer,a,b,.2)\n            lift(layer,\"met3\",b);access[name][terminal]=b\n    def p(n,t):return access[n][t]\n    # A dedicated right-side vertical output collector joins source to sink.\n    ends=[p(\"IN\",\"S\"),p(\"SINK\",\"D\")]\n    line(\"met3\",ends[0],(70,ends[0][1]));lift(\"met3\",\"met4\",(70,ends[0][1]))\n    # The sink drain crosses the separate gate-bias drop above it on M5.\n    lift(\"met3\",\"met5\",ends[1]);line(\"met5\",ends[1],(70,ends[1][1]),1)\n    lift(\"met4\",\"met5\",(70,ends[1][1]))\n    line(\"met4\",(70,min(q[1]for q in ends)),(70,max(q[1]for q in ends)),.8)\n    pins={\"VOUT\":(\"met4\",(70,10))}\n    # The diode reference and sink gate share one small lower crossbar.\n    endpoints=[p(\"BIAS\",\"D\"),p(\"BIAS\",\"G\"),p(\"SINK\",\"G\")]\n    for endpoint in endpoints:\n        line(\"met3\",endpoint,(endpoint[0],5));lift(\"met3\",\"met4\",(endpoint[0],5))\n    line(\"met4\",(-35,5),(max(v[0]for v in endpoints)+1,5),.8);pins[\"IBIAS\"]=(\"met4\",(-33,5))\n    # Ground is an M5 floor, with body and lower-device sources landing on M4.\n    for name,terms in [(\"IN\",[\"B\"]),(\"SINK\",[\"B\",\"S\"]),(\"BIAS\",[\"B\",\"S\"])]:\n        for terminal in terms:\n            endpoint=p(name,terminal);lift(\"met3\",\"met4\",endpoint)\n            line(\"met4\",endpoint,(endpoint[0],-45));lift(\"met4\",\"met5\",(endpoint[0],-45))\n    line(\"met5\",(-35,-45),(70,-45),1);pins[\"GND\"]=(\"met5\",(-33,-45))\n    drain=p(\"IN\",\"D\");lift(\"met3\",\"met4\",drain);line(\"met4\",drain,(drain[0],60))\n    lift(\"met4\",\"met5\",(drain[0],60));line(\"met5\",(drain[0],60),(70,60),1);pins[\"VDD\"]=(\"met5\",(68,60))\n    gate=p(\"IN\",\"G\");line(\"met3\",gate,(-35,gate[1]));lift(\"met3\",\"met4\",(-35,gate[1]))\n    line(\"met4\",(-35,gate[1]),(-35,50));pins[\"VIN\"]=(\"met4\",(-35,48))\n    for net,(layer,point)in pins.items():\n        x,y=point;top.add_polygon([(x-.2,y-.2),(x+.2,y-.2),(x+.2,y+.2),(x-.2,y+.2)],layer=sky130.get_glayer(layer+\"_pin\"))\n        top.add_label(net,position=point,layer=sky130.get_glayer(layer+\"_label\"))\n    out=Path(output);out.mkdir(parents=True,exist_ok=True);path=out/\"source_follower.gds\";top.write_gds(path)\n    actual,=gdstk.read_gds(path).top_level();actual.flatten();actual.name=\"source_follower\"\n    lib=gdstk.Library();lib.add(actual);lib.write_gds(path)\n    (out/\"layout_intent.json\").write_text(json.dumps({\"sizing\":z,\"terminal_access\":access,\n        \"placement\":\"L-shaped input/sink/reference devices\",\"routing\":\"right output collector, lower bias crossbar, ground floor, independent upper input/power feeds\",\n        \"shared_dependencies\":[\"MOS\",\"via_stack\",\"SKY130 PDK\"],\"imported_circuit_assemblies\":[],\n        \"bbox_um\":[list(v)for v in actual.bounding_box()]},indent=2)+\"\\n\")\n    return path\n"
+  }
+}

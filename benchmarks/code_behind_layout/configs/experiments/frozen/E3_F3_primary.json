@@ -1,0 +1,508 @@
+{
+  "status": "FROZEN_E3_FIDELITY_METHOD",
+  "formal_dispatch": true,
+  "preparation": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/packets",
+  "task_ids": [
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "methods": [
+    "C"
+  ],
+  "trials": 5,
+  "selection_seeds": [
+    41,
+    73,
+    109,
+    167,
+    223
+  ],
+  "model_config": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/model_config.json",
+  "risk_model": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/risk_model.json",
+  "risk_weights": {
+    "failure_probability": 0,
+    "uncertainty": 1,
+    "changed_call_coverage": 0,
+    "low_margin": 1
+  },
+  "weight_status": "PREDECLARED_EQUAL_WEIGHT_TRANSPARENT_RULE_NOT_VALIDATION_TUNED",
+  "fidelity_policy": "F3_actual_nominal_promote_shared_PEX",
+  "budget_status": "ACTUAL_96PACKET_AND_EIGHT_REAL_FEEDBACK_STRESS_FIT_16K_PENDING_GPU_AND_POLICY_CONTROL",
+  "budget": {
+    "wall_seconds": 14400,
+    "decisions": 24,
+    "patches": 8,
+    "full_evaluations": 8,
+    "maximum_context_tokens": 16384,
+    "maximum_output_tokens": 1024
+  },
+  "parameter_baseline": {
+    "configuration_selector": "C",
+    "strategies": [
+      "random",
+      "gpt_feedback"
+    ],
+    "interface": "prospective_expanded_layout_grid_v1"
+  },
+  "freeze_blockers": [],
+  "parameter_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "instance_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "instance_trials": 1,
+  "dispatch_order_seed": 20261019,
+  "e4_methods_manifest": "runtime/protocol_freezes/E4_primary/manifest.json",
+  "global_release_parts": [
+    "gpt",
+    "parameter",
+    "local",
+    "signals",
+    "fidelity"
+  ],
+  "global_release_requires_fidelity_freeze": true,
+  "fidelity_manifest": "runtime/protocol_freezes/E3_F3_primary/manifest.json",
+  "e4_evaluation": {
+    "variants": [
+      "T0",
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "matched_evaluation_seed_slots": [
+      41,
+      73,
+      109
+    ],
+    "inference_trials": 3,
+    "T0_actual_model_count": 1,
+    "T0_independent_training_seeds": 0
+  },
+  "instance_baseline": {
+    "algorithm": "independent_arrivals_with_verified_library_exact_cache_v1",
+    "warm_start": "nearest_previous_verified_configuration_then_latest",
+    "cache": "exact_source_configuration_reference_PDK_deck_tools_fidelity",
+    "arrival_order": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/instance_arrival_order.json",
+    "deployment_verification_maximum_physical_calls": 1,
+    "budget": {
+      "wall_seconds": 14400,
+      "decisions": 24,
+      "patches": 8,
+      "full_evaluations": 8,
+      "maximum_context_tokens": 16384,
+      "maximum_output_tokens": 1024
+    },
+    "budget_scope": "Same per-arrival search limits as one shared-code episode; every arrival, cache, verification and library cost is charged separately for cumulative cost comparison."
+  },
+  "signal_task_ids": [
+    "draft_E3_mirror_edit02",
+    "draft_E3_cascode_mirror_edit02",
+    "draft_E3_source_follower_edit02",
+    "draft_E3_stacked_switch_edit02",
+    "draft_E3_common_source_stage_edit02",
+    "draft_E3_resistive_diff_edit02",
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "selector_ablation_weights": {
+    "without_distance": {
+      "failure_probability": 0,
+      "uncertainty": 0,
+      "changed_call_coverage": 0,
+      "low_margin": 1
+    },
+    "without_margin": {
+      "failure_probability": 0,
+      "uncertainty": 1,
+      "changed_call_coverage": 0,
+      "low_margin": 0
+    }
+  },
+  "unavailable_signal_ablation": {
+    "changed_call_coverage": "No validated current impact map; weight0 in main, so a duplicate run would not identify an effect",
+    "failure_probability": "No qualified mixed-label family vectors; transparent-rule fallback has weight0"
+  },
+  "fidelity_task_ids": [
+    "draft_E3_five_t_edit02",
+    "draft_E3_compact_miller_edit02"
+  ],
+  "phase": "formal_E3",
+  "freeze_id": "E3_F3_primary",
+  "frozen_at_utc": "2026-10-19T05:42:44.686665+00:00",
+  "backend_manifest_path": "/srv/code-behind-layout/runtime/protocol_freezes/E3_F3_primary/manifest.json",
+  "source_revision": "58565680a3a4d52b83ac09d37888307404a47d53",
+  "implementation_sha256": {
+    "docs/e3_protocol.md": "01a83a5c1010c888f98016597b7f3d5692a0b864bdf552131c4e8ae3db9d4127",
+    "scripts/analyze_e1.py": "adbf72f0d475190647a6b38cc3961682452f7fdc5c682931150565cc95fd450a",
+    "scripts/archive_e1_episode.py": "02a7d42e02df3b7cfeb86b1b0113c91e5bbeb1d2d550cd41b6d52ea79dcea540",
+    "scripts/archive_e3_evidence.py": "b7688f12cf1269588edb9d74d95ba2cad5942949aa444008328ebe30a4627126",
+    "scripts/e1_matched_runner.py": "1658264fc4be12520231f27f0a5d15bfc185000833a7dfc14953eb81b42f8856",
+    "scripts/e1_pcell_prepare.py": "b3bd32774eae9a79257a7cedb3d2f9d718c93023ff95268bc1434a42f5162daa",
+    "scripts/e3_anchor_qualify.py": "b044766a322fbc0d3d81163a4e2b8321545d0a69d8602aeed234beeece209b53",
+    "scripts/e3_episode.py": "c6865e14f729bcb02d65840829895da97447de9f215697e5e24768c2a66b70fa",
+    "scripts/e3_gateway_control.py": "89396040abceec97ce2d0fc8c1275bcf820409fb6249d4653b5ea39688798143",
+    "scripts/e3_generation_qualify.py": "fd098c15060910133c4153986c9ef188a116be6232fec15f3e9febf955f6752c",
+    "scripts/e3_history_preflight.py": "b4e49d8ce4e78af0d5cec93d98d59336c7f1715e654f748b75fdc6bfc911a7cc",
+    "scripts/e3_instance_episode.py": "dc3ec817156dec42d1834f913d964558b8e423ffc3741fc9f9a2100fa9351447",
+    "scripts/e3_original_baseline.py": "178f7d8d86c21169821d472463e168834b69fd9cb2e75fbe70d49d5f9807ebf8",
+    "scripts/e3_parameter_binding_check.py": "6a40b5c098aed65e37ceb3d9b24570a8441f32593d7851d177ea5d4aeb4f4b6d",
+    "scripts/e3_parameter_episode.py": "32d919e68999721c16e794215fb72c09c987ba44197835e0f63ea3dd6823f40d",
+    "scripts/e3_physical_point.py": "dda0cf99e81626020ab3cc002a6f36111fb1858314e97553521100460e091eb0",
+    "scripts/e3_summarize_qualification.py": "41c18e23697e6dc4b8915c878968b2f736825b2ad03a79a6d206d3d8382a7caf",
+    "scripts/e3_task_prepare.py": "60062e9c5b743adcb0e95ae61f64a52239beb44dada0d5e8f595e86d4c5416d3",
+    "scripts/e3_trusted_objective.py": "76abbcff773fb27dc817ec8c541deea096d1bb4a59772e17399c85d2980ef812",
+    "scripts/freeze_e3.py": "662fb1828fd170a8907b65a47792871bd46de7598c582896226e05e0b3dc8ff1",
+    "scripts/materialize_e1_packets.py": "e0a467cee0e70b18013eba3c02eb2af34be562a3869bf746ab4d0f07d0755349",
+    "scripts/release_e3_hidden.py": "31bf926e6811707028075716254891eb6ef4aad3ed9a6adeb9fbe84c377b3f59",
+    "scripts/request_frozen_policy.py": "fc6595360a910f7fe398c4539fb26fe85f92f6055701c53efb75e144c8053e59",
+    "scripts/run_e1_suite.py": "7f7fd2a35b75459553f1a64f62ad5f855bb15fea3c5ff3c993c230d9fc13881a",
+    "scripts/run_e3_evaluation.py": "b7043794ca07a1ac461c888f81f1272963baa4a61fcc17278ecc0151ae6fc47e",
+    "scripts/run_e3_suite.py": "814c47923a664b2a3f39eeac6c2bded1b47489d942a3978cfe71f57fab89a0c9",
+    "scripts/run_eda_probe.py": "1f5229c918cc7b563f1f6c03c733bb46eb06f60d0cc246aa2a70c510bd65f5f1",
+    "src/candidate_executor.py": "2aa700405ed2c52869c3c6a6a039ab2afe8ca02372cb2fe5432c04fb1c5c66e6",
+    "src/device_intent.py": "895976ed93024bc30aee2d7afef75eb895261a61742c9ab9a777c7ae68f2de3d",
+    "src/domain_runner.py": "e9ef34b451b1b0cdbe6e6275e69ebd3448c209a4718b4d7375355628f44d0ddf",
+    "src/e1_analysis.py": "7765dafd874b3db242f0bd4b6004b0d7e00526a3c3d5edf64485a4015881b901",
+    "src/e1_benchmarks.py": "22e89b29bd2319fd8a6c9cf5ac9d690699b52e3432456c5d37bc5300b862dcc4",
+    "src/e1_packets.py": "03562f228f77e81577ec6a03c8ca405044ec80d4a7f7cb8492e486ed27aaa6fc",
+    "src/e3_analysis.py": "0576f220be4144015612182374e9b7348d7f75bfc18e0d1af113cde549a5a3ef",
+    "src/e3_dispatch.py": "6944c06f44825efd2aa0038639c8962e9343e4c36c6ffdb414517daabb764053",
+    "src/e3_episode_state.py": "05fa6f50b3b271c494f31bc9670c1ab1343b45699031ef4c1137ea2a820cad6f",
+    "src/e3_feedback.py": "42061fd32c96f07f3d7d1e88a6446a9d7f54908dda1e588d9a328ad1eccf1a8b",
+    "src/e3_parameters.py": "256bba3d482eee78ad883825b6e2ba2210e5d2fd5542c5d86f876f8a578bfcd2",
+    "src/e3_policy_models.py": "11b07b2b90118849185d3990524ca6d77ccc8e567d74ca188c5ae2022aafcefb",
+    "src/e3_regression.py": "428d079a752d5c55e586a788b512f1120fa7ac3ab6d4db9ad13d9430ed880eb2",
+    "src/e3_risk_model.py": "2131da5f253e63f51454c91c24f9d3a98073f3e06d40b5226bf0af9fa8b6d6ce",
+    "src/e3_task_prepare.py": "f44c34cfbd448947b5060287a7d6c8065613d94a5a963f89fd58b5563b785ad6",
+    "src/local_model_adapter.py": "24e99a3ad5d6dc0a46db7441683fcbfb36507f59f8efeee537b09dbd1be8e283",
+    "src/measurement.py": "1e9736325e094e023f7f5be1fba4a2328ca61a16ea1667e3f88496e6bf64f18f",
+    "src/model_adapter.py": "fa737a01c9b23dbf4ed0b4d1d6ba391637c0c769af56252ac6bcdbe4f0a71338",
+    "src/policy_state.py": "c8803e428d5da62aa6ad886c2cae650fb1fa27fb26d011fdc238a513543751a4",
+    "src/regression_selector.py": "54994e94b514e27f37289520e065c97d8c3bc0950cb01b624d876789c4b8aed4",
+    "src/report_parsers.py": "4ad6a2124e2a573a40910aa13a3ee61cd00e6eb8dd4fba218e1d129cbea994f8",
+    "src/spice_validation.py": "76b3b34fa9013f5165fd5af66b71101c2835786b2d86df2289f9641a4dd2d628",
+    "scripts/e3_fidelity_episode.py": "25da510db20be6190a7f30b590eb728447d76320d6f2e120a48405b6fccb5b94",
+    "scripts/freeze_e3_fidelity.py": "bb03145fd348ab5487f51a7dc0ea84f9e9c961e48c6b69cc22c086d0d3008f84",
+    "scripts/e3_fidelity_point.py": "7d4e0b84cb32ffa40b358299791f3725b68c5f949ce54f64f33d0ca7b31d9318",
+    "scripts/e3_nominal_objective.py": "49a0ca4a6afac161db22b6b8922388f6d1ffc2e87fb9173a7415e254db47bd9c",
+    "scripts/e2_stage_prepare.py": "51c9f4238e2a8404563beb0857e6c61a16fc5d038e0e0e29d03995a9ec41c999",
+    "scripts/e2_cached_evaluator.py": "cff820d748f5573482b11bf15e9ee25221737ef6198e2a921e34153b51c9fe68",
+    "scripts/e2_nominal_bench.py": "1ee40d942d13983112c32ad1318550ae1019c0d8ac7041833192d383c8890173",
+    "scripts/e2_spice_process_profile.py": "381643021aceb790367b7d1224d9e0a5537689631e2768116380fc9948aebcaa",
+    "scripts/e2_execution.py": "dfb7d8d25a2676b7f1f9936d1b11a6c2cf72e618694dd0779871d55824aa64cb",
+    "src/promotion_calibration.py": "94eff5d73ab848867fcf000d9d07260a29fd5de4af7c3947150070235eff57c3"
+  },
+  "original_baseline_plan": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/original_baseline/plan.json",
+  "hidden_release_file": "/srv/code-behind-layout/runtime/evaluation_releases/E3_E3_primary_v2.json",
+  "hidden_evaluation": "Use the main global release only after this method artifact and all ten extra search sources are sealed and source-hash bound",
+  "frozen_registry": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/registry.json",
+  "E1_manifest": "/srv/code-behind-layout/runtime/protocol_freezes/E1_20261019T0449Z_permission_fix/manifest.json",
+  "tasks": [
+    {
+      "task_id": "draft_E3_mirror_edit01",
+      "target": "mirror",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror"
+    },
+    {
+      "task_id": "draft_E3_mirror_edit02",
+      "target": "mirror",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror"
+    },
+    {
+      "task_id": "draft_E3_mirror_edit03",
+      "target": "mirror",
+      "source_group": "vendor_glayout_connected",
+      "merged_source_group": "vendor_glayout_connected",
+      "parent_lineage": "glayout_mirror"
+    },
+    {
+      "task_id": "draft_E3_cascode_mirror_edit01",
+      "target": "cascode_mirror",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E3_cascode_mirror_edit02",
+      "target": "cascode_mirror",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E3_cascode_mirror_edit03",
+      "target": "cascode_mirror",
+      "source_group": "research_cascode_mirror",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_cascode_mirror"
+    },
+    {
+      "task_id": "draft_E3_source_follower_edit01",
+      "target": "source_follower",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower"
+    },
+    {
+      "task_id": "draft_E3_source_follower_edit02",
+      "target": "source_follower",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower"
+    },
+    {
+      "task_id": "draft_E3_source_follower_edit03",
+      "target": "source_follower",
+      "source_group": "research_source_follower",
+      "merged_source_group": "research_bias_buffer_shared",
+      "parent_lineage": "research_source_follower"
+    },
+    {
+      "task_id": "draft_E3_stacked_switch_edit01",
+      "target": "stacked_switch",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch"
+    },
+    {
+      "task_id": "draft_E3_stacked_switch_edit02",
+      "target": "stacked_switch",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch"
+    },
+    {
+      "task_id": "draft_E3_stacked_switch_edit03",
+      "target": "stacked_switch",
+      "source_group": "research_stacked_switch",
+      "merged_source_group": "research_stacked_switch",
+      "parent_lineage": "research_stacked_switch"
+    },
+    {
+      "task_id": "draft_E3_common_source_stage_edit01",
+      "target": "common_source_stage",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage"
+    },
+    {
+      "task_id": "draft_E3_common_source_stage_edit02",
+      "target": "common_source_stage",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage"
+    },
+    {
+      "task_id": "draft_E3_common_source_stage_edit03",
+      "target": "common_source_stage",
+      "source_group": "research_common_source_stage",
+      "merged_source_group": "research_common_source_stage",
+      "parent_lineage": "research_common_source_stage"
+    },
+    {
+      "task_id": "draft_E3_resistive_diff_edit01",
+      "target": "resistive_diff",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff"
+    },
+    {
+      "task_id": "draft_E3_resistive_diff_edit02",
+      "target": "resistive_diff",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff"
+    },
+    {
+      "task_id": "draft_E3_resistive_diff_edit03",
+      "target": "resistive_diff",
+      "source_group": "research_resistive_diff",
+      "merged_source_group": "research_resistive_diff",
+      "parent_lineage": "research_resistive_diff"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit01",
+      "target": "five_t",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit02",
+      "target": "five_t",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit03",
+      "target": "five_t",
+      "source_group": "research_five_t",
+      "merged_source_group": "research_five_t",
+      "parent_lineage": "research_five_t"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit01",
+      "target": "compact_miller",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit02",
+      "target": "compact_miller",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit03",
+      "target": "compact_miller",
+      "source_group": "research_compact_miller",
+      "merged_source_group": "research_compact_miller",
+      "parent_lineage": "research_compact_miller"
+    }
+  ],
+  "primary_source_groups": 8,
+  "merged_sensitivity_groups": 7,
+  "qualification": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/qualification",
+  "original_baseline_declared_points": 600,
+  "analysis": {
+    "primary_contrasts": [
+      "C-R",
+      "C-B"
+    ],
+    "cluster_bootstrap_replicates": 2000,
+    "bootstrap_seed": 20261019,
+    "group_units": [
+      8,
+      7
+    ],
+    "baseline_regression": "Private original-pass denominator join"
+  },
+  "GPT_sampling_seed": "Unavailable; five fresh trial identities, not claimed provider random seeds",
+  "fidelity_freeze_id": "E3_F3_primary",
+  "main_freeze_id": "E3_primary_v2",
+  "main_protocol_manifest": "/srv/code-behind-layout/runtime/protocol_freezes/E3_primary_v2/manifest.json",
+  "policy_variants": [
+    "GPT"
+  ],
+  "search_plan": [
+    {
+      "task_id": "draft_E3_five_t_edit02",
+      "method": "C",
+      "trial_id": "1",
+      "policy_variant": "GPT",
+      "selection_seed": 41,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit02",
+      "method": "C",
+      "trial_id": "2",
+      "policy_variant": "GPT",
+      "selection_seed": 73,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit02",
+      "method": "C",
+      "trial_id": "3",
+      "policy_variant": "GPT",
+      "selection_seed": 109,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit02",
+      "method": "C",
+      "trial_id": "4",
+      "policy_variant": "GPT",
+      "selection_seed": 167,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_five_t_edit02",
+      "method": "C",
+      "trial_id": "5",
+      "policy_variant": "GPT",
+      "selection_seed": 223,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit02",
+      "method": "C",
+      "trial_id": "1",
+      "policy_variant": "GPT",
+      "selection_seed": 41,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit02",
+      "method": "C",
+      "trial_id": "2",
+      "policy_variant": "GPT",
+      "selection_seed": 73,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit02",
+      "method": "C",
+      "trial_id": "3",
+      "policy_variant": "GPT",
+      "selection_seed": 109,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit02",
+      "method": "C",
+      "trial_id": "4",
+      "policy_variant": "GPT",
+      "selection_seed": 167,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    },
+    {
+      "task_id": "draft_E3_compact_miller_edit02",
+      "method": "C",
+      "trial_id": "5",
+      "policy_variant": "GPT",
+      "selection_seed": 223,
+      "fidelity_policy": "F3_actual_nominal_promote_shared_PEX"
+    }
+  ],
+  "promotion_calibration": "/srv/code-behind-layout/runtime/protocol_freezes/E3_F3_primary/promotion_calibration.json",
+  "promotion_calibration_sha256": "0aabfb6c7bbb34a7e02d5c00312076646052cb51bb29b83d0bcc84015d5b4f59",
+  "fidelity_budget": {
+    "low_fidelity_calls": 32,
+    "counting": "Actual PEX acquisition=1; actual TT nominal invocation=1; combined total32, not64",
+    "actual_full_evaluator_invocations": 8,
+    "wall_and_decision_patch_context_budgets_match_main": true
+  },
+  "actual_control_proofs": "/srv/code-behind-layout/runtime/protocol_freezes/E3_F3_primary/actual_control_proofs.json",
+  "F0_comparison": "Reuse the same main C task/trial searches; do not launch or relabel extra F0 trials",
+  "retained_verification": "Anchor and all previously observed passing/failing regressions force actual full; only new untested development points may be screened_deferred",
+  "screened_status": "No S2 prediction, no actual failure/counterexample, no observed pass; verified selection uses actual full only",
+  "post_freeze_physical_path": "Fresh original F0 source-to-GDS/full physical benchmark for every configuration; no search cache reuse",
+  "expected_efficiency_limitation": "Existing development OTA nominals are outside calibration support and force full. Zero full savings plus nominal overhead is an admissible negative result.",
+  "new_physical_calls_during_freeze": 0,
+  "new_model_calls_during_freeze": 0
+}

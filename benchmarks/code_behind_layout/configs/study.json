@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "status": "draft",
+  "title": "The Code Behind the Layout: AI Agents for Analog Layout Generators",
+  "primary_endpoint": "hidden_configuration_S2_coverage",
+  "secondary_endpoint": "regression_among_baseline_S2_passed_configurations",
+  "primary_comparisons": [
+    "C_vs_R",
+    "C_vs_B",
+    "T4_vs_T3",
+    "T2_vs_T1"
+  ],
+  "experiments": {
+    "E1": {
+      "methods": [
+        "G0",
+        "G1",
+        "G2"
+      ],
+      "target_tasks": 24,
+      "target_trials_per_method": 5
+    },
+    "E2": {
+      "target_ota_lineages": 4,
+      "sizings_per_lineage": 3,
+      "candidates_per_sizing": 64
+    },
+    "E3": {
+      "methods": [
+        "A",
+        "R",
+        "B",
+        "C"
+      ],
+      "target_tasks": 24,
+      "target_trials_per_method": 5,
+      "parameter_baseline_min_tasks": 8
+    },
+    "E4": {
+      "methods": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "training_seeds_required_per_trained_method": 3,
+      "backbone_candidate": "Qwen2.5-Coder-32B-Instruct",
+      "checkpoint_revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7"
+    },
+    "E5": {
+      "units": [
+        "wall_seconds",
+        "cpu_seconds",
+        "gpu_hours",
+        "verification_calls",
+        "logged_visible_tokens"
+      ]
+    }
+  },
+  "editing_domain_targets": {
+    "anchor": 1,
+    "development": 8,
+    "hidden": 16,
+    "independent_lineages": 8,
+    "topology_families": 4,
+    "complete_topology_holdouts": 2
+  },
+  "actual_pdk_versions": [],
+  "actual_device_flavors": [
+    "sky130_fd_pr__nfet_01v8",
+    "sky130_fd_pr__pfet_01v8",
+    "sky130_fd_pr__cap_mim_m3_1"
+  ],
+  "actual_corners": [
+    "tt",
+    "ss",
+    "ff"
+  ],
+  "episode_budgets": null,
+  "formal_tasks": [],
+  "freeze_blockers": [
+    "fully materialized feasible task domains and independent source clusters",
+    "complete draft task/split admission",
+    "pilot-calibrated method budgets and source-context interfaces",
+    "train/validation calibration for selectors and fidelity models"
+  ]
+}

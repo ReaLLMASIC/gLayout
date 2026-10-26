@@ -1,0 +1,55 @@
+{
+  "status": "PROSPECTIVE_DRAFT_NO_MEASUREMENTS",
+  "source_identity": "research_telescopic_cascode_mirror_ota_v1",
+  "prerequisite": "A true all-three-corner positive control among the fixed local_v4 twelve ideal OP/AC calls; select the first declared passing bias only after all twelve calls finish",
+  "application": {
+    "supply_V": 1.8,
+    "common_mode_V": 1.0,
+    "bias_reference_current_A": 0.00001,
+    "load_F": 2e-12,
+    "temperature_C": 27
+  },
+  "corners": ["tt", "ss", "ff"],
+  "numerics": {"solver": "KLU", "reltol": 1e-6, "abstol": 1e-14, "vntol": 1e-8, "chgtol": 1e-16},
+  "per_analysis_wall_limit_s": 180,
+  "serial_analyses": true,
+  "physical_gates": ["full_rule_DRC", "independent_reference_LVS", "exact_per_finger_device_and_terminal_graph", "positive_full_RC"],
+  "fixed_requirements": {
+    "gain_at_10Hz_dB_min": 30,
+    "ugb_Hz_min": 1000000,
+    "phase_margin_deg_min": 60,
+    "phase_margin_deg_max": 180,
+    "nominal_output_OP_acceptance_min_V": 0.7,
+    "nominal_output_OP_acceptance_max_V": 1.2,
+    "total_VDD_and_cascode_bias_power_W_max": 0.0005,
+    "minimum_absolute_channel_voltage_V": 0.05,
+    "minimum_abs_Vds_over_abs_Vdsat": 1.0,
+    "dc_incremental_gain_min": 0.9,
+    "dc_incremental_gain_max": 1.1,
+    "transient_incremental_gain_min": 0.9,
+    "transient_incremental_gain_max": 1.1,
+    "transient_final_plateau_relative_error_max": 0.02
+  },
+  "transient": {
+    "feedback": "wire_alias_VN_equals_VOUT",
+    "stimulus": "VIN vp 0 pulse(0.99 1.01 1u 10n 10n 4u 8u)",
+    "analysis": "tran 5n 16u",
+    "high_plateau_window_s": [0.000004, 0.0000049],
+    "low_plateau_window_s": [0.000008, 0.0000089],
+    "settling_check_windows_s": [[0.000003, 0.0000049], [0.000007, 0.0000089]],
+    "relative_error_definition": "The maximum absolute output deviation from its corresponding final-plateau mean, divided by the absolute measured high-minus-low plateau difference; no absolute DC tracking precision is implied",
+    "incremental_gain_definition": "(mean(output in high plateau)-mean(output in low plateau))/0.02V"
+  },
+  "dc": {
+    "feedback": "wire_alias_VN_equals_VOUT",
+    "analysis": "dc VIN 0.9 1.1 0.05",
+    "expected_axis_V": [0.9, 0.95, 1.0, 1.05, 1.1],
+    "incremental_gain_definition": "Every adjacent output difference divided by the corresponding 0.05V input difference; all five output samples must be finite and inside the original 0.7..1.2V headroom window",
+    "interpretation": "Five sampled closed-loop transfer points, not proof of continuous rail-to-rail swing"
+  },
+  "power_accounting": "Use actual VDD/VBN/VBP source currents. The VDD-to-IBIAS reference branch is already included in VDD power. Ideal external bias generator implementation overhead is outside this declared fixture and remains disclosed.",
+  "completeness": "Every requested OP/AC/Tran/DC table and ngspice log must pass the exact declared analysis coverage. Timeout, partial trace, missing per-finger binding, or software exceptions are unknown, not a candidate-negative label.",
+  "new_measurements": 0,
+  "formal_measurements": 0,
+  "old_domains_modified": false
+}

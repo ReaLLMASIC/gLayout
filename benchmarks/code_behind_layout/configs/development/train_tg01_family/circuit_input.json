@@ -1,0 +1,45 @@
+{
+  "circuit_id": "TRAIN_TG01",
+  "name": "authored_complementary_transmission_gate",
+  "ports": [
+    "VDD",
+    "VSS",
+    "VIN1",
+    "VOUT1",
+    "VC1",
+    "VC2"
+  ],
+  "devices": [
+    {
+      "name": "M1",
+      "kind": "nfet",
+      "nets": [
+        "VOUT1",
+        "VC1",
+        "VIN1",
+        "VSS"
+      ],
+      "params": {}
+    },
+    {
+      "name": "M2",
+      "kind": "pfet",
+      "nets": [
+        "VOUT1",
+        "VC2",
+        "VIN1",
+        "VDD"
+      ],
+      "params": {}
+    }
+  ],
+  "source": {
+    "kind": "new_authored_task_descriptor",
+    "author_role": "research_engineering",
+    "not_an_existing_public_C04": "Public C04 is a common-source amplifier; no TG exists among the public18 descriptors.",
+    "graph": "Parallel NMOS/PMOS channels; complementary external controls, separate well/body rails."
+  },
+  "notes": [
+    "Circuit input to the same public universal compiler, not an independent generator lineage."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "interface_id": "validation_named_top_v2",
+  "status": "FROZEN_DEVELOPMENT_INTERFACE",
+  "frozen_at_utc": "2026-10-19T02:05:10.289329+00:00",
+  "scope": "Prospective development validation composition gateway; main benchmark remains DRAFT",
+  "contract_target": "validation_mirror",
+  "selection": "Exactly one cell with the contract name; complete resolvable referenced hierarchy; full recursive bounding box",
+  "unreferenced_cells": "Permitted; excluded from target DRC/LVS/PEX",
+  "GDS_input_rewrite": false,
+  "default_unnamed_DRC_call": "Original sole-top requirement unchanged",
+  "feedback": "Structured interface_error; missing or unresolved target is unknown/interface, never a physical candidate failure",
+  "snapshot_files": [
+    "src/physical_drc.py",
+    "scripts/validation_task_evaluator.py",
+    "scripts/validation_budget_pilot.py",
+    "scripts/named_top_smoke.py",
+    "results/derived/named_top_calibration.json"
+  ],
+  "physical_smoke": "phase0_20261019T020356543075Z_named_top_smoke",
+  "sealed_prior_batch": "20261019T015810313920Z",
+  "prior_batch_regraded_or_rerun": false,
+  "formal_trials": 0,
+  "training_examples": 0,
+  "frozen_generic_library_remote": "runs/development/validation_bundles/20261019T015648213799Z"
+}

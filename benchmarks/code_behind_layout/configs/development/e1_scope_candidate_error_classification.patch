@@ -1,0 +1,59 @@
+--- a/scripts/e1_scope_runner.py
++++ b/scripts/e1_scope_runner.py
+@@ -21,6 +21,16 @@
+ from src.model_adapter import GptDecisionAdapter, check_utc_budget
+ 
+ SSH = original.SSH[:-1]+['-o', 'ControlPath=/tmp/cbl-ssh-control']+original.SSH[-1:]
++
++
++class CandidateActionError(ValueError):
++    pass
++
++
++def bad_patch_error(error):
++    return (isinstance(error, subprocess.CalledProcessError) and
++        error.cmd == ['git', 'apply', '--check', '--whitespace=nowarn', '-'] and
++        isinstance(error.stderr, str) and re.fullmatch(r'error: corrupt patch at line [0-9]+\s*', error.stderr) is not None)
+ 
+ 
+ def now():return datetime.now(timezone.utc)
+@@ -88,6 +98,13 @@
+ 
+ 
+ class Backend(original.Backend):
++    def action(self, action):
++        try:return super().action(action)
++        except subprocess.CalledProcessError as error:
++            if action.get('action') == 'propose_patch' and bad_patch_error(error):
++                raise CandidateActionError('candidate_bad_patch: '+error.stderr.strip()) from error
++            raise
++
+     def summary(self):
+         return {**super().summary(), 'cohort_id': self.state['cohort_id'], 'interface_version': COHORT,
+             'freeze_id': self.state['freeze_id'], 'interface_pilot': self.state['interface_pilot']}
+@@ -124,7 +141,7 @@
+     if process.returncode:raise original.BackendInfrastructureError(process.stderr[-1500:])
+     result = json.loads(process.stdout)
+     if result.get('error'):
+-        kind = {'TimeoutError': TimeoutError, 'ValueError': ValueError}.get(result['error_type'], original.BackendInfrastructureError)
++        kind = {'TimeoutError': TimeoutError, 'ValueError': ValueError, 'CandidateActionError': CandidateActionError}.get(result['error_type'], original.BackendInfrastructureError)
+         raise kind(result['error'])
+     return result['result']
+ 
+@@ -152,6 +169,7 @@
+             current = transport({'op': 'current', 'episode_directory': directory})
+             action = adapter.step(session, observation, current_sources=current['current_sources']);check_utc_budget(packet)
+             try:observation = transport({'op': 'action', 'episode_directory': directory, 'action': action})
++            except CandidateActionError:raise
+             except ValueError as error:observation = {'error': type(error).__name__+': '+str(error)}
+             save(out/'latest_observation.json', observation)
+             if action['action'] == 'finish':status = 'SEARCH_FINISHED';break
+@@ -163,6 +181,8 @@
+             if any(isinstance(value, dict) and value.get('execution_integrity') == 'incomplete' for value in observation.values()):
+                 status = 'INCOMPLETE_UNKNOWN';break
+     except TimeoutError:status = 'BUDGET_EXHAUSTED'
++    except CandidateActionError as error:
++        status = 'MODEL_FAILED';save(out/'policy_error.json', {'failure_class': 'candidate_invalid_action', 'error': str(error)})
+     except original.BackendInfrastructureError as error:
+         status = 'INCOMPLETE_UNKNOWN';save(out/'backend_error.json', {'error': str(error)})
+     except Exception as error:
