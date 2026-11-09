@@ -14,9 +14,51 @@ concurrency:
 
 jobs:
   notebooks:
-    name: Run tutorial notebooks
+    name: ${{ matrix.notebook }}
     runs-on: ubuntu-22.04
+    # Per-notebook budget. Previously 30 min covered all 14 notebooks run
+    # serially, which the heavy PEX/LVS notebooks could not fit into; when the
+    # job cap fired mid-loop, summary.json/junit.xml were never written and
+    # every notebook reported as timed out.
+    #
+    # Keep this comfortably ABOVE the runner's --notebook-timeout (20 min)
+    # plus setup (~3-5 min for container pull + cache restore), so the
+    # runner's own timeout fires first and junit.xml is still written. If the
+    # job cap fires instead, the report is lost and every leg looks the same.
     timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # One job per notebook so the suite finishes in the time of the slowest
+        # notebook, not the sum. part2 notebooks import helper modules written
+        # by their part1, so those run as a pair (the runner sorts part1 first).
+        notebook:
+          - GLayout_Introduction
+          - GLayout_Via
+          - GLayout_Cmirror
+          - GLayout_Cells
+          - glayout_opamp
+          - glayout_tutorial_FVF_part1
+          - glayout_tutorial_INV_part1
+          - glayout_tutorial_5T_OTA_part1
+          - test_bjt_glayout
+          - test_bjt_gdsfactory
+          - test_bjt_custom_pattern
+          - glayout_tutorial_FVF_part1,glayout_tutorial_FVF_part2
+          - glayout_tutorial_INV_part1,glayout_tutorial_INV_part2
+          - glayout_tutorial_5T_OTA_part1,glayout_tutorial_5T_OTA_part2
+        # Backend per notebook. Default (unset -> gdsfactory) for the eleven
+        # tutorials that import Component/rectangle/cell straight from
+        # gdsfactory. GLayout_Cells and glayout_opamp only call glayout
+        # functions, so they can use the fast native backend — and they must:
+        # their large-opamp cell (rmult=2, 3 mimcap rows) runs for well over
+        # 20 min on gdsfactory (measured 14 s on gdstk).
+        include:
+          - notebook: GLayout_Cells
+            backend: gdstk
+          - notebook: glayout_opamp
+            backend: gdstk
 
     # Same container + Python setup as drc.yml, so the two workflows can
     # share a venv cache. iic-osic-tools ships klayout, magic, netgen, both
@@ -30,11 +72,15 @@ jobs:
         # Both sky130A and gf180mcuD live here; glayout's gf180 module reads
         # this at import time even when a notebook only touches sky130, so
         # it has to be set globally.
-        # The tutorials build several times faster on the native backend,
-        # which takes the heaviest notebooks off the 180s per-cell limit
-        # rather than raising it. Measured on the fork's own CI:
-        # GLayout_Cells 187.8s (timeout) -> 14.2s, whole suite 660s -> 158s.
-        GLAYOUT_BACKEND: gdstk
+        # Chosen per matrix leg (see strategy.matrix.include). Mixing a
+        # gdstk-backed nmos() into a gdsfactory Component fails add_ref's
+        # isinstance check ("needs to be a Component"), so only notebooks with
+        # no direct gdsfactory imports may use gdstk.
+        GLAYOUT_BACKEND: ${{ matrix.backend || 'gdsfactory' }}
+        # Tells the PEX cells in the FVF/INV/BJT tutorials to skip magic's
+        # `extresist` pass (full RC extraction), which runs for minutes on a
+        # flattened design. Devices + caps are still extracted.
+        GLAYOUT_SKIP_EXTRESIST: "1"
         PDK_ROOT: /foss/pdks
         # FVF / INV / BJT tutorials default to gf180; the bootstrap cell in
         # each notebook derives PDKPATH from PDK_ROOT/PDK if unset.
@@ -125,28 +171,51 @@ jobs:
           uv pip install -e .
           uv pip install jupyter nbconvert ipykernel
 
-      - name: Run all tutorial notebooks
+      - name: Run tutorial notebook(s)
         run: |
           set -euxo pipefail
           . "$GITHUB_WORKSPACE/.venv/bin/activate"
           python tests/notebooks/run_tutorial_notebooks.py \
+            --only "${{ matrix.notebook }}" \
+            --cell-timeout 600 --notebook-timeout 1200 \
             --out-dir notebook_results
+
+      - name: Artifact name
+        if: always()
+        id: art
+        # Matrix entries may contain commas; artifact names cannot.
+        run: echo "name=tutorial-nb-$(echo '${{ matrix.notebook }}' | tr ',' '+')" >> "$GITHUB_OUTPUT"
 
       - name: Upload notebook artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tutorial-notebooks
+          name: ${{ steps.art.outputs.name }}
           # Includes executed/*.ipynb, logs/*.log, summary.json, junit.xml —
           # everything needed to triage a regression without rerunning CI.
           path: notebook_results
           retention-days: 14
 
+  publish:
+    name: Publish JUnit summary
+    runs-on: ubuntu-22.04
+    needs: notebooks
+    if: always()
+    permissions:
+      contents: read
+      checks: write
+    steps:
+      - name: Download all notebook artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: tutorial-nb-*
+          path: all_results
+
       - name: Publish JUnit summary
-        # Skip when junit.xml wasn't produced (the runner died before write).
-        if: ${{ always() && hashFiles('notebook_results/junit.xml') != '' }}
+        # Skip when no junit.xml was produced (a runner died before write).
+        if: ${{ hashFiles('all_results/**/junit.xml') != '' }}
         uses: mikepenz/action-junit-report@v4
         with:
-          report_paths: notebook_results/junit.xml
+          report_paths: all_results/**/junit.xml
           check_name: Tutorial notebooks
           require_tests: true
