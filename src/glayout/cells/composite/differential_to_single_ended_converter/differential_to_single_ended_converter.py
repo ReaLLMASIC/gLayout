@@ -62,14 +62,14 @@ def __create_sharedgatecomps(pdk: MappedPDK, rmult: int, half_pload: tuple[float
             pcenterfourunits = multiplier(
                 pdk, "p+s/d", width=half_pload[0], length=half_pload[1], fingers=4, dummy=dummy, rmult=rmult
             )
-            extra_t = -1 * single_dim - (to_decimal(0) if half_pload[1] >= 0.5 else to_decimal(1.0) - to_decimal(half_pload[1]))
+            extra_t = -1 * single_dim - (to_decimal(0) if half_pload[1] >= 0.5 else to_decimal(1.0) - to_decimal(half_pload[1]) / 2)
         elif i == 2:
             dummy = [False, True]
             appenddummy="R"
             pcenterfourunits = multiplier(
                 pdk, "p+s/d", width=half_pload[0], length=half_pload[1], fingers=4, dummy=dummy, rmult=rmult
             )
-            extra_t = single_dim + (to_decimal(0) if half_pload[1] >= 0.5 else to_decimal(1.0) - to_decimal(half_pload[1]))
+            extra_t = single_dim + (to_decimal(0) if half_pload[1] >= 0.5 else to_decimal(1.0) - to_decimal(half_pload[1]) / 2)
         else:
             pcenterfourunits = relative_dim_comp
         pref_ = prec_ref_center(pcenterfourunits).movex(pdk.snap_to_2xgrid(to_float(i * single_dim + extra_t)))
@@ -162,7 +162,7 @@ def __route_sharedgatecomps(pdk: MappedPDK, shared_gate_comps, via_location, pto
     # default-width (port-width) rails 0.1um apart, tripping M3.2a. sky130
     # has wider pitch, so leave its rails at default to avoid via-enclosure
     # gaps that show up as m1.2 when the rail is too thin.
-    _drain_w = 0.5 if pdk.name.lower() in ("gf180", "openrpdk28") else None
+    _drain_w = 0.5 if pdk.name.lower() in ("gf180", "openrpdk28", "icsprout55") else None
     shared_gate_comps << c_route(pdk, ptop_AB.ports["R_drain_E"], pmos_bdrain_diffpair_v.ports["bottom_met_E"],extension=pcomps_route_B_drain_extension +_max_metal_seperation_ps, width1=_drain_w, width2=_drain_w)
     shared_gate_comps << c_route(pdk, pbottom_AB.ports["L_drain_W"], pmos_bdrain_diffpair_v.ports["bottom_met_W"],extension=pcomps_route_B_drain_extension +_max_metal_seperation_ps, width1=_drain_w, width2=_drain_w)
     shared_gate_comps.add_ports(pmos_bdrain_diffpair_v.get_ports_list(),prefix="minusvia_")

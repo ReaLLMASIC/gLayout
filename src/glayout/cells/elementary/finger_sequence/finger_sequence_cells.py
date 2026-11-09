@@ -153,7 +153,7 @@ def finger_sequence_cell(
             top = add_ports_perimeter(top, layer=pdk.get_glayer(well), prefix="well_")
             st.detail(well)
         with pt.stage("Pin labels") as st:
-            if pdk.name.lower() in ("gf180", "openrpdk28") and with_tie and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
+            if pdk.name.lower() in ("gf180", "openrpdk28", "icsprout55") and with_tie and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
                 placed = []
                 for net in pins:
                     if net == "B":

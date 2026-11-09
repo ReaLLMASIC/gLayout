@@ -33,6 +33,10 @@ try:
     from .pdk.openrpdk28_mapped import openrpdk28_mapped_pdk as openrpdk28
 except Exception:
     openrpdk28 = None
+try:
+    from .pdk.icsprout55_mapped import icsprout55_mapped_pdk as icsprout55
+except Exception:
+    icsprout55 = None
 
 # Primitive components
 from .primitives.via_gen import via_stack, via_array
@@ -131,4 +135,5 @@ __all__ = [
     "sky130",
     "gf180",
     "openrpdk28",
+    "icsprout55",
 ]

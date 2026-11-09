@@ -262,7 +262,7 @@ def diff_pair(
 	# under klayout's --top_lvl_pins. Replaces the old GLAYOUT_NO_PIN_LABELS env
 	# var: @cell keys its cache on arguments, so flipping an env var between two
 	# otherwise-identical calls returns the stale cached component.
-	if pdk.name.lower() in ("gf180", "openrpdk28") and substrate_tap and with_pin_labels:
+	if pdk.name.lower() in ("gf180", "openrpdk28", "icsprout55") and substrate_tap and with_pin_labels:
 		component = add_df_labels(component, pdk)
 	return component
 
