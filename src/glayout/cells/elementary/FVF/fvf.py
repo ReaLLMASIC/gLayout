@@ -198,34 +198,41 @@ def  flipped_voltage_follower(
 
     #Relative move
     ref_dimensions = evaluate_bbox(fet_2)
-    if placement == "horizontal":
-        # Legacy formula `metal_sep - 0.5` overlaps the two fet bboxes so their
-        # pwells merge. Trim the overlap slightly (-0.46 instead of -0.5) so the
-        # fets' inner S/D m2 finger contacts respect the strictest PDK m2
-        # spacing — gf180 M2.2a (0.28um). Sky130 m2 spacing (0.14um) is well
-        # under the resulting gap either way.
-        fet_2_ref.movex(fet_1_ref.xmax + ref_dimensions[0]/2 + pdk.util_max_metal_seperation()-0.46)
-        # The two fets' welltie tap-implant rings end up `2*well_enc - bbox_overlap`
-        # apart at their inner edges. On stricter PDKs (gf180 PP.2 = 0.4um) that
-        # gap trips a min-spacing rule. Bridge the implants with a thin rectangle
-        # so they merge into one polygon — geometrically inert (it sits inside
-        # the merged pwell, on top of existing tap diffusion area), DRC-clean.
-        well_enc = pdk.get_grule(well, "active_tap")["min_enclosure"]
-        fet1_pp_right = fet_1_ref.xmax - well_enc
-        fet2_pp_left = fet_2_ref.xmin + well_enc
-        if fet2_pp_left > fet1_pp_right:
-            bridge_x = (fet1_pp_right + fet2_pp_left) / 2
-            bridge_w = (fet2_pp_left - fet1_pp_right) + 0.04
-            bridge_h = (fet_1_ref.ymax - fet_1_ref.ymin) - 2 * well_enc
-            bridge_y = (fet_1_ref.ymax + fet_1_ref.ymin) / 2
-            bridge = top_level << rectangle(
-                size=(bridge_w, bridge_h),
-                layer=pdk.get_glayer(sd_layer),
-                centered=True,
-            )
-            bridge.movex(bridge_x).movey(bridge_y)
-    if placement == "vertical":
-        fet_2_ref.movey(fet_1_ref.ymin - ref_dimensions[1]/2 - pdk.util_max_metal_seperation()-1)
+    if pdk.finfet is not None:
+        step = pdk.finfet.gate_pitch
+        if placement == "horizontal":
+            fet_2_ref.movex(fet_1_ref.xmax + ref_dimensions[0] / 2 + 6 * step)
+        if placement == "vertical":
+            fet_2_ref.movey(fet_1_ref.ymin - ref_dimensions[1] / 2 - 4 * pdk.finfet.fin_pitch)
+    else:
+        if placement == "horizontal":
+            # Legacy formula `metal_sep - 0.5` overlaps the two fet bboxes so their
+            # pwells merge. Trim the overlap slightly (-0.46 instead of -0.5) so the
+            # fets' inner S/D m2 finger contacts respect the strictest PDK m2
+            # spacing — gf180 M2.2a (0.28um). Sky130 m2 spacing (0.14um) is well
+            # under the resulting gap either way.
+            fet_2_ref.movex(fet_1_ref.xmax + ref_dimensions[0]/2 + pdk.util_max_metal_seperation()-0.46)
+            # The two fets' welltie tap-implant rings end up `2*well_enc - bbox_overlap`
+            # apart at their inner edges. On stricter PDKs (gf180 PP.2 = 0.4um) that
+            # gap trips a min-spacing rule. Bridge the implants with a thin rectangle
+            # so they merge into one polygon — geometrically inert (it sits inside
+            # the merged pwell, on top of existing tap diffusion area), DRC-clean.
+            well_enc = pdk.get_grule(well, "active_tap")["min_enclosure"]
+            fet1_pp_right = fet_1_ref.xmax - well_enc
+            fet2_pp_left = fet_2_ref.xmin + well_enc
+            if fet2_pp_left > fet1_pp_right:
+                bridge_x = (fet1_pp_right + fet2_pp_left) / 2
+                bridge_w = (fet2_pp_left - fet1_pp_right) + 0.04
+                bridge_h = (fet_1_ref.ymax - fet_1_ref.ymin) - 2 * well_enc
+                bridge_y = (fet_1_ref.ymax + fet_1_ref.ymin) / 2
+                bridge = top_level << rectangle(
+                    size=(bridge_w, bridge_h),
+                    layer=pdk.get_glayer(sd_layer),
+                    centered=True,
+                )
+                bridge.movex(bridge_x).movey(bridge_y)
+        if placement == "vertical":
+            fet_2_ref.movey(fet_1_ref.ymin - ref_dimensions[1]/2 - pdk.util_max_metal_seperation()-1)
     
     #Routing
     viam2m3 = via_stack(pdk, "met2", "met3", centered=True)
@@ -233,21 +240,40 @@ def  flipped_voltage_follower(
     source_1_via = top_level << viam2m3
     drain_2_via = top_level << viam2m3
     gate_2_via = top_level << viam2m3
-    drain_1_via.move(fet_1_ref.ports["multiplier_0_drain_W"].center).movex(-0.5*evaluate_bbox(fet_1)[1])
-    source_1_via.move(fet_1_ref.ports["multiplier_0_source_E"].center).movex(1.5)
-    drain_2_via.move(fet_2_ref.ports["multiplier_0_drain_W"].center).movex(-1.5)
-    gate_2_via.move(fet_2_ref.ports["multiplier_0_gate_E"].center).movex(1)
+    if pdk.finfet is not None:
+        step = pdk.finfet.gate_pitch
+        if placement == "horizontal":
+            drain_1_via.move((fet_1_ref.xmin - 2 * step, fet_1_ref.ports["multiplier_0_drain_W"].center[1]))
+            source_1_via.move((fet_1_ref.xmax + 2 * step, fet_1_ref.ports["multiplier_0_source_E"].center[1]))
+            drain_2_via.move((fet_2_ref.xmin - 2 * step, fet_2_ref.ports["multiplier_0_drain_W"].center[1]))
+            gate_2_via.move((fet_2_ref.xmax + 2 * step, fet_2_ref.ports["multiplier_0_gate_E"].center[1]))
+        else:
+            left_x = min(fet_1_ref.xmin, fet_2_ref.xmin)
+            right_x = max(fet_1_ref.xmax, fet_2_ref.xmax)
+            drain_1_via.move((left_x - 4 * step, fet_1_ref.ports["multiplier_0_drain_W"].center[1]))
+            source_1_via.move((right_x + 2 * step, fet_1_ref.ports["multiplier_0_source_E"].center[1]))
+            drain_2_via.move((left_x - 2 * step, fet_2_ref.ports["multiplier_0_drain_W"].center[1]))
+            gate_2_via.move((right_x + 4 * step, fet_2_ref.ports["multiplier_0_gate_E"].center[1]))
+        ext_n = max(fet_1_ref.ymax, fet_2_ref.ymax) - max(source_1_via.ymax, drain_2_via.ymax) + 2 * pdk.finfet.fin_pitch
+        ext_s = min(drain_1_via.ymin, gate_2_via.ymin) - min(fet_1_ref.ymin, fet_2_ref.ymin) + 2 * pdk.finfet.fin_pitch
+    else:
+        drain_1_via.move(fet_1_ref.ports["multiplier_0_drain_W"].center).movex(-0.5*evaluate_bbox(fet_1)[1])
+        source_1_via.move(fet_1_ref.ports["multiplier_0_source_E"].center).movex(1.5)
+        drain_2_via.move(fet_2_ref.ports["multiplier_0_drain_W"].center).movex(-1.5)
+        gate_2_via.move(fet_2_ref.ports["multiplier_0_gate_E"].center).movex(1)
+        ext_n = 1.2 * max(width[0], width[1])
+        ext_s = 1.2 * max(width[0], width[1])
 
     top_level << straight_route(pdk, fet_1_ref.ports["multiplier_0_source_E"], source_1_via.ports["bottom_met_W"])
     top_level << straight_route(pdk, fet_2_ref.ports["multiplier_0_drain_W"], drain_2_via.ports["bottom_met_E"])
-    top_level << c_route(pdk, source_1_via.ports["top_met_N"], drain_2_via.ports["top_met_N"], extension=1.2*max(width[0],width[1]), e1glayer="met3", e2glayer="met3", cglayer="met2")
+    top_level << c_route(pdk, source_1_via.ports["top_met_N"], drain_2_via.ports["top_met_N"], extension=ext_n, e1glayer="met3", e2glayer="met3", cglayer="met2")
     top_level << straight_route(pdk, fet_1_ref.ports["multiplier_0_drain_W"], drain_1_via.ports["bottom_met_E"])
-    top_level << c_route(pdk, drain_1_via.ports["top_met_S"], gate_2_via.ports["top_met_S"], extension=1.2*max(width[0],width[1]), cglayer="met2")
+    top_level << c_route(pdk, drain_1_via.ports["top_met_S"], gate_2_via.ports["top_met_S"], extension=ext_s, cglayer="met2")
     top_level << straight_route(pdk, fet_2_ref.ports["multiplier_0_gate_E"], gate_2_via.ports["bottom_met_W"])
     try:
         # Use the PDK's own min_width for the tie route layer rather than a
         # hardcoded 0.2um (gf180's met1 min_width is 0.23um, so 0.2 trips M1.1).
-        _tie_width = max(0.2 * sd_rmult, pdk.get_grule(tie_layers2[1])["min_width"])
+        _tie_width = pdk.get_grule(tie_layers2[1])["min_width"] if pdk.finfet is not None else max(0.2 * sd_rmult, pdk.get_grule(tie_layers2[1])["min_width"])
         top_level << straight_route(pdk, fet_2_ref.ports["multiplier_0_source_W"], fet_2_ref.ports["tie_W_top_met_W"], glayer1=tie_layers2[1], width=_tie_width, fullbottom=True)
     except:
         pass

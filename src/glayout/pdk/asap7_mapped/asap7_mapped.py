@@ -42,38 +42,38 @@ def rule(a, b, **values):
     rules.setdefault(a, {})[b] = values
 
 
-rule("poly", "poly", min_width=0.020, min_separation=0.034, pitch=0.054)
+rule("poly", "poly", min_width=0.020, min_separation=0.030, pitch=0.054)
 rule("fin", "fin", width=0.007, min_width=0.007, pitch=0.027)
-rule("active_diff", "active_diff", min_width=0.027, min_separation=0.092)
+rule("active_diff", "active_diff", min_width=0.027, min_separation=0.054)
 for i in range(1, 6):
-    width, sep = (0.040, 0.300) if i <= 3 else (0.046, 0.300)
+    width, sep = (0.024, 0.024) if i <= 3 else (0.036, 0.024)
     rule(f"met{i}", f"met{i}", min_width=width, min_separation=sep)
 for i in range(1, 5):
     width = 0.018 if i <= 3 else 0.024
-    rule(f"via{i}", f"via{i}", width=width, min_separation=0.030)
+    rule(f"via{i}", f"via{i}", width=width, min_separation=0.024)
     for metal in (i, i + 1):
-        rule(f"via{i}", f"met{metal}", min_enclosure=0.005 if metal < 4 else 0.011)
-rule("mcon", "mcon", width=0.018, min_separation=0.030)
-rule("mcon", "met1", min_enclosure=0.005)
+        enc = 0.005 if metal < 4 else (0.009 if i <= 3 else 0.006)
+        rule(f"via{i}", f"met{metal}", min_enclosure=enc)
+rule("mcon", "mcon", width=0.018, min_separation=0.024)
+rule("mcon", "met1", min_enclosure=0.003)
 
 # Generic primitive contracts: poly denotes gate local interconnect (LIG).
 # Actual gate stripes use FinFETTechnology.gate_layer=(7,0).
-rule("poly", "active_diff", overhang=0.072)
-rule("poly", "mcon", min_enclosure=0.001, min_separation=0.005)
+rule("poly", "active_diff", overhang=0.054)
+rule("poly", "mcon", min_enclosure=0.002, min_separation=0.005)
 rule("active_diff", "mcon", min_enclosure=0.003)
-rule("active_tap", "active_tap", min_width=0.028, min_separation=0.108)
-rule("active_tap", "active_diff", min_separation=0.108)
-rule("active_tap", "mcon", min_enclosure=0.005)
+rule("active_tap", "active_tap", min_width=0.024, min_separation=0.054)
+rule("active_tap", "active_diff", min_separation=0.054)
+rule("active_tap", "mcon", min_enclosure=0.003)
 for select in ("n+s/d", "p+s/d"):
     rule(select, select, min_width=0.054, min_separation=0.054)
     rule(select, "active_diff", min_enclosure=0.054)
     rule(select, "active_tap", min_enclosure=0.027)
 for well in ("pwell", "nwell", "dnwell"):
     rule(well, well, min_width=0.108, min_separation=0.108)
-    rule(well, "active_tap", min_enclosure=0.300, min_separation=0.108)
+    rule(well, "active_tap", min_enclosure=0.054, min_separation=0.054)
     rule(well, "active_diff", min_enclosure=0.027, min_separation=0.027)
 rule("pwell", "dnwell", min_enclosure=0.054)
-rule("poly", "poly", min_width=0.020, min_separation=0.034, pitch=0.054)
 rule("capmet", "capmet", min_separation=0.108, capmettop=(50, 0), capmetbottom=(40, 0))
 for metal in ("met4", "met5"):
     rule(metal, "capmet", min_enclosure=0.0)
@@ -100,7 +100,9 @@ asap7_mapped_pdk = MappedPDK(
         fin_width=0.007,
         gate_pitch=0.054,
         gate_length=0.020,
-        well_enclosure=0.108,
+        gate_extension=0.054,
+        active_gate_extension=0.027,
+        well_enclosure=0.054,
     ),
 )
 asap7_mapped_pdk.gds_write_settings.precision = 0.5e-9

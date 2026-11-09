@@ -71,12 +71,12 @@ def legacy_momcap(pdk, size=(1.0, 1.0)):
     length = c.info["momcap"]["length"]
     xmax = (c.info["momcap"]["fingers"] - 1) * MOM_PITCH
     for name, net, y, metal in [
-        ("top_met", "V1", 0, "met5"),
-        ("bottom_met", "V2", length, "met4"),
+        ("bottom_met", "V2", 0, "met4"),
+        ("top_met", "V1", length, "met5"),
     ]:
         v = via_stack(pdk, "met2", metal)
         margin = max(0.108, (v.xmax - v.xmin) / 2 + 0.054)
-        x = -margin if net == "V1" else xmax + margin
+        x = -margin if net == "V2" else xmax + margin
         r = c << v
         r.move((x, y))
         _rect(
@@ -104,7 +104,6 @@ def legacy_momcap(pdk, size=(1.0, 1.0)):
 def legacy_momcap_array(pdk, rows, columns, size, rmult=1, **kwargs):
     from glayout.util.comp_utils import prec_array
     from glayout.routing.straight_route import straight_route
-    from glayout.util.port_utils import set_port_orientation
 
     unit = legacy_momcap(pdk, size)
     c = Component()
@@ -120,12 +119,19 @@ def legacy_momcap_array(pdk, rows, columns, size, rmult=1, **kwargs):
                 )
     for row in range(rows - 1):
         for col, prefix, metal in [
-            (0, "top_met", "met5"),
-            (columns - 1, "bottom_met", "met4"),
+            (0, "bottom_met", "met4"),
+            (columns - 1, "top_met", "met5"),
         ]:
             a = c.ports[f"row{row}_col{col}_{prefix}_N"]
             b = c.ports[f"row{row+1}_col{col}_{prefix}_S"]
             c << straight_route(pdk, a, b, glayer1=metal, glayer2=metal, width=0.048)
+    # Expose the bottom-plate (V2, met4) landing on row0_col0_top_met_E so
+    # opamp_twostage's L_route(hglayer='met4') connects to plate V2 while its
+    # c_route(e2glayer='met5') to row{rows-1}_col0_top_met_N connects to plate V1.
+    if "row0_col0_bottom_met_E" in c.ports:
+        p = c.ports["row0_col0_bottom_met_E"].copy()
+        p.name = "row0_col0_top_met_E"
+        c.ports["row0_col0_top_met_E"] = p
     nl = Netlist(circuit_name="MOM_ARRAY", nodes=["V1", "V2"])
     for _ in range(rows * columns):
         nl.connect_netlist(unit.info["netlist"], [])

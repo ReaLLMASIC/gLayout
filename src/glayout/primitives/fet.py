@@ -13,6 +13,7 @@ from decimal import Decimal
 from glayout.routing.straight_route import straight_route
 from glayout.spice import Netlist
 from warnings import warn
+import math
 
 
 def __comp_min_width(pdk: MappedPDK) -> float:
@@ -342,6 +343,10 @@ def multiplier(
         sd_route = rectangle(size=(sd_width,sdmet_hieght),layer=pdk.get_glayer(sd_route_topmet),centered=True)
         source = align_comp_to_port(sd_route.copy(), sdvia_ports[0], alignment=(None,'c'))
         drain = align_comp_to_port(sd_route.copy(), sdvia_ports[2], alignment=(None,'c'))
+        if pdk.finfet is not None:
+            sd_xcenter = (sdvia_ports[0].center[0] + sdvia_ports[-1].center[0]) / 2
+            source.movex(sd_xcenter - source.center[0])
+            drain.movex(sd_xcenter - drain.center[0])
         multiplier.add(source)
         multiplier.add(drain)
         # add ports
@@ -354,22 +359,36 @@ def multiplier(
     else:
         dummyl, dummyr = dummy
     if dummyl or dummyr:
-        dummy = __gen_fingers_macro(pdk,rmult=interfinger_rmult,fingers=1,length=length,width=width,poly_height=poly_height,sdlayer=sdlayer,inter_finger_topmet="met1")
-        dummyvia = dummy << via_stack(pdk,"poly","met1",fullbottom=True)
-        align_comp_to_port(dummyvia,dummy.ports["row0_col0_gate_S"],layer=pdk.get_glayer("poly"))
-        dummy << L_route(pdk,dummyvia.ports["top_met_W"],dummy.ports["leftsd_top_met_S"])
-        dummy << L_route(pdk,dummyvia.ports["top_met_E"],dummy.ports["row0_col0_rightsd_top_met_S"])
-        dummy.add_ports(dummyvia.get_ports_list(),prefix="gsdcon_")
-        dummy_space = pdk.get_grule(sdlayer)["min_separation"] + dummy.xmax
-        sides = list()
-        if dummyl:
-            sides.append((-1,"dummy_L_"))
-        if dummyr:
-            sides.append((1,"dummy_R_"))
-        for side, name in sides:
-            dummy_ref = multiplier << dummy
-            dummy_ref.movex(side * (dummy_space + multiplier.xmax))
-            multiplier.add_ports(dummy_ref.get_ports_list(),prefix=name)
+        if pdk.finfet is not None:
+            from glayout.primitives.finfet import add_finfet_dummies
+            add_finfet_dummies(
+                pdk,
+                multiplier,
+                fingers=fingers,
+                width=width,
+                sdlayer=sdlayer,
+                dummyl=dummyl,
+                dummyr=dummyr,
+                dummy_routes=dummy_routes,
+                rmult=interfinger_rmult,
+            )
+        else:
+            dummy = __gen_fingers_macro(pdk,rmult=interfinger_rmult,fingers=1,length=length,width=width,poly_height=poly_height,sdlayer=sdlayer,inter_finger_topmet="met1")
+            dummyvia = dummy << via_stack(pdk,"poly","met1",fullbottom=True)
+            align_comp_to_port(dummyvia,dummy.ports["row0_col0_gate_S"],layer=pdk.get_glayer("poly"))
+            dummy << L_route(pdk,dummyvia.ports["top_met_W"],dummy.ports["leftsd_top_met_S"])
+            dummy << L_route(pdk,dummyvia.ports["top_met_E"],dummy.ports["row0_col0_rightsd_top_met_S"])
+            dummy.add_ports(dummyvia.get_ports_list(),prefix="gsdcon_")
+            dummy_space = pdk.get_grule(sdlayer)["min_separation"] + dummy.xmax
+            sides = list()
+            if dummyl:
+                sides.append((-1,"dummy_L_"))
+            if dummyr:
+                sides.append((1,"dummy_R_"))
+            for side, name in sides:
+                dummy_ref = multiplier << dummy
+                dummy_ref.movex(side * (dummy_space + multiplier.xmax))
+                multiplier.add_ports(dummy_ref.get_ports_list(),prefix=name)
     # ensure correct port names and return
     return component_snap_to_grid(rename_ports_by_orientation(multiplier))
 
@@ -419,6 +438,9 @@ def __mult_array_macro(
         to_decimal(_max_metal_seperation_ps)
         + evaluate_bbox(multiplier_comp, True)[1]
     )
+    if pdk.finfet is not None:
+        two_fp = to_decimal(2 * pdk.finfet.fin_pitch)
+        multiplier_separation = int(math.ceil(float(multiplier_separation / two_fp))) * two_fp
     for rownum in range(multipliers):
         row_displacment = rownum * multiplier_separation - (multiplier_separation/2 * (multipliers-1))
         row_ref = multiplier_arr << multiplier_comp
@@ -427,8 +449,12 @@ def __mult_array_macro(
             row_ref.get_ports_list(), prefix="multiplier_" + str(rownum) + "_"
         )
     # TODO: fix extension (both extension are broken. IDK src extension and drain extension IDK metal layer)
-    src_extension = to_decimal(0.6)
-    drain_extension = src_extension + 3*to_decimal(pdk.get_grule("met4")["min_separation"])
+    if pdk.finfet is not None:
+        src_extension = to_decimal(3 * pdk.finfet.gate_pitch)
+        drain_extension = src_extension + to_decimal(2 * pdk.finfet.gate_pitch)
+    else:
+        src_extension = to_decimal(0.6)
+        drain_extension = src_extension + 3*to_decimal(pdk.get_grule("met4")["min_separation"])
     sd_side = "W" if sd_route_left else "E"
     gate_side = "E" if sd_route_left else "W"
     if routing and multipliers > 1:
@@ -586,13 +612,13 @@ def nmos(
     )
     nfet = add_ports_perimeter(nfet,layer=pdk.get_glayer("pwell"),prefix="well_")
     # add dnwell if dnwell
-    if with_dnwell:
+    if with_dnwell and pdk.finfet is None:
         nfet.add_padding(
             layers=(pdk.get_glayer("dnwell"),),
             default=pdk.get_grule("pwell", "dnwell")["min_enclosure"],
         )
     # add substrate tap if with_substrate_tap
-    if with_substrate_tap:
+    if with_substrate_tap and (pdk.finfet is None or not with_tie):
         substrate_tap_separation = pdk.get_grule("dnwell", "active_tap")[
             "min_separation"
         ]
@@ -752,7 +778,7 @@ def pmos(
     )
     pfet = add_ports_perimeter(pfet,layer=pdk.get_glayer(nwell_glayer),prefix="well_")
     # add substrate tap if with_substrate_tap
-    if with_substrate_tap:
+    if with_substrate_tap and (pdk.finfet is None or not with_tie):
         substrate_tap_separation = pdk.get_grule("dnwell", "active_tap")[
             "min_separation"
         ]

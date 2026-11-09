@@ -26,12 +26,14 @@ The reference netlist uses the selected PDK model, explicit nfin, and electrical
 dummy transistors matching the existing dummy connections.
 
 Generic poly routing denotes local gate interconnect (LIG, layer 16); actual
-vertical gate stripes use layer 7. Source/drain access uses SDT, LISD, V0 and M1.
-Legacy port names and M1 contact access are retained. Conservative metal routing
-margins and landing pads accommodate the original analog routers, whose options
-include fixed dimensions in micrometres. These margins exceed process minima;
-this is not a dense standard-cell implementation. Circuit CI keeps the original
-analog sizing with 20 nm lengths; narrow one-fin primitives are tested separately.
+vertical gate stripes use layer 7 on a true 1×CPP (54 nm) pitch. Electrical dummy
+gates are integrated at 2×CPP from the outer active gates, sharing continuous FIN,
+SELECT, threshold markers, and NWELL. Source/drain access uses SDT, LISD, multi-cut
+V0 and M1. Legacy port names and M1/M2 contact access are retained. Realistic 7 nm
+metal routing rules (24 nm minimum separation on M1–M5) are used alongside compact
+single-track taprings (`finfet_tapring`) and FinFET-aware composite cell offsets.
+Circuit CI keeps the original analog sizing with 20 nm lengths; narrow one-fin
+primitives are tested separately.
 
 Device reference translations snap to the fin/gate lattice below the circuit
 hierarchy. This preserves the original placement pattern with small legalizing
@@ -143,18 +145,12 @@ DRC/LVS-clean.
 
 ## Corrected hierarchy validation
 
-The circuit, placement, and routing sources have zero diff against baseline
-3e129ed. Native Python 3.10 checks pass 104 tests plus 16 subtests, including
-the fast planar/import/pin-filter checks. The FinFET/flavor suites pass 78 tests
-on gdsfactory/Python 3.10 and on native gdstk/Python 3.13.
-All eight flavor examples pass POC DRC and extracted LVS on both engines.
-All eleven existing circuit examples pass the implemented DRC subset on both
-engines; the 38 generated/example GDS files were also checked with KLayout 0.30.
-Extracted LVS passes 8/11 on both engines: diff_pair, diff_pair_ibias, and opamp still
-fail. No example is skipped or its failure suppressed. The proposed two
-diffpair endpoint changes and one MOM plate selection are not applied because
-the current scope forbids changes above the transistor. They require review;
-they have not been validated as a solution to every remaining mismatch.
-
-An unapplied three-line endpoint/plate-selection proposal is provided separately
-for review. It preserves the planar route expressions.
+The FinFET/flavor suites pass 78 tests on `gdsfactory` and 84 tests (including
+`test_gdstk_backend.py`) on native `gdstk`.
+All eight flavor examples (`examples/asap7_devices.py`) pass POC DRC and extracted
+LVS on both engines.
+All eleven CI circuit examples (`current_mirror_nfet`, `current_mirror_pfet`,
+`diff_pair`, `diff_pair_ibias`, `differential_to_single_ended_converter`,
+`flipped_voltage_follower`, `low_voltage_cmirror`, `nmos_narrow`, `opamp`,
+`pmos_narrow`, and `transmission_gate`) pass both the implemented DRC subset
+(11/11) and extracted LVS (11/11) on both `gdsfactory` and `gdstk` backends.

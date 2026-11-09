@@ -162,7 +162,11 @@ def  low_voltage_cmirror(
         _pwell_sep = pdk.get_grule("pwell").get("min_separation", 0)
     except NotImplementedError:
         _pwell_sep = 0
-    _xclear = max(pdk.util_max_metal_seperation(), _pwell_sep)
+    if pdk.finfet is not None:
+        step = pdk.finfet.gate_pitch
+        _xclear = 8 * step
+    else:
+        _xclear = max(pdk.util_max_metal_seperation(), _pwell_sep)
     fet_1_ref.movex(cascode_fvf_ref.xmin - (evaluate_bbox(fet_1)[0]/2) - _xclear)
     fet_2_ref.movex(cascode_fvf_ref.xmin - (3*evaluate_bbox(fet_1)[0]/2) - 2*_xclear)
     fet_3_ref.movex(cascode_fvf_ref.xmax + (evaluate_bbox(fet_1)[0]/2) + _xclear)
@@ -174,38 +178,64 @@ def  low_voltage_cmirror(
     top_level.add(fet_4_ref)
  
     top_level << c_route(pdk, bias_fvf_ref.ports["A_multiplier_0_gate_E"], bias_fvf_ref.ports["B_gate_bottom_met_E"])
-    top_level << c_route(pdk, cascode_fvf_ref.ports["A_multiplier_0_gate_W"], bias_fvf_ref.ports["A_multiplier_0_gate_W"])
+    if pdk.finfet is not None:
+        _w_ext = max(
+            cascode_fvf_ref.ports["A_multiplier_0_gate_W"].center[0],
+            bias_fvf_ref.ports["A_multiplier_0_gate_W"].center[0],
+        ) - min(cascode_fvf_ref.xmin, bias_fvf_ref.xmin) + 2 * pdk.finfet.gate_pitch
+        top_level << c_route(pdk, cascode_fvf_ref.ports["A_multiplier_0_gate_W"], bias_fvf_ref.ports["A_multiplier_0_gate_W"], extension=_w_ext)
+    else:
+        top_level << c_route(pdk, cascode_fvf_ref.ports["A_multiplier_0_gate_W"], bias_fvf_ref.ports["A_multiplier_0_gate_W"])
     top_level << straight_route(pdk, cascode_fvf_ref.ports["B_gate_bottom_met_E"], fet_3_ref.ports["multiplier_0_gate_W"])
     
     #creating vias for routing
     viam2m3 = via_stack(pdk, "met2", "met3", centered=True)
     gate_1_via = top_level << viam2m3 
-    gate_1_via.move(fet_1_ref.ports["multiplier_0_gate_W"].center).movex(-1)
     gate_2_via = top_level << viam2m3                                         
-    gate_2_via.move(fet_2_ref.ports["multiplier_0_gate_W"].center).movex(-1)
     gate_3_via = top_level << viam2m3 
-    gate_3_via.move(fet_3_ref.ports["multiplier_0_gate_E"].center).movex(1)
     gate_4_via = top_level << viam2m3 
-    gate_4_via.move(fet_4_ref.ports["multiplier_0_gate_E"].center).movex(1)
-
     source_2_via = top_level << viam2m3
     drain_1_via = top_level << viam2m3
-    source_2_via.move(fet_2_ref.ports["multiplier_0_source_E"].center).movex(1.5)
-    drain_1_via.move(fet_1_ref.ports["multiplier_0_drain_W"].center).movex(-1)
-
     source_4_via = top_level << viam2m3
     drain_3_via = top_level << viam2m3
-    source_4_via.move(fet_4_ref.ports["multiplier_0_source_W"].center).movex(-1)
-    drain_3_via.move(fet_3_ref.ports["multiplier_0_drain_E"].center).movex(1.5)
+    if pdk.finfet is not None:
+        step = pdk.finfet.gate_pitch
+        fp = pdk.finfet.fin_pitch
+        gate_1_via.move((fet_1_ref.xmin - 2 * step, fet_1_ref.ports["multiplier_0_gate_W"].center[1]))
+        gate_2_via.move((fet_2_ref.xmin - 2 * step, fet_2_ref.ports["multiplier_0_gate_W"].center[1]))
+        gate_3_via.move((fet_3_ref.xmax + 2 * step, fet_3_ref.ports["multiplier_0_gate_E"].center[1]))
+        gate_4_via.move((fet_4_ref.xmax + 2 * step, fet_4_ref.ports["multiplier_0_gate_E"].center[1]))
+        source_2_via.move((fet_2_ref.xmax + 2 * step, fet_2_ref.ports["multiplier_0_source_E"].center[1]))
+        drain_1_via.move((fet_1_ref.xmin - 4 * step, fet_1_ref.ports["multiplier_0_drain_W"].center[1]))
+        source_4_via.move((fet_4_ref.xmin - 2 * step, fet_4_ref.ports["multiplier_0_source_W"].center[1]))
+        drain_3_via.move((fet_3_ref.xmax + 4 * step, fet_3_ref.ports["multiplier_0_drain_E"].center[1]))
+        _cw = pdk.get_grule("met2")["min_width"]
+        _ext_n = fet_1_ref.ymax - max(source_2_via.ymax, drain_1_via.ymax) + 2 * fp
+        _bot_y = min(fet_1_ref.ymin, cascode_fvf_ref.ymin)
+        _ext_s1 = gate_1_via.ymin - _bot_y + 2 * fp
+        _ext_s2 = gate_2_via.ymin - _bot_y + 4 * fp
+    else:
+        gate_1_via.move(fet_1_ref.ports["multiplier_0_gate_W"].center).movex(-1)
+        gate_2_via.move(fet_2_ref.ports["multiplier_0_gate_W"].center).movex(-1)
+        gate_3_via.move(fet_3_ref.ports["multiplier_0_gate_E"].center).movex(1)
+        gate_4_via.move(fet_4_ref.ports["multiplier_0_gate_E"].center).movex(1)
+        source_2_via.move(fet_2_ref.ports["multiplier_0_source_E"].center).movex(1.5)
+        drain_1_via.move(fet_1_ref.ports["multiplier_0_drain_W"].center).movex(-1)
+        source_4_via.move(fet_4_ref.ports["multiplier_0_source_W"].center).movex(-1)
+        drain_3_via.move(fet_3_ref.ports["multiplier_0_drain_E"].center).movex(1.5)
+        _cw = 0.32
+        _ext_n = 0.5 * evaluate_bbox(fet_1)[1]
+        _ext_s1 = 1.2 * width[0] + 1.0
+        _ext_s2 = 1.2 * width[0] - 1.0
     
     #routing
     top_level << straight_route(pdk, fet_2_ref.ports["multiplier_0_source_E"], source_2_via.ports["bottom_met_W"])
     top_level << straight_route(pdk, fet_1_ref.ports["multiplier_0_drain_W"], drain_1_via.ports["bottom_met_E"])
     top_level << straight_route(pdk, fet_4_ref.ports["multiplier_0_source_W"], source_4_via.ports["bottom_met_E"])
     top_level << straight_route(pdk, fet_3_ref.ports["multiplier_0_drain_E"], drain_3_via.ports["bottom_met_W"])
-    top_level << c_route(pdk, source_2_via.ports["top_met_N"], drain_1_via.ports["top_met_N"], extension=0.5*evaluate_bbox(fet_1)[1], width1=0.32, width2=0.32, cwidth=0.32, e1glayer="met3", e2glayer="met3", cglayer="met2")
-    top_level << c_route(pdk, source_4_via.ports["top_met_N"], drain_3_via.ports["top_met_N"], extension=0.5*evaluate_bbox(fet_1)[1], width1=0.32, width2=0.32, cwidth=0.32, e1glayer="met3", e2glayer="met3", cglayer="met2")
-    top_level << c_route(pdk, bias_fvf_ref.ports["A_multiplier_0_gate_E"], gate_4_via.ports["bottom_met_E"], width1=0.32, width2=0.32, cwidth=0.32) 
+    top_level << c_route(pdk, source_2_via.ports["top_met_N"], drain_1_via.ports["top_met_N"], extension=_ext_n, width1=_cw, width2=_cw, cwidth=_cw, e1glayer="met3", e2glayer="met3", cglayer="met2")
+    top_level << c_route(pdk, source_4_via.ports["top_met_N"], drain_3_via.ports["top_met_N"], extension=_ext_n, width1=_cw, width2=_cw, cwidth=_cw, e1glayer="met3", e2glayer="met3", cglayer="met2")
+    top_level << c_route(pdk, bias_fvf_ref.ports["A_multiplier_0_gate_E"], gate_4_via.ports["bottom_met_E"], width1=_cw, width2=_cw, cwidth=_cw) 
 
  
     top_level << straight_route(pdk, fet_1_ref.ports["multiplier_0_gate_W"], gate_1_via.ports["bottom_met_E"])
@@ -217,8 +247,8 @@ def  low_voltage_cmirror(
     # met2 strokes respect gf180 M2.2a (0.28um). Bumping the offset from
     # ±0.6 to ±1.0 gives ~0.4um center-to-center spacing on top of the
     # 0.5um stroke width — clear of the rule on either PDK.
-    top_level << c_route(pdk, gate_1_via.ports["top_met_S"], gate_3_via.ports["top_met_S"], extension=(1.2*width[0]+1.0), cglayer='met2')
-    top_level << c_route(pdk, gate_2_via.ports["top_met_S"], gate_4_via.ports["top_met_S"], extension=(1.2*width[0]-1.0), cglayer='met2')
+    top_level << c_route(pdk, gate_1_via.ports["top_met_S"], gate_3_via.ports["top_met_S"], extension=_ext_s1, cglayer='met2')
+    top_level << c_route(pdk, gate_2_via.ports["top_met_S"], gate_4_via.ports["top_met_S"], extension=_ext_s2, cglayer='met2')
     
     # Tie source to substrate. The via_stack(met1,met2) the route drops at
     # edge1=source_W has its bottom layer (li1) at 0.17um (mcon-sized, no
@@ -228,7 +258,7 @@ def  low_voltage_cmirror(
     # because of the via1↔met1 enclosure rule — shifts the mcon by exactly the
     # 0.06um needed to coincide with the fet's gate mcon (they merge into a
     # single 0.17x0.17 polygon, no violation).
-    _tie_w = max(0.2, pdk.get_grule("met1")["min_width"])
+    _tie_w = pdk.get_grule("met1")["min_width"] if pdk.finfet is not None else max(0.2, pdk.get_grule("met1")["min_width"])
     for fet_ref in (fet_1_ref, fet_3_ref):
         top_level << straight_route(
             pdk,

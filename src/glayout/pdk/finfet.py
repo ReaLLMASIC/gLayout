@@ -32,8 +32,8 @@ class FinFETTechnology:
     manufacturing_grid: float = 0.0005
     fin_min_length: float = 0.108
     active_fin_enclosure: float = 0.010
-    active_gate_extension: float = 0.025
-    gate_extension: float = 0.072
+    active_gate_extension: float = 0.027
+    gate_extension: float = 0.054
     select_enclosure: float = 0.054
     well_enclosure: float = 0.054
     sd_width: float = 0.024
@@ -96,18 +96,23 @@ class FinFETTechnology:
     def validate(self, component):
         """Check flattened world coordinates, including transformed hierarchy."""
         polys = polygons_by_layer(component)
+        inv_grid = 1.0 / self.manufacturing_grid
         for layer, polygons in polys.items():
+            if not polygons:
+                continue
+            all_pts = np.vstack([np.asarray(p, dtype=float) for p in polygons])
+            scaled = all_pts * inv_grid
+            if not np.isfinite(all_pts).all() or not np.allclose(
+                scaled, np.round(scaled), atol=1e-6, rtol=0
+            ):
+                raise ValueError(f"off manufacturing grid on layer {layer}")
+            if layer not in (self.fin_layer, self.gate_layer):
+                continue
+            axis = 1 if layer == self.fin_layer else 0
+            pitch = self.fin_pitch if axis == 1 else self.gate_pitch
+            width = self.fin_width if axis == 1 else self.gate_length
             for points in polygons:
                 pts = np.asarray(points, dtype=float)
-                if not np.isfinite(pts).all() or not np.allclose(
-                    pts / self.manufacturing_grid,
-                    np.round(pts / self.manufacturing_grid),
-                    atol=1e-6,
-                    rtol=0,
-                ):
-                    raise ValueError(f"off manufacturing grid on layer {layer}")
-                if layer not in (self.fin_layer, self.gate_layer):
-                    continue
                 lo, hi = pts.min(axis=0), pts.max(axis=0)
                 # Fins and gates are unbent rectangles, with a fixed orientation.
                 if not np.all(
@@ -116,9 +121,6 @@ class FinFETTechnology:
                     )
                 ):
                     raise ValueError(f"nonrectangular fin/gate on layer {layer}")
-                axis = 1 if layer == self.fin_layer else 0
-                pitch = self.fin_pitch if axis == 1 else self.gate_pitch
-                width = self.fin_width if axis == 1 else self.gate_length
                 if not math.isclose(hi[axis] - lo[axis], width, abs_tol=1e-9):
                     raise ValueError(
                         f"incorrect fin/gate width or rotation on layer {layer}"
@@ -180,6 +182,36 @@ def component_technology(component):
     return configs[0] if configs else _active_technology.get()
 
 
+def _reference_anchor(parent):
+    """Return cached (FinFETTechnology, gate_x0, fin_y0) or None if parent has no gates."""
+    cell = getattr(parent, "_cell", parent)
+    n_polys = len(getattr(cell, "polygons", ()))
+    n_refs = len(getattr(parent, "references", ()))
+    cached = parent.info.get("_finfet_anchor_cache")
+    if cached is not None and cached[0] == (n_polys, n_refs):
+        data = cached[1]
+        if data is None:
+            return None
+        return FinFETTechnology(**data[0]), data[1], data[2]
+    t = component_technology(parent)
+    if t is None:
+        return None
+    polys = polygons_by_layer(parent)
+    gate_polys = polys.get(t.gate_layer, [])
+    if not gate_polys:
+        parent.info["_finfet_anchor_cache"] = ((n_polys, n_refs), None)
+        return None
+    points = np.asarray(gate_polys[0])
+    gx = float((points[:, 0].min() + points[:, 0].max()) / 2)
+    fin_polys = polys.get(t.fin_layer, [])
+    fy = 0.0
+    if fin_polys:
+        fpts = np.asarray(fin_polys[0])
+        fy = float((fpts[:, 1].min() + fpts[:, 1].max()) / 2)
+    parent.info["_finfet_anchor_cache"] = ((n_polys, n_refs), (asdict(t), gx, fy))
+    return t, gx, fy
+
+
 def install_export_guard(component_class):
     """Install once for either geometry backend. Planar PDKs retain defaults.
 
@@ -231,21 +263,14 @@ def install_reference_grid(reference_class):
         return
 
     def align(ref):
-        t = component_technology(ref.parent)
-        if t is None:
+        if _active_technology.get() is None and "finfet_technology" not in ref.parent.info:
             return
-        polygons = polygons_by_layer(ref.parent).get(t.gate_layer, [])
-        if not polygons:
+        anchor = _reference_anchor(ref.parent)
+        if anchor is None:
             return
+        t, x, y = anchor
         if not math.isclose(float(ref.rotation or 0) % 180, 0, abs_tol=1e-8):
             raise ValueError("FinFET devices cannot rotate by 90 degrees")
-        points = np.asarray(polygons[0])
-        x = float((points[:, 0].min() + points[:, 0].max()) / 2)
-        fins = polygons_by_layer(ref.parent).get(t.fin_layer, [])
-        y = 0.0
-        if fins:
-            points = np.asarray(fins[0])
-            y = float((points[:, 1].min() + points[:, 1].max()) / 2)
         sign = (
             -1 if math.isclose(float(ref.rotation or 0) % 360, 180, abs_tol=1e-8) else 1
         )
@@ -280,7 +305,6 @@ def legalize_redundant_vias(component, technology):
     gap or connect distinct conductors to make DRC pass.
     """
     import klayout.db as k
-    from glayout.backend import Component
     import gdstk
 
     dbu = technology.manufacturing_grid
@@ -295,11 +319,12 @@ def legalize_redundant_vias(component, technology):
         return r.merged()
 
     changed = {}
-    for low, via, high in ((19, 21, 20), (20, 25, 30), (30, 35, 40)):
+    for low, via, high in ((16, 18, 19), (19, 21, 20), (20, 25, 30), (30, 35, 40), (40, 45, 50)):
         cuts = region((via, 0))
         if cuts.is_empty():
             continue
-        lower, upper = region((low, 0)), region((high, 0))
+        lower = region((low, 0)) if low != 16 else (region((16, 0)) + region((17, 0)))
+        upper = region((high, 0))
         boxes = [p.bbox() for p in cuts.each() if p.is_box()]
         if len(boxes) != cuts.size():
             continue

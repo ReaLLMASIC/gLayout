@@ -34,6 +34,16 @@ def tapring(
     bl_corner_...all ports in bottom left L route
     """
     enclosed_rectangle = pdk.snap_to_2xgrid(enclosed_rectangle,return_type="float")
+    if pdk.finfet is not None:
+        from glayout.primitives.finfet import finfet_tapring
+        return finfet_tapring(
+            pdk,
+            enclosed_rectangle=enclosed_rectangle,
+            sdlayer=sdlayer,
+            horizontal_glayer=horizontal_glayer,
+            vertical_glayer=vertical_glayer,
+            sides=sides,
+        )
     # check layers, activate pdk, create top cell
     pdk.has_required_glayers(
         [sdlayer, "active_tap", "mcon", horizontal_glayer, vertical_glayer]
