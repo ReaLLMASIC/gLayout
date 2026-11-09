@@ -1,0 +1,130 @@
+{
+ "f0bb56594d7e78f6fd78": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/grid/C13/gf180/sW1.5_sL1.5/combined",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "a233abd35c3f024cbdcd": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/grid/C13/gf180/sW2_sL2/combined",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "25867fe51ca293ac2bd9": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/grid/C02/ihp130/sW1.5_sL1/combined",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "e95e0541581395f59adc": {
+  "gate_contacts": 5,
+  "wired_to_via1": 5,
+  "unwired": [],
+  "run": "runs/selection/C09_sky130_sW2_sL1/c273ec38a57d",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "468c5dc1b3eefad11192": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/selection/C02_sky130_sW2_sL2/c3dfd5a42932",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "4b0af1fafd7c3d226ab8": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/selection/C02_ihp130_sW1_sL2/c125515c9382",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "0addf071b40180293465": {
+  "gate_contacts": 5,
+  "wired_to_via1": 5,
+  "unwired": [],
+  "run": "runs/selection/C08_sky130_sW1_sL1/c8c9a152a80c",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "9437838d3523885885f7": {
+  "gate_contacts": 5,
+  "wired_to_via1": 5,
+  "unwired": [],
+  "run": "runs/selection/C08_sky130_sW2_sL2/c169f3570210",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "c3ed6278f868ceba1882": {
+  "gate_contacts": 5,
+  "wired_to_via1": 5,
+  "unwired": [],
+  "run": "runs/selection/C08_sky130_sW2_sL2/cb96a10867e8",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "376bb34871184bc75cef": {
+  "gate_contacts": 4,
+  "wired_to_via1": 4,
+  "unwired": [],
+  "run": "runs/selection/C08_sky130_sW2_sL2/c34a528ae7f1",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "f8e8092d1308b514ad03": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/selection/C02_sky130_sW2_sL1/c92dbf630ab4",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "e702e1eb829b642b8fdb": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/selection/C02_sky130_sW2_sL1/cb5fd06efa8c",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "9ae332d07a2274d9f19a": {
+  "gate_contacts": 5,
+  "wired_to_via1": 5,
+  "unwired": [],
+  "run": "runs/selection/C08_gf180_sW1_sL1/cc4838ac16fb",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "13212cf18b13a0818780": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/selection/C02_sky130_sW1_sL1/cf5fc7c0ae10",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "a9bf479af933db29c085": {
+  "gate_contacts": 2,
+  "wired_to_via1": 2,
+  "unwired": [],
+  "run": "runs/selection/C02_sky130_sW1_sL1/c9d3046021c9",
+  "drc": "passed",
+  "lvs": "passed"
+ },
+ "a6a9b3cda93e1f5d812f": {
+  "gate_contacts": 5,
+  "wired_to_via1": 5,
+  "unwired": [],
+  "run": "runs/selection/C08_sky130_sW2_sL1/ce4ae2fe99b7",
+  "drc": "passed",
+  "lvs": "passed"
+ }
+}

@@ -1,0 +1,1104 @@
+{
+ "C16_gf180_sW1_sL1": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 56.66641833333333,
+   "mean_gain_dB": 11.627238333333334,
+   "mean_area_um2": 1757.4442666666666
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 62.81503222222222,
+   "mean_gain_dB": 11.622273333333332,
+   "mean_area_um2": 1634.940711111111
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 51.95348375,
+   "mean_gain_dB": 11.629190000000001,
+   "mean_area_um2": 1773.9616
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 59.83345416666666,
+   "mean_gain_dB": 11.623853333333333,
+   "mean_area_um2": 1775.6133333333332
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 57.3924352631579,
+   "mean_gain_dB": 11.628118421052632,
+   "mean_area_um2": 1750.62
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 56.804441,
+   "mean_gain_dB": 11.624878333333333,
+   "mean_area_um2": 1741.0921066666667
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 57.03243877551021,
+   "mean_gain_dB": 11.626134693877551,
+   "mean_area_um2": 1744.7865959183673
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 57.05605173913044,
+   "mean_gain_dB": 11.627099130434782,
+   "mean_area_um2": 1707.281843478261
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 57.01155038461538,
+   "mean_gain_dB": 11.625281538461538,
+   "mean_area_um2": 1777.963876923077
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 57.406654230769234,
+   "mean_gain_dB": 11.625922692307693,
+   "mean_area_um2": 1763.6700307692308
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 56.60941260869565,
+   "mean_gain_dB": 11.626374347826086,
+   "mean_area_um2": 1723.440104347826
+  }
+ },
+ "C16_gf180_sW1_sL2": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 55.6187875,
+   "mean_gain_dB": 8.744841833333332,
+   "mean_area_um2": 1757.4442666666666
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 62.86121111111111,
+   "mean_gain_dB": 8.740999555555556,
+   "mean_area_um2": 1634.940711111111
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 51.245615625,
+   "mean_gain_dB": 8.74636325,
+   "mean_area_um2": 1773.9616
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 59.29501416666666,
+   "mean_gain_dB": 8.742314583333334,
+   "mean_area_um2": 1775.6133333333332
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 56.75517105263158,
+   "mean_gain_dB": 8.745535315789473,
+   "mean_area_um2": 1750.62
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 56.209937333333336,
+   "mean_gain_dB": 8.743050466666666,
+   "mean_area_um2": 1741.0921066666667
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 56.42135448979592,
+   "mean_gain_dB": 8.744013979591836,
+   "mean_area_um2": 1744.7865959183673
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 56.27131782608695,
+   "mean_gain_dB": 8.744737652173914,
+   "mean_area_um2": 1707.281843478261
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 56.55407923076923,
+   "mean_gain_dB": 8.743373807692308,
+   "mean_area_um2": 1777.963876923077
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 56.848539230769234,
+   "mean_gain_dB": 8.743848230769231,
+   "mean_area_um2": 1763.6700307692308
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 55.93845,
+   "mean_gain_dB": 8.744201347826086,
+   "mean_area_um2": 1723.440104347826
+  }
+ },
+ "C16_gf180_sW2_sL1": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 48.06038083333333,
+   "mean_gain_dB": 14.040808333333334,
+   "mean_area_um2": 1757.4442666666666
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 58.157072222222226,
+   "mean_gain_dB": 14.034895555555556,
+   "mean_area_um2": 1634.940711111111
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 41.105843125,
+   "mean_gain_dB": 14.04221875,
+   "mean_area_um2": 1773.9616
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 53.021406666666664,
+   "mean_gain_dB": 14.037433333333333,
+   "mean_area_um2": 1775.6133333333332
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 49.03455263157895,
+   "mean_gain_dB": 14.040685263157895,
+   "mean_area_um2": 1750.62
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 48.747736333333336,
+   "mean_gain_dB": 14.038514666666666,
+   "mean_area_um2": 1741.0921066666667
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 48.85895081632653,
+   "mean_gain_dB": 14.039356326530612,
+   "mean_area_um2": 1744.7865959183673
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 49.00809913043478,
+   "mean_gain_dB": 14.040333913043478,
+   "mean_area_um2": 1707.281843478261
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 48.72701192307692,
+   "mean_gain_dB": 14.038491538461539,
+   "mean_area_um2": 1777.963876923077
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 49.462859615384616,
+   "mean_gain_dB": 14.03911,
+   "mean_area_um2": 1763.6700307692308
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 48.17627130434783,
+   "mean_gain_dB": 14.039634782608696,
+   "mean_area_um2": 1723.440104347826
+  }
+ },
+ "C16_gf180_sW2_sL2": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 46.172665,
+   "mean_gain_dB": 11.572836666666667,
+   "mean_area_um2": 1757.4442666666666
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 57.913833333333336,
+   "mean_gain_dB": 11.56741,
+   "mean_area_um2": 1634.940711111111
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "spec_failed": 4,
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 39.86196875,
+   "mean_gain_dB": 11.573970000000001,
+   "mean_area_um2": 1773.9616
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 51.4937,
+   "mean_gain_dB": 11.57001,
+   "mean_area_um2": 1775.6133333333332
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 47.7006747368421,
+   "mean_gain_dB": 11.572637368421052,
+   "mean_area_um2": 1750.62
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 26,
+    "spec_failed": 4
+   },
+   "mean_f3db_MHz": 47.48998533333334,
+   "mean_gain_dB": 11.570808666666666,
+   "mean_area_um2": 1741.0921066666667
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 45,
+    "spec_failed": 4
+   },
+   "mean_f3db_MHz": 47.571681224489794,
+   "mean_gain_dB": 11.571517755102041,
+   "mean_area_um2": 1744.7865959183673
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 47.48538913043478,
+   "mean_gain_dB": 11.572341739130435,
+   "mean_area_um2": 1707.281843478261
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 22,
+    "spec_failed": 4
+   },
+   "mean_f3db_MHz": 47.64801653846153,
+   "mean_gain_dB": 11.570788846153846,
+   "mean_area_um2": 1777.963876923077
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 24,
+    "spec_failed": 2
+   },
+   "mean_f3db_MHz": 48.2197676923077,
+   "mean_gain_dB": 11.57129,
+   "mean_area_um2": 1763.6700307692308
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 21,
+    "spec_failed": 2
+   },
+   "mean_f3db_MHz": 46.839061739130436,
+   "mean_gain_dB": 11.571775217391304,
+   "mean_area_um2": 1723.440104347826
+  }
+ },
+ "C16_ihp130_sW1_sL1": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 111.47145,
+   "mean_gain_dB": 9.849413666666667,
+   "mean_area_um2": 1062.1824
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 127.9383,
+   "mean_gain_dB": 9.83764188888889,
+   "mean_area_um2": 965.2296
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 101.1320975,
+   "mean_gain_dB": 9.8556225,
+   "mean_area_um2": 1062.1824
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 119.66853333333333,
+   "mean_gain_dB": 9.841321333333333,
+   "mean_area_um2": 1053.5855999999999
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 113.86195789473685,
+   "mean_gain_dB": 9.85417447368421,
+   "mean_area_um2": 1045.0642105263157
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 112.66202866666667,
+   "mean_gain_dB": 9.8429414,
+   "mean_area_um2": 1040.49936
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 113.12730734693878,
+   "mean_gain_dB": 9.847297081632654,
+   "mean_area_um2": 1042.2694040816325
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 112.37798260869566,
+   "mean_gain_dB": 9.849646565217391,
+   "mean_area_um2": 1048.0412869565216
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 113.79017153846154,
+   "mean_gain_dB": 9.845218692307693,
+   "mean_area_um2": 1037.1635076923076
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 114.09812,
+   "mean_gain_dB": 9.846754692307693,
+   "mean_area_um2": 1049.6178461538461
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 112.02986695652173,
+   "mean_gain_dB": 9.847910217391304,
+   "mean_area_um2": 1033.9624695652174
+  }
+ },
+ "C16_ihp130_sW1_sL2": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 107.6037875,
+   "mean_gain_dB": 8.822742166666666,
+   "mean_area_um2": 1024.6112
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 125.74165555555555,
+   "mean_gain_dB": 8.812154999999999,
+   "mean_area_um2": 958.9677333333333
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 97.880524375,
+   "mean_gain_dB": 8.82809575,
+   "mean_area_um2": 1034.004
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 115.01888333333333,
+   "mean_gain_dB": 8.8153915,
+   "mean_area_um2": 1034.8
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 110.3831752631579,
+   "mean_gain_dB": 8.826658631578947,
+   "mean_area_um2": 1021.3350315789473
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 109.065167,
+   "mean_gain_dB": 8.817000566666666,
+   "mean_area_um2": 1016.07808
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 109.57623142857143,
+   "mean_gain_dB": 8.820745530612244,
+   "mean_area_um2": 1018.1164897959184
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 109.70239347826087,
+   "mean_gain_dB": 8.822706826086955,
+   "mean_area_um2": 996.5850782608695
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 109.46462653846153,
+   "mean_gain_dB": 8.819010538461539,
+   "mean_area_um2": 1037.1635076923076
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 110.61962346153847,
+   "mean_gain_dB": 8.820258846153846,
+   "mean_area_um2": 1027.9421538461538
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 108.3967447826087,
+   "mean_gain_dB": 8.821295695652173,
+   "mean_area_um2": 1007.0092173913043
+  }
+ },
+ "C16_ihp130_sW2_sL1": {
+  "group0.arrangement=abba": {
+   "status": {
+    "spec_failed": 4,
+    "auto_passed": 8
+   },
+   "mean_f3db_MHz": 94.05235,
+   "mean_gain_dB": 11.504653333333334,
+   "mean_area_um2": 1062.1824
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 120.8516,
+   "mean_gain_dB": 11.494696666666666,
+   "mean_area_um2": 965.2296
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "spec_failed": 16
+   },
+   "mean_f3db_MHz": 79.12615625,
+   "mean_gain_dB": 11.50900375,
+   "mean_area_um2": 1062.1824
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 106.54441666666668,
+   "mean_gain_dB": 11.498175,
+   "mean_area_um2": 1053.5855999999999
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 11,
+    "spec_failed": 8
+   },
+   "mean_f3db_MHz": 97.53856684210527,
+   "mean_gain_dB": 11.506738421052631,
+   "mean_area_um2": 1045.0642105263157
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 18,
+    "spec_failed": 12
+   },
+   "mean_f3db_MHz": 96.92037766666667,
+   "mean_gain_dB": 11.500074666666666,
+   "mean_area_um2": 1040.49936
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 29,
+    "spec_failed": 20
+   },
+   "mean_f3db_MHz": 97.1600836734694,
+   "mean_gain_dB": 11.502658571428572,
+   "mean_area_um2": 1042.2694040816325
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 15,
+    "spec_failed": 8
+   },
+   "mean_f3db_MHz": 96.36530043478261,
+   "mean_gain_dB": 11.504637826086956,
+   "mean_area_um2": 1048.0412869565216
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 14,
+    "spec_failed": 12
+   },
+   "mean_f3db_MHz": 97.86316115384616,
+   "mean_gain_dB": 11.500907692307692,
+   "mean_area_um2": 1037.1635076923076
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 16,
+    "spec_failed": 10
+   },
+   "mean_f3db_MHz": 98.72138653846153,
+   "mean_gain_dB": 11.502208461538462,
+   "mean_area_um2": 1049.6178461538461
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 13,
+    "spec_failed": 10
+   },
+   "mean_f3db_MHz": 95.39513260869566,
+   "mean_gain_dB": 11.503167391304348,
+   "mean_area_um2": 1033.9624695652174
+  }
+ },
+ "C16_ihp130_sW2_sL2": {
+  "group0.arrangement=abba": {
+   "status": {
+    "spec_failed": 4,
+    "auto_passed": 8
+   },
+   "mean_f3db_MHz": 89.40364083333333,
+   "mean_gain_dB": 10.673631666666667,
+   "mean_area_um2": 1024.6112
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 118.80096666666667,
+   "mean_gain_dB": 10.663844444444445,
+   "mean_area_um2": 958.9677333333333
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "spec_failed": 16
+   },
+   "mean_f3db_MHz": 76.14926125,
+   "mean_gain_dB": 10.677389999999999,
+   "mean_area_um2": 1034.004
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 101.86895583333333,
+   "mean_gain_dB": 10.667366666666666,
+   "mean_area_um2": 1034.8
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 11,
+    "spec_failed": 8
+   },
+   "mean_f3db_MHz": 93.88594842105263,
+   "mean_gain_dB": 10.675098421052631,
+   "mean_area_um2": 1021.3350315789473
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 18,
+    "spec_failed": 12
+   },
+   "mean_f3db_MHz": 93.30116733333332,
+   "mean_gain_dB": 10.669265,
+   "mean_area_um2": 1016.07808
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 29,
+    "spec_failed": 20
+   },
+   "mean_f3db_MHz": 93.52791918367348,
+   "mean_gain_dB": 10.67152693877551,
+   "mean_area_um2": 1018.1164897959184
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 15,
+    "spec_failed": 8
+   },
+   "mean_f3db_MHz": 93.14804086956522,
+   "mean_gain_dB": 10.673255652173912,
+   "mean_area_um2": 996.5850782608695
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 14,
+    "spec_failed": 12
+   },
+   "mean_f3db_MHz": 93.8639653846154,
+   "mean_gain_dB": 10.669997692307692,
+   "mean_area_um2": 1037.1635076923076
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 16,
+    "spec_failed": 10
+   },
+   "mean_f3db_MHz": 95.08371076923076,
+   "mean_gain_dB": 10.671089615384615,
+   "mean_area_um2": 1027.9421538461538
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 13,
+    "spec_failed": 10
+   },
+   "mean_f3db_MHz": 91.76919826086956,
+   "mean_gain_dB": 10.672021304347826,
+   "mean_area_um2": 1007.0092173913043
+  }
+ },
+ "C16_sky130_sW1_sL1": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 70.6300225,
+   "mean_gain_dB": 14.452476666666668,
+   "mean_area_um2": 400.9397
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 76.13699777777778,
+   "mean_gain_dB": 14.387423333333334,
+   "mean_area_um2": 358.2393333333333
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 65.980014375,
+   "mean_gain_dB": 14.49038875,
+   "mean_area_um2": 400.939675
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 73.26714333333332,
+   "mean_gain_dB": 14.392038333333334,
+   "mean_area_um2": 397.05783333333335
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 70.96802421052632,
+   "mean_gain_dB": 14.487954210526317,
+   "mean_area_um2": 393.38028947368423
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 70.64289133333332,
+   "mean_gain_dB": 14.406536,
+   "mean_area_um2": 391.3644566666667
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 70.76896326530611,
+   "mean_gain_dB": 14.438106326530612,
+   "mean_area_um2": 392.146106122449
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 70.77563956521739,
+   "mean_gain_dB": 14.453703913043478,
+   "mean_area_um2": 394.6949826086957
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 70.7630573076923,
+   "mean_gain_dB": 14.42430846153846,
+   "mean_area_um2": 389.89133076923076
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 71.17209653846153,
+   "mean_gain_dB": 14.435486153846155,
+   "mean_area_um2": 395.47950000000003
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 70.31324739130434,
+   "mean_gain_dB": 14.441068260869566,
+   "mean_area_um2": 388.37792173913044
+  }
+ },
+ "C16_sky130_sW1_sL2": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 68.0914675,
+   "mean_gain_dB": 12.91035,
+   "mean_area_um2": 385.90521666666666
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 73.88840666666667,
+   "mean_gain_dB": 12.856526666666667,
+   "mean_area_um2": 355.7335888888889
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 63.750933125,
+   "mean_gain_dB": 12.94126,
+   "mean_area_um2": 389.6638375
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 70.76168,
+   "mean_gain_dB": 12.860803333333333,
+   "mean_area_um2": 389.5406
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 68.59150473684211,
+   "mean_gain_dB": 12.939194736842106,
+   "mean_area_um2": 383.88483684210524
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 68.26699233333333,
+   "mean_gain_dB": 12.872601333333334,
+   "mean_area_um2": 381.59205333333335
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 68.3928236734694,
+   "mean_gain_dB": 12.898423265306123,
+   "mean_area_um2": 382.48109183673466
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 68.60092260869565,
+   "mean_gain_dB": 12.911292173913044,
+   "mean_area_um2": 374.10429999999997
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 68.20873615384616,
+   "mean_gain_dB": 12.887039230769231,
+   "mean_area_um2": 389.89133076923076
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 68.73758884615384,
+   "mean_gain_dB": 12.896246153846153,
+   "mean_area_um2": 386.8057692307692
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 68.00308913043479,
+   "mean_gain_dB": 12.900884347826088,
+   "mean_area_um2": 377.5923260869565
+  }
+ },
+ "C16_sky130_sW2_sL1": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 62.056311666666666,
+   "mean_gain_dB": 15.833961666666667,
+   "mean_area_um2": 400.9397
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 71.85414222222222,
+   "mean_gain_dB": 15.788927777777777,
+   "mean_area_um2": 358.2393333333333
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 55.3480575,
+   "mean_gain_dB": 15.85798125,
+   "mean_area_um2": 411.9473375
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 67.47640666666668,
+   "mean_gain_dB": 15.790548333333334,
+   "mean_area_um2": 397.05783333333335
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 63.19503789473684,
+   "mean_gain_dB": 15.851183157894736,
+   "mean_area_um2": 393.38028947368423
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 62.86477,
+   "mean_gain_dB": 15.804989666666668,
+   "mean_area_um2": 397.23521
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 62.99283306122449,
+   "mean_gain_dB": 15.822901428571429,
+   "mean_area_um2": 395.7404448979592
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 62.64667130434783,
+   "mean_gain_dB": 15.835120434782608,
+   "mean_area_um2": 398.52373043478264
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 63.29905307692308,
+   "mean_gain_dB": 15.812092307692307,
+   "mean_area_um2": 393.2783076923077
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 63.55862653846154,
+   "mean_gain_dB": 15.821129615384615,
+   "mean_area_um2": 398.86647307692306
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 62.353240434782606,
+   "mean_gain_dB": 15.824904347826086,
+   "mean_area_um2": 392.20667391304346
+  }
+ },
+ "C16_sky130_sW2_sL2": {
+  "group0.arrangement=abba": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 58.61381166666666,
+   "mean_gain_dB": 15.050093333333333,
+   "mean_area_um2": 408.60133333333334
+  },
+  "group0.arrangement=block": {
+   "status": {
+    "auto_passed": 9
+   },
+   "mean_f3db_MHz": 68.72768333333333,
+   "mean_gain_dB": 15.008325555555555,
+   "mean_area_um2": 355.7335888888889
+  },
+  "group0.arrangement=interleave": {
+   "status": {
+    "auto_passed": 16
+   },
+   "mean_f3db_MHz": 52.5605475,
+   "mean_gain_dB": 15.07124375,
+   "mean_area_um2": 466.5431
+  },
+  "group0.arrangement=mirror": {
+   "status": {
+    "auto_passed": 12
+   },
+   "mean_f3db_MHz": 63.136115833333335,
+   "mean_gain_dB": 15.011066666666666,
+   "mean_area_um2": 389.5406
+  },
+  "group0.diffusion=all_legal": {
+   "status": {
+    "auto_passed": 19
+   },
+   "mean_f3db_MHz": 59.786985263157895,
+   "mean_gain_dB": 15.064937894736842,
+   "mean_area_um2": 397.0125736842105
+  },
+  "group0.diffusion=none": {
+   "status": {
+    "auto_passed": 30
+   },
+   "mean_f3db_MHz": 59.485477333333336,
+   "mean_gain_dB": 15.023831,
+   "mean_area_um2": 423.35854
+  },
+  "group0.gate=per_device": {
+   "status": {
+    "auto_passed": 49
+   },
+   "mean_f3db_MHz": 59.60238857142858,
+   "mean_gain_dB": 15.039770408163266,
+   "mean_area_um2": 413.14275714285714
+  },
+  "group0.orientation=alt_DS": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 59.716908260869566,
+   "mean_gain_dB": 15.05081652173913,
+   "mean_area_um2": 405.30767391304346
+  },
+  "group0.orientation=alt_SD": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 59.5010826923077,
+   "mean_gain_dB": 15.029998846153847,
+   "mean_area_um2": 420.0737923076923
+  },
+  "group0.strap_start=bottom": {
+   "status": {
+    "auto_passed": 26
+   },
+   "mean_f3db_MHz": 60.136595769230766,
+   "mean_gain_dB": 15.038118846153846,
+   "mean_area_um2": 415.69849230769233
+  },
+  "group0.strap_start=top": {
+   "status": {
+    "auto_passed": 23
+   },
+   "mean_f3db_MHz": 58.998502173913046,
+   "mean_gain_dB": 15.041637391304349,
+   "mean_area_um2": 410.2536652173913
+  }
+ }
+}

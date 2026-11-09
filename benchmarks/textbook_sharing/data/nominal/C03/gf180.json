@@ -1,0 +1,39 @@
+{
+ "circuit_id": "C03",
+ "pdk": "gf180",
+ "sizing": {
+  "M1": {
+   "w": 4.0,
+   "l": 2.24,
+   "nf": 8
+  },
+  "M2": {
+   "w": 4.0,
+   "l": 2.24,
+   "nf": 8
+  },
+  "M3": {
+   "w": 4.0,
+   "l": 2.24,
+   "nf": 8
+  }
+ },
+ "supply": {
+  "VDD": 3.3,
+  "VSS": 0.0
+ },
+ "bias": {
+  "IIN1": {
+   "i": 2e-05,
+   "from": "VDD"
+  },
+  "IREF": 2e-05
+ },
+ "load": {
+  "vout_nom": 2.145,
+  "tol": 0.1
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

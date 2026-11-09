@@ -1,0 +1,28 @@
+{
+ "circuit_id": "C15",
+ "pdk": "gf180",
+ "sizing": {
+  "M1": {
+   "w": 2.0,
+   "l": 0.56,
+   "nf": 4
+  },
+  "R1": {
+   "r": 40000.0,
+   "body": "VSS",
+   "w": 1.0,
+   "l": 60.0
+  }
+ },
+ "supply": {
+  "VDD": 3.3,
+  "VSS": 0.0
+ },
+ "bias": {},
+ "load": {
+  "CL": 1e-13
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

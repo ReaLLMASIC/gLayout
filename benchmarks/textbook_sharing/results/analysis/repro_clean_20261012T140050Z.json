@@ -1,0 +1,55 @@
+{
+ "commit": "41ed33d5583208f68d121773ac8fe7d9e5e522c3",
+ "runs": [
+  {
+   "run": "C08/sky130/sW1_sL1/combined",
+   "match": {
+    "geometry_hash": true,
+    "area_um2": true,
+    "primary_status": true,
+    "verify": true
+   },
+   "max_rel_measure_diff": 0.0
+  },
+  {
+   "run": "C08/gf180/sW1_sL1/combined",
+   "match": {
+    "geometry_hash": true,
+    "area_um2": true,
+    "primary_status": true,
+    "verify": true
+   },
+   "max_rel_measure_diff": 0.0
+  },
+  {
+   "run": "C08/ihp130/sW1_sL1/combined",
+   "match": {
+    "geometry_hash": true,
+    "area_um2": true,
+    "primary_status": true,
+    "verify": true
+   },
+   "max_rel_measure_diff": 0.0
+  },
+  {
+   "run": "C11/ihp130/sW1_sL1/gate_only",
+   "match": {
+    "geometry_hash": true,
+    "area_um2": true,
+    "primary_status": true,
+    "verify": true
+   },
+   "max_rel_measure_diff": 0.0
+  },
+  {
+   "run": "C02/gf180/sW1_sL1/combined",
+   "match": {
+    "geometry_hash": true,
+    "area_um2": true,
+    "primary_status": true,
+    "verify": true
+   },
+   "max_rel_measure_diff": 2.5129170204433106e-07
+  }
+ ]
+}

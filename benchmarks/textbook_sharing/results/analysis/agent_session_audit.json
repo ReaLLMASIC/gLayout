@@ -1,0 +1,2297 @@
+{
+ "what": "Tool-call audit of the 84 Anthropic model sessions (agent interface).  Allowed: Read/Write/Edit of a file inside the session folder and `bash submit.sh <k>` run inside it.  Any other call is flagged: 'in_folder_edit' = text processing of the session's own files (protocol deviation, no outside information); 'isolation_breach' = anything else (outside paths, listing/search, network); every automatically flagged session was reviewed by hand.",
+ "model_ids_in_transcripts": {
+  "claude-sonnet-5-5": 1900
+ },
+ "launch_texts": {
+  "A": "You are the model under test in a controlled analog-layout experiment. Your session folder is:\n<session folder>\n\nRead README.md in that folder first and follow it exactly. Use only the files in that folder (README.md, interface.md, examples.md, task.md). Write each proposal with the Write tool as p<k>_answer.md in that folder, then run exactly this Bash command (with k replaced by the proposal number) to submit it and read the tool report:\ncd <session folder> && bash submit.sh k\nDo not open, list or search any other file or directory, and do not run any other command. You have at most 8 proposals. When you stop, reply with one line: the number of the proposal you consider best.",
+  "B": "You are the model under test in a controlled analog-layout experiment. Your session folder is:\n<session folder>\n\nRead README.md in that folder first and follow it exactly. Use only the files in that folder (README.md, interface.md, examples.md, task.md). Write each proposal with the Write tool as p<k>_answer.md in that folder, then run exactly this Bash command (with k replaced by the proposal number) to submit it and read the tool report:\ncd <session folder> && bash submit.sh k\nDo not open, list or search any other file or directory, and do not run any other command. Run the submit command in the foreground and wait for its report. You have at most 8 proposals. When you stop, reply with one line: the number of the proposal you consider best."
+ },
+ "launch_text_note": "Text B adds one sentence (run submit.sh in the foreground and wait for its report).  The first 66 sessions launched received text A, the last 18 text B.",
+ "summary": {
+  "sessions": 84,
+  "clean": 44,
+  "in_folder_edit_sessions": 39,
+  "auto_flagged": 2,
+  "after_manual_review": {
+   "benign": 1,
+   "outside_folder_read_own_output": 1,
+   "foreign_information_access": 0
+  },
+  "launch_text_counts": {
+   "A": 66,
+   "B": 18
+  }
+ },
+ "token_usage_sum": {
+  "input_tokens": 3814,
+  "output_tokens": 1140686,
+  "cache_read_input_tokens": 111474062,
+  "cache_creation_input_tokens": 6557167
+ },
+ "sessions": [
+  {
+   "task_id": "C02_gf180_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_gf180_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Edit",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -i 's/\\[T"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C02_gf180_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 18,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_gf180_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_gf180_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_gf180_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 21,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_ihp130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 12,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 4,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/pad_e"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/side="
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C02_ihp130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 20,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_ihp130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/side="
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C02_ihp130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_ihp130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_ihp130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_sky130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 20,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/side="
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C02_sky130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_sky130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 18,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 3,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/side="
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/side="
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C02_sky130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 18,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C02_sky130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 5,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/si"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && cat > p3_ans"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && cat > p4_ans"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/si"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/si"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C02_sky130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 18,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_gf180_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 15,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_gf180_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_gf180_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 8,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/GateGr"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C08_gf180_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 10,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Gat"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C08_gf180_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 8,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_gf180_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 14,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_ihp130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 6,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_ihp130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 15,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_ihp130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_sky130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_sky130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 14,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_sky130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 20,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Ga"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C08_sky130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 4,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Ga"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Ga"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Ga"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C08_sky130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C08_sky130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 26,
+   "tools": [
+    "Bash",
+    "Monitor",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 0,
+   "auto_flagged": true,
+   "manual_review": "outside-folder read of its own output: the agent ran submit.sh in the background and then read the background job's output file, which contains only its own tool report; no other file was read",
+   "flagged_calls": [
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "until [ -s <output file of the agent's own background command> ]; do sleep 5; done; cat <path>",
+      "description": "Wait for proposal 2 report",
+      "timeout_ms": "600000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "sleep 1; echo waiting",
+      "description": "noop",
+      "timeout_ms": "5000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "isolation_breach",
+     "input": {
+      "command": "cat <output file of the agent's own background command>"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "until [ -s <output file of the agent's own background command> ]; do sleep 10; done; cat <path>",
+      "description": "Wait for proposal 2 report",
+      "timeout_ms": "600000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "sleep 300; echo done",
+      "description": "Idle wait",
+      "timeout_ms": "320000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "isolation_breach",
+     "input": {
+      "command": "cat <output file of the agent's own background command>"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "until [ -s <output file of the agent's own background command> ]; do sleep 10; done; cat <path>",
+      "description": "Wait for proposal 2 report",
+      "timeout_ms": "600000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "sleep 540; echo done",
+      "description": "Idle wait",
+      "timeout_ms": "580000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "isolation_breach",
+     "input": {
+      "command": "cat <output file of the agent's own background command>"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "sleep 580; echo done",
+      "description": "Idle wait",
+      "timeout_ms": "590000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "isolation_breach",
+     "input": {
+      "command": "cat <output file of the agent's own background command>"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "until [ -s <output file of the agent's own background command> ]; do sleep 10; done; cat <path>",
+      "description": "Wait for proposal 2 report",
+      "timeout_ms": "600000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Monitor",
+     "class": "isolation_breach",
+     "input": {
+      "command": "sleep 590; echo done",
+      "description": "Idle wait",
+      "timeout_ms": "595000",
+      "persistent": "false"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "isolation_breach",
+     "input": {
+      "command": "cat <output file of the agent's own background command>"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_gf180_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 3,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_gf180_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 3,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e '1,/^ "
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_gf180_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Gat"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_gf180_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 5,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/orient"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/gate_g"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/gate_g"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_gf180_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 7,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\ndef fo(d): return \", \".join('(\"%s\", %d)'%(d,k) for k in range(16))\ndef pl(order,ors,joins,gg):\n    fing=\", \".join(fo(d) for d in order)\n    return \"SharingPlan(finger_order=[%s], orien"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\ndef fo(d): return \", \".join('(\"%s\", %d)'%(d,k) for k in range(16))\ndef pl(order,ors,joins,gg):\n    fing=\", \".join(fo(d) for d in order)\n    return \"SharingPlan(finger_order=[%s], orien"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\ndef fo(d): return \", \".join('(\"%s\", %d)'%(d,k) for k in range(16))\ndef pl(order,ors,joins,gg):\n    fing=\", \".join(fo(d) for d in order)\n    return \"SharingPlan(finger_order=[%s], orien"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\ndef fo(d): return \", \".join('(\"%s\", %d)'%(d,k) for k in range(16))\ndef pl(order,ors,joins,gg):\n    fing=\", \".join(fo(d) for d in order)\n    return \"SharingPlan(finger_order=[%s], orien"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\ndef fo(d): return \", \".join('(\"%s\", %d)'%(d,k) for k in range(16))\ndef pl(order,ors,joins,gg):\n    fing=\", \".join(fo(d) for d in order)\n    return \"SharingPlan(finger_order=[%s], orien"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\ndef fo(d): return \", \".join('(\"%s\", %d)'%(d,k) for k in range(16))\ndef pl(order,ors,joins,gg):\n    fing=\", \".join(fo(d) for d in order)\n    return \"SharingPlan(finger_order=[%s], orien"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\ndef fo(d): return \", \".join('(\"%s\", %d)'%(d,k) for k in range(16))\ndef pl(order,ors,joins,gg):\n    fing=\", \".join(fo(d) for d in order)\n    return \"SharingPlan(finger_order=[%s], orien"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_gf180_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 19,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 2,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && grep -n \"gate"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_ihp130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 10,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C09_ihp130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 18,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/strap",
+      "dangerouslyDisableSandbox": "False"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_ihp130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 12,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C09_ihp130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 19,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && echo skip"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_ihp130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 9,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_ihp130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 23,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && echo ok"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_sky130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 9,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_sky130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/GateG"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C09_sky130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C11_gf180_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 15,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 5,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Gat"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/str"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Gat"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/dif"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/dif"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_gf180_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/contac"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_gf180_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 19,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/GateGr"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_gf180_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 9,
+   "tools": [
+    "Bash",
+    "Edit",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C11_gf180_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 17,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/side=\""
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_gf180_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 12,
+   "tools": [
+    "Bash",
+    "Read"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 8,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<'"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/range("
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/range("
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ran"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ran"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ran"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e '/^ 1:"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_ihp130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 7,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/pad_e"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_ihp130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 12,
+   "tools": [
+    "Bash",
+    "Read"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 8,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Ga"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && grep -n \"Gat"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ra"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_ihp130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 22,
+   "tools": [
+    "Bash",
+    "Edit",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ga"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_ihp130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 6,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/GateG"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/pad_e"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_ihp130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 24,
+   "tools": [
+    "Bash",
+    "Edit",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -i 's/or"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_ihp130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 12,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 2,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/GateG"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/range"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_sky130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 12,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 2,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed 's/conta"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_sky130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 20,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 4,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\nfo=[(\"M1\",k) for k in range(8)]+[(\"M2\",k) for k in range(7)]+[(\"M3\",k) for k in range(16)]+[(\"M4\",k) for k in range(16)]+[(\"M2\",k) for k in range(7,16)]+[(\"M7\",k) for k in range(16)]\np"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\nfo=[(\"M2\",0)]+[(\"M1\",k) for k in range(8)]+[(\"M7\",k) for k in range(16)]+[(\"M2\",k) for k in range(1,16)]+[(\"M3\",k) for k in range(16)]+[(\"M4\",k) for k in range(16)]\nprint(str(fo).repla"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "python3 - <<'E'\nfo=[(\"M1\",k) for k in range(8)]+[(\"M7\",k) for k in range(16)]+[(\"M2\",k) for k in range(16)]+[(\"M3\",k) for k in range(16)]+[(\"M4\",k) for k in range(16)]\nprint(str(fo).replace(\"'\",'\"'), "
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ra"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_sky130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 14,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 6,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/si"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ra"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ra"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e '/^  "
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ra"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ra"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_sky130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 10,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 1,
+   "auto_flagged": true,
+   "manual_review": "benign: the only command outside the protocol was `cat /dev/null` (no file read)",
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Ga"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "isolation_breach",
+     "input": {
+      "command": "cat /dev/null",
+      "description": "no-op"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_sky130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": false,
+   "in_folder_edits": 4,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C11_sky130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": false,
+   "in_folder_edits": 5,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": [
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/Ga"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && cat > p3_ans"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && sed -e 's/ra"
+     }
+    },
+    {
+     "tool": "Bash",
+     "class": "in_folder_edit",
+     "input": {
+      "command": "cd <session folder> && python3 - <<"
+     }
+    }
+   ]
+  },
+  {
+   "task_id": "C16_gf180_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_gf180_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 18,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_gf180_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 14,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_gf180_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 9,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_gf180_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 12,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_gf180_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 19,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_ihp130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 16,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_ihp130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 15,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_ihp130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_ihp130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 14,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_ihp130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 10,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_ihp130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 14,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_sky130_sW2_sL1",
+   "rep": 1,
+   "tool_calls": 11,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_sky130_sW2_sL1",
+   "rep": 2,
+   "tool_calls": 13,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_sky130_sW2_sL1",
+   "rep": 3,
+   "tool_calls": 15,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_sky130_sW2_sL2",
+   "rep": 1,
+   "tool_calls": 14,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_sky130_sW2_sL2",
+   "rep": 2,
+   "tool_calls": 15,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "A",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  },
+  {
+   "task_id": "C16_sky130_sW2_sL2",
+   "rep": 3,
+   "tool_calls": 15,
+   "tools": [
+    "Bash",
+    "Read",
+    "Write"
+   ],
+   "launch_text": "B",
+   "clean": true,
+   "in_folder_edits": 0,
+   "auto_flagged": false,
+   "manual_review": null,
+   "flagged_calls": []
+  }
+ ]
+}

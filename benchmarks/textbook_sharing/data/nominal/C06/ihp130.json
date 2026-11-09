@@ -1,0 +1,52 @@
+{
+ "circuit_id": "C06",
+ "pdk": "ihp130",
+ "sizing": {
+  "M1": {
+   "w": 4.0,
+   "l": 0.26,
+   "nf": 8
+  },
+  "M2": {
+   "w": 4.0,
+   "l": 0.26,
+   "nf": 8
+  },
+  "M3": {
+   "w": 2.0,
+   "l": 0.26,
+   "nf": 4
+  },
+  "M4": {
+   "w": 2.0,
+   "l": 0.26,
+   "nf": 4
+  }
+ },
+ "supply": {
+  "VDD": 1.2,
+  "VSS": 0.0
+ },
+ "bias": {
+  "VB1": {
+   "replica": "M4",
+   "current": 2e-05,
+   "kind": "cascode"
+  },
+  "VB2": {
+   "replica": "M1",
+   "current": 2e-05,
+   "kind": "cascode"
+  },
+  "VB3": {
+   "replica": "M2",
+   "current": 2e-05
+  }
+ },
+ "load": {
+  "CL": 1e-13
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

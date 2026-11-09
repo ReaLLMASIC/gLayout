@@ -1,0 +1,540 @@
+{
+ "task_sets": {
+  "designed_selection": 72,
+  "dropped": {
+   "C08_ihp130_sW2_sL1": "schematic_not_qualified: gain_lf=24.94 below floor 25",
+   "C09_sky130_sW1_sL2": "schematic_not_qualified: gain_lf=13.57 below floor 35; ugf=2.635e+05 below floor 2e+06",
+   "C09_sky130_sW2_sL2": "schematic_not_qualified: gain_lf=27.56 below floor 35; ugf=5.326e+05 below floor 2e+06",
+   "C09_gf180_sW1_sL2": "schematic_not_qualified: ugf=7.508e+05 below floor 2e+06",
+   "C18_sky130_sW1_sL1": "schematic_not_qualified: servo did not reach the output target: vout0=0.9644481 target=0.9 (tol 0.036 V); thd_pct=51.71 above floor 3; out_swing=0 below floor 0.45",
+   "C18_sky130_sW1_sL2": "schematic_not_qualified: servo did not reach the output target: vout0=0.999616 target=0.9 (tol 0.036 V); thd_pct=43.08 above floor 3; out_swing=0 below floor 0.45",
+   "C18_sky130_sW2_sL1": "schematic_not_qualified: servo did not reach the output target: vout0=0.96461 target=0.9 (tol 0.036 V); thd_pct=52.88 above floor 3; out_swing=0 below floor 0.45",
+   "C18_sky130_sW2_sL2": "schematic_not_qualified: servo did not reach the output target: vout0=1.008435 target=0.9 (tol 0.036 V); thd_pct=44.53 above floor 3; out_swing=0 below floor 0.45",
+   "C18_gf180_sW1_sL1": "schematic_not_qualified: thd_pct=32.9 above floor 3; out_swing=0.4151 below floor 0.825",
+   "C18_gf180_sW1_sL2": "schematic_not_qualified: thd_pct=21.38 above floor 3; out_swing=0 below floor 0.825",
+   "C18_gf180_sW2_sL1": "schematic_not_qualified: thd_pct=26.61 above floor 3; out_swing=0.2552 below floor 0.825",
+   "C18_gf180_sW2_sL2": "schematic_not_qualified: thd_pct=42.28 above floor 3; out_swing=0 below floor 0.825",
+   "C18_ihp130_sW1_sL1": "schematic_not_qualified: thd_pct=31.41 above floor 3; out_swing=0.1982 below floor 0.3",
+   "C18_ihp130_sW1_sL2": "schematic_not_qualified: thd_pct=56.22 above floor 3; out_swing=0 below floor 0.3",
+   "C18_ihp130_sW2_sL1": "schematic_not_qualified: thd_pct=22.86 above floor 3; out_swing=0.1709 below floor 0.3",
+   "C18_ihp130_sW2_sL2": "schematic_not_qualified: thd_pct=31.05 above floor 3; out_swing=0.2425 below floor 0.3"
+  },
+  "selection": 56,
+  "selection_topologies": [
+   "C02",
+   "C08",
+   "C09",
+   "C11",
+   "C16"
+  ],
+  "model_tasks": 28,
+  "model_tasks_rule": "selection tasks at sW = 2 (sL 1 and 2)",
+  "model_tasks_ok": true,
+  "interface_tasks": 14,
+  "interface_tasks_rule": "model tasks at sW2_sL1",
+  "interface_tasks_ok": true
+ },
+ "model_tasks": [
+  "C02_gf180_sW2_sL1",
+  "C02_gf180_sW2_sL2",
+  "C02_ihp130_sW2_sL1",
+  "C02_ihp130_sW2_sL2",
+  "C02_sky130_sW2_sL1",
+  "C02_sky130_sW2_sL2",
+  "C08_gf180_sW2_sL1",
+  "C08_gf180_sW2_sL2",
+  "C08_ihp130_sW2_sL2",
+  "C08_sky130_sW2_sL1",
+  "C08_sky130_sW2_sL2",
+  "C09_gf180_sW2_sL1",
+  "C09_gf180_sW2_sL2",
+  "C09_ihp130_sW2_sL1",
+  "C09_ihp130_sW2_sL2",
+  "C09_sky130_sW2_sL1",
+  "C11_gf180_sW2_sL1",
+  "C11_gf180_sW2_sL2",
+  "C11_ihp130_sW2_sL1",
+  "C11_ihp130_sW2_sL2",
+  "C11_sky130_sW2_sL1",
+  "C11_sky130_sW2_sL2",
+  "C16_gf180_sW2_sL1",
+  "C16_gf180_sW2_sL2",
+  "C16_ihp130_sW2_sL1",
+  "C16_ihp130_sW2_sL2",
+  "C16_sky130_sW2_sL1",
+  "C16_sky130_sW2_sL2"
+ ],
+ "interface_tasks": [
+  "C02_gf180_sW2_sL1",
+  "C02_ihp130_sW2_sL1",
+  "C02_sky130_sW2_sL1",
+  "C08_gf180_sW2_sL1",
+  "C08_sky130_sW2_sL1",
+  "C09_gf180_sW2_sL1",
+  "C09_ihp130_sW2_sL1",
+  "C09_sky130_sW2_sL1",
+  "C11_gf180_sW2_sL1",
+  "C11_ihp130_sW2_sL1",
+  "C11_sky130_sW2_sL1",
+  "C16_gf180_sW2_sL1",
+  "C16_ihp130_sW2_sL1",
+  "C16_sky130_sW2_sL1"
+ ],
+ "best_known_source": {
+  "model proposal": 16,
+  "catalogue": 12
+ },
+ "best_known_found_by": {
+  "C02_gf180_sW2_sL1": [
+   "anthropic_claude-sonnet"
+  ],
+  "C02_gf180_sW2_sL2": [
+   "openai_gpt-6.1-sol"
+  ],
+  "C02_ihp130_sW2_sL1": [
+   "anthropic_claude-sonnet"
+  ],
+  "C02_ihp130_sW2_sL2": [
+   "openai_gpt-6.1-sol"
+  ],
+  "C02_sky130_sW2_sL1": [
+   "anthropic_claude-sonnet",
+   "openai_gpt-6.1-sol"
+  ],
+  "C02_sky130_sW2_sL2": [
+   "openai_gpt-6.1-sol"
+  ],
+  "C09_gf180_sW2_sL1": [
+   "anthropic_claude-sonnet"
+  ],
+  "C09_gf180_sW2_sL2": [
+   "anthropic_claude-sonnet"
+  ],
+  "C09_ihp130_sW2_sL1": [
+   "anthropic_claude-sonnet",
+   "openai_gpt-6.1-sol"
+  ],
+  "C09_ihp130_sW2_sL2": [
+   "openai_gpt-6.1-sol"
+  ],
+  "C09_sky130_sW2_sL1": [
+   "openai_gpt-6.1-sol"
+  ],
+  "C11_gf180_sW2_sL1": [
+   "openai_gpt-6.1-sol"
+  ],
+  "C11_gf180_sW2_sL2": [
+   "openai_gpt-6.1-sol"
+  ],
+  "C11_ihp130_sW2_sL1": [
+   "anthropic_claude-sonnet"
+  ],
+  "C11_ihp130_sW2_sL2": [
+   "anthropic_claude-sonnet"
+  ],
+  "C11_sky130_sW2_sL1": [
+   "openai_gpt-6.1-sol"
+  ]
+ },
+ "best_known_by_task": {
+  "C02_gf180_sW2_sL1": {
+   "catalogue_best": 428.6832,
+   "best_known": 299.9124,
+   "source": "model proposal",
+   "reference": 508.032
+  },
+  "C02_gf180_sW2_sL2": {
+   "catalogue_best": 610.0336,
+   "best_known": 431.4452,
+   "source": "model proposal",
+   "reference": 718.7712
+  },
+  "C02_ihp130_sW2_sL1": {
+   "catalogue_best": 245.6044,
+   "best_known": 177.2059,
+   "source": "model proposal",
+   "reference": 290.2001
+  },
+  "C02_ihp130_sW2_sL2": {
+   "catalogue_best": 368.9068,
+   "best_known": 347.3887,
+   "source": "model proposal",
+   "reference": 433.4705
+  },
+  "C02_sky130_sW2_sL1": {
+   "catalogue_best": 184.209,
+   "best_known": 170.1103,
+   "source": "model proposal",
+   "reference": 218.2609
+  },
+  "C02_sky130_sW2_sL2": {
+   "catalogue_best": 258.465,
+   "best_known": 179.2095,
+   "source": "model proposal",
+   "reference": 303.9409
+  },
+  "C08_gf180_sW2_sL1": {
+   "catalogue_best": 897.1494,
+   "best_known": 897.1494,
+   "source": "catalogue",
+   "reference": 1084.4544
+  },
+  "C08_gf180_sW2_sL2": {
+   "catalogue_best": 1324.2726,
+   "best_known": 1324.2726,
+   "source": "catalogue",
+   "reference": 1574.208
+  },
+  "C08_ihp130_sW2_sL2": {
+   "catalogue_best": 678.9465,
+   "best_known": 678.9465,
+   "source": "catalogue",
+   "reference": 792.3475
+  },
+  "C08_sky130_sW2_sL1": {
+   "catalogue_best": 365.0917,
+   "best_known": 365.0917,
+   "source": "catalogue",
+   "reference": 450.8464
+  },
+  "C08_sky130_sW2_sL2": {
+   "catalogue_best": 536.9556,
+   "best_known": 536.9556,
+   "source": "catalogue",
+   "reference": 648.9904
+  },
+  "C09_gf180_sW2_sL1": {
+   "catalogue_best": 1479.475,
+   "best_known": 1424.319,
+   "source": "model proposal",
+   "reference": 1765.1568
+  },
+  "C09_gf180_sW2_sL2": {
+   "catalogue_best": 2163.6606,
+   "best_known": 2104.7238,
+   "source": "model proposal",
+   "reference": 2561.5216
+  },
+  "C09_ihp130_sW2_sL1": {
+   "catalogue_best": 2372.7011,
+   "best_known": 2365.4923,
+   "source": "model proposal",
+   "reference": 2752.5063
+  },
+  "C09_ihp130_sW2_sL2": {
+   "catalogue_best": 3313.5267,
+   "best_known": 3217.4321,
+   "source": "model proposal",
+   "reference": 3834.1063
+  },
+  "C09_sky130_sW2_sL1": {
+   "catalogue_best": 2235.4563,
+   "best_known": 2227.4063,
+   "source": "model proposal",
+   "reference": 2635.2197
+  },
+  "C11_gf180_sW2_sL1": {
+   "catalogue_best": 3952.806,
+   "best_known": 3710.0245,
+   "source": "model proposal",
+   "reference": 4388.818
+  },
+  "C11_gf180_sW2_sL2": {
+   "catalogue_best": 5755.7148,
+   "best_known": 5529.3909,
+   "source": "model proposal",
+   "reference": 6337.6852
+  },
+  "C11_ihp130_sW2_sL1": {
+   "catalogue_best": 2179.5062,
+   "best_known": 2102.6586,
+   "source": "model proposal",
+   "reference": 2403.5617
+  },
+  "C11_ihp130_sW2_sL2": {
+   "catalogue_best": 2973.983,
+   "best_known": 2877.5218,
+   "source": "model proposal",
+   "reference": 3250.3609
+  },
+  "C11_sky130_sW2_sL1": {
+   "catalogue_best": 1874.8403,
+   "best_known": 1775.9815,
+   "source": "model proposal",
+   "reference": 2078.5433
+  },
+  "C11_sky130_sW2_sL2": {
+   "catalogue_best": 2707.972,
+   "best_known": 2707.972,
+   "source": "catalogue",
+   "reference": 2978.1832
+  },
+  "C16_gf180_sW2_sL1": {
+   "catalogue_best": 1380.0232,
+   "best_known": 1380.0232,
+   "source": "catalogue",
+   "reference": 1729.3648
+  },
+  "C16_gf180_sW2_sL2": {
+   "catalogue_best": 1380.0232,
+   "best_known": 1380.0232,
+   "source": "catalogue",
+   "reference": 1729.3648
+  },
+  "C16_ihp130_sW2_sL1": {
+   "catalogue_best": 880.2168,
+   "best_known": 880.2168,
+   "source": "catalogue",
+   "reference": 1007.736
+  },
+  "C16_ihp130_sW2_sL2": {
+   "catalogue_best": 823.86,
+   "best_known": 823.86,
+   "source": "catalogue",
+   "reference": 1007.736
+  },
+  "C16_sky130_sW2_sL1": {
+   "catalogue_best": 320.1602,
+   "best_known": 320.1602,
+   "source": "catalogue",
+   "reference": 377.2789
+  },
+  "C16_sky130_sW2_sL2": {
+   "catalogue_best": 297.6085,
+   "best_known": 297.6085,
+   "source": "catalogue",
+   "reference": 377.2789
+  }
+ },
+ "same_task_comparison_model_tasks": {
+  "fixed_mode": {
+   "1 ver.": {
+    "vs_catalogue_best": 0.12678550947762657,
+    "vs_best_known": 0.20074843132664394
+   },
+   "2 ver.": {
+    "vs_catalogue_best": 0.1249405760957976,
+    "vs_best_known": 0.1987505903179964
+   },
+   "4 ver.": {
+    "vs_catalogue_best": 0.12448440213201542,
+    "vs_best_known": 0.19828665108939253
+   },
+   "8 ver.": {
+    "vs_catalogue_best": 0.09455125047499409,
+    "vs_best_known": 0.16816654656653945
+   },
+   "16 ver.": {
+    "vs_catalogue_best": 0.0697154650913907,
+    "vs_best_known": 0.1428277057278827
+   }
+  },
+  "share_most": {
+   "1 ver.": {
+    "vs_catalogue_best": 0.25500949808505513,
+    "vs_best_known": 0.3376003185828833
+   },
+   "2 ver.": {
+    "vs_catalogue_best": 0.24724043867789358,
+    "vs_best_known": 0.3298152517059936
+   },
+   "4 ver.": {
+    "vs_catalogue_best": 0.21446087767906738,
+    "vs_best_known": 0.2961307729603807
+   },
+   "8 ver.": {
+    "vs_catalogue_best": 0.12100160662096499,
+    "vs_best_known": 0.19456127437334686
+   },
+   "16 ver.": {
+    "vs_catalogue_best": 0.0719270625165671,
+    "vs_best_known": 0.145003608309259
+   }
+  },
+  "cost_rank": {
+   "1 ver.": {
+    "vs_catalogue_best": 0.01261217038451147,
+    "vs_best_known": 0.08525624959295984
+   },
+   "2 ver.": {
+    "vs_catalogue_best": 0.009593625517753208,
+    "vs_best_known": 0.08200558826648846
+   },
+   "4 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   },
+   "8 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   },
+   "16 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   }
+  },
+  "geometry_first": {
+   "1 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   },
+   "2 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   },
+   "4 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   },
+   "8 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   },
+   "16 ver.": {
+    "vs_catalogue_best": 0.0,
+    "vs_best_known": 0.07241196274873525
+   }
+  },
+  "random": {
+   "1 ver.": {
+    "vs_catalogue_best": 0.2209364603182384,
+    "vs_best_known": 0.3163839906483041
+   },
+   "2 ver.": {
+    "vs_catalogue_best": 0.1508259865654037,
+    "vs_best_known": 0.23778570435273788
+   },
+   "4 ver.": {
+    "vs_catalogue_best": 0.1009226988759447,
+    "vs_best_known": 0.18017229260830991
+   },
+   "8 ver.": {
+    "vs_catalogue_best": 0.07111230417161883,
+    "vs_best_known": 0.14779414144983052
+   },
+   "16 ver.": {
+    "vs_catalogue_best": 0.03190610100581273,
+    "vs_best_known": 0.10496928331449115
+   }
+  },
+  "neighbourhood": {
+   "1 ver.": {
+    "vs_catalogue_best": 0.17580150773080114,
+    "vs_best_known": 0.2606713586456354
+   },
+   "2 ver.": {
+    "vs_catalogue_best": 0.1333351491314286,
+    "vs_best_known": 0.20821342240227295
+   },
+   "4 ver.": {
+    "vs_catalogue_best": 0.1289623618651815,
+    "vs_best_known": 0.20377866925290677
+   },
+   "8 ver.": {
+    "vs_catalogue_best": 0.07025541469889066,
+    "vs_best_known": 0.1449432522830883
+   },
+   "16 ver.": {
+    "vs_catalogue_best": 0.05228227761276887,
+    "vs_best_known": 0.12570336360989398
+   }
+  },
+  "baseline_independent": {
+   "1 ver.": {
+    "vs_catalogue_best": 0.17580150773080114,
+    "vs_best_known": 0.2606713586456354
+   },
+   "2 ver.": {
+    "vs_catalogue_best": 0.17580150773080114,
+    "vs_best_known": 0.2606713586456354
+   },
+   "4 ver.": {
+    "vs_catalogue_best": 0.17580150773080114,
+    "vs_best_known": 0.2606713586456354
+   },
+   "8 ver.": {
+    "vs_catalogue_best": 0.17580150773080114,
+    "vs_best_known": 0.2606713586456354
+   },
+   "16 ver.": {
+    "vs_catalogue_best": 0.17580150773080114,
+    "vs_best_known": 0.2606713586456354
+   }
+  },
+  "openai_gpt-6.1-sol": {
+   "1 prop.": {
+    "vs_catalogue_best": 0.1420397169615761,
+    "vs_best_known": 0.2234717282272301,
+    "sessions": 84
+   },
+   "2 prop.": {
+    "vs_catalogue_best": 0.13175841665348006,
+    "vs_best_known": 0.212559695753069,
+    "sessions": 84
+   },
+   "4 prop.": {
+    "vs_catalogue_best": 0.07900799778148403,
+    "vs_best_known": 0.15290872298311858,
+    "sessions": 84
+   },
+   "8 prop.": {
+    "vs_catalogue_best": 0.010123149619268097,
+    "vs_best_known": 0.07507825075077348,
+    "sessions": 84
+   },
+   "sessions_below_catalogue_best": 34,
+   "sessions_equal": 20,
+   "sessions_above": 30
+  },
+  "anthropic_claude-sonnet": {
+   "1 prop.": {
+    "vs_catalogue_best": 0.13068729637417842,
+    "vs_best_known": 0.20790049203903674,
+    "sessions": 84
+   },
+   "2 prop.": {
+    "vs_catalogue_best": 0.1164485148750518,
+    "vs_best_known": 0.19081995896639076,
+    "sessions": 84
+   },
+   "4 prop.": {
+    "vs_catalogue_best": 0.09846253796120705,
+    "vs_best_known": 0.17102840477617529,
+    "sessions": 84
+   },
+   "8 prop.": {
+    "vs_catalogue_best": 0.0702910354765989,
+    "vs_best_known": 0.13929124940545445,
+    "sessions": 84
+   },
+   "sessions_below_catalogue_best": 21,
+   "sessions_equal": 2,
+   "sessions_above": 61
+  },
+  "unshared reference": {
+   "vs_catalogue_best": 0.17580150773080114,
+   "vs_best_known": 0.2606713586456354
+  }
+ },
+ "interface_comparison": {
+  "sharing interface": {
+   "sessions": 42,
+   "vs_reference": -0.13086085989584026,
+   "vs_catalogue_best": 0.022024376135003514,
+   "vs_best_known": 0.09311061911307013,
+   "sessions_equal_to_reference": 4
+  },
+  "base-gLayout interface": {
+   "sessions": 42,
+   "vs_reference": -7.317965605562194e-05,
+   "vs_catalogue_best": 0.1763915017191346,
+   "vs_best_known": 0.26250996529333204,
+   "sessions_equal_to_reference": 41
+  },
+  "unshared reference": {
+   "vs_catalogue_best": 0.17647995967273744,
+   "vs_best_known": 0.26259842324693483
+  }
+ },
+ "note": "selection methods choose only among the <=64 sampled catalogue plans; models may propose any legal plan"
+}

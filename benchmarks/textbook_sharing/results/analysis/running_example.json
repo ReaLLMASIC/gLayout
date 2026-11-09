@@ -1,0 +1,439 @@
+{
+ "task": "C08_sky130_sW1_sL1",
+ "steps": [
+  {
+   "candidate": "c1ebe43136e1",
+   "decision": "unshared reference",
+   "status": "auto_passed",
+   "visual_review": "pass",
+   "area_um2": 256.0048,
+   "width_um": 18.605,
+   "height_um": 13.76,
+   "rows": [
+    {
+     "kind": "n",
+     "width_um": 15.83,
+     "height_um": 3.565
+    },
+    {
+     "kind": "p",
+     "width_um": 5.93,
+     "height_um": 3.565
+    }
+   ],
+   "channel_heights_um": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "groups": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3"
+     ],
+     "shared_diffusion_nets": [],
+     "gate_straps": [
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 3
+    },
+    {
+     "devices": [
+      "M4",
+      "M5"
+     ],
+     "shared_diffusion_nets": [],
+     "gate_straps": [
+      {
+       "fingers": 4,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 4,
+       "side": "bottom",
+       "pad_end": "left"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 2
+    }
+   ],
+   "gain_db": 31.89302,
+   "ugf_hz": 32196720.0,
+   "change_vs_unshared": 0.0
+  },
+  {
+   "candidate": "cc0a97e9039c",
+   "decision": "group 0 shares its net23 diffusion nodes",
+   "status": "auto_passed",
+   "visual_review": "pass",
+   "area_um2": 240.5936,
+   "width_um": 17.485,
+   "height_um": 13.76,
+   "rows": [
+    {
+     "kind": "n",
+     "width_um": 14.71,
+     "height_um": 3.565
+    },
+    {
+     "kind": "p",
+     "width_um": 5.93,
+     "height_um": 3.565
+    }
+   ],
+   "channel_heights_um": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "groups": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3"
+     ],
+     "shared_diffusion_nets": [
+      "net23",
+      "net23"
+     ],
+     "gate_straps": [
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "right"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "right"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "right"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 1
+    },
+    {
+     "devices": [
+      "M4",
+      "M5"
+     ],
+     "shared_diffusion_nets": [],
+     "gate_straps": [
+      {
+       "fingers": 4,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 4,
+       "side": "bottom",
+       "pad_end": "left"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 2
+    }
+   ],
+   "gain_db": 31.8982,
+   "ugf_hz": 32150780.0,
+   "change_vs_unshared": -0.0602
+  },
+  {
+   "candidate": "c051fabe4412",
+   "decision": "group 1 also shares its VDD node (side case)",
+   "status": "auto_passed",
+   "visual_review": "pass",
+   "area_um2": 240.5936,
+   "width_um": 17.485,
+   "height_um": 13.76,
+   "rows": [
+    {
+     "kind": "n",
+     "width_um": 14.71,
+     "height_um": 3.565
+    },
+    {
+     "kind": "p",
+     "width_um": 5.37,
+     "height_um": 3.565
+    }
+   ],
+   "channel_heights_um": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "groups": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3"
+     ],
+     "shared_diffusion_nets": [
+      "net23",
+      "net23"
+     ],
+     "gate_straps": [
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 1
+    },
+    {
+     "devices": [
+      "M4",
+      "M5"
+     ],
+     "shared_diffusion_nets": [
+      "VDD"
+     ],
+     "gate_straps": [
+      {
+       "fingers": 4,
+       "side": "bottom",
+       "pad_end": "right"
+      },
+      {
+       "fingers": 4,
+       "side": "bottom",
+       "pad_end": "right"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 1
+    }
+   ],
+   "gain_db": 31.87944,
+   "ugf_hz": 32160780.0,
+   "change_vs_unshared": -0.0602
+  },
+  {
+   "candidate": "cd7b91d3467f",
+   "decision": "group 1 shares VDD and drives both gates (net22) with one strap",
+   "status": "auto_passed",
+   "visual_review": "pass",
+   "area_um2": 231.1517,
+   "width_um": 17.485,
+   "height_um": 13.22,
+   "rows": [
+    {
+     "kind": "n",
+     "width_um": 14.71,
+     "height_um": 3.565
+    },
+    {
+     "kind": "p",
+     "width_um": 5.37,
+     "height_um": 3.025
+    }
+   ],
+   "channel_heights_um": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "groups": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3"
+     ],
+     "shared_diffusion_nets": [
+      "net23",
+      "net23"
+     ],
+     "gate_straps": [
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "right"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "right"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "right"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 1
+    },
+    {
+     "devices": [
+      "M4",
+      "M5"
+     ],
+     "shared_diffusion_nets": [
+      "VDD"
+     ],
+     "gate_straps": [
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      }
+     ],
+     "shared_gate_conductors": [
+      [
+       "M4",
+       "M5"
+      ]
+     ],
+     "active_islands": 1
+    }
+   ],
+   "gain_db": 31.87944,
+   "ugf_hz": 32160920.0,
+   "change_vs_unshared": -0.09708
+  },
+  {
+   "candidate": "c15f7f08c7b4",
+   "decision": "that strap is turned toward the middle channel",
+   "status": "auto_passed",
+   "visual_review": "pass",
+   "area_um2": 196.0921,
+   "width_um": 16.43,
+   "height_um": 11.935,
+   "rows": [
+    {
+     "kind": "n",
+     "width_um": 14.71,
+     "height_um": 3.565
+    },
+    {
+     "kind": "p",
+     "width_um": 5.81,
+     "height_um": 2.675
+    }
+   ],
+   "channel_heights_um": [
+    1.88,
+    4.32,
+    0.0
+   ],
+   "groups": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3"
+     ],
+     "shared_diffusion_nets": [
+      "net23",
+      "net23"
+     ],
+     "gate_straps": [
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      },
+      {
+       "fingers": 8,
+       "side": "bottom",
+       "pad_end": "left"
+      }
+     ],
+     "shared_gate_conductors": [],
+     "active_islands": 1
+    },
+    {
+     "devices": [
+      "M4",
+      "M5"
+     ],
+     "shared_diffusion_nets": [
+      "VDD"
+     ],
+     "gate_straps": [
+      {
+       "fingers": 8,
+       "side": "top",
+       "pad_end": "right"
+      }
+     ],
+     "shared_gate_conductors": [
+      [
+       "M4",
+       "M5"
+      ]
+     ],
+     "active_islands": 1
+    }
+   ],
+   "gain_db": 31.87999,
+   "ugf_hz": 32159530.0,
+   "change_vs_unshared": -0.23403
+  }
+ ],
+ "plan_space": {
+  "plans_per_group": [
+   10,
+   101
+  ],
+  "plans": 1010,
+  "catalogue_size": 64
+ },
+ "named_mode_combined": {
+  "area_um2": 245.9581,
+  "status": "auto_passed",
+  "unshared_groups": [
+   0
+  ],
+  "change_vs_unshared": -0.03924,
+  "above_best": 0.2543
+ },
+ "specs": {
+  "gain_db_min": 28.85,
+  "ugf_hz_min": 20130000.0
+ }
+}

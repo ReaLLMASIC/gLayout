@@ -1,0 +1,58 @@
+{
+ "circuit_id": "C18",
+ "pdk": "gf180",
+ "sizing": {
+  "M1": {
+   "w": 2.0,
+   "l": 0.56,
+   "nf": 4
+  },
+  "M2": {
+   "w": 4.0,
+   "l": 0.56,
+   "nf": 8
+  },
+  "M3": {
+   "w": 8.0,
+   "l": 0.56,
+   "nf": 16
+  },
+  "M4": {
+   "w": 16.0,
+   "l": 0.56,
+   "nf": 32
+  },
+  "M5": {
+   "w": 16.0,
+   "l": 0.56,
+   "nf": 32
+  },
+  "M6": {
+   "w": 32.0,
+   "l": 0.56,
+   "nf": 64
+  }
+ },
+ "supply": {
+  "VDD": 3.3,
+  "VSS": 0.0
+ },
+ "bias": {
+  "VB1": {
+   "replica": "M2",
+   "current": 2e-05
+  }
+ },
+ "load": {
+  "RL": 20000.0,
+  "CL": 5e-12,
+  "vamp": 0.02,
+  "vout_target": 1.65,
+  "vin_center": 0.9899999999999999,
+  "servo_slope": 200.0,
+  "options": ".option method=gear reltol=1e-3"
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

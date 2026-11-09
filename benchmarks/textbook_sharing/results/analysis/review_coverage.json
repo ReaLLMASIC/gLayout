@@ -1,0 +1,27 @@
+{
+ "main_grid": {
+  "n": 1612,
+  "group_effective": {
+   "pass": 1612
+  },
+  "not_pass": []
+ },
+ "reported": {
+  "n": 456,
+  "group_effective": {
+   "pass": 456
+  },
+  "not_pass": []
+ },
+ "pvt_targets": {
+  "n": 42,
+  "group_effective": {
+   "pass": 42
+  },
+  "not_pass": []
+ },
+ "all_records_effective": {
+  "pass": 2848,
+  "review_pending": 3311
+ }
+}

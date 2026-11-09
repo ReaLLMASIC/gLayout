@@ -1,0 +1,90 @@
+{
+ "6b65d9a50aa6e509c1e8": {
+  "components": 3,
+  "floating_components": [],
+  "gate_pads": 9,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/grid/C11/gf180/sW2_sL1/combined",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ },
+ "7bf147b383aedb270085": {
+  "components": 3,
+  "floating_components": [],
+  "gate_pads": 12,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/grid/C11/gf180/sW1_sL2/independent",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ },
+ "a092e520a90160c0ac5f": {
+  "components": 3,
+  "floating_components": [],
+  "gate_pads": 9,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/grid/C11/gf180/sW2_sL1.5/gate_only",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ },
+ "6a8d28e5d3967992e782": {
+  "components": 3,
+  "floating_components": [],
+  "gate_pads": 12,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/grid/C11/gf180/sW2_sL2/independent",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ },
+ "e7658776110d82fb2d02": {
+  "components": 3,
+  "floating_components": [],
+  "gate_pads": 2,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/grid/C04/gf180/sW1_sL1/independent",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ },
+ "9bde12205a844615c348": {
+  "components": 1,
+  "floating_components": [],
+  "gate_pads": 2,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/grid/C13/sky130/sW1_sL1.5/combined",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ },
+ "c8631f26b95b75f3bd08": {
+  "components": 4,
+  "floating_components": [],
+  "gate_pads": 4,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/grid/C08/sky130/sW1_sL1/combined",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ },
+ "ccee6d68a66d4beceba1": {
+  "components": 4,
+  "floating_components": [],
+  "gate_pads": 4,
+  "gate_pads_without_via1": 0,
+  "met2_without_via2": [],
+  "run": "runs/selection/C08_sky130_sW2_sL1/c443ef38398f",
+  "drc": "passed",
+  "lvs": "passed",
+  "primary_status": "auto_passed"
+ }
+}

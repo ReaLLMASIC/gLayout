@@ -1,0 +1,481 @@
+{
+ "summary": {
+  "grid": {
+   "records": 1612,
+   "hash_match": 1612
+  },
+  "models": {
+   "records": 1143,
+   "hash_match": 1143
+  },
+  "selection": {
+   "records": 3404,
+   "hash_match": 3338,
+   "bbox_match_only": 66
+  }
+ },
+ "not_matching": [
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c087f4692e78",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "8907c6d1058d41fa",
+   "recorded_hash": "dc4d4fc49366e425"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c12cfed03e95",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "b2fe578a029012b8",
+   "recorded_hash": "3654e2c5e9cf1e43"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c13a0048c574",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "8513579868763968",
+   "recorded_hash": "4e6133d5b8bf9944"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c15f7f08c7b4",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "535d6e04abaa3ea8",
+   "recorded_hash": "223661ddad0252f4"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c1f5b1d5e57e",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "0e26090325f17cbb",
+   "recorded_hash": "26ebdda1b3031797"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c56512190a3f",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "6ae02b2e0558ce94",
+   "recorded_hash": "8bbfcffca7f774d5"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c573cc90b25e",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "fd3b19ee03555365",
+   "recorded_hash": "efa223e5e4462b65"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c66c6edf9e41",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "3da7e920b7fd9aac",
+   "recorded_hash": "0160f1998356d858"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c681229827ee",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "3b05244e647ec96d",
+   "recorded_hash": "5939372d972b60cb"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c717e4610efc",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "613830a068eed1d6",
+   "recorded_hash": "3f4893e6c4c5ecbf"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c7281b4f8697",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "17c0a403dae1552f",
+   "recorded_hash": "5c5f33e931304eba"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c81c8316ca1a",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "99b5c5ee0a97c70b",
+   "recorded_hash": "67eeb8bf5c795740"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/c94046dd7e8b",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "3b55adbba6b0dfc0",
+   "recorded_hash": "35ef16945f85b52f"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/cb39850af7c3",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "d891f52c5dd2da54",
+   "recorded_hash": "e09f504a34f3f2d4"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/cbe4dff6c6ae",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "679d72501d1759b7",
+   "recorded_hash": "e8fd4026a7a45132"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/cd28fd781ccd",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "68a8b82ca06bfe67",
+   "recorded_hash": "83169ac50fa778e1"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/cd6f01605600",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "43d249a36e1b5301",
+   "recorded_hash": "92258e3757da22a3"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/cdb1a36c9160",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "694e7d83f3b4d2f1",
+   "recorded_hash": "8475129d648433f1"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/ce4ab75f3ca5",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "a27dacbbbe3fc48d",
+   "recorded_hash": "7b82cd8bc0f94708"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL1/cf2b2b47a440",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "21098b181befa198",
+   "recorded_hash": "32bc3b07184633ef"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/c08b09de3ccc",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "e03ae42a63ebd354",
+   "recorded_hash": "7d3296e07832e6a0"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/c157726ecbf6",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "831151163405f15b",
+   "recorded_hash": "21391fecce79355a"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/c15f7f08c7b4",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "f24ce8906b66ad26",
+   "recorded_hash": "cf76690e1725f9ee"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/c1bd371c449e",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "08c37a237482a233",
+   "recorded_hash": "17d92b83cb14a097"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/c8ea4aad91f7",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "ad92e4faa783f672",
+   "recorded_hash": "9e1c01ef0524aa85"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/ca3df7ca75b0",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "db309896421600d8",
+   "recorded_hash": "905621e29bbddbfe"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/ca5331b99128",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "e7569693c596362d",
+   "recorded_hash": "5bd3dbc42237e456"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/caf3de657c1e",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "84a6f4ac82eca25a",
+   "recorded_hash": "251d35d12c409f84"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/cb286735b956",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "524e5623a136284d",
+   "recorded_hash": "30147f118afa095d"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/ce1449d5c160",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "811f41a804cc37b1",
+   "recorded_hash": "7dd25d71351bfe6c"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/ce599331fcf0",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "9dcbf8a740e17402",
+   "recorded_hash": "c28e54743e3bf1af"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/cf215ebe0d1f",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "cd4ef8e128dd5ad9",
+   "recorded_hash": "a895b6a3c04a3e14"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/cf531448ce34",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "4c929c84af3871d6",
+   "recorded_hash": "0f2352ede35f8f60"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW1_sL2/cf734dce4786",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "0c8295c356cf445b",
+   "recorded_hash": "58fa66f6906609db"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c0578fc4bd1a",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "bafe6219eae85405",
+   "recorded_hash": "1a8bfe664988b758"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c0769d18e2e8",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "cd098481f82e2f65",
+   "recorded_hash": "c9865dd0a16c4ed4"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c14734182da0",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "3ea6ae770539cd2c",
+   "recorded_hash": "757d1e84b16b75da"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c1755eaa0c55",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "9989c33479db5ebe",
+   "recorded_hash": "75036896e48c9389"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c1a9dc17ff5d",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "d52e353bca7c498b",
+   "recorded_hash": "43aed178e4af973b"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c32ae986b8b2",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "c3b238030ccf4d4b",
+   "recorded_hash": "0978abc3bec4948d"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c389e0a5eee3",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "72bbc6ba7ba8cee0",
+   "recorded_hash": "1fb5d64b8a94628e"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c443ef38398f",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "702e3d51012b1afe",
+   "recorded_hash": "4388e630d99c4a21"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c5c599345b2b",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "3e2b8d1803510833",
+   "recorded_hash": "ea703c2425454cc7"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c7f9f45e3884",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "f00653a7a7b6c294",
+   "recorded_hash": "6c0ac318ce74abac"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/c9aa2c20bdc1",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "fd0a2ee7cd5ff015",
+   "recorded_hash": "443692acb5dc787f"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/ce8997976b92",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "451e6aba4408b155",
+   "recorded_hash": "c314eb1af1914fff"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL1/ce9395d271c7",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "4d26b61a67700c49",
+   "recorded_hash": "1d36b34390107a1a"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c0cb2c66e3db",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "6adb9076dfa81278",
+   "recorded_hash": "0e169efb9b656273"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c0dc841ee139",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "5c05a635769877cb",
+   "recorded_hash": "e29efdd6c4770c03"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c34a528ae7f1",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "c5745f631d773694",
+   "recorded_hash": "725a6311c99da28c"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c4a4a6a394fd",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "964b8199ccb9c761",
+   "recorded_hash": "685d29c39c0e3897"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c5b0856ed85c",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "6594a8192541916b",
+   "recorded_hash": "3124a1b204834a0b"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c614fccb933b",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "865ef0d499983726",
+   "recorded_hash": "8c74ae6d51ecb152"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c7d453aa8af8",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "73e122690683ebba",
+   "recorded_hash": "8548eebc2ed29a77"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c8a24aa58675",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "0427c04c73a43eb5",
+   "recorded_hash": "1b16385d034c6146"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c8cebf4fa121",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "73f4f9f1f0215f83",
+   "recorded_hash": "1e7a6f87221aaa35"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/c9aa2c20bdc1",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "f2c078e5d0789845",
+   "recorded_hash": "16f1f3396c6b109f"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/cb03edec7f6f",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "dddb1f6381540095",
+   "recorded_hash": "9d08fca359f6903e"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/cc57a5c20347",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "60c19d802a27dccb",
+   "recorded_hash": "558b1e7175a2fda5"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/cdf53f38e1e9",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "3fb20615ad2a881b",
+   "recorded_hash": "7e08f1594f97a375"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/cdf73f5bdccc",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "6294f0717cc94e91",
+   "recorded_hash": "b6bbe72d02bae5ab"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/ce30756f345b",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "ef89c3637405a8e8",
+   "recorded_hash": "7910a22700ff382d"
+  },
+  {
+   "record": "runs/selection/C08_sky130_sW2_sL2/cf1f72e0ea6f",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "55ceeaf3cdba18e9",
+   "recorded_hash": "e36eefa900a852a7"
+  },
+  {
+   "record": "runs/selection/C09_sky130_sW1_sL1/cb665d318416",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "c49ed29748717563",
+   "recorded_hash": "335118a971cf94e9"
+  },
+  {
+   "record": "runs/selection/C09_sky130_sW2_sL1/cb75dbde1b16",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "6df132e3cb3401e0",
+   "recorded_hash": "707280a78f135830"
+  },
+  {
+   "record": "runs/selection/C09_sky130_sW2_sL1/cca52d459010",
+   "hash_match": false,
+   "bbox_match": true,
+   "hash": "8bf31104e9589105",
+   "recorded_hash": "6225e8245d002b19"
+  }
+ ]
+}

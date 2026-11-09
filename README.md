@@ -75,6 +75,10 @@ For detailed documentation, please visit our [documentation site](https://glayou
 - Guard ring generation
 - And more...
 
+### Diffusion and Gate Sharing
+- Explicit sharing plans for groups of transistors (`glayout.sharing`): which fingers share a diffusion node and which gates share a poly strap, checked before any geometry is drawn
+- A three-PDK benchmark of 18 textbook circuits with official DRC, LVS, extraction and post-layout simulation: [benchmarks/textbook_sharing](benchmarks/textbook_sharing/README.md)
+
 ### Natural Language Processing/Large Language Model Framework
 - Convert natural language descriptions to layouts
 - Support for standard components

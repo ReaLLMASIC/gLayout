@@ -1,0 +1,28 @@
+{
+ "circuit_id": "C15",
+ "pdk": "sky130",
+ "sizing": {
+  "M1": {
+   "w": 2.0,
+   "l": 0.3,
+   "nf": 4
+  },
+  "R1": {
+   "r": 20000.0,
+   "body": "VSS",
+   "w": 0.35,
+   "l": 17.55
+  }
+ },
+ "supply": {
+  "VDD": 1.8,
+  "VSS": 0.0
+ },
+ "bias": {},
+ "load": {
+  "CL": 1e-13
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "circuit_id": "C12",
+ "pdk": "ihp130",
+ "sizing": {
+  "M1": {
+   "w": 2.0,
+   "l": 0.26,
+   "nf": 4
+  },
+  "M2": {
+   "w": 4.0,
+   "l": 0.26,
+   "nf": 8
+  }
+ },
+ "supply": {
+  "VDD": 1.2,
+  "VSS": 0.0
+ },
+ "bias": {},
+ "load": {
+  "CL": 1e-13
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

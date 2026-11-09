@@ -1,0 +1,28 @@
+{
+ "circuit_id": "C15",
+ "pdk": "ihp130",
+ "sizing": {
+  "M1": {
+   "w": 2.0,
+   "l": 0.26,
+   "nf": 4
+  },
+  "R1": {
+   "r": 12000.0,
+   "body": "VSS",
+   "w": 1.0,
+   "l": 46.385
+  }
+ },
+ "supply": {
+  "VDD": 1.2,
+  "VSS": 0.0
+ },
+ "bias": {},
+ "load": {
+  "CL": 1e-13
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

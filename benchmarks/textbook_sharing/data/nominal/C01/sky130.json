@@ -1,0 +1,34 @@
+{
+ "circuit_id": "C01",
+ "pdk": "sky130",
+ "sizing": {
+  "M1": {
+   "w": 2.0,
+   "l": 0.6,
+   "nf": 4
+  },
+  "M2": {
+   "w": 2.0,
+   "l": 0.6,
+   "nf": 4
+  }
+ },
+ "supply": {
+  "VDD": 1.8,
+  "VSS": 0.0
+ },
+ "bias": {
+  "IB1": {
+   "i": 2e-05,
+   "from": "VDD"
+  },
+  "IREF": 2e-05
+ },
+ "load": {
+  "vout_nom": 0.9,
+  "tol": 0.05
+ },
+ "notes": [
+  "first-pass sizing v1"
+ ]
+}

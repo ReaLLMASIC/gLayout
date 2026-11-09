@@ -1,0 +1,854 @@
+{
+ "rows": [
+  {
+   "topology": "C01",
+   "name": "basic_current_mirror",
+   "category": "mirror",
+   "mos": 2,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2"
+     ],
+     "fingers": 8,
+     "unique_plans": 101,
+     "raw": 256,
+     "static_illegal": 8,
+     "equivalent_duplicate": 147
+    }
+   ],
+   "plan_space_nominal_sky130": 101,
+   "requests": 36,
+   "outcomes": {
+    "formal": 31,
+    "schematic_not_qualified": 5
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 12,
+    "ihp130": 7
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 31,
+    "gate_only": 31,
+    "combined": 31
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C02",
+   "name": "cascode_current_mirror",
+   "category": "mirror",
+   "mos": 4,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3",
+      "M4"
+     ],
+     "fingers": 16,
+     "unique_plans": 64,
+     "raw": 256,
+     "static_illegal": 144,
+     "equivalent_duplicate": 48
+    }
+   ],
+   "plan_space_nominal_sky130": 64,
+   "requests": 36,
+   "outcomes": {
+    "formal": 36
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 12,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 36,
+    "gate_only": 36,
+    "combined": 36
+   },
+   "selection_tasks": 12,
+   "model_tasks": 6
+  },
+  {
+   "topology": "C03",
+   "name": "wilson_current_mirror",
+   "category": "mirror",
+   "mos": 3,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3"
+     ],
+     "fingers": 24,
+     "unique_plans": 85,
+     "raw": 256,
+     "static_illegal": 152,
+     "equivalent_duplicate": 19
+    }
+   ],
+   "plan_space_nominal_sky130": 85,
+   "requests": 36,
+   "outcomes": {
+    "formal": 35,
+    "schematic_not_qualified": 1
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 12,
+    "ihp130": 11
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 35,
+    "gate_only": 35,
+    "combined": 35
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C04",
+   "name": "cs_amplifier_current_source_load",
+   "category": "single",
+   "mos": 2,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1"
+     ],
+     "fingers": 8,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    },
+    {
+     "devices": [
+      "M2"
+     ],
+     "fingers": 4,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    }
+   ],
+   "plan_space_nominal_sky130": 64,
+   "requests": 36,
+   "outcomes": {
+    "formal": 32,
+    "schematic_not_qualified": 1,
+    "reference_spec_failed": 3
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 8,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {},
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C05",
+   "name": "source_follower_mos_current_source",
+   "category": "follower",
+   "mos": 2,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2"
+     ],
+     "fingers": 12,
+     "unique_plans": 76,
+     "raw": 256,
+     "static_illegal": 16,
+     "equivalent_duplicate": 164
+    }
+   ],
+   "plan_space_nominal_sky130": 76,
+   "requests": 36,
+   "outcomes": {
+    "formal": 35,
+    "schematic_not_qualified": 1
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 11,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 35
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C06",
+   "name": "cascode_amplifier_cascode_load",
+   "category": "single",
+   "mos": 4,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2"
+     ],
+     "fingers": 16,
+     "unique_plans": 76,
+     "raw": 256,
+     "static_illegal": 16,
+     "equivalent_duplicate": 164
+    },
+    {
+     "devices": [
+      "M3",
+      "M4"
+     ],
+     "fingers": 8,
+     "unique_plans": 76,
+     "raw": 256,
+     "static_illegal": 16,
+     "equivalent_duplicate": 164
+    }
+   ],
+   "plan_space_nominal_sky130": 5776,
+   "requests": 36,
+   "outcomes": {
+    "formal": 31,
+    "schematic_not_qualified": 5
+   },
+   "formal_by_pdk": {
+    "sky130": 7,
+    "gf180": 12,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 31
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C07",
+   "name": "diff_pair_current_source_loads",
+   "category": "diff_cs",
+   "mos": 4,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2"
+     ],
+     "fingers": 16,
+     "unique_plans": 49,
+     "raw": 256,
+     "static_illegal": 16,
+     "equivalent_duplicate": 191
+    },
+    {
+     "devices": [
+      "M3",
+      "M4"
+     ],
+     "fingers": 16,
+     "unique_plans": 101,
+     "raw": 256,
+     "static_illegal": 8,
+     "equivalent_duplicate": 147
+    }
+   ],
+   "plan_space_nominal_sky130": 4949,
+   "requests": 36,
+   "outcomes": {
+    "formal": 36
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 12,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 36,
+    "gate_only": 36,
+    "combined": 36
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C08",
+   "name": "five_transistor_ota",
+   "category": "ota",
+   "mos": 5,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3"
+     ],
+     "fingers": 24,
+     "unique_plans": 10,
+     "raw": 256,
+     "static_illegal": 224,
+     "equivalent_duplicate": 22
+    },
+    {
+     "devices": [
+      "M4",
+      "M5"
+     ],
+     "fingers": 8,
+     "unique_plans": 101,
+     "raw": 256,
+     "static_illegal": 8,
+     "equivalent_duplicate": 147
+    }
+   ],
+   "plan_space_nominal_sky130": 1010,
+   "requests": 36,
+   "outcomes": {
+    "formal": 34,
+    "schematic_not_qualified": 2
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 12,
+    "ihp130": 10
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 34,
+    "gate_only": 34,
+    "combined": 34
+   },
+   "selection_tasks": 11,
+   "model_tasks": 5
+  },
+  {
+   "topology": "C09",
+   "name": "telescopic_ota_single_ended",
+   "category": "ota",
+   "mos": 8,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3",
+      "M4"
+     ],
+     "fingers": 64,
+     "unique_plans": 12,
+     "raw": 256,
+     "static_illegal": 224,
+     "equivalent_duplicate": 20
+    },
+    {
+     "devices": [
+      "M5",
+      "M6",
+      "M7",
+      "M8"
+     ],
+     "fingers": 128,
+     "unique_plans": 39,
+     "raw": 256,
+     "static_illegal": 152,
+     "equivalent_duplicate": 65
+    }
+   ],
+   "plan_space_nominal_sky130": 468,
+   "requests": 36,
+   "outcomes": {
+    "schematic_not_qualified": 13,
+    "formal": 23
+   },
+   "formal_by_pdk": {
+    "sky130": 3,
+    "gf180": 8,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 23,
+    "gate_only": 23,
+    "combined": 23
+   },
+   "selection_tasks": 9,
+   "model_tasks": 5
+  },
+  {
+   "topology": "C10",
+   "name": "folded_cascode_ota_fully_differential",
+   "category": "ota_fd",
+   "mos": 10,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2"
+     ],
+     "fingers": 16,
+     "unique_plans": 49,
+     "raw": 256,
+     "static_illegal": 16,
+     "equivalent_duplicate": 191
+    },
+    {
+     "devices": [
+      "M3",
+      "M4",
+      "M5",
+      "M6"
+     ],
+     "fingers": 32,
+     "unique_plans": 39,
+     "raw": 256,
+     "static_illegal": 152,
+     "equivalent_duplicate": 65
+    },
+    {
+     "devices": [
+      "M7",
+      "M8",
+      "M9",
+      "M10"
+     ],
+     "fingers": 32,
+     "unique_plans": 39,
+     "raw": 256,
+     "static_illegal": 152,
+     "equivalent_duplicate": 65
+    }
+   ],
+   "plan_space_nominal_sky130": 74529,
+   "requests": 36,
+   "outcomes": {
+    "schematic_not_qualified": 9,
+    "formal": 27
+   },
+   "formal_by_pdk": {
+    "sky130": 8,
+    "gf180": 12,
+    "ihp130": 7
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 27,
+    "gate_only": 27,
+    "combined": 27
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C11",
+   "name": "two_stage_miller_opamp",
+   "category": "twostage",
+   "mos": 8,
+   "res": 1,
+   "cap": 1,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M7"
+     ],
+     "fingers": 36,
+     "unique_plans": 25,
+     "raw": 256,
+     "static_illegal": 216,
+     "equivalent_duplicate": 15
+    },
+    {
+     "devices": [
+      "M5",
+      "M6",
+      "M8"
+     ],
+     "fingers": 16,
+     "unique_plans": 43,
+     "raw": 256,
+     "static_illegal": 152,
+     "equivalent_duplicate": 61
+    }
+   ],
+   "plan_space_nominal_sky130": 1075,
+   "requests": 36,
+   "outcomes": {
+    "formal": 36
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 12,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 36,
+    "gate_only": 36,
+    "combined": 36
+   },
+   "selection_tasks": 12,
+   "model_tasks": 6
+  },
+  {
+   "topology": "C12",
+   "name": "cmos_inverter_amplifier",
+   "category": "single",
+   "mos": 2,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1"
+     ],
+     "fingers": 4,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    },
+    {
+     "devices": [
+      "M2"
+     ],
+     "fingers": 8,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    }
+   ],
+   "plan_space_nominal_sky130": 64,
+   "requests": 36,
+   "outcomes": {
+    "formal": 35,
+    "schematic_not_qualified": 1
+   },
+   "formal_by_pdk": {
+    "sky130": 11,
+    "gf180": 12,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {},
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C13",
+   "name": "wide_swing_cascode_current_mirror",
+   "category": "mirror",
+   "mos": 5,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5"
+     ],
+     "fingers": 17,
+     "unique_plans": 40,
+     "raw": 256,
+     "static_illegal": 176,
+     "equivalent_duplicate": 40
+    }
+   ],
+   "plan_space_nominal_sky130": 40,
+   "requests": 36,
+   "outcomes": {
+    "parameter_illegal": 9,
+    "formal": 27
+   },
+   "formal_by_pdk": {
+    "sky130": 9,
+    "gf180": 9,
+    "ihp130": 9
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 27,
+    "gate_only": 27,
+    "combined": 27
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C14",
+   "name": "regulated_cascode_current_mirror",
+   "category": "mirror",
+   "mos": 4,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2",
+      "M3",
+      "M4"
+     ],
+     "fingers": 14,
+     "unique_plans": 12,
+     "raw": 256,
+     "static_illegal": 224,
+     "equivalent_duplicate": 20
+    }
+   ],
+   "plan_space_nominal_sky130": 12,
+   "requests": 36,
+   "outcomes": {
+    "formal": 36
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 12,
+    "ihp130": 12
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 36,
+    "gate_only": 36,
+    "combined": 36
+   },
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C15",
+   "name": "cs_amplifier_resistor_load",
+   "category": "single",
+   "mos": 1,
+   "res": 1,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1"
+     ],
+     "fingers": 4,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    }
+   ],
+   "plan_space_nominal_sky130": 8,
+   "requests": 36,
+   "outcomes": {
+    "formal": 33,
+    "schematic_not_qualified": 3
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 10,
+    "ihp130": 11
+   },
+   "modes_applicable_in_formal": {},
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C16",
+   "name": "diff_pair_resistor_loads",
+   "category": "diff_r",
+   "mos": 2,
+   "res": 2,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1",
+      "M2"
+     ],
+     "fingers": 16,
+     "unique_plans": 49,
+     "raw": 256,
+     "static_illegal": 16,
+     "equivalent_duplicate": 191
+    }
+   ],
+   "plan_space_nominal_sky130": 49,
+   "requests": 36,
+   "outcomes": {
+    "formal": 32,
+    "schematic_not_qualified": 4
+   },
+   "formal_by_pdk": {
+    "sky130": 12,
+    "gf180": 10,
+    "ihp130": 10
+   },
+   "modes_applicable_in_formal": {
+    "diffusion_only": 32
+   },
+   "selection_tasks": 12,
+   "model_tasks": 6
+  },
+  {
+   "topology": "C17",
+   "name": "degenerated_diff_pair",
+   "category": "diff_r",
+   "mos": 3,
+   "res": 4,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1"
+     ],
+     "fingers": 8,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    },
+    {
+     "devices": [
+      "M2"
+     ],
+     "fingers": 8,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    },
+    {
+     "devices": [
+      "M3"
+     ],
+     "fingers": 8,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    }
+   ],
+   "plan_space_nominal_sky130": 512,
+   "requests": 36,
+   "outcomes": {
+    "formal": 28,
+    "schematic_not_qualified": 7,
+    "reference_spec_failed": 1
+   },
+   "formal_by_pdk": {
+    "sky130": 10,
+    "gf180": 9,
+    "ihp130": 9
+   },
+   "modes_applicable_in_formal": {},
+   "selection_tasks": 0,
+   "model_tasks": 0
+  },
+  {
+   "topology": "C18",
+   "name": "class_ab_output_buffer",
+   "category": "buffer_ab",
+   "mos": 6,
+   "res": 0,
+   "cap": 0,
+   "groups_nominal_sky130": [
+    {
+     "devices": [
+      "M1"
+     ],
+     "fingers": 4,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    },
+    {
+     "devices": [
+      "M2"
+     ],
+     "fingers": 8,
+     "unique_plans": 8,
+     "raw": 256,
+     "static_illegal": 64,
+     "equivalent_duplicate": 184
+    },
+    {
+     "devices": [
+      "M3",
+      "M5"
+     ],
+     "fingers": 48,
+     "unique_plans": 62,
+     "raw": 256,
+     "static_illegal": 8,
+     "equivalent_duplicate": 186
+    },
+    {
+     "devices": [
+      "M4",
+      "M6"
+     ],
+     "fingers": 96,
+     "unique_plans": 62,
+     "raw": 256,
+     "static_illegal": 8,
+     "equivalent_duplicate": 186
+    }
+   ],
+   "plan_space_nominal_sky130": 246016,
+   "requests": 36,
+   "outcomes": {
+    "schematic_not_qualified": 36
+   },
+   "formal_by_pdk": {
+    "sky130": 0,
+    "gf180": 0,
+    "ihp130": 0
+   },
+   "modes_applicable_in_formal": {},
+   "selection_tasks": 0,
+   "model_tasks": 0
+  }
+ ],
+ "totals": {
+  "requests": 648,
+  "outcomes": {
+   "formal": 547,
+   "schematic_not_qualified": 88,
+   "reference_spec_failed": 4,
+   "parameter_illegal": 9
+  },
+  "topologies_with_formal_entries": 17,
+  "selection_tasks": 56,
+  "model_tasks": 28
+ }
+}

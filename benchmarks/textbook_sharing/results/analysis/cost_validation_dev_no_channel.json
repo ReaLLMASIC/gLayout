@@ -1,0 +1,5467 @@
+{
+ "summary": {
+  "by": {
+   "pdk": {
+    "gf180": {
+     "correct": 53,
+     "n": 66
+    },
+    "ihp130": {
+     "correct": 45,
+     "n": 60
+    },
+    "sky130": {
+     "correct": 48,
+     "n": 63
+    }
+   },
+   "topology": {
+    "C01": {
+     "correct": 15,
+     "n": 15
+    },
+    "C02": {
+     "correct": 6,
+     "n": 18
+    },
+    "C03": {
+     "correct": 18,
+     "n": 18
+    },
+    "C05": {
+     "correct": 6,
+     "n": 6
+    },
+    "C06": {
+     "correct": 6,
+     "n": 6
+    },
+    "C07": {
+     "correct": 13,
+     "n": 18
+    },
+    "C08": {
+     "correct": 18,
+     "n": 18
+    },
+    "C09": {
+     "correct": 15,
+     "n": 15
+    },
+    "C10": {
+     "correct": 14,
+     "n": 15
+    },
+    "C11": {
+     "correct": 6,
+     "n": 18
+    },
+    "C13": {
+     "correct": 5,
+     "n": 18
+    },
+    "C14": {
+     "correct": 18,
+     "n": 18
+    },
+    "C16": {
+     "correct": 6,
+     "n": 6
+    }
+   },
+   "mode": {
+    "combined": {
+     "correct": 35,
+     "n": 57
+    },
+    "diffusion_only": {
+     "correct": 72,
+     "n": 75
+    },
+    "gate_only": {
+     "correct": 39,
+     "n": 57
+    }
+   }
+  },
+  "n_pairs": 189,
+  "sign_correct": 146,
+  "confusion(true,hat)": {
+   "-1,-1": 112,
+   "-1,1": 17,
+   "-1,0": 16,
+   "0,0": 34,
+   "1,-1": 5,
+   "0,-1": 2,
+   "0,1": 3
+  },
+  "error_types": {
+   "routing channel height mis-predicted": 30,
+   "routing channel height mis-predicted + row x-shift changed": 12,
+   "row x-shift changed (cross-row via conflict, not modelled)": 1
+  },
+  "median_abs_error_rel": 0.0,
+  "p90_abs_error_rel": 0.16032000000000002,
+  "dead_band": 0.005,
+  "pin_model_mismatch_cases": [],
+  "rule": "textbook_sharing.selection.cost v2",
+  "channel_rule": "none"
+ },
+ "rows": [
+  {
+   "case": "C01_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 214.1568,
+   "A_true": 206.6688,
+   "A_hat": 206.6688,
+   "d_true": -0.03497,
+   "d_hat": -0.03497,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 214.1568,
+   "A_true": 195.8528,
+   "A_hat": 195.8528,
+   "d_true": -0.08547,
+   "d_hat": -0.08547,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 214.1568,
+   "A_true": 189.0048,
+   "A_hat": 189.0048,
+   "d_true": -0.11745,
+   "d_hat": -0.11745,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 172.224,
+   "A_true": 164.736,
+   "A_hat": 164.736,
+   "d_true": -0.04348,
+   "d_hat": -0.04348,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 172.224,
+   "A_true": 157.504,
+   "A_hat": 157.504,
+   "d_true": -0.08547,
+   "d_hat": -0.08547,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 172.224,
+   "A_true": 150.656,
+   "A_hat": 150.656,
+   "d_true": -0.12523,
+   "d_hat": -0.12523,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 129.3102,
+   "A_true": 125.8218,
+   "A_hat": 125.8218,
+   "d_true": -0.02698,
+   "d_hat": -0.02698,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    2.9
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    2.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 129.3102,
+   "A_true": 119.6686,
+   "A_hat": 119.6687,
+   "d_true": -0.07456,
+   "d_hat": -0.07456,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    2.9
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    2.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 129.3102,
+   "A_true": 116.4403,
+   "A_hat": 116.4404,
+   "d_true": -0.09953,
+   "d_hat": -0.09953,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    2.9
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    2.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 95.1085,
+   "A_true": 91.1353,
+   "A_hat": 91.1353,
+   "d_true": -0.04178,
+   "d_hat": -0.04178,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 95.1085,
+   "A_true": 87.8698,
+   "A_hat": 87.8698,
+   "d_true": -0.07611,
+   "d_hat": -0.07611,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 95.1085,
+   "A_true": 84.199,
+   "A_hat": 84.199,
+   "d_true": -0.11471,
+   "d_hat": -0.11471,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 78.0805,
+   "A_true": 74.1073,
+   "A_hat": 74.1073,
+   "d_true": -0.05089,
+   "d_hat": -0.05089,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 78.0805,
+   "A_true": 72.1378,
+   "A_hat": 72.1378,
+   "d_true": -0.07611,
+   "d_hat": -0.07611,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C01_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 78.0805,
+   "A_true": 68.467,
+   "A_hat": 68.467,
+   "d_true": -0.12312,
+   "d_hat": -0.12312,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C02_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 349.9776,
+   "A_true": 340.5696,
+   "A_hat": 340.5696,
+   "d_true": -0.02688,
+   "d_hat": -0.02688,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    5.7
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C02_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 349.9776,
+   "A_true": 300.7664,
+   "A_hat": 360.1556,
+   "d_true": -0.14061,
+   "d_hat": 0.02908,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C02_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 349.9776,
+   "A_true": 292.6704,
+   "A_hat": 350.7796,
+   "d_true": -0.16375,
+   "d_hat": 0.00229,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C02_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 297.2928,
+   "A_true": 287.8848,
+   "A_hat": 287.8848,
+   "d_true": -0.03165,
+   "d_hat": -0.03165,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    5.7
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C02_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 297.2928,
+   "A_true": 255.4288,
+   "A_hat": 307.65,
+   "d_true": -0.14082,
+   "d_hat": 0.03484,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C02_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 297.2928,
+   "A_true": 247.3328,
+   "A_hat": 298.274,
+   "d_true": -0.16805,
+   "d_hat": 0.0033,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C02_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 202.0337,
+   "A_true": 197.6425,
+   "A_hat": 197.6425,
+   "d_true": -0.02173,
+   "d_hat": -0.02173,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    4.08
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C02_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 202.0337,
+   "A_true": 173.5051,
+   "A_hat": 205.9452,
+   "d_true": -0.14121,
+   "d_hat": 0.01936,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C02_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 202.0337,
+   "A_true": 169.726,
+   "A_hat": 201.5643,
+   "d_true": -0.15991,
+   "d_hat": -0.00232,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C02_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 166.2161,
+   "A_true": 161.825,
+   "A_hat": 161.8249,
+   "d_true": -0.02642,
+   "d_hat": -0.02642,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    4.08
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C02_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 166.2161,
+   "A_true": 142.6796,
+   "A_hat": 170.2108,
+   "d_true": -0.1416,
+   "d_hat": 0.02403,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C02_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 166.2161,
+   "A_true": 138.9004,
+   "A_hat": 165.8299,
+   "d_true": -0.16434,
+   "d_hat": -0.00232,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C02_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 155.4289,
+   "A_true": 150.4309,
+   "A_hat": 150.4309,
+   "d_true": -0.03216,
+   "d_hat": -0.03216,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    4.32
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C02_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 155.4289,
+   "A_true": 134.0862,
+   "A_hat": 161.3243,
+   "d_true": -0.13731,
+   "d_hat": 0.03793,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    -0.61
+   ]
+  },
+  {
+   "case": "C02_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 155.4289,
+   "A_true": 129.7546,
+   "A_hat": 156.3095,
+   "d_true": -0.16518,
+   "d_hat": 0.00567,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    -0.61
+   ]
+  },
+  {
+   "case": "C02_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 134.0089,
+   "A_true": 129.0109,
+   "A_hat": 129.0109,
+   "d_true": -0.0373,
+   "d_hat": -0.0373,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    4.32
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C02_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 134.0089,
+   "A_true": 115.5222,
+   "A_hat": 139.8323,
+   "d_true": -0.13795,
+   "d_hat": 0.04346,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    -0.61
+   ]
+  },
+  {
+   "case": "C02_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 134.0089,
+   "A_true": 119.9594,
+   "A_hat": 134.8175,
+   "d_true": -0.10484,
+   "d_hat": 0.00603,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    4.32
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C03_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 1103.0144,
+   "A_true": 1094.2464,
+   "A_hat": 1094.2464,
+   "d_true": -0.00795,
+   "d_hat": -0.00795,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    4.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 1103.0144,
+   "A_true": 1103.0144,
+   "A_hat": 1103.0144,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    4.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 1103.0144,
+   "A_true": 1094.2464,
+   "A_hat": 1094.2464,
+   "d_true": -0.00795,
+   "d_hat": -0.00795,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    4.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 808.4096,
+   "A_true": 799.6416,
+   "A_hat": 799.6416,
+   "d_true": -0.01085,
+   "d_hat": -0.01085,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    4.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 808.4096,
+   "A_true": 808.4096,
+   "A_hat": 808.4096,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    4.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 808.4096,
+   "A_true": 799.6416,
+   "A_hat": 799.6416,
+   "d_true": -0.01085,
+   "d_hat": -0.01085,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    4.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 708.9279,
+   "A_true": 704.8377,
+   "A_hat": 704.8377,
+   "d_true": -0.00577,
+   "d_hat": -0.00577,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 708.9279,
+   "A_true": 708.9279,
+   "A_hat": 708.9279,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 708.9279,
+   "A_true": 704.8377,
+   "A_hat": 704.8377,
+   "d_true": -0.00577,
+   "d_hat": -0.00577,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 508.7487,
+   "A_true": 504.6585,
+   "A_hat": 504.6585,
+   "d_true": -0.00804,
+   "d_hat": -0.00804,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 508.7487,
+   "A_true": 508.7487,
+   "A_hat": 508.7487,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 508.7487,
+   "A_true": 504.6585,
+   "A_hat": 504.6585,
+   "d_true": -0.00804,
+   "d_hat": -0.00804,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    3.4899999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 458.7801,
+   "A_true": 454.1237,
+   "A_hat": 454.1237,
+   "d_true": -0.01015,
+   "d_hat": -0.01015,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    3.71
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 458.7801,
+   "A_true": 458.7801,
+   "A_hat": 458.7801,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    3.71
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 458.7801,
+   "A_true": 454.1237,
+   "A_hat": 454.1237,
+   "d_true": -0.01015,
+   "d_hat": -0.01015,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    3.71
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 339.0441,
+   "A_true": 334.3877,
+   "A_hat": 334.3877,
+   "d_true": -0.01373,
+   "d_hat": -0.01373,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    3.71
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 339.0441,
+   "A_true": 339.0441,
+   "A_hat": 339.0441,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    3.71
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C03_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 339.0441,
+   "A_true": 334.3877,
+   "A_hat": 334.3877,
+   "d_true": -0.01373,
+   "d_hat": -0.01373,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    3.71
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C05_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 190.008,
+   "A_true": 182.52,
+   "A_hat": 182.52,
+   "d_true": -0.03941,
+   "d_hat": -0.03941,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C05_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 158.5584,
+   "A_true": 151.0704,
+   "A_hat": 151.0704,
+   "d_true": -0.04723,
+   "d_hat": -0.04723,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.1000000000000005
+   ],
+   "channel_base": [
+    2.5,
+    4.1000000000000005
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C05_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 80.2332,
+   "A_true": 76.7448,
+   "A_hat": 76.7448,
+   "d_true": -0.04348,
+   "d_hat": -0.04348,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    2.9
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    2.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C05_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 69.5628,
+   "A_true": 66.0744,
+   "A_hat": 66.0744,
+   "d_true": -0.05015,
+   "d_hat": -0.05015,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    2.9
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    2.9
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C05_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 83.0824,
+   "A_true": 79.1093,
+   "A_hat": 79.1093,
+   "d_true": -0.04782,
+   "d_hat": -0.04782,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C05_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 70.3114,
+   "A_true": 66.3383,
+   "A_hat": 66.3383,
+   "d_true": -0.05651,
+   "d_hat": -0.05651,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.1
+   ],
+   "channel_base": [
+    1.88,
+    3.1
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C06_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 479.186,
+   "A_true": 464.61,
+   "A_hat": 464.61,
+   "d_true": -0.03042,
+   "d_hat": -0.03042,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    6.85,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C06_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 397.5604,
+   "A_true": 382.9844,
+   "A_hat": 382.9844,
+   "d_true": -0.03666,
+   "d_hat": -0.03666,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    5.73,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C06_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 204.155,
+   "A_true": 197.372,
+   "A_hat": 197.372,
+   "d_true": -0.03322,
+   "d_hat": -0.03322,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    4.29,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C06_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 176.491,
+   "A_true": 169.708,
+   "A_hat": 169.708,
+   "d_true": -0.03843,
+   "d_hat": -0.03843,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    3.77,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C06_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 204.6112,
+   "A_true": 196.9056,
+   "A_hat": 196.9056,
+   "d_true": -0.03766,
+   "d_hat": -0.03766,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    3.86,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C06_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 171.5872,
+   "A_true": 163.8816,
+   "A_hat": 163.8816,
+   "d_true": -0.04491,
+   "d_hat": -0.04491,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    3.26,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 458.146,
+   "A_true": 444.21,
+   "A_hat": 444.21,
+   "d_true": -0.03042,
+   "d_hat": -0.03042,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 458.146,
+   "A_true": 437.106,
+   "A_hat": 437.106,
+   "d_true": -0.04592,
+   "d_hat": -0.04592,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 458.146,
+   "A_true": 433.782,
+   "A_hat": 430.458,
+   "d_true": -0.05318,
+   "d_hat": -0.06043,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    1.65
+   ],
+   "channel_true": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 380.1044,
+   "A_true": 366.1684,
+   "A_hat": 366.1684,
+   "d_true": -0.03666,
+   "d_hat": -0.03666,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 380.1044,
+   "A_true": 362.6484,
+   "A_hat": 362.6484,
+   "d_true": -0.04592,
+   "d_hat": -0.04592,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 380.1044,
+   "A_true": 359.3244,
+   "A_hat": 356.0004,
+   "d_true": -0.05467,
+   "d_hat": -0.06341,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    1.65
+   ],
+   "channel_true": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    4.9,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 195.0985,
+   "A_true": 188.6164,
+   "A_hat": 188.6164,
+   "d_true": -0.03322,
+   "d_hat": -0.03322,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.21,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 195.0985,
+   "A_true": 187.27,
+   "A_hat": 187.27,
+   "d_true": -0.04013,
+   "d_hat": -0.04013,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.21,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 195.0985,
+   "A_true": 198.1811,
+   "A_hat": 181.048,
+   "d_true": 0.0158,
+   "d_hat": -0.07202,
+   "sign_true": 1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.955,
+    1.61
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.67,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.59,
+    0.0
+   ]
+  },
+  {
+   "case": "C07_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 168.6617,
+   "A_true": 169.708,
+   "A_hat": 162.1796,
+   "d_true": 0.0062,
+   "d_hat": -0.03843,
+   "sign_true": 1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.21,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    0.0,
+    0.59,
+    0.0
+   ]
+  },
+  {
+   "case": "C07_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 168.6617,
+   "A_true": 161.894,
+   "A_hat": 161.894,
+   "d_true": -0.04013,
+   "d_hat": -0.04013,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.21,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 168.6617,
+   "A_true": 199.1423,
+   "A_hat": 155.672,
+   "d_true": 0.18072,
+   "d_hat": -0.07702,
+   "sign_true": 1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.955,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    5.26,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    3.4899999999999998,
+    1.7199999999999998
+   ],
+   "strategy": "split",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.255,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    0.0,
+    1.77,
+    0.0
+   ]
+  },
+  {
+   "case": "C07_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 195.5405,
+   "A_true": 188.1765,
+   "A_hat": 188.1765,
+   "d_true": -0.03766,
+   "d_hat": -0.03766,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.9,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 195.5405,
+   "A_true": 187.5107,
+   "A_hat": 187.5107,
+   "d_true": -0.04106,
+   "d_hat": -0.04106,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.9,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 195.5405,
+   "A_true": 186.2497,
+   "A_hat": 186.2497,
+   "d_true": -0.04751,
+   "d_hat": -0.04751,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    1.36
+   ],
+   "channel_true": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 163.9805,
+   "A_true": 163.8816,
+   "A_hat": 156.6165,
+   "d_true": -0.0006,
+   "d_hat": -0.04491,
+   "sign_true": 0,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.9,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    0.0,
+    0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C07_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 163.9805,
+   "A_true": 157.2467,
+   "A_hat": 157.2467,
+   "d_true": -0.04106,
+   "d_hat": -0.04106,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.9,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C07_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 163.9805,
+   "A_true": 163.5314,
+   "A_hat": 155.9857,
+   "d_true": -0.00274,
+   "d_hat": -0.04875,
+   "sign_true": 0,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    1.36
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    3.71,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.51,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C08_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 717.1392,
+   "A_true": 702.5632,
+   "A_hat": 702.5632,
+   "d_true": -0.02033,
+   "d_hat": -0.02033,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    12.67
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 717.1392,
+   "A_true": 685.6512,
+   "A_hat": 685.6512,
+   "d_true": -0.04391,
+   "d_hat": -0.04391,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    12.67
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 717.1392,
+   "A_true": 685.6512,
+   "A_hat": 685.6512,
+   "d_true": -0.04391,
+   "d_hat": -0.04391,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    12.85
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 594.7008,
+   "A_true": 580.1248,
+   "A_hat": 580.1248,
+   "d_true": -0.02451,
+   "d_hat": -0.02451,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    10.43
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 594.7008,
+   "A_true": 568.5888,
+   "A_hat": 568.5888,
+   "d_true": -0.04391,
+   "d_hat": -0.04391,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    10.43
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 594.7008,
+   "A_true": 568.5888,
+   "A_hat": 568.5888,
+   "d_true": -0.04391,
+   "d_hat": -0.04391,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05,
+    10.61
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 359.8315,
+   "A_true": 353.0485,
+   "A_hat": 353.0485,
+   "d_true": -0.01885,
+   "d_hat": -0.01885,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    8.715
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 359.8315,
+   "A_true": 346.0335,
+   "A_hat": 346.0335,
+   "d_true": -0.03835,
+   "d_hat": -0.03835,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    8.715
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 359.8315,
+   "A_true": 346.0335,
+   "A_hat": 346.0335,
+   "d_true": -0.03835,
+   "d_hat": -0.03835,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    8.81
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 297.5875,
+   "A_true": 290.8045,
+   "A_hat": 290.8045,
+   "d_true": -0.02279,
+   "d_hat": -0.02279,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    7.155
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 297.5875,
+   "A_true": 286.1763,
+   "A_hat": 286.1763,
+   "d_true": -0.03835,
+   "d_hat": -0.03835,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    7.155
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 297.5875,
+   "A_true": 286.1763,
+   "A_hat": 286.1763,
+   "d_true": -0.03835,
+   "d_hat": -0.03835,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    7.25
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 305.5408,
+   "A_true": 297.8352,
+   "A_hat": 297.8352,
+   "d_true": -0.02522,
+   "d_hat": -0.02522,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    7.04
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 305.5408,
+   "A_true": 293.5501,
+   "A_hat": 293.5501,
+   "d_true": -0.03924,
+   "d_hat": -0.03924,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    7.04
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 305.5408,
+   "A_true": 293.5501,
+   "A_hat": 293.5501,
+   "d_true": -0.03924,
+   "d_hat": -0.03924,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    7.28
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 256.0048,
+   "A_true": 248.2992,
+   "A_hat": 248.2992,
+   "d_true": -0.0301,
+   "d_hat": -0.0301,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    5.84
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 256.0048,
+   "A_true": 245.9581,
+   "A_hat": 245.9581,
+   "d_true": -0.03924,
+   "d_hat": -0.03924,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    5.84
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C08_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 256.0048,
+   "A_true": 245.9581,
+   "A_hat": 245.9581,
+   "d_true": -0.03924,
+   "d_hat": -0.03924,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85,
+    6.08
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 1167.8832,
+   "A_true": 1150.1072,
+   "A_hat": 1150.1072,
+   "d_true": -0.01522,
+   "d_hat": -0.01522,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "channel_base": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 1167.8832,
+   "A_true": 1167.8832,
+   "A_hat": 1167.8832,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "channel_base": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 1167.8832,
+   "A_true": 1150.1072,
+   "A_hat": 1150.1072,
+   "d_true": -0.01522,
+   "d_hat": -0.01522,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "channel_base": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 968.792,
+   "A_true": 951.016,
+   "A_hat": 951.016,
+   "d_true": -0.01835,
+   "d_hat": -0.01835,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "channel_base": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 968.792,
+   "A_true": 968.792,
+   "A_hat": 968.792,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "channel_base": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 968.792,
+   "A_true": 951.016,
+   "A_hat": 951.016,
+   "d_true": -0.01835,
+   "d_hat": -0.01835,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.25,
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "channel_base": [
+    2.5,
+    8.9,
+    3.3
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 1691.7062,
+   "A_true": 1683.4188,
+   "A_hat": 1683.4188,
+   "d_true": -0.0049,
+   "d_hat": -0.0049,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    25.85,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 1691.7062,
+   "A_true": 1691.7062,
+   "A_hat": 1691.7062,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    25.85,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 1691.7062,
+   "A_true": 1683.4188,
+   "A_hat": 1683.4188,
+   "d_true": -0.0049,
+   "d_hat": -0.0049,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    25.85,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 1421.3063,
+   "A_true": 1413.0187,
+   "A_hat": 1413.0187,
+   "d_true": -0.00583,
+   "d_hat": -0.00583,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    21.69,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 1421.3063,
+   "A_true": 1421.3063,
+   "A_hat": 1421.3063,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    21.69,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 1421.3063,
+   "A_true": 1413.0187,
+   "A_hat": 1413.0187,
+   "d_true": -0.00583,
+   "d_hat": -0.00583,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    21.69,
+    0.94
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    6.4399999999999995,
+    2.3099999999999996
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 1365.7285,
+   "A_true": 1356.3148,
+   "A_hat": 1356.3149,
+   "d_true": -0.00689,
+   "d_hat": -0.00689,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    19.78,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    6.76,
+    2.49
+   ],
+   "channel_base": [
+    1.88,
+    6.76,
+    2.49
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 1365.7285,
+   "A_true": 1365.7285,
+   "A_hat": 1365.7285,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    19.78,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    6.76,
+    2.49
+   ],
+   "channel_base": [
+    1.88,
+    6.76,
+    2.49
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C09_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 1365.7285,
+   "A_true": 1356.3148,
+   "A_hat": 1356.3149,
+   "d_true": -0.00689,
+   "d_hat": -0.00689,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    19.78,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    6.76,
+    2.49
+   ],
+   "channel_base": [
+    1.88,
+    6.76,
+    2.49
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 1551.0364,
+   "A_true": 1518.0444,
+   "A_hat": 1518.0444,
+   "d_true": -0.02127,
+   "d_hat": -0.02127,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    13.44,
+    1.03
+   ],
+   "channel_true": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 1551.0364,
+   "A_true": 1551.0364,
+   "A_hat": 1551.0364,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    14.84,
+    1.03
+   ],
+   "channel_true": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 1551.0364,
+   "A_true": 1534.5404,
+   "A_hat": 1534.5404,
+   "d_true": -0.01064,
+   "d_hat": -0.01064,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    14.24,
+    1.03
+   ],
+   "channel_true": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 1273.9036,
+   "A_true": 1192.7676,
+   "A_hat": 1240.9116,
+   "d_true": -0.06369,
+   "d_hat": -0.0259,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    11.07,
+    9.95
+   ],
+   "channel_true": [
+    2.5,
+    7.300000000000001,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 1273.9036,
+   "A_true": 1273.9036,
+   "A_hat": 1273.9036,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    20.44,
+    1.03
+   ],
+   "channel_true": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 1273.9036,
+   "A_true": 1284.0074,
+   "A_hat": 1257.4076,
+   "d_true": 0.00793,
+   "d_hat": -0.01295,
+   "sign_true": 1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    23.16,
+    1.03
+   ],
+   "channel_true": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "channel_base": [
+    2.5,
+    8.1,
+    2.5
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 2.72,
+   "error_type": "row x-shift changed (cross-row via conflict, not modelled)",
+   "channel_change": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "case": "C10_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 739.7863,
+   "A_true": 735.642,
+   "A_hat": 724.4149,
+   "d_true": -0.0056,
+   "d_hat": -0.02078,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    17.805,
+    0.79
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    5.85,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    5.85,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 739.7863,
+   "A_true": 739.7863,
+   "A_hat": 739.7863,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    16.39,
+    0.79
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    5.85,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    5.85,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 739.7863,
+   "A_true": 703.4384,
+   "A_hat": 732.1006,
+   "d_true": -0.04913,
+   "d_hat": -0.01039,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    9.33,
+    7.73
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    5.26,
+    1.7199999999999998
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    5.85,
+    1.7199999999999998
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 981.5464,
+   "A_true": 964.0856,
+   "A_hat": 964.0856,
+   "d_true": -0.01779,
+   "d_hat": -0.01779,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    10.985,
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 981.5464,
+   "A_true": 981.5464,
+   "A_hat": 981.5464,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    11.94,
+    0.815
+   ],
+   "channel_true": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 981.5464,
+   "A_true": 972.816,
+   "A_hat": 972.816,
+   "d_true": -0.00889,
+   "d_hat": -0.00889,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    11.37,
+    0.815
+   ],
+   "channel_true": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 757.0504,
+   "A_true": 739.5896,
+   "A_hat": 739.5896,
+   "d_true": -0.02306,
+   "d_hat": -0.02306,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    8.65,
+    0.815
+   ],
+   "channel_true": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 757.0504,
+   "A_true": 757.0504,
+   "A_hat": 757.0504,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    9.54,
+    0.815
+   ],
+   "channel_true": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C10_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 757.0504,
+   "A_true": 748.32,
+   "A_hat": 748.32,
+   "d_true": -0.01153,
+   "d_hat": -0.01153,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    9.21,
+    0.815
+   ],
+   "channel_true": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "channel_base": [
+    1.88,
+    6.15,
+    1.88
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C11_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 2927.1676,
+   "A_true": 2849.8316,
+   "A_hat": 2849.8316,
+   "d_true": -0.02642,
+   "d_hat": -0.02642,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    16.05,
+    1.74,
+    9.235
+   ],
+   "channel_true": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "channel_base": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C11_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 2927.1676,
+   "A_true": 2928.5417,
+   "A_hat": 3018.4375,
+   "d_true": 0.00047,
+   "d_hat": 0.03118,
+   "sign_true": 0,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    16.59,
+    1.74,
+    10.575
+   ],
+   "channel_true": [
+    3.3,
+    7.300000000000001,
+    4.1000000000000005,
+    0.0
+   ],
+   "channel_base": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.54,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.8,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 2927.1676,
+   "A_true": 2852.5497,
+   "A_hat": 2941.1655,
+   "d_true": -0.02549,
+   "d_hat": 0.00478,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    16.59,
+    1.74,
+    9.775
+   ],
+   "channel_true": [
+    3.3,
+    7.300000000000001,
+    4.1000000000000005,
+    0.0
+   ],
+   "channel_base": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.54,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.8,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 2439.9508,
+   "A_true": 2362.6148,
+   "A_hat": 2362.6148,
+   "d_true": -0.0317,
+   "d_hat": -0.0317,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    13.25,
+    1.74,
+    4.195
+   ],
+   "channel_true": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "channel_base": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C11_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 2439.9508,
+   "A_true": 2449.7921,
+   "A_hat": 2531.6239,
+   "d_true": 0.00403,
+   "d_hat": 0.03757,
+   "sign_true": 0,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    13.79,
+    1.74,
+    5.535
+   ],
+   "channel_true": [
+    3.3,
+    7.300000000000001,
+    4.1000000000000005,
+    0.0
+   ],
+   "channel_base": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.54,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.8,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 2439.9508,
+   "A_true": 2373.8001,
+   "A_hat": 2454.3519,
+   "d_true": -0.02711,
+   "d_hat": 0.0059,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    13.79,
+    1.74,
+    4.735
+   ],
+   "channel_true": [
+    3.3,
+    7.300000000000001,
+    4.1000000000000005,
+    0.0
+   ],
+   "channel_base": [
+    3.3,
+    7.300000000000001,
+    4.9,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.54,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.8,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 2092.7973,
+   "A_true": 2092.7973,
+   "A_hat": 2092.7973,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    15.605,
+    7.625,
+    0.0
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C11_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 2092.7973,
+   "A_true": 2064.5756,
+   "A_hat": 2091.872,
+   "d_true": -0.01349,
+   "d_hat": -0.00044,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    15.095,
+    6.875,
+    0.0
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    5.26,
+    2.9,
+    0.0
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.24,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.59,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 2092.7973,
+   "A_true": 2064.5756,
+   "A_hat": 2091.872,
+   "d_true": -0.01349,
+   "d_hat": -0.00044,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    15.605,
+    7.385,
+    0.0
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    5.26,
+    2.9,
+    0.0
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.51,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.59,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 2092.7973,
+   "A_true": 2092.7973,
+   "A_hat": 2092.7973,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    16.645,
+    9.965,
+    0.0
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C11_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 2092.7973,
+   "A_true": 2064.5756,
+   "A_hat": 2091.872,
+   "d_true": -0.01349,
+   "d_hat": -0.00044,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    16.135,
+    9.215,
+    0.0
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    5.26,
+    2.9,
+    0.0
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.24,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.59,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 2092.7973,
+   "A_true": 2064.5756,
+   "A_hat": 2091.872,
+   "d_true": -0.01349,
+   "d_hat": -0.00044,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    16.645,
+    9.725,
+    0.0
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    5.26,
+    2.9,
+    0.0
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    5.26,
+    3.4899999999999998,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.51,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.59,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 1449.42,
+   "A_true": 1446.921,
+   "A_hat": 1449.42,
+   "d_true": -0.00172,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    9.8,
+    2.22,
+    0.01
+   ],
+   "channel_true": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "channel_base": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C11_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 1449.42,
+   "A_true": 1447.5121,
+   "A_hat": 1469.8452,
+   "d_true": -0.00132,
+   "d_hat": 0.01409,
+   "sign_true": 0,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    9.3,
+    1.28,
+    0.07
+   ],
+   "channel_true": [
+    2.49,
+    5.539999999999999,
+    3.1,
+    0.0
+   ],
+   "channel_base": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.375,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 1449.42,
+   "A_true": 1426.7718,
+   "A_hat": 1450.464,
+   "d_true": -0.01563,
+   "d_hat": 0.00072,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    9.8,
+    1.78,
+    0.01
+   ],
+   "channel_true": [
+    2.49,
+    5.539999999999999,
+    3.1,
+    0.0
+   ],
+   "channel_base": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.56,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 1446.921,
+   "A_true": 1446.921,
+   "A_hat": 1446.921,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    10.995,
+    4.915,
+    0.01
+   ],
+   "channel_true": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "channel_base": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C11_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 1446.921,
+   "A_true": 1426.7718,
+   "A_hat": 1447.9632,
+   "d_true": -0.01393,
+   "d_hat": 0.00072,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    10.44,
+    3.915,
+    0.01
+   ],
+   "channel_true": [
+    2.49,
+    5.539999999999999,
+    3.1,
+    0.0
+   ],
+   "channel_base": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.445,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C11_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 1446.921,
+   "A_true": 1426.7718,
+   "A_hat": 1447.9632,
+   "d_true": -0.01393,
+   "d_hat": 0.00072,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    10.995,
+    4.475,
+    0.01
+   ],
+   "channel_true": [
+    2.49,
+    5.539999999999999,
+    3.1,
+    0.0
+   ],
+   "channel_base": [
+    2.49,
+    5.539999999999999,
+    3.71,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.555,
+   "error_type": "routing channel height mis-predicted + row x-shift changed",
+   "channel_change": [
+    0.0,
+    0.0,
+    -0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C13_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 375.8496,
+   "A_true": 366.4416,
+   "A_hat": 366.4416,
+   "d_true": -0.02503,
+   "d_hat": -0.02503,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    5.7
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C13_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 375.8496,
+   "A_true": 323.0304,
+   "A_hat": 385.9396,
+   "d_true": -0.14053,
+   "d_hat": 0.02685,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C13_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 375.8496,
+   "A_true": 314.9344,
+   "A_hat": 376.5636,
+   "d_true": -0.16207,
+   "d_hat": 0.0019,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C13_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 319.872,
+   "A_true": 310.464,
+   "A_hat": 310.464,
+   "d_true": -0.02941,
+   "d_hat": -0.02941,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    3.3,
+    5.7
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C13_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 319.872,
+   "A_true": 274.8592,
+   "A_hat": 330.1524,
+   "d_true": -0.14072,
+   "d_hat": 0.03214,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C13_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 319.872,
+   "A_true": 266.7632,
+   "A_hat": 320.7764,
+   "d_true": -0.16603,
+   "d_hat": 0.00283,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    2.5,
+    4.9
+   ],
+   "channel_base": [
+    3.3,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.8,
+    -0.8
+   ]
+  },
+  {
+   "case": "C13_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 216.4124,
+   "A_true": 212.0213,
+   "A_hat": 212.0213,
+   "d_true": -0.02029,
+   "d_hat": -0.02029,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    4.08
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C13_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 216.4124,
+   "A_true": 185.8798,
+   "A_hat": 220.2906,
+   "d_true": -0.14109,
+   "d_hat": 0.01792,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C13_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 216.4124,
+   "A_true": 182.1008,
+   "A_hat": 215.9096,
+   "d_true": -0.15855,
+   "d_hat": -0.00232,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C13_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 178.3562,
+   "A_true": 173.9651,
+   "A_hat": 173.965,
+   "d_true": -0.02462,
+   "d_hat": -0.02462,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.3099999999999996,
+    4.08
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C13_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 178.3562,
+   "A_true": 153.1276,
+   "A_hat": 182.3227,
+   "d_true": -0.14145,
+   "d_hat": 0.02224,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C13_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 178.3562,
+   "A_true": 149.3485,
+   "A_hat": 177.9418,
+   "d_true": -0.16264,
+   "d_hat": -0.00232,
+   "sign_true": -1,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.84
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    3.4899999999999998
+   ],
+   "channel_base": [
+    2.3099999999999996,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.01,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.59,
+    -0.59
+   ]
+  },
+  {
+   "case": "C13_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 167.0314,
+   "A_true": 162.0334,
+   "A_hat": 162.0334,
+   "d_true": -0.02992,
+   "d_hat": -0.02992,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    4.32
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C13_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 167.0314,
+   "A_true": 144.1417,
+   "A_hat": 172.9658,
+   "d_true": -0.13704,
+   "d_hat": 0.03553,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    -0.61
+   ]
+  },
+  {
+   "case": "C13_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 167.0314,
+   "A_true": 139.8101,
+   "A_hat": 167.951,
+   "d_true": -0.16297,
+   "d_hat": 0.00551,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    3.71
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    -0.61
+   ]
+  },
+  {
+   "case": "C13_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 144.2726,
+   "A_true": 148.7937,
+   "A_hat": 139.2746,
+   "d_true": 0.03134,
+   "d_hat": -0.03464,
+   "sign_true": 1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.49,
+    4.93
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    0.0,
+    0.61
+   ]
+  },
+  {
+   "case": "C13_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 144.2726,
+   "A_true": 134.2293,
+   "A_hat": 150.1306,
+   "d_true": -0.06961,
+   "d_hat": 0.0406,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    4.32
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C13_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 144.2726,
+   "A_true": 129.5561,
+   "A_hat": 145.1158,
+   "d_true": -0.102,
+   "d_hat": 0.00584,
+   "sign_true": -1,
+   "sign_hat": 1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    1.88,
+    4.32
+   ],
+   "channel_base": [
+    2.49,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null,
+   "row_shift_change_um": 0.0,
+   "error_type": "routing channel height mis-predicted",
+   "channel_change": [
+    -0.61,
+    0.0
+   ]
+  },
+  {
+   "case": "C14_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 496.3712,
+   "A_true": 476.2752,
+   "A_hat": 476.2752,
+   "d_true": -0.04049,
+   "d_hat": -0.04049,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    4.1000000000000005,
+    5.7
+   ],
+   "channel_base": [
+    4.1000000000000005,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_gf180_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 496.3712,
+   "A_true": 496.3712,
+   "A_hat": 496.3712,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    4.1000000000000005,
+    5.7
+   ],
+   "channel_base": [
+    4.1000000000000005,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_gf180_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 496.3712,
+   "A_true": 476.2752,
+   "A_hat": 476.2752,
+   "d_true": -0.04049,
+   "d_hat": -0.04049,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    4.1000000000000005,
+    5.7
+   ],
+   "channel_base": [
+    4.1000000000000005,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 397.9008,
+   "A_true": 377.8048,
+   "A_hat": 377.8048,
+   "d_true": -0.05051,
+   "d_hat": -0.05051,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    4.1000000000000005,
+    5.7
+   ],
+   "channel_base": [
+    4.1000000000000005,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_gf180_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 397.9008,
+   "A_true": 397.9008,
+   "A_hat": 397.9008,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    4.1000000000000005,
+    5.7
+   ],
+   "channel_base": [
+    4.1000000000000005,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_gf180_sW1_sL1",
+   "mode": "combined",
+   "A0": 397.9008,
+   "A_true": 377.8048,
+   "A_hat": 377.8048,
+   "d_true": -0.05051,
+   "d_hat": -0.05051,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    1.05
+   ],
+   "channel_true": [
+    4.1000000000000005,
+    5.7
+   ],
+   "channel_base": [
+    4.1000000000000005,
+    5.7
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 299.598,
+   "A_true": 290.214,
+   "A_hat": 290.214,
+   "d_true": -0.03132,
+   "d_hat": -0.03132,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.9,
+    4.08
+   ],
+   "channel_base": [
+    2.9,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_ihp130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 299.598,
+   "A_true": 299.598,
+   "A_hat": 299.598,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.9,
+    4.08
+   ],
+   "channel_base": [
+    2.9,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_ihp130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 299.598,
+   "A_true": 290.214,
+   "A_hat": 290.214,
+   "d_true": -0.03132,
+   "d_hat": -0.03132,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.9,
+    4.08
+   ],
+   "channel_base": [
+    2.9,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 232.622,
+   "A_true": 223.238,
+   "A_hat": 223.238,
+   "d_true": -0.04034,
+   "d_hat": -0.04034,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.9,
+    4.08
+   ],
+   "channel_base": [
+    2.9,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_ihp130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 232.622,
+   "A_true": 232.622,
+   "A_hat": 232.622,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.9,
+    4.08
+   ],
+   "channel_base": [
+    2.9,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_ihp130_sW1_sL1",
+   "mode": "combined",
+   "A0": 232.622,
+   "A_true": 223.238,
+   "A_hat": 223.238,
+   "d_true": -0.04034,
+   "d_hat": -0.04034,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    2.9,
+    4.08
+   ],
+   "channel_base": [
+    2.9,
+    4.08
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 217.4457,
+   "A_true": 206.7665,
+   "A_hat": 206.7665,
+   "d_true": -0.04911,
+   "d_hat": -0.04911,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    3.1,
+    4.32
+   ],
+   "channel_base": [
+    3.1,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_sky130_sW1_sL1.5",
+   "mode": "gate_only",
+   "A0": 217.4457,
+   "A_true": 217.4457,
+   "A_hat": 217.4457,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    3.1,
+    4.32
+   ],
+   "channel_base": [
+    3.1,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_sky130_sW1_sL1.5",
+   "mode": "combined",
+   "A0": 217.4457,
+   "A_true": 206.7665,
+   "A_hat": 206.7665,
+   "d_true": -0.04911,
+   "d_hat": -0.04911,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    3.1,
+    4.32
+   ],
+   "channel_base": [
+    3.1,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 177.3987,
+   "A_true": 166.7195,
+   "A_hat": 166.7195,
+   "d_true": -0.0602,
+   "d_hat": -0.0602,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    3.1,
+    4.32
+   ],
+   "channel_base": [
+    3.1,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_sky130_sW1_sL1",
+   "mode": "gate_only",
+   "A0": 177.3987,
+   "A_true": 177.3987,
+   "A_hat": 177.3987,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    3.1,
+    4.32
+   ],
+   "channel_base": [
+    3.1,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C14_sky130_sW1_sL1",
+   "mode": "combined",
+   "A0": 177.3987,
+   "A_true": 166.7195,
+   "A_hat": 166.7195,
+   "d_true": -0.0602,
+   "d_hat": -0.0602,
+   "sign_true": -1,
+   "sign_hat": -1,
+   "passive_dominated": false,
+   "row_shift_true": [
+    0.85
+   ],
+   "channel_true": [
+    3.1,
+    4.32
+   ],
+   "channel_base": [
+    3.1,
+    4.32
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C16_gf180_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 1729.3648,
+   "A_true": 1729.3648,
+   "A_hat": 1729.3648,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    50.35,
+    0.02
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    0.0
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C16_gf180_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 1729.3648,
+   "A_true": 1729.3648,
+   "A_hat": 1729.3648,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    52.57,
+    0.18
+   ],
+   "channel_true": [
+    2.5,
+    5.7,
+    0.0
+   ],
+   "channel_base": [
+    2.5,
+    5.7,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C16_ihp130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 1007.736,
+   "A_true": 1007.736,
+   "A_hat": 1007.736,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    41.41,
+    0.13
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    0.0
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C16_ihp130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 1007.736,
+   "A_true": 1007.736,
+   "A_hat": 1007.736,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    42.45,
+    0.26
+   ],
+   "channel_true": [
+    1.7199999999999998,
+    4.08,
+    0.0
+   ],
+   "channel_base": [
+    1.7199999999999998,
+    4.08,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C16_sky130_sW1_sL1.5",
+   "mode": "diffusion_only",
+   "A0": 377.2788,
+   "A_true": 377.2788,
+   "A_hat": 377.2788,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    12.29,
+    0.05
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    0.0
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  },
+  {
+   "case": "C16_sky130_sW1_sL1",
+   "mode": "diffusion_only",
+   "A0": 377.2788,
+   "A_true": 377.2788,
+   "A_hat": 377.2788,
+   "d_true": 0.0,
+   "d_hat": 0.0,
+   "sign_true": 0,
+   "sign_hat": 0,
+   "passive_dominated": true,
+   "row_shift_true": [
+    13.49,
+    0.2
+   ],
+   "channel_true": [
+    1.88,
+    4.32,
+    0.0
+   ],
+   "channel_base": [
+    1.88,
+    4.32,
+    0.0
+   ],
+   "strategy": "shared",
+   "channel_dh_hat": null
+  }
+ ]
+}

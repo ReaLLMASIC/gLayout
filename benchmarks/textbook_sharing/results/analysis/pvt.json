@@ -1,0 +1,8074 @@
+{
+ "conditions": [
+  [
+   "TT_27C_VDD",
+   "tt",
+   27,
+   1.0
+  ],
+  [
+   "SS_27C_VDD",
+   "ss",
+   27,
+   1.0
+  ],
+  [
+   "FF_27C_VDD",
+   "ff",
+   27,
+   1.0
+  ],
+  [
+   "SS_85C_0.9VDD",
+   "ss",
+   85,
+   0.9
+  ],
+  [
+   "FF_m40C_1.1VDD",
+   "ff",
+   -40,
+   1.1
+  ]
+ ],
+ "targets": [
+  [
+   "C02_sky130",
+   "reference",
+   "runs/grid/C02/sky130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C02_sky130",
+   "combined",
+   "runs/grid/C02/sky130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C02_sky130",
+   "best_evaluated",
+   "runs/selection/C02_sky130_sW1_sL1/cbf80e3ede2f/result.json"
+  ],
+  [
+   "C02_gf180",
+   "reference",
+   "runs/grid/C02/gf180/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C02_gf180",
+   "combined",
+   "runs/grid/C02/gf180/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C02_gf180",
+   "best_evaluated",
+   "runs/selection/C02_gf180_sW1_sL1/c054e1700ec1/result.json"
+  ],
+  [
+   "C02_ihp130",
+   "reference",
+   "runs/grid/C02/ihp130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C02_ihp130",
+   "combined",
+   "runs/grid/C02/ihp130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C02_ihp130",
+   "best_evaluated",
+   "runs/selection/C02_ihp130_sW1_sL1/c054e1700ec1/result.json"
+  ],
+  [
+   "C08_sky130",
+   "reference",
+   "runs/grid/C08/sky130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C08_sky130",
+   "combined",
+   "runs/grid/C08/sky130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C08_sky130",
+   "best_evaluated",
+   "runs/selection/C08_sky130_sW1_sL1/c12cfed03e95/result.json"
+  ],
+  [
+   "C08_gf180",
+   "reference",
+   "runs/grid/C08/gf180/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C08_gf180",
+   "combined",
+   "runs/grid/C08/gf180/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C08_gf180",
+   "best_evaluated",
+   "runs/selection/C08_gf180_sW1_sL1/c66b5f77dca4/result.json"
+  ],
+  [
+   "C08_ihp130",
+   "reference",
+   "runs/grid/C08/ihp130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C08_ihp130",
+   "combined",
+   "runs/grid/C08/ihp130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C08_ihp130",
+   "best_evaluated",
+   "runs/selection/C08_ihp130_sW1_sL1/c1ed2c9bd13e/result.json"
+  ],
+  [
+   "C09_sky130",
+   "reference",
+   "runs/grid/C09/sky130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C09_sky130",
+   "combined",
+   "runs/grid/C09/sky130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C09_sky130",
+   "best_evaluated",
+   "runs/selection/C09_sky130_sW1_sL1/cb665d318416/result.json"
+  ],
+  [
+   "C09_gf180",
+   "reference",
+   "runs/grid/C09/gf180/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C09_gf180",
+   "combined",
+   "runs/grid/C09/gf180/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C09_gf180",
+   "best_evaluated",
+   "runs/selection/C09_gf180_sW1_sL1/ca6f6963e509/result.json"
+  ],
+  [
+   "C09_ihp130",
+   "reference",
+   "runs/grid/C09/ihp130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C09_ihp130",
+   "combined",
+   "runs/grid/C09/ihp130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C09_ihp130",
+   "best_evaluated",
+   "runs/selection/C09_ihp130_sW1_sL1/c5974eb942a8/result.json"
+  ],
+  [
+   "C11_sky130",
+   "reference",
+   "runs/grid/C11/sky130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C11_sky130",
+   "combined",
+   "runs/grid/C11/sky130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C11_sky130",
+   "best_evaluated",
+   "runs/selection/C11_sky130_sW1_sL1/c7a85b0ddcef/result.json"
+  ],
+  [
+   "C11_gf180",
+   "reference",
+   "runs/grid/C11/gf180/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C11_gf180",
+   "combined",
+   "runs/grid/C11/gf180/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C11_gf180",
+   "best_evaluated",
+   "runs/selection/C11_gf180_sW1_sL1/c3d4bacbce79/result.json"
+  ],
+  [
+   "C11_ihp130",
+   "reference",
+   "runs/grid/C11/ihp130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C11_ihp130",
+   "combined",
+   "runs/grid/C11/ihp130/sW1_sL1/combined/result.json"
+  ],
+  [
+   "C11_ihp130",
+   "best_evaluated",
+   "runs/selection/C11_ihp130_sW1_sL1/c054b3c446d5/result.json"
+  ],
+  [
+   "C16_sky130",
+   "reference",
+   "runs/grid/C16/sky130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C16_sky130",
+   "best_evaluated",
+   "runs/selection/C16_sky130_sW1_sL1/c0c48e26e41e/result.json"
+  ],
+  [
+   "C16_gf180",
+   "reference",
+   "runs/grid/C16/gf180/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C16_gf180",
+   "best_evaluated",
+   "runs/selection/C16_gf180_sW1_sL1/c1905d32dbcf/result.json"
+  ],
+  [
+   "C16_ihp130",
+   "reference",
+   "runs/grid/C16/ihp130/sW1_sL1/independent/result.json"
+  ],
+  [
+   "C16_ihp130",
+   "best_evaluated",
+   "runs/selection/C16_ihp130_sW1_sL1/c0c48e26e41e/result.json"
+  ]
+ ],
+ "rows": [
+  {
+   "key": "C02_sky130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.998035e-05,
+    "err": -0.0009825,
+    "vmin": 0.6798476,
+    "dev_at_vdd": 0.0005593018,
+    "gout_t": 7.376655e-08,
+    "rout_t": 13556530.0,
+    "vout_test": 1.24,
+    "rout_nom": 13556530.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0009825,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6798476,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "9a9bcb6396aab6c6",
+   "area_um2": 134.0089
+  },
+  {
+   "key": "C02_sky130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.997634e-05,
+    "err": -0.001183,
+    "vmin": 0.7235224,
+    "dev_at_vdd": 9.893872e-05,
+    "gout_t": 7.340006e-08,
+    "rout_t": 13624880.0,
+    "vout_test": 1.24,
+    "rout_nom": 13624880.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.001183,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.7235224,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "9a9bcb6396aab6c6",
+   "area_um2": 134.0089
+  },
+  {
+   "key": "C02_sky130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.99857e-05,
+    "err": -0.000715,
+    "vmin": 0.6392014,
+    "dev_at_vdd": 0.001338685,
+    "gout_t": 8.938601e-08,
+    "rout_t": 11187510.0,
+    "vout_test": 1.24,
+    "rout_nom": 11187510.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000715,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6392014,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "9a9bcb6396aab6c6",
+   "area_um2": 134.0089
+  },
+  {
+   "key": "C02_sky130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.997811e-05,
+    "err": -0.0010945,
+    "vmin": 0.7052279,
+    "dev_at_vdd": 0.0001584413,
+    "gout_t": 7.388614e-08,
+    "rout_t": 13534790.0,
+    "vout_test": 1.24,
+    "rout_nom": 13534790.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0010945,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.7052279,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "9a9bcb6396aab6c6",
+   "area_um2": 134.0089
+  },
+  {
+   "key": "C02_sky130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.997903e-05,
+    "err": -0.0010485,
+    "vmin": 0.6742354,
+    "dev_at_vdd": 0.001804889,
+    "gout_t": 9.51773e-08,
+    "rout_t": 10506790.0,
+    "vout_test": 1.24,
+    "rout_nom": 10506790.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0010485,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6742354,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "9a9bcb6396aab6c6",
+   "area_um2": 134.0089
+  },
+  {
+   "key": "C02_sky130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996603e-05,
+    "err": -0.0016985,
+    "vmin": 0.6812876,
+    "dev_at_vdd": 0.0001735267,
+    "gout_t": 7.285176e-08,
+    "rout_t": 13726750.0,
+    "vout_test": 1.24,
+    "rout_nom": 13726750.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0016985,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6812876,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "7e64cc2498b0680d",
+   "area_um2": 119.9594
+  },
+  {
+   "key": "C02_sky130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996516e-05,
+    "err": -0.001742,
+    "vmin": 0.7246917,
+    "dev_at_vdd": 0.0004735028,
+    "gout_t": 7.240397e-08,
+    "rout_t": 13812310.0,
+    "vout_test": 1.24,
+    "rout_nom": 13812310.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.001742,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.7246917,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "7e64cc2498b0680d",
+   "area_um2": 119.9594
+  },
+  {
+   "key": "C02_sky130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996736e-05,
+    "err": -0.001632,
+    "vmin": 0.6410394,
+    "dev_at_vdd": 0.0003980315,
+    "gout_t": 8.827766e-08,
+    "rout_t": 11327970.0,
+    "vout_test": 1.24,
+    "rout_nom": 11327970.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.001632,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6410394,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "7e64cc2498b0680d",
+   "area_um2": 119.9594
+  },
+  {
+   "key": "C02_sky130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996747e-05,
+    "err": -0.0016265,
+    "vmin": 0.7065214,
+    "dev_at_vdd": 0.0006998915,
+    "gout_t": 7.294052e-08,
+    "rout_t": 13710250.0,
+    "vout_test": 1.24,
+    "rout_nom": 13710250.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0016265,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.7065214,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "7e64cc2498b0680d",
+   "area_um2": 119.9594
+  },
+  {
+   "key": "C02_sky130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.995922e-05,
+    "err": -0.002039,
+    "vmin": 0.6759507,
+    "dev_at_vdd": 0.0007767864,
+    "gout_t": 9.383478e-08,
+    "rout_t": 10657110.0,
+    "vout_test": 1.24,
+    "rout_nom": 10657110.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.002039,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6759507,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "7e64cc2498b0680d",
+   "area_um2": 119.9594
+  },
+  {
+   "key": "C02_sky130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996601e-05,
+    "err": -0.0016995,
+    "vmin": 0.6812844,
+    "dev_at_vdd": 0.0001744298,
+    "gout_t": 7.285054e-08,
+    "rout_t": 13726980.0,
+    "vout_test": 1.24,
+    "rout_nom": 13726980.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0016995,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6812844,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_sky130_sW1_sL1/cbf80e3ede2f/result.json",
+   "geometry_hash": "5859a39e1ff75a19",
+   "area_um2": 111.1906
+  },
+  {
+   "key": "C02_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996515e-05,
+    "err": -0.0017425,
+    "vmin": 0.7246883,
+    "dev_at_vdd": 0.0004741311,
+    "gout_t": 7.240168e-08,
+    "rout_t": 13812740.0,
+    "vout_test": 1.24,
+    "rout_nom": 13812740.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0017425,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.7246883,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_sky130_sW1_sL1/cbf80e3ede2f/result.json",
+   "geometry_hash": "5859a39e1ff75a19",
+   "area_um2": 111.1906
+  },
+  {
+   "key": "C02_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996734e-05,
+    "err": -0.001633,
+    "vmin": 0.6410368,
+    "dev_at_vdd": 0.0003966817,
+    "gout_t": 8.827672e-08,
+    "rout_t": 11328090.0,
+    "vout_test": 1.24,
+    "rout_nom": 11328090.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.001633,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6410368,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_sky130_sW1_sL1/cbf80e3ede2f/result.json",
+   "geometry_hash": "5859a39e1ff75a19",
+   "area_um2": 111.1906
+  },
+  {
+   "key": "C02_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996746e-05,
+    "err": -0.001627,
+    "vmin": 0.7065181,
+    "dev_at_vdd": 0.0007005113,
+    "gout_t": 7.293812e-08,
+    "rout_t": 13710700.0,
+    "vout_test": 1.24,
+    "rout_nom": 13710700.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.001627,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.7065181,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_sky130_sW1_sL1/cbf80e3ede2f/result.json",
+   "geometry_hash": "5859a39e1ff75a19",
+   "area_um2": 111.1906
+  },
+  {
+   "key": "C02_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.995919e-05,
+    "err": -0.0020405,
+    "vmin": 0.6759478,
+    "dev_at_vdd": 0.0007753668,
+    "gout_t": 9.383378e-08,
+    "rout_t": 10657220.0,
+    "vout_test": 1.24,
+    "rout_nom": 10657220.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0020405,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6759478,
+     "spec": {
+      "max": 0.7809
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_sky130_sW1_sL1/cbf80e3ede2f/result.json",
+   "geometry_hash": "5859a39e1ff75a19",
+   "area_um2": 111.1906
+  },
+  {
+   "key": "C02_gf180",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999595e-05,
+    "err": -0.0002025,
+    "vmin": 0.6105232,
+    "dev_at_vdd": 0.0005756214,
+    "gout_t": 7.959508e-09,
+    "rout_t": 125637500.0,
+    "vout_test": 1.95,
+    "rout_nom": 125637500.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0002025,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6105232,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "1adc78654fdfccf7",
+   "area_um2": 297.2928
+  },
+  {
+   "key": "C02_gf180",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999418e-05,
+    "err": -0.000291,
+    "vmin": 0.6774665,
+    "dev_at_vdd": 0.000251484,
+    "gout_t": 8.412537e-09,
+    "rout_t": 118873000.0,
+    "vout_test": 1.95,
+    "rout_nom": 118873000.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000291,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6774665,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "1adc78654fdfccf7",
+   "area_um2": 297.2928
+  },
+  {
+   "key": "C02_gf180",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999806e-05,
+    "err": -9.7e-05,
+    "vmin": 0.5458138,
+    "dev_at_vdd": 0.001133937,
+    "gout_t": 7.992945e-09,
+    "rout_t": 125111200.0,
+    "vout_test": 1.95,
+    "rout_nom": 125111200.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -9.7e-05,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5458138,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "1adc78654fdfccf7",
+   "area_um2": 297.2928
+  },
+  {
+   "key": "C02_gf180",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999454e-05,
+    "err": -0.000273,
+    "vmin": 0.6833079,
+    "dev_at_vdd": 6.210672e-05,
+    "gout_t": 9.292437e-09,
+    "rout_t": 107616700.0,
+    "vout_test": 1.95,
+    "rout_nom": 107616700.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000273,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6833079,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "1adc78654fdfccf7",
+   "area_um2": 297.2928
+  },
+  {
+   "key": "C02_gf180",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999686e-05,
+    "err": -0.000157,
+    "vmin": 0.5452364,
+    "dev_at_vdd": 0.003720375,
+    "gout_t": 7.216513e-09,
+    "rout_t": 138571600.0,
+    "vout_test": 1.95,
+    "rout_nom": 138571600.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000157,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5452364,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "1adc78654fdfccf7",
+   "area_um2": 297.2928
+  },
+  {
+   "key": "C02_gf180",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999547e-05,
+    "err": -0.0002265,
+    "vmin": 0.6108221,
+    "dev_at_vdd": 0.000552402,
+    "gout_t": 7.958878e-09,
+    "rout_t": 125647400.0,
+    "vout_test": 1.95,
+    "rout_nom": 125647400.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0002265,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6108221,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999376e-05,
+    "err": -0.000312,
+    "vmin": 0.6777495,
+    "dev_at_vdd": 0.0002307086,
+    "gout_t": 8.411536e-09,
+    "rout_t": 118887100.0,
+    "vout_test": 1.95,
+    "rout_nom": 118887100.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000312,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6777495,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999752e-05,
+    "err": -0.000124,
+    "vmin": 0.5461306,
+    "dev_at_vdd": 0.001107779,
+    "gout_t": 7.992848e-09,
+    "rout_t": 125112800.0,
+    "vout_test": 1.95,
+    "rout_nom": 125112800.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000124,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5461306,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999412e-05,
+    "err": -0.000294,
+    "vmin": 0.6836204,
+    "dev_at_vdd": 4.091949e-05,
+    "gout_t": 9.292077e-09,
+    "rout_t": 107620800.0,
+    "vout_test": 1.95,
+    "rout_nom": 107620800.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000294,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6836204,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999632e-05,
+    "err": -0.000184,
+    "vmin": 0.5455121,
+    "dev_at_vdd": 0.003699197,
+    "gout_t": 7.215369e-09,
+    "rout_t": 138593600.0,
+    "vout_test": 1.95,
+    "rout_nom": 138593600.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000184,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5455121,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999547e-05,
+    "err": -0.0002265,
+    "vmin": 0.6108221,
+    "dev_at_vdd": 0.000552402,
+    "gout_t": 7.958878e-09,
+    "rout_t": 125647400.0,
+    "vout_test": 1.95,
+    "rout_nom": 125647400.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0002265,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6108221,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_gf180_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999376e-05,
+    "err": -0.000312,
+    "vmin": 0.6777495,
+    "dev_at_vdd": 0.0002307086,
+    "gout_t": 8.411536e-09,
+    "rout_t": 118887100.0,
+    "vout_test": 1.95,
+    "rout_nom": 118887100.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000312,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6777495,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_gf180_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999752e-05,
+    "err": -0.000124,
+    "vmin": 0.5461306,
+    "dev_at_vdd": 0.001107779,
+    "gout_t": 7.992848e-09,
+    "rout_t": 125112800.0,
+    "vout_test": 1.95,
+    "rout_nom": 125112800.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000124,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5461306,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_gf180_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999412e-05,
+    "err": -0.000294,
+    "vmin": 0.6836204,
+    "dev_at_vdd": 4.091949e-05,
+    "gout_t": 9.292077e-09,
+    "rout_t": 107620800.0,
+    "vout_test": 1.95,
+    "rout_nom": 107620800.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000294,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.6836204,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_gf180_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999632e-05,
+    "err": -0.000184,
+    "vmin": 0.5455121,
+    "dev_at_vdd": 0.003699197,
+    "gout_t": 7.215369e-09,
+    "rout_t": 138593600.0,
+    "vout_test": 1.95,
+    "rout_nom": 138593600.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000184,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5455121,
+     "spec": {
+      "max": 0.7093
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_gf180_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "eeacc8fa81b7a354",
+   "area_um2": 247.3328
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.995475e-05,
+    "err": -0.0022625,
+    "vmin": 0.4687881,
+    "dev_at_vdd": 0.002619574,
+    "gout_t": 3.291953e-07,
+    "rout_t": 3037724.0,
+    "vout_test": 0.83,
+    "rout_nom": 3037724.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0022625,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.4687881,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "30e61546ff19413d",
+   "area_um2": 166.2161
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.992027e-05,
+    "err": -0.0039865,
+    "vmin": 0.523858,
+    "dev_at_vdd": 0.0009696444,
+    "gout_t": 3.455924e-07,
+    "rout_t": 2893607.0,
+    "vout_test": 0.83,
+    "rout_nom": 2893607.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0039865,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.523858,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "30e61546ff19413d",
+   "area_um2": 166.2161
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.999162e-05,
+    "err": -0.000419,
+    "vmin": 0.4154765,
+    "dev_at_vdd": 0.004409804,
+    "gout_t": 3.203162e-07,
+    "rout_t": 3121925.0,
+    "vout_test": 0.83,
+    "rout_nom": 3121925.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000419,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.4154765,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "30e61546ff19413d",
+   "area_um2": 166.2161
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.992626e-05,
+    "err": -0.003687,
+    "vmin": 0.5199506,
+    "dev_at_vdd": 3.613163e-05,
+    "gout_t": 3.633095e-07,
+    "rout_t": 2752506.0,
+    "vout_test": 0.83,
+    "rout_nom": 2752506.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.003687,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5199506,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "30e61546ff19413d",
+   "area_um2": 166.2161
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.997983e-05,
+    "err": -0.0010085,
+    "vmin": 0.423272,
+    "dev_at_vdd": 0.004949032,
+    "gout_t": 3.13494e-07,
+    "rout_t": 3189867.0,
+    "vout_test": 0.83,
+    "rout_nom": 3189867.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0010085,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.423272,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "30e61546ff19413d",
+   "area_um2": 166.2161
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.99449e-05,
+    "err": -0.002755,
+    "vmin": 0.4703917,
+    "dev_at_vdd": 0.002122912,
+    "gout_t": 3.288766e-07,
+    "rout_t": 3040668.0,
+    "vout_test": 0.83,
+    "rout_nom": 3040668.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.002755,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.4703917,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.991114e-05,
+    "err": -0.004443,
+    "vmin": 0.5254228,
+    "dev_at_vdd": 0.0005087262,
+    "gout_t": 3.451902e-07,
+    "rout_t": 2896979.0,
+    "vout_test": 0.83,
+    "rout_nom": 2896979.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.004443,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5254228,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.998098e-05,
+    "err": -0.000951,
+    "vmin": 0.4171059,
+    "dev_at_vdd": 0.003874357,
+    "gout_t": 3.2004e-07,
+    "rout_t": 3124620.0,
+    "vout_test": 0.83,
+    "rout_nom": 3124620.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000951,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.4171059,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.991751e-05,
+    "err": -0.0041245,
+    "vmin": 0.5215826,
+    "dev_at_vdd": 0.0004765861,
+    "gout_t": 3.629146e-07,
+    "rout_t": 2755501.0,
+    "vout_test": 0.83,
+    "rout_nom": 2755501.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0041245,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5215826,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996871e-05,
+    "err": -0.0015645,
+    "vmin": 0.424833,
+    "dev_at_vdd": 0.004386884,
+    "gout_t": 3.131325e-07,
+    "rout_t": 3193550.0,
+    "vout_test": 0.83,
+    "rout_nom": 3193550.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0015645,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.424833,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C02/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.99449e-05,
+    "err": -0.002755,
+    "vmin": 0.4703917,
+    "dev_at_vdd": 0.002122912,
+    "gout_t": 3.288766e-07,
+    "rout_t": 3040668.0,
+    "vout_test": 0.83,
+    "rout_nom": 3040668.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.002755,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.4703917,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_ihp130_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.991114e-05,
+    "err": -0.004443,
+    "vmin": 0.5254228,
+    "dev_at_vdd": 0.0005087262,
+    "gout_t": 3.451902e-07,
+    "rout_t": 2896979.0,
+    "vout_test": 0.83,
+    "rout_nom": 2896979.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.004443,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5254228,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_ihp130_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.998098e-05,
+    "err": -0.000951,
+    "vmin": 0.4171059,
+    "dev_at_vdd": 0.003874357,
+    "gout_t": 3.2004e-07,
+    "rout_t": 3124620.0,
+    "vout_test": 0.83,
+    "rout_nom": 3124620.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.000951,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.4171059,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_ihp130_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.991751e-05,
+    "err": -0.0041245,
+    "vmin": 0.5215826,
+    "dev_at_vdd": 0.0004765861,
+    "gout_t": 3.629146e-07,
+    "rout_t": 2755501.0,
+    "vout_test": 0.83,
+    "rout_nom": 2755501.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0041245,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.5215826,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_ihp130_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C02_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "iout_t": 1.996871e-05,
+    "err": -0.0015645,
+    "vmin": 0.424833,
+    "dev_at_vdd": 0.004386884,
+    "gout_t": 3.131325e-07,
+    "rout_t": 3193550.0,
+    "vout_test": 0.83,
+    "rout_nom": 3193550.0,
+    "ok_at_vdd": 1.0
+   },
+   "spec": {
+    "err": {
+     "value": -0.0015645,
+     "spec": {
+      "abs_max": 0.03
+     },
+     "ok": true
+    },
+    "vmin": {
+     "value": 0.424833,
+     "spec": {
+      "max": 0.5684
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C02_ihp130_sW1_sL1/c054e1700ec1/result.json",
+   "geometry_hash": "80022663ae6427dd",
+   "area_um2": 138.9004
+  },
+  {
+   "key": "C08_sky130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999996,
+    "idd": 2.786139e-05,
+    "vos": -0.0043688,
+    "gain_lf": 31.89302,
+    "ph_lf": 0.02910097,
+    "ugf": 32196720.0,
+    "ph_ugf": -89.6843,
+    "f3db": 816629.3,
+    "pm": 90.28659903
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.89302,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 32196720.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "0e251a0982397f27",
+   "area_um2": 256.0048
+  },
+  {
+   "key": "C08_sky130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999996,
+    "idd": 1.718425e-05,
+    "vos": -0.004096,
+    "gain_lf": 32.65107,
+    "ph_lf": 0.02739469,
+    "ugf": 20356870.0,
+    "ph_ugf": -89.76586,
+    "f3db": 473089.5,
+    "pm": 90.20674531
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 32.65107,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 20356870.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "0e251a0982397f27",
+   "area_um2": 256.0048
+  },
+  {
+   "key": "C08_sky130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999995,
+    "idd": 4.198066e-05,
+    "vos": -0.00478081,
+    "gain_lf": 30.64582,
+    "ph_lf": 0.02705561,
+    "ugf": 46527640.0,
+    "ph_ugf": -89.51827,
+    "f3db": 1361589.0,
+    "pm": 90.45467439
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 30.64582,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 46527640.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "0e251a0982397f27",
+   "area_um2": 256.0048
+  },
+  {
+   "key": "C08_sky130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099995,
+    "idd": 1.913136e-05,
+    "vos": -0.00511967,
+    "gain_lf": 31.73063,
+    "ph_lf": 0.02450214,
+    "ugf": 19915240.0,
+    "ph_ugf": -89.59904,
+    "f3db": 515035.8,
+    "pm": 90.37645786
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.73063,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 19915240.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "0e251a0982397f27",
+   "area_um2": 256.0048
+  },
+  {
+   "key": "C08_sky130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9899996,
+    "idd": 3.945648e-05,
+    "vos": -0.0041832,
+    "gain_lf": 31.46881,
+    "ph_lf": 0.03010552,
+    "ugf": 50954420.0,
+    "ph_ugf": -89.72471,
+    "f3db": 1357217.0,
+    "pm": 90.24518447999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.46881,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 50954420.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "0e251a0982397f27",
+   "area_um2": 256.0048
+  },
+  {
+   "key": "C08_sky130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999996,
+    "idd": 2.786161e-05,
+    "vos": -0.00434727,
+    "gain_lf": 31.8742,
+    "ph_lf": 0.02904004,
+    "ugf": 32206830.0,
+    "ph_ugf": -89.6743,
+    "f3db": 818639.9,
+    "pm": 90.29665996
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.8742,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 32206830.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "b86fe99b14db63b1",
+   "area_um2": 245.9581
+  },
+  {
+   "key": "C08_sky130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999996,
+    "idd": 1.718447e-05,
+    "vos": -0.0040801,
+    "gain_lf": 32.63763,
+    "ph_lf": 0.02735503,
+    "ugf": 20362550.0,
+    "ph_ugf": -89.75282,
+    "f3db": 473943.9,
+    "pm": 90.21982497
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 32.63763,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 20362550.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "b86fe99b14db63b1",
+   "area_um2": 245.9581
+  },
+  {
+   "key": "C08_sky130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999995,
+    "idd": 4.198076e-05,
+    "vos": -0.0047565,
+    "gain_lf": 30.62053,
+    "ph_lf": 0.02697855,
+    "ugf": 46540780.0,
+    "ph_ugf": -89.51111,
+    "f3db": 1365925.0,
+    "pm": 90.46191145
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 30.62053,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 46540780.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "b86fe99b14db63b1",
+   "area_um2": 245.9581
+  },
+  {
+   "key": "C08_sky130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099995,
+    "idd": 1.913152e-05,
+    "vos": -0.00510446,
+    "gain_lf": 31.716,
+    "ph_lf": 0.0244633,
+    "ugf": 19919290.0,
+    "ph_ugf": -89.58556,
+    "f3db": 516010.2,
+    "pm": 90.3899767
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.716,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 19919290.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "b86fe99b14db63b1",
+   "area_um2": 245.9581
+  },
+  {
+   "key": "C08_sky130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9899996,
+    "idd": 3.945668e-05,
+    "vos": -0.00415804,
+    "gain_lf": 31.44433,
+    "ph_lf": 0.03002243,
+    "ugf": 50973730.0,
+    "ph_ugf": -89.71949,
+    "f3db": 1361529.0,
+    "pm": 90.25048757
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.44433,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 50973730.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "b86fe99b14db63b1",
+   "area_um2": 245.9581
+  },
+  {
+   "key": "C08_sky130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999996,
+    "idd": 2.776115e-05,
+    "vos": -0.00449433,
+    "gain_lf": 31.87377,
+    "ph_lf": 0.02900857,
+    "ugf": 32048170.0,
+    "ph_ugf": -89.71215,
+    "f3db": 814840.9,
+    "pm": 90.25884143
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.87377,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 32048170.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_sky130_sW1_sL1/c12cfed03e95/result.json",
+   "geometry_hash": "3654e2c5e9cf1e43",
+   "area_um2": 196.0921
+  },
+  {
+   "key": "C08_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999996,
+    "idd": 1.715088e-05,
+    "vos": -0.00417878,
+    "gain_lf": 32.63554,
+    "ph_lf": 0.02730358,
+    "ugf": 20272570.0,
+    "ph_ugf": -89.79587,
+    "f3db": 472062.8,
+    "pm": 90.17682642000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 32.63554,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 20272570.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_sky130_sW1_sL1/c12cfed03e95/result.json",
+   "geometry_hash": "3654e2c5e9cf1e43",
+   "area_um2": 196.0921
+  },
+  {
+   "key": "C08_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8999995,
+    "idd": 4.175055e-05,
+    "vos": -0.00495321,
+    "gain_lf": 30.62535,
+    "ph_lf": 0.02697285,
+    "ugf": 46304190.0,
+    "ph_ugf": -89.54594,
+    "f3db": 1358405.0,
+    "pm": 90.42708714999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 30.62535,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 46304190.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_sky130_sW1_sL1/c12cfed03e95/result.json",
+   "geometry_hash": "3654e2c5e9cf1e43",
+   "area_um2": 196.0921
+  },
+  {
+   "key": "C08_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099995,
+    "idd": 1.909586e-05,
+    "vos": -0.00520714,
+    "gain_lf": 31.71806,
+    "ph_lf": 0.02442798,
+    "ugf": 19842890.0,
+    "ph_ugf": -89.62927,
+    "f3db": 513818.4,
+    "pm": 90.34630202
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.71806,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 19842890.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/selection/C08_sky130_sW1_sL1/c12cfed03e95/result.json",
+   "geometry_hash": "3654e2c5e9cf1e43",
+   "area_um2": 196.0921
+  },
+  {
+   "key": "C08_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9899996,
+    "idd": 3.921821e-05,
+    "vos": -0.00435706,
+    "gain_lf": 31.44226,
+    "ph_lf": 0.02999488,
+    "ugf": 50679710.0,
+    "ph_ugf": -89.75179,
+    "f3db": 1354379.0,
+    "pm": 90.21821512
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 31.44226,
+     "spec": {
+      "min": 28.85
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 50679710.0,
+     "spec": {
+      "min": 20130000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_sky130_sW1_sL1/c12cfed03e95/result.json",
+   "geometry_hash": "3654e2c5e9cf1e43",
+   "area_um2": 196.0921
+  },
+  {
+   "key": "C08_gf180",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 4.145869e-05,
+    "vos": 0.002791751,
+    "gain_lf": 39.87664,
+    "ph_lf": 0.06929093,
+    "ugf": 27449640.0,
+    "ph_ugf": -91.24393,
+    "f3db": 277710.2,
+    "pm": 88.68677907
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.87664,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27449640.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "0826b3df49ee5e45",
+   "area_um2": 594.7008
+  },
+  {
+   "key": "C08_gf180",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 3.971974e-05,
+    "vos": 0.001356738,
+    "gain_lf": 39.84925,
+    "ph_lf": 0.06736935,
+    "ugf": 25266090.0,
+    "ph_ugf": -91.24457,
+    "f3db": 256660.4,
+    "pm": 88.68806065
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.84925,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 25266090.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "0826b3df49ee5e45",
+   "area_um2": 594.7008
+  },
+  {
+   "key": "C08_gf180",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 4.307231e-05,
+    "vos": 0.004264412,
+    "gain_lf": 39.81182,
+    "ph_lf": 0.07026885,
+    "ugf": 29686850.0,
+    "ph_ugf": -91.24962,
+    "f3db": 302461.8,
+    "pm": 88.68011115
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.81182,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 29686850.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "0826b3df49ee5e45",
+   "area_um2": 594.7008
+  },
+  {
+   "key": "C08_gf180",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.062502e-05,
+    "vos": -0.000469682,
+    "gain_lf": 38.10803,
+    "ph_lf": 0.05286963,
+    "ugf": 22410900.0,
+    "ph_ugf": -91.08581,
+    "f3db": 278244.4,
+    "pm": 88.86132037
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 38.10803,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 22410900.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "0826b3df49ee5e45",
+   "area_um2": 594.7008
+  },
+  {
+   "key": "C08_gf180",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.815,
+    "idd": 4.153611e-05,
+    "vos": 0.004979225,
+    "gain_lf": 41.65247,
+    "ph_lf": 0.09037887,
+    "ugf": 34874100.0,
+    "ph_ugf": -91.42051,
+    "f3db": 287711.5,
+    "pm": 88.48911113000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 41.65247,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 34874100.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "0826b3df49ee5e45",
+   "area_um2": 594.7008
+  },
+  {
+   "key": "C08_gf180",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 4.145869e-05,
+    "vos": 0.002791078,
+    "gain_lf": 39.87641,
+    "ph_lf": 0.0692928,
+    "ugf": 27455520.0,
+    "ph_ugf": -91.20699,
+    "f3db": 277765.3,
+    "pm": 88.7237172
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.87641,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27455520.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "cf4e7fd6863e8f67",
+   "area_um2": 568.5888
+  },
+  {
+   "key": "C08_gf180",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 3.971974e-05,
+    "vos": 0.001356042,
+    "gain_lf": 39.84903,
+    "ph_lf": 0.06737157,
+    "ugf": 25271970.0,
+    "ph_ugf": -91.20737,
+    "f3db": 256710.6,
+    "pm": 88.72525843
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.84903,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 25271970.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "cf4e7fd6863e8f67",
+   "area_um2": 568.5888
+  },
+  {
+   "key": "C08_gf180",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 4.307231e-05,
+    "vos": 0.004263768,
+    "gain_lf": 39.81159,
+    "ph_lf": 0.0702704,
+    "ugf": 29693460.0,
+    "ph_ugf": -91.21283,
+    "f3db": 302521.6,
+    "pm": 88.7168996
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.81159,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 29693460.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "cf4e7fd6863e8f67",
+   "area_um2": 568.5888
+  },
+  {
+   "key": "C08_gf180",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.062501e-05,
+    "vos": -0.000470536,
+    "gain_lf": 38.10781,
+    "ph_lf": 0.05287197,
+    "ugf": 22416040.0,
+    "ph_ugf": -91.04992,
+    "f3db": 278298.8,
+    "pm": 88.89720803
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 38.10781,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 22416040.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "cf4e7fd6863e8f67",
+   "area_um2": 568.5888
+  },
+  {
+   "key": "C08_gf180",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.815,
+    "idd": 4.15361e-05,
+    "vos": 0.004978713,
+    "gain_lf": 41.65224,
+    "ph_lf": 0.09037992,
+    "ugf": 34881680.0,
+    "ph_ugf": -91.38222,
+    "f3db": 287768.3,
+    "pm": 88.52740007999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 41.65224,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 34881680.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "cf4e7fd6863e8f67",
+   "area_um2": 568.5888
+  },
+  {
+   "key": "C08_gf180",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 4.145347e-05,
+    "vos": 0.002764117,
+    "gain_lf": 39.87661,
+    "ph_lf": 0.06928625,
+    "ugf": 27445720.0,
+    "ph_ugf": -91.16504,
+    "f3db": 277644.2,
+    "pm": 88.76567374999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.87661,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27445720.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_gf180_sW1_sL1/c66b5f77dca4/result.json",
+   "geometry_hash": "aa596049db6c3062",
+   "area_um2": 470.0262
+  },
+  {
+   "key": "C08_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 3.971525e-05,
+    "vos": 0.001329805,
+    "gain_lf": 39.84918,
+    "ph_lf": 0.0673643,
+    "ugf": 25262440.0,
+    "ph_ugf": -91.16539,
+    "f3db": 256603.1,
+    "pm": 88.7672457
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.84918,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 25262440.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_gf180_sW1_sL1/c66b5f77dca4/result.json",
+   "geometry_hash": "aa596049db6c3062",
+   "area_um2": 470.0262
+  },
+  {
+   "key": "C08_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 4.306644e-05,
+    "vos": 0.004236167,
+    "gain_lf": 39.81182,
+    "ph_lf": 0.07026462,
+    "ugf": 29682180.0,
+    "ph_ugf": -91.17062,
+    "f3db": 302386.1,
+    "pm": 88.75911538
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 39.81182,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 29682180.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_gf180_sW1_sL1/c66b5f77dca4/result.json",
+   "geometry_hash": "aa596049db6c3062",
+   "area_um2": 470.0262
+  },
+  {
+   "key": "C08_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.062097e-05,
+    "vos": -0.00049777,
+    "gain_lf": 38.10803,
+    "ph_lf": 0.05286575,
+    "ugf": 22407740.0,
+    "ph_ugf": -91.00959,
+    "f3db": 278182.9,
+    "pm": 88.93754425
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 38.10803,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 22407740.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_gf180_sW1_sL1/c66b5f77dca4/result.json",
+   "geometry_hash": "aa596049db6c3062",
+   "area_um2": 470.0262
+  },
+  {
+   "key": "C08_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.815,
+    "idd": 4.152949e-05,
+    "vos": 0.004952728,
+    "gain_lf": 41.65237,
+    "ph_lf": 0.09037292,
+    "ugf": 34868560.0,
+    "ph_ugf": -91.3378,
+    "f3db": 287637.5,
+    "pm": 88.57182708
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 41.65237,
+     "spec": {
+      "min": 36.87
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 34868560.0,
+     "spec": {
+      "min": 16570000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_gf180_sW1_sL1/c66b5f77dca4/result.json",
+   "geometry_hash": "aa596049db6c3062",
+   "area_um2": 470.0262
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 2.702427e-05,
+    "vos": -0.000407149,
+    "gain_lf": 25.09053,
+    "ph_lf": 0.01313413,
+    "ugf": 30797970.0,
+    "ph_ugf": -88.30732,
+    "f3db": 1711423.0,
+    "pm": 91.67954587
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 25.09053,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 30797970.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "48d0ec7dda539200",
+   "area_um2": 297.5875
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5999998,
+    "idd": 2.174275e-05,
+    "vos": -0.00174079,
+    "gain_lf": 25.49457,
+    "ph_lf": 0.01323487,
+    "ugf": 26463360.0,
+    "ph_ugf": -88.41255,
+    "f3db": 1402848.0,
+    "pm": 91.57421513
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 25.49457,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 26463360.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "48d0ec7dda539200",
+   "area_um2": 297.5875
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.6000001,
+    "idd": 3.289745e-05,
+    "vos": 0.001407636,
+    "gain_lf": 24.77238,
+    "ph_lf": 0.01305626,
+    "ugf": 35558730.0,
+    "ph_ugf": -88.2478,
+    "f3db": 2052273.0,
+    "pm": 91.73914374
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 24.77238,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 35558730.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "48d0ec7dda539200",
+   "area_um2": 297.5875
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.5399994,
+    "idd": 2.404703e-05,
+    "vos": -0.00591231,
+    "gain_lf": 23.66615,
+    "ph_lf": 0.01051162,
+    "ugf": 24124970.0,
+    "ph_ugf": -87.62147,
+    "f3db": 1579819.0,
+    "pm": 92.36801838
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 23.66615,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 24124970.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "48d0ec7dda539200",
+   "area_um2": 297.5875
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6600004,
+    "idd": 3.044041e-05,
+    "vos": 0.003854145,
+    "gain_lf": 26.6551,
+    "ph_lf": 0.01654226,
+    "ugf": 40180430.0,
+    "ph_ugf": -88.9908,
+    "f3db": 1865452.0,
+    "pm": 90.99265774000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 26.6551,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 40180430.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "48d0ec7dda539200",
+   "area_um2": 297.5875
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 2.702424e-05,
+    "vos": -0.000409507,
+    "gain_lf": 25.09012,
+    "ph_lf": 0.01313405,
+    "ugf": 30802100.0,
+    "ph_ugf": -88.28789,
+    "f3db": 1711707.0,
+    "pm": 91.69897594999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 25.09012,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 30802100.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "299105d1394054b0",
+   "area_um2": 286.1763
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5999998,
+    "idd": 2.174271e-05,
+    "vos": -0.00174266,
+    "gain_lf": 25.4942,
+    "ph_lf": 0.01323498,
+    "ugf": 26467170.0,
+    "ph_ugf": -88.39307,
+    "f3db": 1403084.0,
+    "pm": 91.59369502000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 25.4942,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 26467170.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "299105d1394054b0",
+   "area_um2": 286.1763
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.6000001,
+    "idd": 3.289741e-05,
+    "vos": 0.001404786,
+    "gain_lf": 24.77191,
+    "ph_lf": 0.01305601,
+    "ugf": 35563740.0,
+    "ph_ugf": -88.22815,
+    "f3db": 2052616.0,
+    "pm": 91.75879399
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 24.77191,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 35563740.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "299105d1394054b0",
+   "area_um2": 286.1763
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.5399994,
+    "idd": 2.404698e-05,
+    "vos": -0.00591511,
+    "gain_lf": 23.66574,
+    "ph_lf": 0.01051172,
+    "ugf": 24128070.0,
+    "ph_ugf": -87.60324,
+    "f3db": 1580076.0,
+    "pm": 92.38624828
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 23.66574,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 24128070.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "299105d1394054b0",
+   "area_um2": 286.1763
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6600004,
+    "idd": 3.044038e-05,
+    "vos": 0.003852301,
+    "gain_lf": 26.65461,
+    "ph_lf": 0.01654184,
+    "ugf": 40186580.0,
+    "ph_ugf": -88.96983,
+    "f3db": 1865788.0,
+    "pm": 91.01362816
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 26.65461,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 40186580.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C08/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "299105d1394054b0",
+   "area_um2": 286.1763
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 2.701454e-05,
+    "vos": -0.000453061,
+    "gain_lf": 25.09052,
+    "ph_lf": 0.01313294,
+    "ugf": 30783610.0,
+    "ph_ugf": -88.29498,
+    "f3db": 1710591.0,
+    "pm": 91.69188706
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 25.09052,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 30783610.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_ihp130_sW1_sL1/c1ed2c9bd13e/result.json",
+   "geometry_hash": "0e876aae387355fb",
+   "area_um2": 240.9165
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5999998,
+    "idd": 2.173625e-05,
+    "vos": -0.00177838,
+    "gain_lf": 25.49445,
+    "ph_lf": 0.01323353,
+    "ugf": 26452100.0,
+    "ph_ugf": -88.40047,
+    "f3db": 1402265.0,
+    "pm": 91.58629647000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 25.49445,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 26452100.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_ihp130_sW1_sL1/c1ed2c9bd13e/result.json",
+   "geometry_hash": "0e876aae387355fb",
+   "area_um2": 240.9165
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.6000001,
+    "idd": 3.288363e-05,
+    "vos": 0.00135255,
+    "gain_lf": 24.77252,
+    "ph_lf": 0.01305538,
+    "ugf": 35538470.0,
+    "ph_ugf": -88.23518,
+    "f3db": 2051120.0,
+    "pm": 91.75176462
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 24.77252,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 35538470.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_ihp130_sW1_sL1/c1ed2c9bd13e/result.json",
+   "geometry_hash": "0e876aae387355fb",
+   "area_um2": 240.9165
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.5399994,
+    "idd": 2.404043e-05,
+    "vos": -0.00595422,
+    "gain_lf": 23.66608,
+    "ph_lf": 0.01051053,
+    "ugf": 24115610.0,
+    "ph_ugf": -87.61009,
+    "f3db": 1579199.0,
+    "pm": 92.37939947
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 23.66608,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 24115610.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_ihp130_sW1_sL1/c1ed2c9bd13e/result.json",
+   "geometry_hash": "0e876aae387355fb",
+   "area_um2": 240.9165
+  },
+  {
+   "key": "C08_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6600004,
+    "idd": 3.042631e-05,
+    "vos": 0.0038036,
+    "gain_lf": 26.65525,
+    "ph_lf": 0.01654133,
+    "ugf": 40155900.0,
+    "ph_ugf": -88.97729,
+    "f3db": 1864321.0,
+    "pm": 91.00616867000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 26.65525,
+     "spec": {
+      "min": 25.0
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 40155900.0,
+     "spec": {
+      "min": 18630000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C08_ihp130_sW1_sL1/c1ed2c9bd13e/result.json",
+   "geometry_hash": "0e876aae387355fb",
+   "area_um2": 240.9165
+  },
+  {
+   "key": "C09_sky130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099935,
+    "idd": 2.000001e-05,
+    "vos": -0.0647385,
+    "gain_lf": 44.26744,
+    "ph_lf": 0.2925074,
+    "ugf": 3810334.0,
+    "ph_ugf": -89.37148,
+    "f3db": 23218.88,
+    "pm": 90.33601259999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 44.26744,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 3810334.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "acdbfac074bee967",
+   "area_um2": 1365.7285
+  },
+  {
+   "key": "C09_sky130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099824,
+    "idd": 1.999999e-05,
+    "vos": -0.168845,
+    "gain_lf": 26.34015,
+    "ph_lf": 0.07632014,
+    "ugf": 999703.6,
+    "ph_ugf": -86.71513,
+    "f3db": 48115.5,
+    "pm": 93.20854985999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 26.34015,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 999703.6,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "acdbfac074bee967",
+   "area_um2": 1365.7285
+  },
+  {
+   "key": "C09_sky130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099991,
+    "idd": 2.000002e-05,
+    "vos": -0.00857391,
+    "gain_lf": 52.14337,
+    "ph_lf": 0.3229309,
+    "ugf": 17634900.0,
+    "ph_ugf": -94.46381,
+    "f3db": 43814.05,
+    "pm": 85.2132591
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 52.14337,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 17634900.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "acdbfac074bee967",
+   "area_um2": 1365.7285
+  },
+  {
+   "key": "C09_sky130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099846,
+    "idd": 1.999948e-05,
+    "vos": -0.149288,
+    "gain_lf": 17.27045,
+    "ph_lf": 0.01673433,
+    "ugf": 1274073.0,
+    "ph_ugf": -81.73184,
+    "f3db": 175572.4,
+    "pm": 98.25142566999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 17.27045,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 1274073.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "acdbfac074bee967",
+   "area_um2": 1365.7285
+  },
+  {
+   "key": "C09_sky130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099964,
+    "idd": 2.000001e-05,
+    "vos": -0.0356969,
+    "gain_lf": 49.21314,
+    "ph_lf": 0.431469,
+    "ugf": 7455476.0,
+    "ph_ugf": -89.98689,
+    "f3db": 25710.08,
+    "pm": 89.58164099999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 49.21314,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 7455476.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "acdbfac074bee967",
+   "area_um2": 1365.7285
+  },
+  {
+   "key": "C09_sky130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099935,
+    "idd": 2.000001e-05,
+    "vos": -0.0647493,
+    "gain_lf": 44.26833,
+    "ph_lf": 0.2925334,
+    "ugf": 3810166.0,
+    "ph_ugf": -89.46519,
+    "f3db": 23217.38,
+    "pm": 90.2422766
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 44.26833,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 3810166.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "249dfb6fb978bb13",
+   "area_um2": 1356.3148
+  },
+  {
+   "key": "C09_sky130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099824,
+    "idd": 1.999999e-05,
+    "vos": -0.168855,
+    "gain_lf": 26.34124,
+    "ph_lf": 0.07623968,
+    "ugf": 998999.4,
+    "ph_ugf": -86.74309,
+    "f3db": 48074.29,
+    "pm": 93.18067032
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 26.34124,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 998999.4,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "249dfb6fb978bb13",
+   "area_um2": 1356.3148
+  },
+  {
+   "key": "C09_sky130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099991,
+    "idd": 2.000002e-05,
+    "vos": -0.00858872,
+    "gain_lf": 52.14464,
+    "ph_lf": 0.3230522,
+    "ugf": 17631670.0,
+    "ph_ugf": -94.74435,
+    "f3db": 43826.69,
+    "pm": 84.9325978
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 52.14464,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 17631670.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "249dfb6fb978bb13",
+   "area_um2": 1356.3148
+  },
+  {
+   "key": "C09_sky130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099846,
+    "idd": 1.999951e-05,
+    "vos": -0.149298,
+    "gain_lf": 17.27091,
+    "ph_lf": 0.01666376,
+    "ugf": 1271269.0,
+    "ph_ugf": -81.76971,
+    "f3db": 175196.8,
+    "pm": 98.21362624
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 17.27091,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 1271269.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "249dfb6fb978bb13",
+   "area_um2": 1356.3148
+  },
+  {
+   "key": "C09_sky130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099964,
+    "idd": 2.000001e-05,
+    "vos": -0.035708,
+    "gain_lf": 49.21394,
+    "ph_lf": 0.4315543,
+    "ugf": 7455898.0,
+    "ph_ugf": -90.16737,
+    "f3db": 25714.93,
+    "pm": 89.40107569999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 49.21394,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 7455898.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "249dfb6fb978bb13",
+   "area_um2": 1356.3148
+  },
+  {
+   "key": "C09_sky130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099935,
+    "idd": 2.000001e-05,
+    "vos": -0.0648441,
+    "gain_lf": 44.24846,
+    "ph_lf": 0.2920802,
+    "ugf": 3798601.0,
+    "ph_ugf": -89.39719,
+    "f3db": 23197.69,
+    "pm": 90.3107298
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 44.24846,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 3798601.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_sky130_sW1_sL1/cb665d318416/result.json",
+   "geometry_hash": "335118a971cf94e9",
+   "area_um2": 1149.8563
+  },
+  {
+   "key": "C09_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099824,
+    "idd": 1.999999e-05,
+    "vos": -0.168991,
+    "gain_lf": 26.31945,
+    "ph_lf": 0.07599209,
+    "ugf": 996478.6,
+    "ph_ugf": -86.72551,
+    "f3db": 48066.68,
+    "pm": 93.19849791
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 26.31945,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 996478.6,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/selection/C09_sky130_sW1_sL1/cb665d318416/result.json",
+   "geometry_hash": "335118a971cf94e9",
+   "area_um2": 1149.8563
+  },
+  {
+   "key": "C09_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099991,
+    "idd": 2.000002e-05,
+    "vos": -0.00858743,
+    "gain_lf": 52.13681,
+    "ph_lf": 0.3227996,
+    "ugf": 17647790.0,
+    "ph_ugf": -94.01664,
+    "f3db": 43785.88,
+    "pm": 85.66056040000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 52.13681,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 17647790.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_sky130_sW1_sL1/cb665d318416/result.json",
+   "geometry_hash": "335118a971cf94e9",
+   "area_um2": 1149.8563
+  },
+  {
+   "key": "C09_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.8099846,
+    "idd": 1.999948e-05,
+    "vos": -0.149424,
+    "gain_lf": 17.25099,
+    "ph_lf": 0.01660073,
+    "ugf": 1267512.0,
+    "ph_ugf": -81.73914,
+    "f3db": 175110.8,
+    "pm": 98.24425927
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 17.25099,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 1267512.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/selection/C09_sky130_sW1_sL1/cb665d318416/result.json",
+   "geometry_hash": "335118a971cf94e9",
+   "area_um2": 1149.8563
+  },
+  {
+   "key": "C09_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.8099964,
+    "idd": 2.000001e-05,
+    "vos": -0.0357814,
+    "gain_lf": 49.19378,
+    "ph_lf": 0.4311216,
+    "ugf": 7429245.0,
+    "ph_ugf": -89.99632,
+    "f3db": 25677.28,
+    "pm": 89.5725584
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 49.19378,
+     "spec": {
+      "min": 41.68
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 7429245.0,
+     "spec": {
+      "min": 2480000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_sky130_sW1_sL1/cb665d318416/result.json",
+   "geometry_hash": "335118a971cf94e9",
+   "area_um2": 1149.8563
+  },
+  {
+   "key": "C09_gf180",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.484999,
+    "idd": 4.000002e-05,
+    "vos": -0.00715658,
+    "gain_lf": 45.50098,
+    "ph_lf": 0.07433937,
+    "ugf": 9905446.0,
+    "ph_ugf": -92.15744,
+    "f3db": 52531.81,
+    "pm": 87.76822063
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 45.50098,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 9905446.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "ef2adf2a7e3eb073",
+   "area_um2": 968.792
+  },
+  {
+   "key": "C09_gf180",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 1.484991,
+    "idd": 4.000002e-05,
+    "vos": -0.0878104,
+    "gain_lf": 44.63986,
+    "ph_lf": 0.04472549,
+    "ugf": 3668380.0,
+    "ph_ugf": -89.72543,
+    "f3db": 21422.72,
+    "pm": 90.22984450999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 44.63986,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 3668380.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "ef2adf2a7e3eb073",
+   "area_um2": 968.792
+  },
+  {
+   "key": "C09_gf180",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.000003e-05,
+    "vos": -0.00324735,
+    "gain_lf": 46.28878,
+    "ph_lf": 0.08802996,
+    "ugf": 11129850.0,
+    "ph_ugf": -92.34985,
+    "f3db": 53921.98,
+    "pm": 87.56212004
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.28878,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 11129850.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "ef2adf2a7e3eb073",
+   "area_um2": 968.792
+  },
+  {
+   "key": "C09_gf180",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 1.48494,
+    "idd": 4.000001e-05,
+    "vos": -0.418241,
+    "gain_lf": 21.52036,
+    "ph_lf": -0.07077548,
+    "ugf": 668663.0,
+    "ph_ugf": -84.75738,
+    "f3db": 56099.92,
+    "pm": 95.31339548
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 21.52036,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 668663.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "ef2adf2a7e3eb073",
+   "area_um2": 968.792
+  },
+  {
+   "key": "C09_gf180",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.000003e-05,
+    "vos": -0.00114717,
+    "gain_lf": 49.06809,
+    "ph_lf": 0.1549964,
+    "ugf": 15093570.0,
+    "ph_ugf": -92.85069,
+    "f3db": 53078.58,
+    "pm": 86.9943136
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 49.06809,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15093570.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "ef2adf2a7e3eb073",
+   "area_um2": 968.792
+  },
+  {
+   "key": "C09_gf180",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.484999,
+    "idd": 4.000002e-05,
+    "vos": -0.00714867,
+    "gain_lf": 45.50079,
+    "ph_lf": 0.07431974,
+    "ugf": 9905044.0,
+    "ph_ugf": -92.13603,
+    "f3db": 52528.78,
+    "pm": 87.78965025999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 45.50079,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 9905044.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "277cb534b8acb653",
+   "area_um2": 951.016
+  },
+  {
+   "key": "C09_gf180",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 1.484991,
+    "idd": 4.000002e-05,
+    "vos": -0.087811,
+    "gain_lf": 44.63959,
+    "ph_lf": 0.04468748,
+    "ugf": 3667777.0,
+    "ph_ugf": -89.72391,
+    "f3db": 21419.97,
+    "pm": 90.23140252
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 44.63959,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 3667777.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "277cb534b8acb653",
+   "area_um2": 951.016
+  },
+  {
+   "key": "C09_gf180",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.000003e-05,
+    "vos": -0.00323973,
+    "gain_lf": 46.28858,
+    "ph_lf": 0.08800977,
+    "ugf": 11129490.0,
+    "ph_ugf": -92.32737,
+    "f3db": 53919.19,
+    "pm": 87.58462023
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.28858,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 11129490.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "277cb534b8acb653",
+   "area_um2": 951.016
+  },
+  {
+   "key": "C09_gf180",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 1.48494,
+    "idd": 4.000001e-05,
+    "vos": -0.418247,
+    "gain_lf": 21.51989,
+    "ph_lf": -0.07078782,
+    "ugf": 668565.8,
+    "ph_ugf": -84.75789,
+    "f3db": 56094.8,
+    "pm": 95.31289782
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 21.51989,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 668565.8,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "277cb534b8acb653",
+   "area_um2": 951.016
+  },
+  {
+   "key": "C09_gf180",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.000003e-05,
+    "vos": -0.00114077,
+    "gain_lf": 49.06784,
+    "ph_lf": 0.1549709,
+    "ugf": 15093490.0,
+    "ph_ugf": -92.82492,
+    "f3db": 53076.83,
+    "pm": 87.0201091
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 49.06784,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15093490.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "277cb534b8acb653",
+   "area_um2": 951.016
+  },
+  {
+   "key": "C09_gf180",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.484999,
+    "idd": 4.000002e-05,
+    "vos": -0.00715469,
+    "gain_lf": 45.50082,
+    "ph_lf": 0.0741304,
+    "ugf": 9891795.0,
+    "ph_ugf": -91.84731,
+    "f3db": 52431.69,
+    "pm": 88.0785596
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 45.50082,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 9891795.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_gf180_sW1_sL1/ca6f6963e509/result.json",
+   "geometry_hash": "0bbe80282fc7f122",
+   "area_um2": 795.2894
+  },
+  {
+   "key": "C09_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 1.484991,
+    "idd": 4.000002e-05,
+    "vos": -0.0878644,
+    "gain_lf": 44.6402,
+    "ph_lf": 0.04419438,
+    "ugf": 3659186.0,
+    "ph_ugf": -89.68878,
+    "f3db": 21369.2,
+    "pm": 90.26702562000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 44.6402,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 3659186.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/selection/C09_gf180_sW1_sL1/ca6f6963e509/result.json",
+   "geometry_hash": "0bbe80282fc7f122",
+   "area_um2": 795.2894
+  },
+  {
+   "key": "C09_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.000003e-05,
+    "vos": -0.0032448,
+    "gain_lf": 46.28862,
+    "ph_lf": 0.08782649,
+    "ugf": 11115360.0,
+    "ph_ugf": -92.0175,
+    "f3db": 53820.11,
+    "pm": 87.89467351
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.28862,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 11115360.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_gf180_sW1_sL1/ca6f6963e509/result.json",
+   "geometry_hash": "0bbe80282fc7f122",
+   "area_um2": 795.2894
+  },
+  {
+   "key": "C09_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 1.48494,
+    "idd": 4.000001e-05,
+    "vos": -0.418333,
+    "gain_lf": 21.51647,
+    "ph_lf": -0.07110918,
+    "ugf": 666417.7,
+    "ph_ugf": -84.76171,
+    "f3db": 55936.9,
+    "pm": 95.30939918
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 21.51647,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 666417.7,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": false
+    }
+   },
+   "result": "runs/selection/C09_gf180_sW1_sL1/ca6f6963e509/result.json",
+   "geometry_hash": "0bbe80282fc7f122",
+   "area_um2": 795.2894
+  },
+  {
+   "key": "C09_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.485,
+    "idd": 4.000003e-05,
+    "vos": -0.00114483,
+    "gain_lf": 49.06789,
+    "ph_lf": 0.1547876,
+    "ugf": 15076300.0,
+    "ph_ugf": -92.45664,
+    "f3db": 52979.25,
+    "pm": 87.3885724
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 49.06789,
+     "spec": {
+      "min": 42.52
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15076300.0,
+     "spec": {
+      "min": 6008000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_gf180_sW1_sL1/ca6f6963e509/result.json",
+   "geometry_hash": "0bbe80282fc7f122",
+   "area_um2": 795.2894
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399999,
+    "idd": 2e-05,
+    "vos": -0.00126686,
+    "gain_lf": 46.78378,
+    "ph_lf": 0.1569452,
+    "ugf": 27108850.0,
+    "ph_ugf": -98.44142,
+    "f3db": 126498.6,
+    "pm": 81.40163480000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.78378,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27108850.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "141ee9dbb44a536d",
+   "area_um2": 1421.3063
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399998,
+    "idd": 2e-05,
+    "vos": -0.00197092,
+    "gain_lf": 47.05506,
+    "ph_lf": 0.1640587,
+    "ugf": 27192570.0,
+    "ph_ugf": -98.35817,
+    "f3db": 122915.4,
+    "pm": 81.4777713
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.05506,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27192570.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "141ee9dbb44a536d",
+   "area_um2": 1421.3063
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399999,
+    "idd": 2e-05,
+    "vos": -0.000544056,
+    "gain_lf": 46.94322,
+    "ph_lf": 0.1586281,
+    "ugf": 27448840.0,
+    "ph_ugf": -98.65337,
+    "f3db": 125952.5,
+    "pm": 81.1880019
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.94322,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27448840.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "141ee9dbb44a536d",
+   "area_um2": 1421.3063
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.5399997,
+    "idd": 2e-05,
+    "vos": -0.00339592,
+    "gain_lf": 43.02186,
+    "ph_lf": 0.0994761,
+    "ugf": 22356220.0,
+    "ph_ugf": -97.75444,
+    "f3db": 160684.4,
+    "pm": 82.1460839
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 43.02186,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 22356220.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "141ee9dbb44a536d",
+   "area_um2": 1421.3063
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.54,
+    "idd": 2e-05,
+    "vos": -0.000259947,
+    "gain_lf": 50.71011,
+    "ph_lf": 0.255629,
+    "ugf": 33126870.0,
+    "ph_ugf": -99.07813,
+    "f3db": 98583.14,
+    "pm": 80.666241
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 50.71011,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 33126870.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "141ee9dbb44a536d",
+   "area_um2": 1421.3063
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399999,
+    "idd": 2e-05,
+    "vos": -0.0012655,
+    "gain_lf": 46.78368,
+    "ph_lf": 0.1569541,
+    "ugf": 27118620.0,
+    "ph_ugf": -98.42416,
+    "f3db": 126532.0,
+    "pm": 81.4188859
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.78368,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27118620.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "62286a66ccf12337",
+   "area_um2": 1413.0187
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399998,
+    "idd": 2e-05,
+    "vos": -0.00196955,
+    "gain_lf": 47.05497,
+    "ph_lf": 0.1640681,
+    "ugf": 27202300.0,
+    "ph_ugf": -98.34104,
+    "f3db": 122948.1,
+    "pm": 81.4948919
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.05497,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27202300.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "62286a66ccf12337",
+   "area_um2": 1413.0187
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399999,
+    "idd": 2e-05,
+    "vos": -0.000542715,
+    "gain_lf": 46.94311,
+    "ph_lf": 0.1586369,
+    "ugf": 27458770.0,
+    "ph_ugf": -98.63583,
+    "f3db": 125985.8,
+    "pm": 81.2055331
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.94311,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27458770.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "62286a66ccf12337",
+   "area_um2": 1413.0187
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.5399997,
+    "idd": 2e-05,
+    "vos": -0.00339445,
+    "gain_lf": 43.0218,
+    "ph_lf": 0.09948388,
+    "ugf": 22363730.0,
+    "ph_ugf": -97.73779,
+    "f3db": 160726.6,
+    "pm": 82.16272612
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 43.0218,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 22363730.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "62286a66ccf12337",
+   "area_um2": 1413.0187
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.54,
+    "idd": 2e-05,
+    "vos": -0.000258664,
+    "gain_lf": 50.71001,
+    "ph_lf": 0.2556405,
+    "ugf": 33139840.0,
+    "ph_ugf": -99.06103,
+    "f3db": 98610.11,
+    "pm": 80.6833295
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 50.71001,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 33139840.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C09/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "62286a66ccf12337",
+   "area_um2": 1413.0187
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399999,
+    "idd": 2e-05,
+    "vos": -0.00126608,
+    "gain_lf": 46.78362,
+    "ph_lf": 0.1570002,
+    "ugf": 27319860.0,
+    "ph_ugf": -97.30275,
+    "f3db": 126646.6,
+    "pm": 82.5402498
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.78362,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27319860.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_ihp130_sW1_sL1/c5974eb942a8/result.json",
+   "geometry_hash": "aa1d276ab3ef7c96",
+   "area_um2": 1214.7619
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399998,
+    "idd": 2e-05,
+    "vos": -0.00197024,
+    "gain_lf": 47.05489,
+    "ph_lf": 0.1641151,
+    "ugf": 27398280.0,
+    "ph_ugf": -97.23615,
+    "f3db": 123059.0,
+    "pm": 82.5997349
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.05489,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27398280.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_ihp130_sW1_sL1/c5974eb942a8/result.json",
+   "geometry_hash": "aa1d276ab3ef7c96",
+   "area_um2": 1214.7619
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.5399999,
+    "idd": 2e-05,
+    "vos": -0.000543176,
+    "gain_lf": 46.94306,
+    "ph_lf": 0.1586832,
+    "ugf": 27670020.0,
+    "ph_ugf": -97.48646,
+    "f3db": 126100.5,
+    "pm": 82.35485680000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.94306,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 27670020.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_ihp130_sW1_sL1/c5974eb942a8/result.json",
+   "geometry_hash": "aa1d276ab3ef7c96",
+   "area_um2": 1214.7619
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.5399997,
+    "idd": 2e-05,
+    "vos": -0.00339574,
+    "gain_lf": 43.02166,
+    "ph_lf": 0.09951906,
+    "ugf": 22517210.0,
+    "ph_ugf": -96.70055,
+    "f3db": 160859.1,
+    "pm": 83.19993093999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 43.02166,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": false
+    },
+    "ugf": {
+     "value": 22517210.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_ihp130_sW1_sL1/c5974eb942a8/result.json",
+   "geometry_hash": "aa1d276ab3ef7c96",
+   "area_um2": 1214.7619
+  },
+  {
+   "key": "C09_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.54,
+    "idd": 2e-05,
+    "vos": -0.000258918,
+    "gain_lf": 50.70996,
+    "ph_lf": 0.2556983,
+    "ugf": 33413770.0,
+    "ph_ugf": -97.9029,
+    "f3db": 98702.96,
+    "pm": 81.84140169999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 50.70996,
+     "spec": {
+      "min": 43.79
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 33413770.0,
+     "spec": {
+      "min": 17120000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C09_ihp130_sW1_sL1/c5974eb942a8/result.json",
+   "geometry_hash": "aa1d276ab3ef7c96",
+   "area_um2": 1214.7619
+  },
+  {
+   "key": "C11_sky130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000002,
+    "idd": 7.745746e-05,
+    "vos": 0.002050348,
+    "gain_lf": 59.65045,
+    "ph_lf": 0.5053558,
+    "ugf": 14907830.0,
+    "ph_ugf": -96.4035,
+    "f3db": 15765.6,
+    "pm": 83.0911442
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 59.65045,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 14907830.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 83.0911442,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "24dc98a229f1c957",
+   "area_um2": 1446.921
+  },
+  {
+   "key": "C11_sky130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000003,
+    "idd": 7.198238e-05,
+    "vos": 0.002968872,
+    "gain_lf": 60.33577,
+    "ph_lf": 0.4029222,
+    "ugf": 10920810.0,
+    "ph_ugf": -97.96446,
+    "f3db": 10670.0,
+    "pm": 81.63261779999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 60.33577,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 10920810.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 81.63261779999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "24dc98a229f1c957",
+   "area_um2": 1446.921
+  },
+  {
+   "key": "C11_sky130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000001,
+    "idd": 8.306221e-05,
+    "vos": 0.00139893,
+    "gain_lf": 57.6493,
+    "ph_lf": 0.4590275,
+    "ugf": 18655410.0,
+    "ph_ugf": -94.56095,
+    "f3db": 24749.25,
+    "pm": 84.98002249999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 57.6493,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 18655410.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 84.98002249999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "24dc98a229f1c957",
+   "area_um2": 1446.921
+  },
+  {
+   "key": "C11_sky130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.9000005,
+    "idd": 6.579924e-05,
+    "vos": 0.004545284,
+    "gain_lf": 58.61445,
+    "ph_lf": 0.07707279,
+    "ugf": 7005626.0,
+    "ph_ugf": -97.06525,
+    "f3db": 8284.015,
+    "pm": 82.85767720999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 58.61445,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 7005626.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": false
+    },
+    "pm": {
+     "value": 82.85767720999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "24dc98a229f1c957",
+   "area_um2": 1446.921
+  },
+  {
+   "key": "C11_sky130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000001,
+    "idd": 8.852868e-05,
+    "vos": 0.0007278467,
+    "gain_lf": 58.84232,
+    "ph_lf": 0.5897442,
+    "ugf": 24569940.0,
+    "ph_ugf": -90.46211,
+    "f3db": 27879.44,
+    "pm": 88.9481458
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 58.84232,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 24569940.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 88.9481458,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "24dc98a229f1c957",
+   "area_um2": 1446.921
+  },
+  {
+   "key": "C11_sky130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000002,
+    "idd": 7.751296e-05,
+    "vos": 0.001663045,
+    "gain_lf": 60.17492,
+    "ph_lf": 0.5371498,
+    "ugf": 14918240.0,
+    "ph_ugf": -96.55934,
+    "f3db": 14850.45,
+    "pm": 82.9035102
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 60.17492,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 14918240.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 82.9035102,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "555212f012941696",
+   "area_um2": 1426.7718
+  },
+  {
+   "key": "C11_sky130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000003,
+    "idd": 7.200499e-05,
+    "vos": 0.002577951,
+    "gain_lf": 60.87051,
+    "ph_lf": 0.4281748,
+    "ugf": 10913770.0,
+    "ph_ugf": -98.0949,
+    "f3db": 10025.61,
+    "pm": 81.47692520000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 60.87051,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 10913770.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 81.47692520000001,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "555212f012941696",
+   "area_um2": 1426.7718
+  },
+  {
+   "key": "C11_sky130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000001,
+    "idd": 8.317183e-05,
+    "vos": 0.001014907,
+    "gain_lf": 58.1292,
+    "ph_lf": 0.4857411,
+    "ugf": 18701860.0,
+    "ph_ugf": -94.72479,
+    "f3db": 23471.12,
+    "pm": 84.7894689
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 58.1292,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 18701860.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 84.7894689,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "555212f012941696",
+   "area_um2": 1426.7718
+  },
+  {
+   "key": "C11_sky130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.9000004,
+    "idd": 6.580367e-05,
+    "vos": 0.004158429,
+    "gain_lf": 59.13375,
+    "ph_lf": 0.08000592,
+    "ugf": 6989099.0,
+    "ph_ugf": -97.15303,
+    "f3db": 7783.084,
+    "pm": 82.76696408
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 59.13375,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 6989099.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": false
+    },
+    "pm": {
+     "value": 82.76696408,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "555212f012941696",
+   "area_um2": 1426.7718
+  },
+  {
+   "key": "C11_sky130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9,
+    "idd": 8.873535e-05,
+    "vos": 0.0003446276,
+    "gain_lf": 59.36854,
+    "ph_lf": 0.6276364,
+    "ugf": 24701000.0,
+    "ph_ugf": -90.62587,
+    "f3db": 26365.01,
+    "pm": 88.7464936
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 59.36854,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 24701000.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 88.7464936,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/sky130/sW1_sL1/combined/result.json",
+   "geometry_hash": "555212f012941696",
+   "area_um2": 1426.7718
+  },
+  {
+   "key": "C11_sky130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000002,
+    "idd": 7.799865e-05,
+    "vos": 0.002087821,
+    "gain_lf": 59.62579,
+    "ph_lf": 0.5046968,
+    "ugf": 14950970.0,
+    "ph_ugf": -96.1694,
+    "f3db": 15844.07,
+    "pm": 83.3259032
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 59.62579,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 14950970.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 83.3259032,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_sky130_sW1_sL1/c7a85b0ddcef/result.json",
+   "geometry_hash": "2a6c5c74b2d4d87f",
+   "area_um2": 1298.136
+  },
+  {
+   "key": "C11_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000003,
+    "idd": 7.242311e-05,
+    "vos": 0.003006684,
+    "gain_lf": 60.30567,
+    "ph_lf": 0.402375,
+    "ugf": 10941570.0,
+    "ph_ugf": -97.79397,
+    "f3db": 10723.36,
+    "pm": 81.80365499999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 60.30567,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 10941570.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 81.80365499999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_sky130_sW1_sL1/c7a85b0ddcef/result.json",
+   "geometry_hash": "2a6c5c74b2d4d87f",
+   "area_um2": 1298.136
+  },
+  {
+   "key": "C11_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000001,
+    "idd": 8.370635e-05,
+    "vos": 0.00143575,
+    "gain_lf": 57.62883,
+    "ph_lf": 0.4586113,
+    "ugf": 18733280.0,
+    "ph_ugf": -94.26609,
+    "f3db": 24880.84,
+    "pm": 85.2752987
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 57.62883,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 18733280.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 85.2752987,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_sky130_sW1_sL1/c7a85b0ddcef/result.json",
+   "geometry_hash": "2a6c5c74b2d4d87f",
+   "area_um2": 1298.136
+  },
+  {
+   "key": "C11_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "spec_failed",
+   "measures": {
+    "vout0": 0.9000005,
+    "idd": 6.618325e-05,
+    "vos": 0.00458537,
+    "gain_lf": 58.57671,
+    "ph_lf": 0.07757588,
+    "ugf": 7014944.0,
+    "ph_ugf": -96.95009,
+    "f3db": 8329.918,
+    "pm": 82.97233412
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 58.57671,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 7014944.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": false
+    },
+    "pm": {
+     "value": 82.97233412,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_sky130_sW1_sL1/c7a85b0ddcef/result.json",
+   "geometry_hash": "2a6c5c74b2d4d87f",
+   "area_um2": 1298.136
+  },
+  {
+   "key": "C11_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.9000001,
+    "idd": 8.93297e-05,
+    "vos": 0.0007541604,
+    "gain_lf": 58.82272,
+    "ph_lf": 0.5891756,
+    "ugf": 24712210.0,
+    "ph_ugf": -90.0885,
+    "f3db": 28051.85,
+    "pm": 89.3223244
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 58.82272,
+     "spec": {
+      "min": 56.62
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 24712210.0,
+     "spec": {
+      "min": 9313000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 89.3223244,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_sky130_sW1_sL1/c7a85b0ddcef/result.json",
+   "geometry_hash": "2a6c5c74b2d4d87f",
+   "area_um2": 1298.136
+  },
+  {
+   "key": "C11_gf180",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.863076e-05,
+    "vos": 0.0001466159,
+    "gain_lf": 73.18916,
+    "ph_lf": 2.210247,
+    "ugf": 12720330.0,
+    "ph_ugf": -114.4691,
+    "f3db": 2937.976,
+    "pm": 63.32065300000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.18916,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 12720330.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.32065300000001,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "94233513ac528fd9",
+   "area_um2": 2439.9508
+  },
+  {
+   "key": "C11_gf180",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.697771e-05,
+    "vos": 0.0002727352,
+    "gain_lf": 73.01353,
+    "ph_lf": 2.004344,
+    "ugf": 11783100.0,
+    "ph_ugf": -115.1198,
+    "f3db": 2767.519,
+    "pm": 62.875856
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.01353,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 11783100.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 62.875856,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "94233513ac528fd9",
+   "area_um2": 2439.9508
+  },
+  {
+   "key": "C11_gf180",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.95884e-05,
+    "vos": 8.332422e-05,
+    "gain_lf": 73.16918,
+    "ph_lf": 2.339029,
+    "ugf": 13641810.0,
+    "ph_ugf": -113.6845,
+    "f3db": 3160.774,
+    "pm": 63.976471000000004
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.16918,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 13641810.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.976471000000004,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "94233513ac528fd9",
+   "area_um2": 2439.9508
+  },
+  {
+   "key": "C11_gf180",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 8.842498e-05,
+    "vos": 0.001048374,
+    "gain_lf": 71.41311,
+    "ph_lf": 1.245211,
+    "ugf": 9589523.0,
+    "ph_ugf": -114.8313,
+    "f3db": 2679.702,
+    "pm": 63.923489000000004
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 71.41311,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 9589523.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.923489000000004,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "94233513ac528fd9",
+   "area_um2": 2439.9508
+  },
+  {
+   "key": "C11_gf180",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 0.0001005673,
+    "vos": 7.186805e-05,
+    "gain_lf": 75.79694,
+    "ph_lf": 3.511704,
+    "ugf": 15862250.0,
+    "ph_ugf": -110.0043,
+    "f3db": 2723.196,
+    "pm": 66.483996
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 75.79694,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15862250.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 66.483996,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "94233513ac528fd9",
+   "area_um2": 2439.9508
+  },
+  {
+   "key": "C11_gf180",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.863547e-05,
+    "vos": 0.0001025418,
+    "gain_lf": 73.22722,
+    "ph_lf": 2.220101,
+    "ugf": 12721260.0,
+    "ph_ugf": -114.6098,
+    "f3db": 2925.443,
+    "pm": 63.17009899999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.22722,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 12721260.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.17009899999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "28288888966ff819",
+   "area_um2": 2373.8001
+  },
+  {
+   "key": "C11_gf180",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.698185e-05,
+    "vos": 0.0002286827,
+    "gain_lf": 73.05183,
+    "ph_lf": 2.013329,
+    "ugf": 11783790.0,
+    "ph_ugf": -115.256,
+    "f3db": 2755.604,
+    "pm": 62.730671
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.05183,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 11783790.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 62.730671,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "28288888966ff819",
+   "area_um2": 2373.8001
+  },
+  {
+   "key": "C11_gf180",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.959351e-05,
+    "vos": 3.960458e-05,
+    "gain_lf": 73.2067,
+    "ph_lf": 2.349304,
+    "ugf": 13642950.0,
+    "ph_ugf": -113.8281,
+    "f3db": 3147.468,
+    "pm": 63.82259599999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.2067,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 13642950.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.82259599999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "28288888966ff819",
+   "area_um2": 2373.8001
+  },
+  {
+   "key": "C11_gf180",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 8.842761e-05,
+    "vos": 0.001008238,
+    "gain_lf": 71.45114,
+    "ph_lf": 1.25071,
+    "ugf": 9589865.0,
+    "ph_ugf": -114.9522,
+    "f3db": 2668.153,
+    "pm": 63.79709
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 71.45114,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 9589865.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.79709,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "28288888966ff819",
+   "area_um2": 2373.8001
+  },
+  {
+   "key": "C11_gf180",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 0.0001005733,
+    "vos": 2.636862e-05,
+    "gain_lf": 75.84286,
+    "ph_lf": 3.530562,
+    "ugf": 15864720.0,
+    "ph_ugf": -110.151,
+    "f3db": 2709.292,
+    "pm": 66.318438
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 75.84286,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15864720.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 66.318438,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/gf180/sW1_sL1/combined/result.json",
+   "geometry_hash": "28288888966ff819",
+   "area_um2": 2373.8001
+  },
+  {
+   "key": "C11_gf180",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.862997e-05,
+    "vos": 0.0001448419,
+    "gain_lf": 73.18298,
+    "ph_lf": 2.208624,
+    "ugf": 12727100.0,
+    "ph_ugf": -114.2605,
+    "f3db": 2939.98,
+    "pm": 63.530876000000006
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.18298,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 12727100.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.530876000000006,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_gf180_sW1_sL1/c3d4bacbce79/result.json",
+   "geometry_hash": "8657d60538f98592",
+   "area_um2": 2157.3144
+  },
+  {
+   "key": "C11_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.697701e-05,
+    "vos": 0.0002712314,
+    "gain_lf": 73.00711,
+    "ph_lf": 2.002816,
+    "ugf": 11789210.0,
+    "ph_ugf": -114.9194,
+    "f3db": 2769.503,
+    "pm": 63.07778400000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.00711,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 11789210.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 63.07778400000001,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_gf180_sW1_sL1/c3d4bacbce79/result.json",
+   "geometry_hash": "8657d60538f98592",
+   "area_um2": 2157.3144
+  },
+  {
+   "key": "C11_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 9.958754e-05,
+    "vos": 8.142008e-05,
+    "gain_lf": 73.16329,
+    "ph_lf": 2.337391,
+    "ugf": 13648660.0,
+    "ph_ugf": -113.4711,
+    "f3db": 3162.821,
+    "pm": 64.191509
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 73.16329,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 13648660.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 64.191509,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_gf180_sW1_sL1/c3d4bacbce79/result.json",
+   "geometry_hash": "8657d60538f98592",
+   "area_um2": 2157.3144
+  },
+  {
+   "key": "C11_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 8.842444e-05,
+    "vos": 0.001048439,
+    "gain_lf": 71.40637,
+    "ph_lf": 1.24423,
+    "ugf": 9594111.0,
+    "ph_ugf": -114.6579,
+    "f3db": 2681.779,
+    "pm": 64.09787
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 71.40637,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 9594111.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 64.09787,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_gf180_sW1_sL1/c3d4bacbce79/result.json",
+   "geometry_hash": "8657d60538f98592",
+   "area_um2": 2157.3144
+  },
+  {
+   "key": "C11_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 1.65,
+    "idd": 0.0001005663,
+    "vos": 7.006956e-05,
+    "gain_lf": 75.78974,
+    "ph_lf": 3.508711,
+    "ugf": 15870360.0,
+    "ph_ugf": -109.7872,
+    "f3db": 2725.326,
+    "pm": 66.704089
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 75.78974,
+     "spec": {
+      "min": 70.18
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15870360.0,
+     "spec": {
+      "min": 7692000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 66.704089,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_gf180_sW1_sL1/c3d4bacbce79/result.json",
+   "geometry_hash": "8657d60538f98592",
+   "area_um2": 2157.3144
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000001,
+    "idd": 9.167618e-05,
+    "vos": 0.0009439903,
+    "gain_lf": 47.11818,
+    "ph_lf": 0.1515527,
+    "ugf": 23377030.0,
+    "ph_ugf": -100.8757,
+    "f3db": 106903.1,
+    "pm": 78.97274730000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.11818,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 23377030.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 78.97274730000001,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "45f8091108fbbac8",
+   "area_um2": 2092.7973
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000002,
+    "idd": 8.762972e-05,
+    "vos": 0.001748997,
+    "gain_lf": 47.56337,
+    "ph_lf": 0.1546769,
+    "ugf": 21876370.0,
+    "ph_ugf": -100.7129,
+    "f3db": 94808.39,
+    "pm": 79.1324231
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.56337,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 21876370.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.1324231,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "45f8091108fbbac8",
+   "area_um2": 2092.7973
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 9.494886e-05,
+    "vos": 0.0002649892,
+    "gain_lf": 46.83669,
+    "ph_lf": 0.1500647,
+    "ugf": 24615320.0,
+    "ph_ugf": -100.6153,
+    "f3db": 116413.2,
+    "pm": 79.2346353
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.83669,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 24615320.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.2346353,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "45f8091108fbbac8",
+   "area_um2": 2092.7973
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000004,
+    "idd": 7.804189e-05,
+    "vos": 0.00410246,
+    "gain_lf": 45.72163,
+    "ph_lf": 0.1037084,
+    "ugf": 15800110.0,
+    "ph_ugf": -101.1433,
+    "f3db": 84063.52,
+    "pm": 78.7529916
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 45.72163,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15800110.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 78.7529916,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "45f8091108fbbac8",
+   "area_um2": 2092.7973
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 9.767412e-05,
+    "vos": 0.0001364161,
+    "gain_lf": 48.70812,
+    "ph_lf": 0.1959591,
+    "ugf": 29164490.0,
+    "ph_ugf": -97.41431,
+    "f3db": 109865.3,
+    "pm": 82.3897309
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 48.70812,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 29164490.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 82.3897309,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "45f8091108fbbac8",
+   "area_um2": 2092.7973
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "combined",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000001,
+    "idd": 9.169178e-05,
+    "vos": 0.0008766724,
+    "gain_lf": 47.13479,
+    "ph_lf": 0.1518568,
+    "ugf": 23388710.0,
+    "ph_ugf": -100.9068,
+    "f3db": 106737.2,
+    "pm": 78.94134319999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.13479,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 23388710.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 78.94134319999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "116834701c006e60",
+   "area_um2": 2064.5756
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "combined",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000002,
+    "idd": 8.764203e-05,
+    "vos": 0.001684105,
+    "gain_lf": 47.58121,
+    "ph_lf": 0.1550062,
+    "ugf": 21885310.0,
+    "ph_ugf": -100.7439,
+    "f3db": 94641.64,
+    "pm": 79.1010938
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.58121,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 21885310.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.1010938,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "116834701c006e60",
+   "area_um2": 2064.5756
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "combined",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 9.496783e-05,
+    "vos": 0.0001952337,
+    "gain_lf": 46.85254,
+    "ph_lf": 0.1503556,
+    "ugf": 24628560.0,
+    "ph_ugf": -100.6456,
+    "f3db": 116249.1,
+    "pm": 79.2040444
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.85254,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 24628560.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.2040444,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "116834701c006e60",
+   "area_um2": 2064.5756
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "combined",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000004,
+    "idd": 7.804845e-05,
+    "vos": 0.004042106,
+    "gain_lf": 45.7393,
+    "ph_lf": 0.1039209,
+    "ugf": 15803170.0,
+    "ph_ugf": -101.1709,
+    "f3db": 83900.82,
+    "pm": 78.72517909999999
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 45.7393,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15803170.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 78.72517909999999,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "116834701c006e60",
+   "area_um2": 2064.5756
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "combined",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 9.769814e-05,
+    "vos": 6.514362e-05,
+    "gain_lf": 48.72731,
+    "ph_lf": 0.196417,
+    "ugf": 29185540.0,
+    "ph_ugf": -97.44392,
+    "f3db": 109680.2,
+    "pm": 82.359663
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 48.72731,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 29185540.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 82.359663,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C11/ihp130/sW1_sL1/combined/result.json",
+   "geometry_hash": "116834701c006e60",
+   "area_um2": 2064.5756
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000001,
+    "idd": 9.172002e-05,
+    "vos": 0.0009629359,
+    "gain_lf": 47.12357,
+    "ph_lf": 0.1516946,
+    "ugf": 23415490.0,
+    "ph_ugf": -100.3566,
+    "f3db": 106918.0,
+    "pm": 79.4917054
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.12357,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 23415490.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.4917054,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_ihp130_sW1_sL1/c054b3c446d5/result.json",
+   "geometry_hash": "fa740bef2dd25d5f",
+   "area_um2": 1927.1642
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000002,
+    "idd": 8.767077e-05,
+    "vos": 0.001766065,
+    "gain_lf": 47.56782,
+    "ph_lf": 0.1548081,
+    "ugf": 21908250.0,
+    "ph_ugf": -100.2246,
+    "f3db": 94826.41,
+    "pm": 79.62059190000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 47.56782,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 21908250.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.62059190000001,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_ihp130_sW1_sL1/c054b3c446d5/result.json",
+   "geometry_hash": "fa740bef2dd25d5f",
+   "area_um2": 1927.1642
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 9.49955e-05,
+    "vos": 0.0002854991,
+    "gain_lf": 46.84284,
+    "ph_lf": 0.150216,
+    "ugf": 24656300.0,
+    "ph_ugf": -100.0733,
+    "f3db": 116424.9,
+    "pm": 79.776484
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 46.84284,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 24656300.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.776484,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_ihp130_sW1_sL1/c054b3c446d5/result.json",
+   "geometry_hash": "fa740bef2dd25d5f",
+   "area_um2": 1927.1642
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6000004,
+    "idd": 7.807537e-05,
+    "vos": 0.004115915,
+    "gain_lf": 45.72398,
+    "ph_lf": 0.1037892,
+    "ugf": 15818190.0,
+    "ph_ugf": -100.7545,
+    "f3db": 84093.7,
+    "pm": 79.14171080000001
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 45.72398,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 15818190.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 79.14171080000001,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_ihp130_sW1_sL1/c054b3c446d5/result.json",
+   "geometry_hash": "fa740bef2dd25d5f",
+   "area_um2": 1927.1642
+  },
+  {
+   "key": "C11_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vout0": 0.6,
+    "idd": 9.772792e-05,
+    "vos": 0.000157504,
+    "gain_lf": 48.7149,
+    "ph_lf": 0.1961595,
+    "ugf": 29222330.0,
+    "ph_ugf": -96.82356,
+    "f3db": 109871.4,
+    "pm": 82.9802805
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 48.7149,
+     "spec": {
+      "min": 44.12
+     },
+     "ok": true
+    },
+    "ugf": {
+     "value": 29222330.0,
+     "spec": {
+      "min": 14200000.0
+     },
+     "ok": true
+    },
+    "pm": {
+     "value": 82.9802805,
+     "spec": {
+      "min": 45.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C11_ihp130_sW1_sL1/c054b3c446d5/result.json",
+   "geometry_hash": "fa740bef2dd25d5f",
+   "area_um2": 1927.1642
+  },
+  {
+   "key": "C16_sky130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.390164,
+    "vo2": 1.390164,
+    "idd": 4.000037e-05,
+    "vos_in": -7.01181e-05,
+    "gain_lf": 14.39065,
+    "f3db": 76870970.0,
+    "ugf": 396750600.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 14.39065,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 76870970.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "bc1634c8eabc044f",
+   "area_um2": 377.2789
+  },
+  {
+   "key": "C16_sky130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.390162,
+    "vo2": 1.390162,
+    "idd": 4.000057e-05,
+    "vos_in": -6.88771e-05,
+    "gain_lf": 13.48121,
+    "f3db": 75657530.0,
+    "ugf": 350258500.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 13.48121,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 75657530.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "bc1634c8eabc044f",
+   "area_um2": 377.2789
+  },
+  {
+   "key": "C16_sky130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.390165,
+    "vo2": 1.390165,
+    "idd": 4.000023e-05,
+    "vos_in": -7.04514e-05,
+    "gain_lf": 14.91696,
+    "f3db": 78417480.0,
+    "ugf": 431438300.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 14.91696,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 78417480.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "bc1634c8eabc044f",
+   "area_um2": 377.2789
+  },
+  {
+   "key": "C16_sky130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.197464,
+    "vo2": 1.197464,
+    "idd": 4.000004e-05,
+    "vos_in": -6.71658e-05,
+    "gain_lf": 12.89585,
+    "f3db": 73267570.0,
+    "ugf": 315828000.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 12.89585,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 73267570.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "bc1634c8eabc044f",
+   "area_um2": 377.2789
+  },
+  {
+   "key": "C16_sky130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.580832,
+    "vo2": 1.580832,
+    "idd": 4.000308e-05,
+    "vos_in": -7.23184e-05,
+    "gain_lf": 15.71532,
+    "f3db": 81170780.0,
+    "ugf": 490749800.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 15.71532,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 81170780.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/sky130/sW1_sL1/independent/result.json",
+   "geometry_hash": "bc1634c8eabc044f",
+   "area_um2": 377.2789
+  },
+  {
+   "key": "C16_sky130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.390164,
+    "vo2": 1.390164,
+    "idd": 4.000037e-05,
+    "vos_in": -7.00978e-05,
+    "gain_lf": 14.38679,
+    "f3db": 75554600.0,
+    "ugf": 390042800.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 14.38679,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 75554600.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_sky130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "00ddcc62ca7fb3c0",
+   "area_um2": 320.1602
+  },
+  {
+   "key": "C16_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.390162,
+    "vo2": 1.390162,
+    "idd": 4.000057e-05,
+    "vos_in": -6.88573e-05,
+    "gain_lf": 13.4777,
+    "f3db": 74367430.0,
+    "ugf": 344319700.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 13.4777,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 74367430.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_sky130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "00ddcc62ca7fb3c0",
+   "area_um2": 320.1602
+  },
+  {
+   "key": "C16_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.390165,
+    "vo2": 1.390165,
+    "idd": 4.000023e-05,
+    "vos_in": -7.04308e-05,
+    "gain_lf": 14.9129,
+    "f3db": 77067930.0,
+    "ugf": 423891500.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 14.9129,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 77067930.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_sky130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "00ddcc62ca7fb3c0",
+   "area_um2": 320.1602
+  },
+  {
+   "key": "C16_sky130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.197464,
+    "vo2": 1.197464,
+    "idd": 4.000004e-05,
+    "vos_in": -6.71469e-05,
+    "gain_lf": 12.89267,
+    "f3db": 72019610.0,
+    "ugf": 310547700.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 12.89267,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 72019610.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_sky130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "00ddcc62ca7fb3c0",
+   "area_um2": 320.1602
+  },
+  {
+   "key": "C16_sky130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.580832,
+    "vo2": 1.580832,
+    "idd": 4.000308e-05,
+    "vos_in": -7.22965e-05,
+    "gain_lf": 15.71075,
+    "f3db": 79768010.0,
+    "ugf": 482214200.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 15.71075,
+     "spec": {
+      "min": 11.4
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 79768010.0,
+     "spec": {
+      "min": 49720000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_sky130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "00ddcc62ca7fb3c0",
+   "area_um2": 320.1602
+  },
+  {
+   "key": "C16_gf180",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.853843,
+    "vo2": 2.853843,
+    "idd": 4.00275e-05,
+    "vos_in": 2.357578e-05,
+    "gain_lf": 11.62277,
+    "f3db": 63334190.0,
+    "ugf": 233923200.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 11.62277,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 63334190.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "a5ada0153f64f8ad",
+   "area_um2": 1729.3648
+  },
+  {
+   "key": "C16_gf180",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.853692,
+    "vo2": 2.853692,
+    "idd": 4.004105e-05,
+    "vos_in": 2.503722e-05,
+    "gain_lf": 11.13833,
+    "f3db": 63274250.0,
+    "ugf": 219922900.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 11.13833,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 63274250.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "a5ada0153f64f8ad",
+   "area_um2": 1729.3648
+  },
+  {
+   "key": "C16_gf180",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.853953,
+    "vo2": 2.853953,
+    "idd": 4.001759e-05,
+    "vos_in": 2.223121e-05,
+    "gain_lf": 12.08807,
+    "f3db": 63404700.0,
+    "ugf": 247811800.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 12.08807,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 63404700.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "a5ada0153f64f8ad",
+   "area_um2": 1729.3648
+  },
+  {
+   "key": "C16_gf180",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.5255,
+    "vo2": 2.5255,
+    "idd": 4.000487e-05,
+    "vos_in": 2.847328e-05,
+    "gain_lf": 10.0598,
+    "f3db": 63246520.0,
+    "ugf": 191945200.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 10.0598,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 63246520.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "a5ada0153f64f8ad",
+   "area_um2": 1729.3648
+  },
+  {
+   "key": "C16_gf180",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 3.178708,
+    "vo2": 3.178708,
+    "idd": 4.010731e-05,
+    "vos_in": 1.888013e-05,
+    "gain_lf": 13.62097,
+    "f3db": 63261900.0,
+    "ugf": 298133400.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 13.62097,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 63261900.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/gf180/sW1_sL1/independent/result.json",
+   "geometry_hash": "a5ada0153f64f8ad",
+   "area_um2": 1729.3648
+  },
+  {
+   "key": "C16_gf180",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.853846,
+    "vo2": 2.853846,
+    "idd": 4.002751e-05,
+    "vos_in": 2.536558e-05,
+    "gain_lf": 11.62144,
+    "f3db": 62001730.0,
+    "ugf": 228885100.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 11.62144,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 62001730.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_gf180_sW1_sL1/c1905d32dbcf/result.json",
+   "geometry_hash": "a7195a0f8372f88f",
+   "area_um2": 1380.0232
+  },
+  {
+   "key": "C16_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.853695,
+    "vo2": 2.853695,
+    "idd": 4.004105e-05,
+    "vos_in": 2.699111e-05,
+    "gain_lf": 11.13702,
+    "f3db": 61943860.0,
+    "ugf": 215399600.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 11.13702,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 61943860.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_gf180_sW1_sL1/c1905d32dbcf/result.json",
+   "geometry_hash": "a7195a0f8372f88f",
+   "area_um2": 1380.0232
+  },
+  {
+   "key": "C16_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.853957,
+    "vo2": 2.853957,
+    "idd": 4.001759e-05,
+    "vos_in": 2.387008e-05,
+    "gain_lf": 12.08672,
+    "f3db": 62069940.0,
+    "ugf": 242732600.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 12.08672,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 62069940.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_gf180_sW1_sL1/c1905d32dbcf/result.json",
+   "geometry_hash": "a7195a0f8372f88f",
+   "area_um2": 1380.0232
+  },
+  {
+   "key": "C16_gf180",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 2.525503,
+    "vo2": 2.525503,
+    "idd": 4.000487e-05,
+    "vos_in": 3.087559e-05,
+    "gain_lf": 10.05867,
+    "f3db": 61910950.0,
+    "ugf": 187911800.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 10.05867,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 61910950.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_gf180_sW1_sL1/c1905d32dbcf/result.json",
+   "geometry_hash": "a7195a0f8372f88f",
+   "area_um2": 1380.0232
+  },
+  {
+   "key": "C16_gf180",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 3.178711,
+    "vo2": 3.178711,
+    "idd": 4.010732e-05,
+    "vos_in": 2.008492e-05,
+    "gain_lf": 13.61927,
+    "f3db": 61937190.0,
+    "ugf": 291797000.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 13.61927,
+     "spec": {
+      "min": 8.616
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 61937190.0,
+     "spec": {
+      "min": 41040000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_gf180_sW1_sL1/c1905d32dbcf/result.json",
+   "geometry_hash": "a7195a0f8372f88f",
+   "area_um2": 1380.0232
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "reference",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.9589611,
+    "vo2": 0.9589611,
+    "idd": 4e-05,
+    "vos_in": 5.395898e-05,
+    "gain_lf": 9.838062,
+    "f3db": 129108100.0,
+    "ugf": 380891900.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 9.838062,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 129108100.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "a3358a6d5ec65e54",
+   "area_um2": 1007.736
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "reference",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.9589611,
+    "vo2": 0.9589611,
+    "idd": 4e-05,
+    "vos_in": 5.415247e-05,
+    "gain_lf": 9.913828,
+    "f3db": 128185800.0,
+    "ugf": 381852600.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 9.913828,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 128185800.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "a3358a6d5ec65e54",
+   "area_um2": 1007.736
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "reference",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.9589611,
+    "vo2": 0.9589611,
+    "idd": 4e-05,
+    "vos_in": 5.313939e-05,
+    "gain_lf": 9.879677,
+    "f3db": 129881200.0,
+    "ugf": 385169900.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 9.879677,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 129881200.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "a3358a6d5ec65e54",
+   "area_um2": 1007.736
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "reference",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.836365,
+    "vo2": 0.836365,
+    "idd": 4e-05,
+    "vos_in": 6.03514e-05,
+    "gain_lf": 8.747818,
+    "f3db": 128795200.0,
+    "ugf": 329509200.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 8.747818,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 128795200.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "a3358a6d5ec65e54",
+   "area_um2": 1007.736
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "reference",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.081161,
+    "vo2": 1.081161,
+    "idd": 4e-05,
+    "vos_in": 4.705988e-05,
+    "gain_lf": 11.16845,
+    "f3db": 128947500.0,
+    "ugf": 449717200.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 11.16845,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 128947500.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/grid/C16/ihp130/sW1_sL1/independent/result.json",
+   "geometry_hash": "a3358a6d5ec65e54",
+   "area_um2": 1007.736
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "best_evaluated",
+   "condition": "TT_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.9589611,
+    "vo2": 0.9589611,
+    "idd": 4e-05,
+    "vos_in": 5.39604e-05,
+    "gain_lf": 9.837875,
+    "f3db": 127797200.0,
+    "ugf": 377044400.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 9.837875,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 127797200.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_ihp130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "e464537a6c2cf371",
+   "area_um2": 880.2168
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.9589611,
+    "vo2": 0.9589611,
+    "idd": 4e-05,
+    "vos_in": 5.415388e-05,
+    "gain_lf": 9.913641,
+    "f3db": 126883500.0,
+    "ugf": 378003500.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 9.913641,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 126883500.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_ihp130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "e464537a6c2cf371",
+   "area_um2": 880.2168
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_27C_VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.9589611,
+    "vo2": 0.9589611,
+    "idd": 4e-05,
+    "vos_in": 5.314082e-05,
+    "gain_lf": 9.879489,
+    "f3db": 128562800.0,
+    "ugf": 381312900.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 9.879489,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 128562800.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_ihp130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "e464537a6c2cf371",
+   "area_um2": 880.2168
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "best_evaluated",
+   "condition": "SS_85C_0.9VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 0.836365,
+    "vo2": 0.836365,
+    "idd": 4e-05,
+    "vos_in": 6.035284e-05,
+    "gain_lf": 8.747652,
+    "f3db": 127487900.0,
+    "ugf": 326107600.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 8.747652,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 127487900.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_ihp130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "e464537a6c2cf371",
+   "area_um2": 880.2168
+  },
+  {
+   "key": "C16_ihp130",
+   "role": "best_evaluated",
+   "condition": "FF_m40C_1.1VDD",
+   "status": "passed",
+   "measures": {
+    "vo1": 1.081161,
+    "vo2": 1.081161,
+    "idd": 4e-05,
+    "vos_in": 4.706128e-05,
+    "gain_lf": 11.16823,
+    "f3db": 127637500.0,
+    "ugf": 445078100.0
+   },
+   "spec": {
+    "gain_lf": {
+     "value": 11.16823,
+     "spec": {
+      "min": 8.0
+     },
+     "ok": true
+    },
+    "f3db": {
+     "value": 127637500.0,
+     "spec": {
+      "min": 83980000.0
+     },
+     "ok": true
+    }
+   },
+   "result": "runs/selection/C16_ihp130_sW1_sL1/c0c48e26e41e/result.json",
+   "geometry_hash": "e464537a6c2cf371",
+   "area_um2": 880.2168
+  }
+ ],
+ "comparison_vs_reference": {
+  "combined": {
+   "co_pass": 51,
+   "co_fail": 9
+  },
+  "best_evaluated": {
+   "co_pass": 66,
+   "co_fail": 9
+  }
+ },
+ "note": "interconnect R/C extracted at nominal; device corners only; frozen nominal specs; no Monte Carlo"
+}

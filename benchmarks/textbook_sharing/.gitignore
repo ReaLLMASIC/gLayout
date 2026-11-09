@@ -1,0 +1,4 @@
+# unpacked case folders (data/cases.tar.xz), unpacked run records or new runs, and the local Python environment
+data/cases/
+runs/
+.env/

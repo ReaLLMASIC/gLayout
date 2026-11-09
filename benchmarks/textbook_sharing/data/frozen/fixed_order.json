@@ -1,0 +1,36 @@
+{
+ "order": [
+  "combined",
+  "gate_only",
+  "diffusion_only",
+  "independent"
+ ],
+ "per_mode": {
+  "diffusion_only": {
+   "applicable": 75,
+   "passed": 74,
+   "pass_rate": 0.9866666666666667,
+   "n_paired": 74,
+   "mean_rel_area": -0.024349224362344435
+  },
+  "gate_only": {
+   "applicable": 57,
+   "passed": 56,
+   "pass_rate": 0.9824561403508771,
+   "n_paired": 56,
+   "mean_rel_area": -0.04540359657543676
+  },
+  "combined": {
+   "applicable": 57,
+   "passed": 55,
+   "pass_rate": 0.9649122807017544,
+   "n_paired": 55,
+   "mean_rel_area": -0.05471477540677514
+  }
+ },
+ "sizes": [
+  "sW1_sL1",
+  "sW1_sL1.5"
+ ],
+ "rule": "For each sharing mode m, over the development cases where both m and independent passed every automatic stage, take the mean of (A_m / A_independent - 1); order the modes by that mean ascending (ties: higher pass rate first); 'independent' is always last.  Declared before the development results were read; computed from the development sizes only and frozen before any held-out size was measured."
+}

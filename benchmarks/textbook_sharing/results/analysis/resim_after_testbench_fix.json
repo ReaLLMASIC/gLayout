@@ -1,0 +1,18 @@
+{
+ "counts": {
+  "auto_passed->auto_passed": 2082,
+  "skipped_no_postsim": 592,
+  "unchanged_deck": 1041,
+  "spec_failed->auto_passed": 2
+ },
+ "status_changes": [
+  [
+   "runs/grid/C13/gf180/sW1_sL1/combined/result.json",
+   "spec_failed->auto_passed"
+  ],
+  [
+   "runs/grid/C14/sky130/sW1.5_sL2/gate_only/result.json",
+   "spec_failed->auto_passed"
+  ]
+ ]
+}
