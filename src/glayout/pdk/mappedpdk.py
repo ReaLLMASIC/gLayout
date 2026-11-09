@@ -746,8 +746,11 @@ custom_drc_save_report $::env(DESIGN_NAME) $::env(REPORTS_DIR)/$::env(DESIGN_NAM
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_dir_path = Path(temp_dir).resolve()
             self.pdk_files['temp_dir'] = temp_dir_path
-            print("using user specified pdk_root, will search for required files in the specified directory")
-            self.pdk_files['pdk_root'] = pdk_root 
+            # only a given pdk_root replaces the stored one: storing None here made the next drc_magic
+            # in the same process export PDK_ROOT=None and fail to find the tech file
+            if pdk_root is not None:
+                print("using user specified pdk_root, will search for required files in the specified directory")
+                self.pdk_files['pdk_root'] = pdk_root
             
             lvsmag_path = temp_dir_path / f"{design_name}_lvsmag.spice"
             pex_path = temp_dir_path / f"{design_name}_pex.spice"

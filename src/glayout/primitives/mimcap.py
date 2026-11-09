@@ -174,7 +174,7 @@ def mimcap(
     )
     
     # 4. Add FuseTop layer - required for both options (defines the MIM area)
-    if (pdk is gf180):
+    if "fusetop" in pdk.layers:
         fusetop_comp = rectangle(
             size=size, 
             layer=pdk.layers["fusetop"], 

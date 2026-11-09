@@ -46,6 +46,20 @@ class ImportPathRegressionTests(unittest.TestCase):
         self.assertIs(blocks.current_mirror, cells.current_mirror)
         self.assertIs(blocks.transmission_gate, cells.transmission_gate)
 
+    def test_openrpdk28_import(self) -> None:
+        glayout = importlib.import_module("glayout")
+        pkg = importlib.import_module("glayout.pdk.openrpdk28_mapped")
+        self.assertIsNotNone(glayout.openrpdk28)
+        self.assertIs(glayout.openrpdk28, pkg.openrpdk28_mapped_pdk)
+        self.assertEqual(glayout.openrpdk28.name, "openrpdk28")
+
+    def test_icsprout55_import(self) -> None:
+        glayout = importlib.import_module("glayout")
+        pkg = importlib.import_module("glayout.pdk.icsprout55_mapped")
+        self.assertIsNotNone(glayout.icsprout55)
+        self.assertIs(glayout.icsprout55, pkg.icsprout55_mapped_pdk)
+        self.assertEqual(glayout.icsprout55.name, "icsprout55")
+
 
 if __name__ == "__main__":
     unittest.main()

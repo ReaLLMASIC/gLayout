@@ -33,7 +33,10 @@ def add_cm_labels(cm_in: Component,
     # vss
     vsslabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
     vsslabel.add_label(text="VSS",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vsslabel,cm_in.ports["fet_A_source_E"],None))
+    # inside the rail (from its N edge down), like VREF/VOUT: centred on the rail's
+    # E end, half the label would hang past the metal now that no source-short
+    # C route extends it, leaving a sub-width met2 sliver (magic M2.1)
+    move_info.append((vsslabel,cm_in.ports["fet_A_source_N"],None))
     
     # vref
     vreflabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
@@ -61,6 +64,13 @@ def add_cm_labels(cm_in: Component,
         cm_in.add(compref)
     return cm_in.flatten() 
 					
+# A is the diode-connected reference, B the output; both sources on VSS and both
+# gates on VREF. The interdigitized macro draws one rail per net and the A
+# drain-to-gate tie, so the cell needs no shorts of its own.
+MIRROR_NETS = {"A_source": "VSS", "B_source": "VSS", "A_drain": "VREF", "A_gate": "VREF",
+               "B_gate": "VREF", "B_drain": "VOUT"}
+
+
 def current_mirror_interdigitized_netlist(
     pdk: MappedPDK,
     width: float,
@@ -83,27 +93,24 @@ def current_mirror_interdigitized_netlist(
 
     current_mirror_netlist = Netlist(circuit_name="CMIRROR", nodes=["VREF", "VOUT", "VSS", "B"])
 
-    current_mirror_netlist.connect_netlist(
-        two_tran_interdigitized_netlist(
-            pdk=pdk,
-            width=width,
-            length=length,
-            fingers=fingers,
-            multipliers=multipliers,
-            with_dummy=with_dummy,
-            n_or_p_fet=n_or_p_fet,
-            dummies_tied_to_bulk=dummies_tied_to_bulk,
-        ),
-        [
-            ("VDD1", "VREF"),   # reference drain
-            ("VG1",  "VREF"),   # reference gate (diode-connected)
-            ("VDD2", "VOUT"),   # mirror drain
-            ("VG2",  "VREF"),   # mirror gate
-            ("VSS1", "VSS"),    # shared source
-            ("VSS2", "VSS"),
-            ("VB",   "B"),      # bulk
-        ],
+    pair = two_tran_interdigitized_netlist(
+        pdk=pdk,
+        width=width,
+        length=length,
+        fingers=fingers,
+        multipliers=multipliers,
+        with_dummy=with_dummy,
+        n_or_p_fet=n_or_p_fet,
+        dummies_tied_to_bulk=dummies_tied_to_bulk,
+        nets=MIRROR_NETS,
     )
+    mapping = [
+        ("VDD1", "VREF"),   # reference drain (= both gates: diode-connected)
+        ("VDD2", "VOUT"),   # mirror drain
+        ("VSS1", "VSS"),    # shared source
+        ("VB",   "B"),      # bulk
+    ]
+    current_mirror_netlist.connect_netlist(pair, [(a, b) for a, b in mapping if a in pair.nodes])
 
     return current_mirror_netlist
 
@@ -144,6 +151,8 @@ def current_mirror(
             dummy=with_dummy, 
             with_substrate_tap=False, 
             with_tie=False, 
+            nets=MIRROR_NETS,
+            diode_tie_side="W",
             **kwargs
         )
     elif device in ['pmos', 'pfet']:
@@ -153,17 +162,13 @@ def current_mirror(
             dummy=with_dummy, 
             with_substrate_tap=False, 
             with_tie=False, 
+            nets=MIRROR_NETS,
+            diode_tie_side="W",
             **kwargs
         )
     top_level.add_ports(interdigitized_fets.get_ports_list(), prefix="fet_")
-    maxmet_sep = pdk.util_max_metal_seperation()
-    # short source of the fets
-    source_short = interdigitized_fets << c_route(pdk, interdigitized_fets.ports['A_source_E'], interdigitized_fets.ports['B_source_E'], extension=3*maxmet_sep, viaoffset=False)
-    # short gates of the fets
-    gate_short = interdigitized_fets << c_route(pdk, interdigitized_fets.ports['A_gate_W'], interdigitized_fets.ports['B_gate_W'], extension=3*maxmet_sep, viaoffset=False)
-    # short gate and drain of one of the reference 
-    interdigitized_fets << L_route(pdk, interdigitized_fets.ports['A_drain_W'], gate_short.ports['con_N'], viaoffset=False, fullbottom=False)
-    
+    # sources share one rail and gates share one rail; the macro also draws the
+    # reference's drain-to-gate tie (W side), so there is nothing left to short here
     top_level << interdigitized_fets
     if with_tie:
         if device in ['nmos','nfet']:
@@ -212,7 +217,6 @@ def current_mirror(
         subtap_ring = top_level << tapring(pdk, enclosed_rectangle = subtap_enclosure, sdlayer = "p+s/d", horizontal_glayer = "met2", vertical_glayer = "met1")
         top_level.add_ports(subtap_ring.get_ports_list(), prefix="substrate_tap_")
   
-    top_level.add_ports(source_short.get_ports_list(), prefix='purposegndports')
 
     # length default must be None (not 0.15) so the netlist function falls
     # back to `pdk.get_grule('poly')['min_width']` — sky130=0.15, gf180=0.28.
@@ -236,7 +240,7 @@ def current_mirror(
     # gf180. Composite cells set GLAYOUT_NO_PIN_LABELS=1 around their sub-
     # cell builds so inner labels don't leak into the parent cell's GDS.
     import os
-    if pdk.name.lower() == "gf180" and with_tie and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
+    if pdk.name.lower() in ("gf180", "openrpdk28", "icsprout55") and with_tie and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
         top_level = add_cm_labels(top_level, pdk)
 
     return top_level

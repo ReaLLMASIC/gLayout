@@ -29,6 +29,14 @@ try:
     from .pdk.ihp130_mapped import ihp130_mapped_pdk as ihp130
 except Exception:
     ihp130 = None
+try:
+    from .pdk.openrpdk28_mapped import openrpdk28_mapped_pdk as openrpdk28
+except Exception:
+    openrpdk28 = None
+try:
+    from .pdk.icsprout55_mapped import icsprout55_mapped_pdk as icsprout55
+except Exception:
+    icsprout55 = None
 
 # Primitive components
 from .primitives.via_gen import via_stack, via_array
@@ -126,4 +134,6 @@ __all__ = [
     "align_comp_to_port",
     "sky130",
     "gf180",
+    "openrpdk28",
+    "icsprout55",
 ]

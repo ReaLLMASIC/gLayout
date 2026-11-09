@@ -42,23 +42,30 @@ _REF_SPICE = (
 
 
 def _resolve_deck_dir(pdk_root: str) -> Path:
-    """Resolve the gf180mcu klayout LVS deck directory from $PDK_ROOT.
+    """Resolve the gf180mcu / openrpdk28 klayout LVS deck directory from $PDK_ROOT.
 
-    Reads `$PDK_ROOT/ciel/gf180mcu/current` to pick the version hash, then
-    points at the variant-D (5LM, 11K top metal) klayout LVS folder.
+    Checks a direct deck directory first, then `$PDK_ROOT/{ciel,volare}/gf180mcu/current`,
+    then `$PDK_ROOT/gf180mcuD/libs.tech/klayout/tech/lvs`.
     """
-    pointer = Path(pdk_root) / "ciel" / "gf180mcu" / "current"
-    if not pointer.is_file():
-        raise FileNotFoundError(f"missing gf180mcu version pointer at {pointer}")
-    version = pointer.read_text().strip()
-    deck = (
-        Path(pdk_root)
-        / "ciel" / "gf180mcu" / "versions" / version
-        / "gf180mcuD" / "libs.tech" / "klayout" / "tech" / "lvs"
-    )
-    if not (deck / "run_lvs.py").is_file():
-        raise FileNotFoundError(f"missing run_lvs.py under {deck}")
-    return deck
+    root = Path(pdk_root)
+    if (root / "run_lvs.py").is_file() or (root / "gf180mcu.lvs").is_file():
+        return root
+    for manager in ("ciel", "volare"):
+        pointer = root / manager / "gf180mcu" / "current"
+        if pointer.is_file():
+            version = pointer.read_text().strip()
+            deck = (
+                root
+                / manager / "gf180mcu" / "versions" / version
+                / "gf180mcuD" / "libs.tech" / "klayout" / "tech" / "lvs"
+            )
+            if (deck / "run_lvs.py").is_file():
+                return deck
+    direct = root / "gf180mcuD" / "libs.tech" / "klayout" / "tech" / "lvs"
+    if (direct / "run_lvs.py").is_file():
+        return direct
+    pointer = root / "ciel" / "gf180mcu" / "current"
+    raise FileNotFoundError(f"missing gf180mcu version pointer at {pointer}")
 
 
 def _top_level_ports(spice_path: Path, top_cell: str) -> List[str]:
@@ -100,7 +107,7 @@ def _detect_substrate_name(spice_path: Path, top_cell: str) -> str:
     return tokens[-1] if tokens else "gf180mcu_gnd"
 
 
-_GF180_PRIMITIVE_FETS = ("nfet_03v3", "pfet_03v3")
+_GF180_PRIMITIVE_FETS = ("nfet_03v3", "pfet_03v3", "nm1p2_svt_lp", "pm1p2_svt_lp")
 _GF180_PRIMITIVE_CAPS = ("cap_mim_1f0fF", "cap_mim_1f5fF", "cap_mim_2f0fF")
 
 
@@ -216,7 +223,12 @@ def _stage_inputs(workdir: Path, cell: str, gds_src: Path, netlist_src: Path) ->
 
     parts = []
     if _REF_SPICE.is_file():
-        parts.append(f".include {_REF_SPICE}\n")
+        # Include a copy staged next to the netlist, not the repo path:
+        # klayout's SPICE reader ends the .include path at a '-', so a
+        # checkout in e.g. "glayout-martin/" read as "glayout" and failed.
+        ref_dst = workdir / _REF_SPICE.name
+        shutil.copy(_REF_SPICE, ref_dst)
+        parts.append(f".include {ref_dst}\n")
     parts.append(cdl_text)
     spice_dst.write_text("".join(parts))
 
@@ -265,19 +277,56 @@ _MIM_A_FIXED = """  connect(metal2_con, mim_virtual)
   connect(via2_cap, metal3_con)"""
 
 
-def _deck_with_option_a_fixed(deck: Path, dest: Path) -> Path:
-    """Copy the PDK deck and repair its MIM option A branch.
+def _deck_with_option_a_fixed(deck: Path, dest: Path, mim_option: str = "A") -> Path:
+    """Copy the PDK deck and repair known connectivity/label bugs in older gf180mcu decks.
 
     Returns the deck untouched when it is already fixed or the text is not
     recognised, so a different PDK version still runs.
     """
     connections = deck.parent / "rule_decks" / "mimcap_connections.lvs"
-    if not connections.is_file() or _MIM_A_BROKEN not in connections.read_text():
+    mim_ext = deck.parent / "rule_decks" / "mimcap_extraction.lvs"
+    gen_conn = deck.parent / "rule_decks" / "general_connections.lvs"
+    layer_defs = deck.parent / "rule_decks" / "layers_definitions.lvs"
+
+    needs_mim_a = mim_option == "A" and connections.is_file() and _MIM_A_BROKEN in connections.read_text()
+    needs_mim_name = mim_ext.is_file() and "_noshield" in mim_ext.read_text()
+    needs_m2_lbl = gen_conn.is_file() and "connect(metal2_ncap, metal2_label)" in gen_conn.read_text()
+    needs_m3_lbl = layer_defs.is_file() and (
+        "metal3_label = get_polygons(42, 10)" in layer_defs.read_text()
+        or "sub = polygon_layer" in layer_defs.read_text()
+    )
+
+    if not (needs_mim_a or needs_mim_name or needs_m2_lbl or needs_m3_lbl):
         return deck
 
     shutil.copytree(deck.parent, dest, dirs_exist_ok=True)
-    patched = dest / "rule_decks" / "mimcap_connections.lvs"
-    patched.write_text(patched.read_text().replace(_MIM_A_BROKEN, _MIM_A_FIXED))
+    if needs_mim_a:
+        patched = dest / "rule_decks" / "mimcap_connections.lvs"
+        patched.write_text(patched.read_text().replace(_MIM_A_BROKEN, _MIM_A_FIXED))
+    if needs_mim_name:
+        patched_mim = dest / "rule_decks" / "mimcap_extraction.lvs"
+        patched_mim.write_text(
+            re.sub(
+                r"cap_mim_(\df\d)_m\dm\d_noshield",
+                r"cap_mim_\1fF",
+                patched_mim.read_text(),
+            )
+        )
+    if needs_m2_lbl:
+        patched_gen = dest / "rule_decks" / "general_connections.lvs"
+        patched_gen.write_text(
+            patched_gen.read_text().replace(
+                "connect(metal2_ncap, metal2_label)",
+                "connect(metal2_con, metal2_label)",
+            )
+        )
+    if needs_m3_lbl:
+        patched_defs = dest / "rule_decks" / "layers_definitions.lvs"
+        defs_text = patched_defs.read_text()
+        for lnum in (42, 46, 81, 53):
+            defs_text = defs_text.replace(f"get_polygons({lnum}, 10)", f"labels({lnum}, 10)")
+        defs_text = defs_text.replace("sub = polygon_layer", "sub = extent.sized(1.0)")
+        patched_defs.write_text(defs_text)
     return dest / deck.name
 
 
@@ -301,7 +350,7 @@ def run_lvs_klayout_gf180(
     FuseTop / met3) or "B" (met4 / FuseTop / met5). The two are mutually
     exclusive at process level, so the wrong one extracts no capacitor at all
     and every MIM shows up as missing from the layout. Defaults to
-    ``$GF180_MIM_OPTION``, then to "A".
+    ``$GF180_MIM_OPTION``, then to "B" (matching the generator).
     """
     layout_path = Path(layout)
     netlist_path = Path(netlist)
@@ -310,7 +359,7 @@ def run_lvs_klayout_gf180(
     rpt_dir.mkdir(parents=True, exist_ok=True)
 
     pdk_root = pdk_root or os.environ.get("PDK_ROOT", "/foss/pdks")
-    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "A").upper()
+    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "B").upper()
     if mim_option not in ("A", "B"):
         raise ValueError(f"mim_option must be 'A' or 'B', got {mim_option!r}")
     deck_dir = _resolve_deck_dir(pdk_root)
@@ -333,10 +382,9 @@ def run_lvs_klayout_gf180(
         # option B branch already connects all three plates.
         deck_src = run_lvs.parent / "gf180mcu.lvs"
         lvs_deck = Path(os.environ.get("GF180_LVS_DECK")
-                        or (_deck_with_option_a_fixed(deck_src, tmpdir / "deck")
-                            if mim_option == "A" else deck_src))
+                        or _deck_with_option_a_fixed(deck_src, tmpdir / "deck", mim_option))
         sws = {
-            "input": str(layout_path),
+            "input": str(tmpdir / f"{design_name}.gds"),
             "schematic": str(spice_staged),
             "topcell": design_name,
             "target_netlist": str(tmpdir / f"{design_name}.cir"),

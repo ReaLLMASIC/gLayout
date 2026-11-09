@@ -28,9 +28,10 @@ from glayout.util.port_utils import (
 )
 from glayout.util.snap_to_grid import component_snap_to_grid
 from pydantic import validate_arguments
-from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
+from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, rail_tap
 from glayout.spice import Netlist
 from glayout.cells.elementary.current_mirror import current_mirror_netlist
+from glayout.cells.elementary.current_mirror.current_mirror import MIRROR_NETS
 
 def diff_pair_ibias_netlist(center_diffpair: Component, current_mirror: Component, antenna_diode: Optional[Component] = None) -> Netlist:
     netlist = Netlist(
@@ -154,6 +155,8 @@ def diff_pair_ibias(
             diffpair_i_.ports["PLUSgateroute_E_con_N"],
         )
     # create and position tail current source
+    # tail mirror: one source rail, one gate rail, and the A drain-to-gate tie
+    # (E side, where the old gate short was) all drawn by the macro
     cmirror = two_nfet_interdigitized(
         pdk,
         width=diffpair_bias[0],
@@ -165,36 +168,16 @@ def diff_pair_ibias(
         sd_route_topmet="met3",
         rmult=rmult,
         tie_layers=("met2", "met2"),
+        nets=MIRROR_NETS,
+        diode_tie_side="E",
+        diode_tie_viaoffset=None,   # as the old gate short: flush via on met3 rails
     )
-    # cmirror routing
+    # cmirror ground tap: the one source rail, continued W to a met4 via whose
+    # S edge is the purposegndports con_S port (VSS label, gnd route in
+    # diff_pair_stackedcmirror). Same extension as the old source-short C route.
     metal_sep = pdk.util_max_metal_seperation()
-    gate_short = cmirror << c_route(
-        pdk,
-        cmirror.ports["A_gate_E"],
-        cmirror.ports["B_gate_E"],
-        extension=3 * metal_sep,
-        viaoffset=None,
-    )
-    cmirror << L_route(
-        pdk,
-        gate_short.ports["con_N"],
-        cmirror.ports["A_drain_E"],
-        viaoffset=False,
-        fullbottom=False,
-    )
-    # Match gate_short's `extension=3*metal_sep` for breathing room, and
-    # `viaoffset=None` to keep the via stack flush with the e1_extension stub.
-    # Original `viaoffset=False` negates the flush amount, leaving a ~30nm gap
-    # between the W-side via and its met3 stub on the smaller rmult layouts —
-    # which trips m2.2 (met2 spacing in the sky130 deck = met3 in glayout).
-    srcshort = cmirror << c_route(
-        pdk,
-        cmirror.ports["A_source_W"],
-        cmirror.ports["B_source_W"],
-        extension=3 * metal_sep,
-        viaoffset=None,
-    )
-    cmirror.add_ports(srcshort.get_ports_list(), prefix="purposegndports")
+    srctap = cmirror << rail_tap(pdk, cmirror.ports["A_source_W"], extension=3 * metal_sep)
+    cmirror.add_ports(srctap.get_ports_list(), prefix="purposegndports")
     # Current mirror netlist. The dummies sit inside the composite's shared
     # pwell/tap context, so both extractors report their G/S/D on the bulk
     # net: klayout merges the interdigitized dummy fingers into one B-tied

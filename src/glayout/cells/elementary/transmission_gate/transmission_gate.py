@@ -221,7 +221,7 @@ def  transmission_gate(
     # labels, so we only stamp them for gf180. Composite cells suppress with
     # GLAYOUT_NO_PIN_LABELS so inner labels don't leak into the parent's GDS.
     import os
-    if pdk.name.lower() == "gf180" and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
+    if pdk.name.lower() in ("gf180", "openrpdk28", "icsprout55") and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
         try:
             component = add_tg_labels(component, pdk)
         except KeyError:

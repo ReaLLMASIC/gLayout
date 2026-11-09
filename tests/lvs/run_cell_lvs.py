@@ -149,12 +149,18 @@ def _run_one_lvs(item: dict) -> dict:
     result: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "status": "skip"}
     try:
         print(f"[LVS]  {name}", flush=True)
-        if pdk_name == "gf180":
+        if pdk_name in ("gf180", "openrpdk28", "icsprout55"):
+            default_pdk_root = (
+                str(REPO_ROOT / "src" / "glayout" / "pdk" / f"{pdk_name}_mapped" / "lvs")
+                if pdk_name in ("openrpdk28", "icsprout55")
+                else None
+            )
             ret = run_lvs_klayout_gf180(
                 layout=str(gds_path),
                 design_name=name,
                 netlist=str(netlist_path),
                 output_file_path=str(rpt_dir),
+                pdk_root=default_pdk_root,
                 mim_option=item.get("mim_option"),
             )
         else:
@@ -196,7 +202,7 @@ def _run_one_lvs(item: dict) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180"])
+    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "openrpdk28", "icsprout55"])
     parser.add_argument(
         "--inputs-dir", required=True,
         help="Directory containing gds/<cell>.gds and netlists/<cell>.spice (DRC artifact root for the PDK).",
@@ -228,7 +234,7 @@ def main() -> int:
             "or B (met4/FuseTop/met5). They are mutually exclusive at process "
             "level, so picking the wrong one extracts no capacitor and every "
             "MIM reports as missing from the layout. Default: $GF180_MIM_OPTION, "
-            "else A."
+            "else B (matching the generator)."
         ),
     )
     parser.add_argument(
