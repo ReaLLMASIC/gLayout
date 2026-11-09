@@ -13,15 +13,17 @@ import warnings
 
 
 class NarrowFetTests(unittest.TestCase):
-    WIDTHS = (0.22, 0.15, 0.036, 0.020)   # at the PDK minimums (gf180 0.22, openrpdk28 0.036), and below them
+    WIDTHS = (0.22, 0.15, 0.12, 0.08, 0.036, 0.020)   # at the PDK minimums (gf180 0.22, icsprout55 0.12, openrpdk28 0.036), and below them
 
     def _pdks(self):
         from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
         from glayout.pdk.openrpdk28_mapped.openrpdk28_mapped import openrpdk28_mapped_pdk
+        from glayout.pdk.icsprout55_mapped.icsprout55_mapped import icsprout55_mapped_pdk
         from glayout.pdk.sky130_mapped.sky130_mapped import sky130_mapped_pdk
         return (
             ("gf180", gf180_mapped_pdk),
             ("openrpdk28", openrpdk28_mapped_pdk),
+            ("icsprout55", icsprout55_mapped_pdk),
             ("sky130", sky130_mapped_pdk),
         )
 
@@ -42,11 +44,14 @@ class NarrowFetTests(unittest.TestCase):
     def test_sub_minimum_width_warns_and_clamps(self):
         from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk as gf180_pdk
         from glayout.pdk.openrpdk28_mapped.openrpdk28_mapped import openrpdk28_mapped_pdk as r28_pdk
+        from glayout.pdk.icsprout55_mapped.icsprout55_mapped import icsprout55_mapped_pdk as i55_pdk
         from glayout.primitives.fet import nmos
         with self.assertWarns(UserWarning):
             nmos(gf180_pdk, width=0.15, length=0.28)
         with self.assertWarns(UserWarning):
             nmos(r28_pdk, width=0.020, length=0.028)
+        with self.assertWarns(UserWarning):
+            nmos(i55_pdk, width=0.08, length=0.06)
 
 
 if __name__ == "__main__":

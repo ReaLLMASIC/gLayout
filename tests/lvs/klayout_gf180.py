@@ -107,7 +107,7 @@ def _detect_substrate_name(spice_path: Path, top_cell: str) -> str:
     return tokens[-1] if tokens else "gf180mcu_gnd"
 
 
-_GF180_PRIMITIVE_FETS = ("nfet_03v3", "pfet_03v3")
+_GF180_PRIMITIVE_FETS = ("nfet_03v3", "pfet_03v3", "nm1p2_svt_lp", "pm1p2_svt_lp")
 _GF180_PRIMITIVE_CAPS = ("cap_mim_1f0fF", "cap_mim_1f5fF", "cap_mim_2f0fF")
 
 

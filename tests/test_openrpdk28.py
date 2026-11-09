@@ -185,12 +185,11 @@ class OpenRPDK28Tests(unittest.TestCase):
         from run_cell_lvs import _parse_lvs_report
 
         cell_comp = current_mirror(self.pdk, numcols=2, width=3.0, length=0.028, device="nfet")
-        cell_comp = add_cm_labels(cell_comp, self.pdk)
-        cell_comp.name = "current_mirror_nfet"
+        cell_comp.name = "current_mirror_nfet_openrpdk28"
         with tempfile.TemporaryDirectory() as tmp:
             tmpdir = Path(tmp)
-            gds_path = tmpdir / "current_mirror_nfet.gds"
-            spice_path = tmpdir / "current_mirror_nfet.spice"
+            gds_path = tmpdir / "current_mirror_nfet_openrpdk28.gds"
+            spice_path = tmpdir / "current_mirror_nfet_openrpdk28.spice"
             cell_comp.write_gds(str(gds_path))
             spice_path.write_text(cell_comp.info["netlist"].generate_netlist())
 
@@ -199,7 +198,7 @@ class OpenRPDK28Tests(unittest.TestCase):
 
             lvs_res = run_lvs_klayout_gf180(
                 layout=str(gds_path),
-                design_name="current_mirror_nfet",
+                design_name=cell_comp.name,
                 netlist=str(spice_path),
                 output_file_path=str(tmpdir / "lvs"),
                 pdk_root=str(Path(self.pdk.pdk_files["klayout_drc_file"]).parent / "lvs"),

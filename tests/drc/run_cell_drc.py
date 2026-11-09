@@ -31,6 +31,7 @@ BUNDLED_DECKS = {
     "sky130": REPO_ROOT / "src" / "glayout" / "pdk" / "sky130_mapped" / "sky130.lydrc",
     "gf180":  REPO_ROOT / "src" / "glayout" / "pdk" / "gf180_mapped" / "gf180mcu.drc",
     "openrpdk28": REPO_ROOT / "src" / "glayout" / "pdk" / "openrpdk28_mapped" / "openrpdk28.drc",
+    "icsprout55": REPO_ROOT / "src" / "glayout" / "pdk" / "icsprout55_mapped" / "icsprout55.drc",
 }
 DEFAULT_PARAM_DIR = REPO_ROOT / "tests" / "parameters"
 
@@ -165,6 +166,11 @@ def _resolve_pdk(pdk_name: str):
         if openrpdk28 is None:
             raise RuntimeError("openrpdk28 PDK could not be imported")
         return openrpdk28
+    if pdk_name == "icsprout55":
+        from glayout import icsprout55
+        if icsprout55 is None:
+            raise RuntimeError("icsprout55 PDK could not be imported")
+        return icsprout55
     raise ValueError(f"Unsupported PDK: {pdk_name}")
 
 
@@ -481,7 +487,7 @@ def _write_junit(results: List[dict], pdk: str, out: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "openrpdk28"])
+    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "openrpdk28", "icsprout55"])
     parser.add_argument("--out-dir", default="drc_results")
     parser.add_argument(
         "--cells",

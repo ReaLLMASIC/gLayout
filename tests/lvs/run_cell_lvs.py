@@ -149,10 +149,10 @@ def _run_one_lvs(item: dict) -> dict:
     result: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "status": "skip"}
     try:
         print(f"[LVS]  {name}", flush=True)
-        if pdk_name in ("gf180", "openrpdk28"):
+        if pdk_name in ("gf180", "openrpdk28", "icsprout55"):
             default_pdk_root = (
-                str(REPO_ROOT / "src" / "glayout" / "pdk" / "openrpdk28_mapped" / "lvs")
-                if pdk_name == "openrpdk28"
+                str(REPO_ROOT / "src" / "glayout" / "pdk" / f"{pdk_name}_mapped" / "lvs")
+                if pdk_name in ("openrpdk28", "icsprout55")
                 else None
             )
             ret = run_lvs_klayout_gf180(
@@ -202,7 +202,7 @@ def _run_one_lvs(item: dict) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "openrpdk28"])
+    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "openrpdk28", "icsprout55"])
     parser.add_argument(
         "--inputs-dir", required=True,
         help="Directory containing gds/<cell>.gds and netlists/<cell>.spice (DRC artifact root for the PDK).",

@@ -20,7 +20,12 @@ class MimcapBuildTests(unittest.TestCase):
     def _pdks(self):
         from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
         from glayout.pdk.openrpdk28_mapped.openrpdk28_mapped import openrpdk28_mapped_pdk
-        return (("gf180", gf180_mapped_pdk), ("openrpdk28", openrpdk28_mapped_pdk))
+        from glayout.pdk.icsprout55_mapped.icsprout55_mapped import icsprout55_mapped_pdk
+        return (
+            ("gf180", gf180_mapped_pdk),
+            ("openrpdk28", openrpdk28_mapped_pdk),
+            ("icsprout55", icsprout55_mapped_pdk),
+        )
 
     def _pdk(self):
         from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
