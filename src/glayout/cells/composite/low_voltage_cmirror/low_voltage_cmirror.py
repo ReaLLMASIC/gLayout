@@ -254,7 +254,7 @@ def  low_voltage_cmirror(
     # pin labels on met*_label layers. sky130 magic+netgen tolerates missing
     # labels, so we only stamp them for gf180.
     import os
-    if pdk.name.lower() == "gf180" and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
+    if pdk.name.lower() in ("gf180", "openrpdk28") and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
         try:
             component = add_lvcm_labels(component, pdk)
         except KeyError:

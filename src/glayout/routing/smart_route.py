@@ -35,6 +35,9 @@ def smart_route(
         if ref_comp.info.get("route_genid") is not None:
             try:
                 if ref_comp.info["route_genid"] == "two_transistor_interdigitized":
+                    # a net-aware row already joins terminals on one net (shared rail or diode tie)
+                    if _same_net(ref_comp.info.get("nets"), edge1.name, edge2.name):
+                        return Component()
                     return generic_route_two_transistor_interdigitized(pdk, edge1, edge2, top_comp)
                 if ref_comp.info["route_genid"] == "four_transistor_interdigitized":
                     return generic_route_four_transistor_interdigitized(pdk, edge1, edge2, top_comp)
@@ -51,6 +54,19 @@ def smart_route(
             return c_route(pdk, edge1, edge2, **kwargs)
     else:
         return L_route(pdk, edge1, edge2, **kwargs)
+
+
+def _terminal(pname: str) -> Optional[str]:
+    """A_source, ..., B_gate: the interdigitized terminal a port name refers to."""
+    hits = [t for t in ("A_source", "A_drain", "A_gate", "B_source", "B_drain", "B_gate") if t in pname]
+    return max(hits, key=pname.rfind) if hits else None
+
+
+def _same_net(nets: Optional[dict], name1: str, name2: str) -> bool:
+    if not nets:
+        return False
+    t1, t2 = _terminal(name1), _terminal(name2)
+    return t1 is not None and t2 is not None and t1 != t2 and nets.get(t1) == nets.get(t2)
 
 
 # AorB_source,gate,or drain

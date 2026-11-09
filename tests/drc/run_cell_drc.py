@@ -30,6 +30,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 BUNDLED_DECKS = {
     "sky130": REPO_ROOT / "src" / "glayout" / "pdk" / "sky130_mapped" / "sky130.lydrc",
     "gf180":  REPO_ROOT / "src" / "glayout" / "pdk" / "gf180_mapped" / "gf180mcu.drc",
+    "openrpdk28": REPO_ROOT / "src" / "glayout" / "pdk" / "openrpdk28_mapped" / "openrpdk28.drc",
 }
 DEFAULT_PARAM_DIR = REPO_ROOT / "tests" / "parameters"
 
@@ -57,6 +58,32 @@ _CELL_BUILDERS: Dict[str, str] = {
     # channel (CO.4 in gf180), so these exercise the dogbone path in fet.py.
     "nmos_narrow":                            "glayout.primitives.fet:nmos",
     "pmos_narrow":                            "glayout.primitives.fet:pmos",
+    # One-row common-centroid cells with diffusion shared across devices
+    # (glayout.placement.finger_sequence). Parameters: finger_sequence_<pdk>.csv
+    "cc_current_mirror_nfet":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_current_mirror_pfet":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_current_mirror_1to2":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_diff_pair_nfet":                      "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_pfet":                      "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_f2":                        "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_f8":                        "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "bias_bank_x1":                           "glayout.floorplan.examples:bias_bank",
+    "bias_bank_x2":                           "glayout.floorplan.examples:bias_bank",
+    "cs_stage_f8":                            "glayout.floorplan.examples:cs_stage",
+    # Annealed, unrouted floorplan of finger-sequence blocks (glayout.floorplan)
+    "floorplan_two_stage_ota":                "glayout.floorplan.examples:two_stage_ota_floorplan",
+    "floorplan_two_stage_ota_nodrr":          "glayout.floorplan.examples:two_stage_ota_floorplan",
+    # Net-aware interdigitized rows (one rail per net): extra mirror sizes and the 4T row.
+    # Parameters: tests/parameters/netaware_<pdk>.csv
+    "current_mirror_nfet_c1":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_nfet_c3":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_pfet_c1":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_pfet_c3":                 "glayout.cells.elementary:current_mirror",
+    "generic_4T_interdigitized":              "glayout.placement.four_transistor_interdigitized:generic_4T_interdigitzed",
+    "opamp_output_stage":                     "glayout.cells.composite:opamp",
+    # Floorplanned *and routed* OTA (glayout.floorplan.router): DRC + end-to-end LVS
+    "routed_two_stage_ota_drr":               "glayout.floorplan.examples:two_stage_ota_routed",
+    "routed_two_stage_ota_closed_loop":       "glayout.floorplan.examples:two_stage_ota_routed",
 }
 
 
@@ -133,6 +160,11 @@ def _resolve_pdk(pdk_name: str):
         if gf180 is None:
             raise RuntimeError("gf180 PDK could not be imported")
         return gf180
+    if pdk_name == "openrpdk28":
+        from glayout import openrpdk28
+        if openrpdk28 is None:
+            raise RuntimeError("openrpdk28 PDK could not be imported")
+        return openrpdk28
     raise ValueError(f"Unsupported PDK: {pdk_name}")
 
 
@@ -273,6 +305,18 @@ def _run_magic_drc(item: dict, pdk, comp_name: str, gds_path: Path, magic_dir: P
     res: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "engine": "magic", "status": "skip"}
     rpt_dir = magic_dir / "drc" / comp_name
     rpt_path = rpt_dir / f"{comp_name}.rpt"
+    # magic prints "Cell <name> couldn't be read" and writes an empty report
+    # when the GDS top cell is named differently (e.g. gdsfactory's "<name>$1"),
+    # which used to count as a clean pass.
+    try:
+        import gdstk
+        tops = [c.name for c in gdstk.read_gds(str(gds_path)).top_level()]
+    except Exception:
+        tops = None
+    if tops is not None and comp_name not in tops:
+        res.update({"status": "error", "message": f"top cell {comp_name!r} not in GDS (found {tops})"})
+        print(f"[ERROR] {name}: {res['message']}", flush=True)
+        return res
     try:
         print(f"[MAGIC]{name}", flush=True)
         pdk.drc_magic(
@@ -437,7 +481,7 @@ def _write_junit(results: List[dict], pdk: str, out: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180"])
+    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "openrpdk28"])
     parser.add_argument("--out-dir", default="drc_results")
     parser.add_argument(
         "--cells",

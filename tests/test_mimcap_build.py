@@ -17,6 +17,11 @@ import unittest
 class MimcapBuildTests(unittest.TestCase):
     SIZES = ((5.0, 5.0), (10.0, 4.0))   # square hits the appendix branch
 
+    def _pdks(self):
+        from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
+        from glayout.pdk.openrpdk28_mapped.openrpdk28_mapped import openrpdk28_mapped_pdk
+        return (("gf180", gf180_mapped_pdk), ("openrpdk28", openrpdk28_mapped_pdk))
+
     def _pdk(self):
         from glayout.pdk.gf180_mapped.gf180_mapped import gf180_mapped_pdk
         return gf180_mapped_pdk
@@ -24,12 +29,12 @@ class MimcapBuildTests(unittest.TestCase):
     def test_mimcap_builds_with_extensions(self):
         """The default path. This is the one that regressed."""
         from glayout.primitives.mimcap import mimcap
-        pdk = self._pdk()
-        for option in ("A", "B"):
-            for size in self.SIZES:
-                with self.subTest(option=option, size=size):
-                    comp = mimcap(pdk, size=size, option=option)
-                    self.assertTrue(comp.get_ports_list())
+        for pdk_name, pdk in self._pdks():
+            for option in ("A", "B"):
+                for size in self.SIZES:
+                    with self.subTest(pdk=pdk_name, option=option, size=size):
+                        comp = mimcap(pdk, size=size, option=option)
+                        self.assertTrue(comp.get_ports_list())
 
     def test_mimcap_builds_without_extensions(self):
         """The path mimcap_array takes, which never regressed.
@@ -38,17 +43,19 @@ class MimcapBuildTests(unittest.TestCase):
         does not look like a pass.
         """
         from glayout.primitives.mimcap import mimcap
-        pdk = self._pdk()
-        for option in ("A", "B"):
-            with self.subTest(option=option):
-                comp = mimcap(pdk, size=(5.0, 5.0), option=option,
-                              with_extension=False)
-                self.assertTrue(comp.get_ports_list())
+        for pdk_name, pdk in self._pdks():
+            for option in ("A", "B"):
+                with self.subTest(pdk=pdk_name, option=option):
+                    comp = mimcap(pdk, size=(5.0, 5.0), option=option,
+                                  with_extension=False)
+                    self.assertTrue(comp.get_ports_list())
 
     def test_mimcap_array_builds(self):
         from glayout.primitives.mimcap import mimcap_array
-        comp = mimcap_array(self._pdk(), rows=2, columns=2, size=(5.0, 5.0))
-        self.assertTrue(comp.get_ports_list())
+        for pdk_name, pdk in self._pdks():
+            with self.subTest(pdk=pdk_name):
+                comp = mimcap_array(pdk, rows=2, columns=2, size=(5.0, 5.0))
+                self.assertTrue(comp.get_ports_list())
 
     def test_plates_land_on_the_layers_the_option_names(self):
         """Option A is a met2/met3 stack, option B a met4/met5 one.
@@ -63,21 +70,22 @@ class MimcapBuildTests(unittest.TestCase):
         import gdstk
         import tempfile
         from glayout.primitives.mimcap import mimcap
-        pdk = self._pdk()
         expected = {"A": ("met2", "met3"), "B": ("met4", "met5")}
-        for option, glayers in expected.items():
-            with self.subTest(option=option):
-                comp = mimcap(pdk, size=(5.0, 5.0), option=option)
-                with tempfile.TemporaryDirectory() as tmp:
-                    path = tmp + "/mimcap.gds"
-                    comp.write_gds(path)
-                    top = gdstk.read_gds(path).top_level()[0]
-                    top.flatten()
-                    drawn = {(p.layer, p.datatype) for p in top.polygons}
-                for glayer in glayers:
-                    layer, datatype = pdk.get_glayer(glayer)
-                    self.assertIn((int(layer), int(datatype)), drawn,
-                                  "option %s should draw %s" % (option, glayer))
+        for pdk_name, pdk in self._pdks():
+            for option, glayers in expected.items():
+                with self.subTest(pdk=pdk_name, option=option):
+                    comp = mimcap(pdk, size=(5.0, 5.0), option=option)
+                    with tempfile.TemporaryDirectory() as tmp:
+                        path = tmp + "/mimcap.gds"
+                        comp.write_gds(path)
+                        top = gdstk.read_gds(path).top_level()[0]
+                        top.flatten()
+                        drawn = {(p.layer, p.datatype) for p in top.polygons}
+                    for glayer in glayers:
+                        layer, datatype = pdk.get_glayer(glayer)
+                        self.assertIn((int(layer), int(datatype)), drawn,
+                                      "option %s should draw %s" % (option, glayer))
+                    self.assertIn(tuple(int(x) for x in pdk.layers["fusetop"]), drawn)
 
 
 if __name__ == "__main__":

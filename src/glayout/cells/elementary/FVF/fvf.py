@@ -285,7 +285,7 @@ def  flipped_voltage_follower(
     # FVF labels don't leak into the parent cell's GDS and confuse top-level
     # pin extraction.
     import os
-    if pdk.name.lower() == "gf180" and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
+    if pdk.name.lower() in ("gf180", "openrpdk28") and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
         try:
             component = add_fvf_labels(component, pdk)
         except KeyError:

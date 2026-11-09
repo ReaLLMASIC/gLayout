@@ -218,7 +218,9 @@ def multiplier(
     interfinger_rmult: int=1,
     sd_route_extension: float = 0,
     gate_route_extension: float = 0,
-    dummy_routes: bool=True
+    dummy_routes: bool=True,
+    source_route_extension: Optional[float] = None,
+    drain_route_extension: Optional[float] = None
 ) -> Component:
     """Generic poly/sd vias generator
     args:
@@ -235,6 +237,9 @@ def multiplier(
     gate_rmult = multiplies gate by adding rows to the gate via array (int only)
     interfinger_rmult = multiplies thickness of source/drain routes between the gates (int only)
     sd_route_extension = float, how far extra to extend the source/drain connections (default=0)
+    source_route_extension, drain_route_extension = float or None, override sd_route_extension
+    ****for the source (even contacts) or drain (odd contacts) rail only, so a caller can
+    ****put this device's source on one rail level and its drain on another (net-aware rails)
     gate_route_extension = float, how far extra to extend the gate connection (default=0)
     dummy_routes: bool default=True, if true add add vias and short dummy poly,source,drain
 
@@ -300,8 +305,10 @@ def multiplier(
             # place sdvia such that metal does not overlap diffusion
             big_extension = sdroute_minsep + sdroute_minsep + sdmet_hieght/2 + sdmet_hieght
             sdvia_extension = big_extension if finger % 2 else sdroute_minsep + (sdmet_hieght)/2
+            own_extension = drain_route_extension if finger % 2 else source_route_extension
+            own_extension = sd_route_extension if own_extension is None else own_extension
             sdvia_ref = align_comp_to_port(sdvia,diff_top_port,alignment=('c','t'))
-            multiplier.add(sdvia_ref.movey(sdvia_extension + pdk.snap_to_2xgrid(sd_route_extension)))
+            multiplier.add(sdvia_ref.movey(sdvia_extension + pdk.snap_to_2xgrid(own_extension)))
             multiplier << straight_route(pdk, diff_top_port, sdvia_ref.ports["bottom_met_N"])
             sdvia_ports += [sdvia_ref.ports["top_met_W"], sdvia_ref.ports["top_met_E"]]
             # get the next port (break before this if last iteration because port D.N.E. and num gates=fingers)
