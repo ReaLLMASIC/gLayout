@@ -75,7 +75,7 @@ def __route_bottom_ncomps_except_drain_nbias(pdk: MappedPDK, toplevel_stacked: C
     # m2 lands ~0.04um below the cmirror_ref source m2 column above it,
     # leaving a sliver gap that trips m2.2a. Stamp an m2 patch at each
     # corner that overlaps both polygons so they merge in DRC.
-    if pdk.name.lower() in ("gf180", "openrpdk28", "icsprout55"):
+    if pdk.name.lower() in ("gf180", "openrpdk28"):
         # use the backend's rectangle (already imported at module level), not
         # gdsfactory's: importing it directly bypasses the backend abstraction
         # and yields a component the active backend cannot reference.

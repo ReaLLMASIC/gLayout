@@ -41,7 +41,12 @@ from glayout.cells.elementary import (
 from glayout.cells.elementary.current_mirror.current_mirror import add_cm_labels
 from glayout.cells.elementary.finger_sequence import cc_current_mirror, cc_diff_pair
 from glayout.floorplan.examples import bias_bank, cs_stage
-from glayout.pdk.icsprout55_mapped import icsprout55_mapped_pdk
+from glayout.pdk.icsprout55_mapped import (
+    ICSPROUT55_NGSPICE_DIR,
+    ICSPROUT55_SPICE_LIB,
+    ICSPROUT55_SPICE_MODELS,
+    icsprout55_mapped_pdk,
+)
 from glayout.primitives.bjt import draw_bjt
 
 
@@ -67,6 +72,19 @@ class ICsprout55Tests(unittest.TestCase):
         )
         self.assertTrue(Path(self.pdk.pdk_files["klayout_drc_file"]).is_file())
         self.assertTrue(Path(self.pdk.pdk_files["lvs_schematic_ref_file"]).is_file())
+        self.assertTrue(Path(self.pdk.pdk_files["lvs_setup_tcl_file"]).is_file())
+        self.assertTrue(Path(self.pdk.pdk_files["magic_drc_file"]).is_file())
+
+    def test_simulation_models_and_spice_deck(self) -> None:
+        self.assertTrue(ICSPROUT55_NGSPICE_DIR.is_dir())
+        self.assertTrue(ICSPROUT55_SPICE_LIB.is_file())
+        self.assertTrue((ICSPROUT55_NGSPICE_DIR / "model_wrapper1_hsp.lib").is_file())
+        self.assertTrue((ICSPROUT55_NGSPICE_DIR / "model_wrapper2_hsp.lib").is_file())
+        self.assertEqual(ICSPROUT55_SPICE_MODELS["mos"]["nfet_svt"], "nm1p2_svt_lp")
+        self.assertEqual(ICSPROUT55_SPICE_MODELS["mos"]["pfet_svt"], "pm1p2_svt_lp")
+        self.assertIn("tt_mos", ICSPROUT55_SPICE_MODELS["corners"]["mos"])
+        for subdir in ("mos", "bjt", "dio", "res", "mom", "var"):
+            self.assertTrue((ICSPROUT55_NGSPICE_DIR / subdir).is_dir())
 
     def test_layer_mapping_and_grules(self) -> None:
         for glayer in self.pdk.glayers:

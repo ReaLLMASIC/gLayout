@@ -7,6 +7,6 @@ transmission_gate,{}
 differential_to_single_ended_converter,"{""rmult"": 3, ""half_pload"": [3.0, 0.06, 2], ""via_xlocation"": 12}"
 diff_pair_ibias,"{""half_diffpair_params"": [5.0, 0.06, 1], ""diffpair_bias"": [5.0, 0.06, 1], ""rmult"": 2, ""with_antenna_diode_on_diffinputs"": 0}"
 low_voltage_cmirror,"{""width"": [4.0, 1.5], ""length"": 0.06, ""fingers"": [2, 1], ""multipliers"": [1, 1]}"
-opamp,"{""half_diffpair_params"": [5.0, 0.06, 1], ""diffpair_bias"": [5.0, 0.06, 1], ""half_common_source_params"": [7.0, 0.06, 10, 5], ""half_common_source_bias"": [6.0, 0.06, 8, 4], ""half_pload"": [6.0, 0.06, 5], ""add_output_stage"": false, ""with_antenna_diode_on_diffinputs"": 0, ""rmult"": 1}"
+opamp,"{""half_diffpair_params"": [5.0, 0.06, 1], ""diffpair_bias"": [5.0, 0.06, 1], ""half_common_source_params"": [7.0, 0.06, 10, 5], ""half_common_source_bias"": [6.0, 0.06, 8, 4], ""half_pload"": [6.0, 0.06, 5], ""mim_cap_size"": [3.6, 9.0], ""add_output_stage"": false, ""with_antenna_diode_on_diffinputs"": 0, ""rmult"": 1}"
 nmos_narrow,"{""width"": 0.12, ""length"": 0.06}"
 pmos_narrow,"{""width"": 0.12, ""length"": 0.06}"

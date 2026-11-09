@@ -118,16 +118,87 @@ icsprout55_valid_bjt_sizes = {
 
 _HERE = Path(__file__).resolve().parent
 icsprout55_lydrc_file_path = _HERE / "icsprout55.drc"
+icsprout55_lylvs_file_path = _HERE / "icsprout55.lvs"
 lvs_schematic_ref_file = _HERE / "icsprout55_stdcells.spice"
 lvs_deck_dir = _HERE / "lvs"
 pdk_root = Path(os.getenv("PDK_ROOT", str(lvs_deck_dir)))
+
+# Official ICsprout 55nm LLULP1225/1233 ngspice simulation model library and device catalog
+ICSPROUT55_NGSPICE_DIR = _HERE / "ngspice"
+ICSPROUT55_SPICE_LIB = ICSPROUT55_NGSPICE_DIR / "ICsprout_55LLULP1225_V1p1_hsp.lib"
+ICSPROUT55_SPICE_MODELS = {
+    "mos": {
+        "nfet_svt": "nm1p2_svt_lp",
+        "pfet_svt": "pm1p2_svt_lp",
+        "nfet_lvt": "nm1p2_lvt_lp",
+        "pfet_lvt": "pm1p2_lvt_lp",
+        "nfet_hvt": "nm1p2_hvt_lp",
+        "pfet_hvt": "pm1p2_hvt_lp",
+        "nfet_nat_1p2": "nnat1p2_lp",
+        "nfet_2p5": "nm2p5_lp",
+        "pfet_2p5": "pm2p5_lp",
+        "nfet_nat_2p5": "nnat2p5_lp",
+        "nfet_3p3": "nmod3p3_lp",
+        "pfet_3p3": "pmod3p3_lp",
+        "nfet_nat_3p3": "nnatod3p3_lp",
+    },
+    "bjt": {
+        "pnp_1p2_2x": "vpnp1p2_2x_lp",
+        "pnp_1p2_5x": "vpnp1p2_5x_lp",
+        "pnp_1p2_10x": "vpnp1p2_10x_lp",
+        "npn_1p2_2x": "vnpn1p2_2x_lp",
+        "npn_1p2_5x": "vnpn1p2_5x_lp",
+        "npn_1p2_10x": "vnpn1p2_10x_lp",
+        "pnp_2p5_2x": "vpnp2p5_2x_lp",
+        "pnp_2p5_5x": "vpnp2p5_5x_lp",
+        "pnp_2p5_10x": "vpnp2p5_10x_lp",
+        "npn_2p5_2x": "vnpn2p5_2x_lp",
+        "npn_2p5_5x": "vnpn2p5_5x_lp",
+        "npn_2p5_10x": "vnpn2p5_10x_lp",
+    },
+    "dio": {
+        "ndio_svt": "dio_1p2_np_pw_lp",
+        "pdio_svt": "dio_1p2_pp_nw_lp",
+        "ndio_lvt": "dio_1p2_np_pw_lvt_lp",
+        "pdio_lvt": "dio_1p2_pp_nw_lvt_lp",
+        "ndio_hvt": "dio_1p2_np_pw_hvt_lp",
+        "pdio_hvt": "dio_1p2_pp_nw_hvt_lp",
+        "ndio_2p5": "dio_2p5_np_pw_lp",
+        "pdio_2p5": "dio_2p5_pp_nw_lp",
+    },
+    "res": {
+        "ppo_2t": "re_ppo_2t",
+        "ppo_3t": "re_ppo_3t",
+        "ppo_sab_2t": "re_ppo_sab_2t",
+        "ppo_sab_3t": "re_ppo_sab_3t",
+        "npo_2t": "re_npo_2t",
+        "npo_3t": "re_npo_3t",
+        "npo_sab_2t": "re_npo_sab_2t",
+        "npo_sab_3t": "re_npo_sab_3t",
+    },
+    "cap": {
+        "mimcap": "cap_mim_2f0fF",
+        "mom_2t": "mom_2t",
+        "mom_3t": "mom_3t",
+        "var_1p2": "var1p2_npd_nw_lp",
+        "var_2p5": "var2p5_npd_nw_lp",
+    },
+    "corners": {
+        "mos": ("tt_mos", "ff_mos", "ss_mos", "fnsp_mos", "snfp_mos", "mc_mos"),
+        "bjt": ("tt_bjt", "ff_bjt", "ss_bjt", "mc_bjt"),
+        "dio": ("tt_dio", "ff_dio", "ss_dio", "mc_dio"),
+        "res": ("tt_res", "ff_res", "ss_res", "mc_res"),
+        "var": ("tt_var", "ff_var", "ss_var", "mc_var"),
+        "mom": ("tt_mom", "ff_mom", "ss_mom", "mc_mom"),
+    },
+}
 
 pdk_files = {
     "pdk_root": pdk_root,
     "klayout_drc_file": icsprout55_lydrc_file_path,
     "lvs_schematic_ref_file": lvs_schematic_ref_file,
-    "lvs_setup_tcl_file": None,
-    "magic_drc_file": None,
+    "lvs_setup_tcl_file": _HERE / "netgen" / "ics55.tcl",
+    "magic_drc_file": _HERE / "magic" / "ics55.magicrc",
     "temp_dir": None,
 }
 
