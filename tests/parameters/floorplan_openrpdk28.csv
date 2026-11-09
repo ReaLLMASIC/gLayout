@@ -1,0 +1,3 @@
+cell,params_json
+floorplan_two_stage_ota,"{""seed"": 0, ""drr_scale"": 1.0}"
+floorplan_two_stage_ota_nodrr,"{""seed"": 0, ""drr_scale"": 0.0}"

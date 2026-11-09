@@ -30,6 +30,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 BUNDLED_DECKS = {
     "sky130": REPO_ROOT / "src" / "glayout" / "pdk" / "sky130_mapped" / "sky130.lydrc",
     "gf180":  REPO_ROOT / "src" / "glayout" / "pdk" / "gf180_mapped" / "gf180mcu.drc",
+    "openrpdk28": REPO_ROOT / "src" / "glayout" / "pdk" / "openrpdk28_mapped" / "openrpdk28.drc",
 }
 DEFAULT_PARAM_DIR = REPO_ROOT / "tests" / "parameters"
 
@@ -159,6 +160,11 @@ def _resolve_pdk(pdk_name: str):
         if gf180 is None:
             raise RuntimeError("gf180 PDK could not be imported")
         return gf180
+    if pdk_name == "openrpdk28":
+        from glayout import openrpdk28
+        if openrpdk28 is None:
+            raise RuntimeError("openrpdk28 PDK could not be imported")
+        return openrpdk28
     raise ValueError(f"Unsupported PDK: {pdk_name}")
 
 
@@ -475,7 +481,7 @@ def _write_junit(results: List[dict], pdk: str, out: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180"])
+    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "openrpdk28"])
     parser.add_argument("--out-dir", default="drc_results")
     parser.add_argument(
         "--cells",
