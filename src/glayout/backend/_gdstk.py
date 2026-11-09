@@ -43,6 +43,9 @@ class _CellDecoratorSettings(BaseModel):
     cache: bool = False
 
 
+_active_pdk: Optional["Pdk"] = None
+
+
 class Pdk(BaseModel):
     """Minimal shim for gdsfactory.pdk.Pdk. Holds enough state for
     MappedPDK to function."""
@@ -57,9 +60,9 @@ class Pdk(BaseModel):
     cell_decorator_settings: _CellDecoratorSettings = _CellDecoratorSettings()
 
     def activate(self) -> None:
-        """No-op. gdsfactory's activate() registered the PDK in a global
-        registry; that registry is a gdsfactory concern and isn't needed
-        once gdsfactory is out of the import graph."""
+        """Record the active PDK so write_gds can honour its precision."""
+        global _active_pdk
+        _active_pdk = self
         return None
 
     def validate_layers(self, layers_required) -> None:
@@ -325,7 +328,7 @@ class ComponentReference:
     ) -> "ComponentReference":
         """Move this reference. Two calling conventions:
           - move((dx, dy))                    — translate by offset
-          - move(destination=(x, y))          — move so the ref's center lands at (x, y)
+          - move(destination=(x, y))          — translate from (0, 0), as gdsfactory does
           - move(origin=(x0, y0),
                  destination=(x1, y1))        — translate by (x1-x0, y1-y0)
         """
@@ -335,9 +338,9 @@ class ComponentReference:
         if destination is None:
             return self
         if origin is None:
-            # move by (destination - current center)
-            cx, cy = self.center
-            dx, dy = destination[0] - cx, destination[1] - cy
+            # The omitted origin is (0, 0), not the bounding-box center.
+            # C/L route generators depend on gdsfactory's translation semantics.
+            dx, dy = destination[0], destination[1]
         else:
             dx, dy = destination[0] - origin[0], destination[1] - origin[1]
         return self.movex(dx).movey(dy)
@@ -426,6 +429,16 @@ class ComponentReference:
     def ymin(self) -> float: return self.bbox[0][1]
     @property
     def ymax(self) -> float: return self.bbox[1][1]
+
+    @property
+    def size(self) -> Coord:
+        (x0, y0), (x1, y1) = self.bbox
+        return (x1 - x0, y1 - y0)
+
+    @property
+    def xsize(self) -> float: return self.size[0]
+    @property
+    def ysize(self) -> float: return self.size[1]
 
     @property
     def name(self) -> str:
@@ -567,6 +580,8 @@ class Component:
         ports: Iterable[Port],
         prefix: str = "",
     ) -> "Component":
+        if isinstance(ports, dict):
+            ports = ports.values()
         for p in ports:
             new_name = f"{prefix}{p.name}" if prefix else p.name
             np = p.copy(name=new_name)
@@ -696,6 +711,11 @@ class Component:
         return (x1 - x0, y1 - y0)
 
     @property
+    def xsize(self) -> float: return self.size[0]
+    @property
+    def ysize(self) -> float: return self.size[1]
+
+    @property
     def references(self) -> list[ComponentReference]:
         return list(self._references)
 
@@ -720,6 +740,23 @@ class Component:
             for p in self._cell.get_polygons(layer=l, datatype=dt):
                 new._cell.add(p.copy())
         return new
+
+    def get_polygons(self, by_spec: bool = False, as_array: bool = True):
+        """Return polygons in this cell (hierarchy resolved), matching gdsfactory's API."""
+        polys = self._cell.get_polygons()
+        if by_spec:
+            out: dict[tuple[int, int], list] = {}
+            for p in polys:
+                key = (int(p.layer), int(p.datatype))
+                out.setdefault(key, []).append(p.points if as_array else p)
+            return out
+        if as_array:
+            return [p.points for p in polys]
+        return list(polys)
+
+    def get_layers(self) -> set[tuple[int, int]]:
+        """Return the set of (layer, datatype) pairs present in this component."""
+        return {(int(p.layer), int(p.datatype)) for p in self._cell.get_polygons()}
 
     def remove_layers(self, layers: Sequence[Layer]) -> "Component":
         """Remove all polygons on the given layers. Flattens references first
@@ -773,7 +810,17 @@ class Component:
         visit(self._cell)
         return order
 
-    def write_gds(self, filename: str, unit: float = 1e-6, precision: float = 1e-9) -> str:
+    def write_gds(
+        self,
+        filename: str,
+        unit: Optional[float] = None,
+        precision: Optional[float] = None,
+    ) -> str:
+        settings = getattr(_active_pdk, "gds_write_settings", None)
+        if unit is None:
+            unit = getattr(settings, "unit", 1e-6) or 1e-6
+        if precision is None:
+            precision = getattr(settings, "precision", 1e-9) or 1e-9
         lib = gdstk.Library(unit=unit, precision=precision)
         used_names: set[str] = set()
         for cell in self._collect_cells():
@@ -817,12 +864,16 @@ def Polygon(points, layer=(0, 0), datatype=None) -> gdstk.Polygon:
 # ---------------------------------------------------------------------------
 
 
-def snap_to_grid(x, nm: int = 1):
+def snap_to_grid(x, nm: Optional[float] = None):
     """Snap `x` (in micrometers) to an `nm`-nanometer grid.
 
     Matches gdsfactory.snap.snap_to_grid semantics used in this repo.
     Accepts scalars or iterables.
     """
+    if nm is None:
+        from glayout.pdk.finfet import _active_technology
+        technology=_active_technology.get()
+        nm=technology.manufacturing_grid*1000 if technology is not None else 1
     if x is None:
         return None
     if isinstance(x, (list, tuple)):
