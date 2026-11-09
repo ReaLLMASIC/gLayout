@@ -864,16 +864,12 @@ def Polygon(points, layer=(0, 0), datatype=None) -> gdstk.Polygon:
 # ---------------------------------------------------------------------------
 
 
-def snap_to_grid(x, nm: Optional[float] = None):
+def snap_to_grid(x, nm: int = 1):
     """Snap `x` (in micrometers) to an `nm`-nanometer grid.
 
     Matches gdsfactory.snap.snap_to_grid semantics used in this repo.
     Accepts scalars or iterables.
     """
-    if nm is None:
-        from glayout.pdk.finfet import _active_technology
-        technology=_active_technology.get()
-        nm=technology.manufacturing_grid*1000 if technology is not None else 1
     if x is None:
         return None
     if isinstance(x, (list, tuple)):

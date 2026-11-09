@@ -48,6 +48,7 @@ def _erase_subcell_pin_labels(opamp_top: Component, label_texts) -> Component:
     method is the only way to actually delete labels.
     """
     opamp_top.unlock()
+    opamp_top.flatten()
     targets = set(label_texts)
     # Snapshot first because we mutate the cell during iteration.
     to_remove = [lab for lab in opamp_top._cell.labels if lab.text in targets]

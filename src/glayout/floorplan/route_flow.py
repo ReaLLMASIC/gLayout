@@ -259,7 +259,7 @@ def route_floorplan(pdk: MappedPDK, circuit: Circuit, result: FloorplanResult, t
                     name: str = "routed_floorplan", labels: Optional[bool] = None) -> tuple[Component, RoutingResult]:
     """Realise, route and draw. ``labels`` defaults to gf180 only (klayout LVS needs them)."""
     tech = tech or RouterTech.from_pdk(pdk)
-    labels = (pdk.name.lower() == "gf180") if labels is None else labels
+    labels = (pdk.name.lower() in ("gf180", "openrpdk28")) if labels is None else labels
     with ProcessTable(f"Routed floorplan {circuit.name}", name) as pt:
         with pt.stage("Realise") as st:
             top = realize_floorplan(pdk, result, name=f"{name}_cells", flatten=False)

@@ -240,7 +240,7 @@ def current_mirror(
     # gf180. Composite cells set GLAYOUT_NO_PIN_LABELS=1 around their sub-
     # cell builds so inner labels don't leak into the parent cell's GDS.
     import os
-    if pdk.name.lower() == "gf180" and with_tie and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
+    if pdk.name.lower() in ("gf180", "openrpdk28") and with_tie and not os.environ.get("GLAYOUT_NO_PIN_LABELS"):
         top_level = add_cm_labels(top_level, pdk)
 
     return top_level
