@@ -44,7 +44,10 @@ def __create_and_route_pins(
     # drain route above vdd pin
     halfmultp_Ldrainport = opamp_top.ports["commonsource_Pamp_L_multiplier_0_drain_con_N"]
     halfmultp_Rdrainport = opamp_top.ports["commonsource_Pamp_R_multiplier_0_drain_con_N"]
-    halfmultp_drain_routeref = opamp_top << c_route(pdk, halfmultp_Ldrainport, halfmultp_Rdrainport, extension=opamp_top.ymax-halfmultp_Ldrainport.center[1]+pdk.get_grule("met5")["min_separation"], fullbottom=True)
+    _pdrain_ext = opamp_top.ymax - halfmultp_Ldrainport.center[1] + pdk.get_grule("met5")["min_separation"]
+    if pdk.finfet is not None:
+        _pdrain_ext += halfmultp_Ldrainport.width
+    halfmultp_drain_routeref = opamp_top << c_route(pdk, halfmultp_Ldrainport, halfmultp_Rdrainport, extension=_pdrain_ext, fullbottom=True)
     halfmultp_Lgateport = opamp_top.ports["commonsource_Pamp_L_multiplier_0_gate_con_S"]
     halfmultp_Rgateport = opamp_top.ports["commonsource_Pamp_R_multiplier_0_gate_con_S"]
     ptop_halfmultp_gate_route = opamp_top << c_route(pdk, halfmultp_Lgateport, halfmultp_Rgateport, extension=abs(pmos_comps_ref.ymin-halfmultp_Lgateport.center[1])+pdk.get_grule("met5")["min_separation"],fullbottom=True,viaoffset=(False,False))
@@ -56,12 +59,14 @@ def __create_and_route_pins(
     # top nwell taps to vdd, top p substrate taps to gnd. Keep <3um wide so
     # sky130's m1.3ab huge-metal rule isn't tripped (the rail otherwise
     # picks up tiny mcon neighbours at the diff_pair corners <0.28um away).
-    opamp_top << straight_route(pdk, opamp_top.ports["commonsource_cmirror_output_L_tie_N_top_met_N"], opamp_top.ports["pcomps_top_ptap_S_top_met_S"], width=2.5)
-    opamp_top << straight_route(pdk, opamp_top.ports["commonsource_cmirror_output_R_tie_N_top_met_N"], opamp_top.ports["pcomps_top_ptap_S_top_met_S"], width=2.5)
+    _ptap_w = pdk.get_grule("met2")["min_width"] if pdk.finfet is not None else 2.5
+    opamp_top << straight_route(pdk, opamp_top.ports["commonsource_cmirror_output_L_tie_N_top_met_N"], opamp_top.ports["pcomps_top_ptap_S_top_met_S"], width=_ptap_w)
+    opamp_top << straight_route(pdk, opamp_top.ports["commonsource_cmirror_output_R_tie_N_top_met_N"], opamp_top.ports["pcomps_top_ptap_S_top_met_S"], width=_ptap_w)
     L_toptapn_route = opamp_top.ports["commonsource_Pamp_L_tie_N_top_met_N"]
     R_toptapn_route = opamp_top.ports["commonsource_Pamp_R_tie_N_top_met_N"]
-    opamp_top << straight_route(pdk, movex(vddpin.ports["e4"],destination=L_toptapn_route.center[0]), L_toptapn_route, glayer1="met3",fullbottom=True)
-    opamp_top << straight_route(pdk, movex(vddpin.ports["e4"],destination=R_toptapn_route.center[0]), R_toptapn_route, glayer1="met3",fullbottom=True)
+    if pdk.finfet is None:
+        opamp_top << straight_route(pdk, movex(vddpin.ports["e4"],destination=L_toptapn_route.center[0]), L_toptapn_route, glayer1="met3",fullbottom=True)
+        opamp_top << straight_route(pdk, movex(vddpin.ports["e4"],destination=R_toptapn_route.center[0]), R_toptapn_route, glayer1="met3",fullbottom=True)
     # bias pins for first two stages
     vbias1 = opamp_top << rectangle(size=(5,3),layer=pdk.get_glayer("met3"),centered=True)
     vbias1.movey(opamp_top.ymin - _max_metal_seperation_ps - vbias1.ymax)
@@ -128,8 +133,9 @@ def __add_mimcap_arr(pdk: MappedPDK, opamp_top: Component, mim_cap_size, mim_cap
     # lands on met5, so both via stacks contact the cap plates directly.
     port1 = opamp_top.ports["pcomps_mimcap_connection_con_N"]
     port2 = mimcaps_ref.ports["row"+str(int(mim_cap_rows)-1)+"_col0_top_met_N"]
-    cref2_extension = max_metalsep + opamp_top.ymax - max(port1.center[1], port2.center[1])
-    opamp_top << c_route(pdk,port1,port2, extension=cref2_extension, fullbottom=True, e1glayer="met3", e2glayer="met5", cglayer="met4", width2=5.0) # A Hack
+    cref2_extension = max_metalsep + opamp_top.ymax - max(port1.center[1], port2.center[1]) + (0.1 if pdk.finfet is not None else 0)
+    _cref2_w2 = pdk.get_grule("met5")["min_width"] if pdk.finfet is not None else 5.0
+    opamp_top << c_route(pdk,port1,port2, extension=cref2_extension, fullbottom=True, e1glayer="met3", e2glayer="met5", cglayer="met4", width2=_cref2_w2) # A Hack
     intermediate_output = set_port_orientation(n_to_p_output_route.ports["con_S"],"N")
     # opamp_top << L_route(pdk, mimcaps_ref.ports["row0_col0_top_met_N"], intermediate_output, hwidth=1, hglayer="met4", vglayer="met4")
     # C route up right up to reach the mimcap port, extension is 

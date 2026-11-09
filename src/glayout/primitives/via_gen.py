@@ -121,6 +121,19 @@ def via_stack(
     bottom_met_...all edges
     bottom_layer_...all edges (may be different than bottom met if on diff/poly)
     """
+    if pdk.finfet is not None and 'active_tap' in (glayer1,glayer2):
+        metal = glayer2 if glayer1=='active_tap' else glayer1
+        stack = via_stack(pdk,'met1',metal,same_layer_behavior='min_square').copy()
+        for name in list(stack.ports):
+            if name.startswith(('bottom_layer_','bottom_via_')):stack.ports.pop(name)
+        bounds=tuple(stack.bbox[0])+tuple(stack.bbox[1])
+        from glayout.primitives.finfet import _rect,_ports
+        _rect(stack,pdk.get_glayer('active_tap'),*bounds)
+        _ports(stack,'bottom_layer_',bounds,pdk.get_glayer('active_tap'))
+        _ports(stack,'bottom_via_',bounds,pdk.get_glayer('active_tap'))
+        if 'bottom_met_N' not in stack.ports:
+            _ports(stack,'bottom_met_',bounds,pdk.get_glayer('met1'))
+        return stack
     ordered_layer_info = __error_check_order_layers(pdk, glayer1, glayer2)
     level1, level2 = ordered_layer_info[0]
     glayer1, glayer2 = ordered_layer_info[1]

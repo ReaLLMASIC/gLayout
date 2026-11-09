@@ -325,7 +325,7 @@ class ComponentReference:
     ) -> "ComponentReference":
         """Move this reference. Two calling conventions:
           - move((dx, dy))                    — translate by offset
-          - move(destination=(x, y))          — move so the ref's center lands at (x, y)
+          - move(destination=(x, y))          — translate from (0, 0), as gdsfactory does
           - move(origin=(x0, y0),
                  destination=(x1, y1))        — translate by (x1-x0, y1-y0)
         """
@@ -335,9 +335,9 @@ class ComponentReference:
         if destination is None:
             return self
         if origin is None:
-            # move by (destination - current center)
-            cx, cy = self.center
-            dx, dy = destination[0] - cx, destination[1] - cy
+            # The omitted origin is (0, 0), not the bounding-box center.
+            # C/L route generators depend on gdsfactory's translation semantics.
+            dx, dy = destination[0], destination[1]
         else:
             dx, dy = destination[0] - origin[0], destination[1] - origin[1]
         return self.movex(dx).movey(dy)
@@ -817,12 +817,16 @@ def Polygon(points, layer=(0, 0), datatype=None) -> gdstk.Polygon:
 # ---------------------------------------------------------------------------
 
 
-def snap_to_grid(x, nm: int = 1):
+def snap_to_grid(x, nm: Optional[float] = None):
     """Snap `x` (in micrometers) to an `nm`-nanometer grid.
 
     Matches gdsfactory.snap.snap_to_grid semantics used in this repo.
     Accepts scalars or iterables.
     """
+    if nm is None:
+        from glayout.pdk.finfet import _active_technology
+        technology=_active_technology.get()
+        nm=technology.manufacturing_grid*1000 if technology is not None else 1
     if x is None:
         return None
     if isinstance(x, (list, tuple)):

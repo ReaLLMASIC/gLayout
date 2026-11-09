@@ -149,6 +149,14 @@ def _run_one_lvs(item: dict) -> dict:
     result: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "status": "skip"}
     try:
         print(f"[LVS]  {name}", flush=True)
+        if pdk_name == 'asap7':
+            from glayout.pdk.asap7_mapped.verification import lvs
+            ret=lvs(gds_path,netlist_path,rpt_dir/name)
+            result.update(status='pass' if ret['match'] else 'fail',
+                          message='Netlists match' if ret['match'] else 'Netlists do not match',
+                          summary=ret,report=str((rpt_dir/name).relative_to(out_dir)))
+            print(f"[{result['status'].upper()}] {name}: {result['message']}",flush=True)
+            return result
         if pdk_name == "gf180":
             ret = run_lvs_klayout_gf180(
                 layout=str(gds_path),
@@ -196,7 +204,7 @@ def _run_one_lvs(item: dict) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180"])
+    parser.add_argument("--pdk", required=True, choices=["sky130", "gf180", "asap7"])
     parser.add_argument(
         "--inputs-dir", required=True,
         help="Directory containing gds/<cell>.gds and netlists/<cell>.spice (DRC artifact root for the PDK).",
@@ -209,7 +217,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--skip-cells",
-        default="differential_to_single_ended_converter,nmos_narrow,pmos_narrow",
+        default=None,
         help=(
             "Comma-separated cell names to skip when --cells is not specified. "
             "Default skips differential_to_single_ended_converter (Magic mis-extracts "
@@ -228,7 +236,7 @@ def main() -> int:
             "or B (met4/FuseTop/met5). They are mutually exclusive at process "
             "level, so picking the wrong one extracts no capacitor and every "
             "MIM reports as missing from the layout. Default: $GF180_MIM_OPTION, "
-            "else A."
+            "else B (matching the generator)."
         ),
     )
     parser.add_argument(
@@ -237,6 +245,8 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    if args.skip_cells is None:
+        args.skip_cells = "" if args.pdk == "asap7" else "differential_to_single_ended_converter,nmos_narrow,pmos_narrow"
     inputs_dir = Path(args.inputs_dir).resolve()
     out_dir = Path(args.out_dir).resolve()
     rpt_dir = out_dir / "reports"

@@ -30,6 +30,17 @@ class GdstkBackendTests(unittest.TestCase):
         c.add_port(name="p1", center=(0, 0), width=1, orientation=0, layer=(1, 0))
         self.assertIn("p1", c.ports)
 
+    def test_move_destination_is_translation(self):
+        from glayout.backend import Component, rectangle
+        from glayout.pdk.sky130_mapped.sky130_mapped import sky130_mapped_pdk
+        sky130_mapped_pdk.activate()
+        parent = Component()
+        ref = parent << rectangle(size=(5, 3), layer=(1, 0))
+        ref.move(destination=(10, 20))
+        self.assertEqual(ref.bbox, ((10.0, 20.0), (15.0, 23.0)))
+        ref.move(origin=(10, 20), destination=(0, 0))
+        self.assertEqual(ref.bbox, ((0.0, 0.0), (5.0, 3.0)))
+
     def test_primitives_build(self):
         from glayout.pdk.sky130_mapped.sky130_mapped import sky130_mapped_pdk as pdk
         from glayout.primitives.via_gen import via_stack, via_array

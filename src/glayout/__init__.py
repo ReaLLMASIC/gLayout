@@ -30,6 +30,10 @@ try:
 except Exception:
     ihp130 = None
 
+from .pdk.asap7_mapped import asap7_mapped_pdk as asap7
+from .primitives.finfet import finfet
+from .primitives.momcap import momcap
+
 # Primitive components
 from .primitives.via_gen import via_stack, via_array
 from .primitives.fet import nmos, pmos, multiplier
@@ -126,4 +130,7 @@ __all__ = [
     "align_comp_to_port",
     "sky130",
     "gf180",
+    "asap7",
+    "finfet",
+    "momcap",
 ]

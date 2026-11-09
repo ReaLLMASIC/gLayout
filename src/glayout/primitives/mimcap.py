@@ -87,6 +87,9 @@ def mimcap(
     top_met_...all edges, this is the top metal plate
     met5_...all edges, this is the bottom metal plate connection through metal5 vias
     """
+    if pdk.finfet is not None:
+        from glayout.primitives.momcap import legacy_momcap
+        return legacy_momcap(pdk,size)
     size = pdk.snap_to_2xgrid(size)
     
     # Validate option parameter - default to Option B if invalid
@@ -346,6 +349,9 @@ def mimcap_array(pdk: MappedPDK, rows: int, columns: int, size: tuple[float,floa
 	cap_x_y_top_met_...all edges, this is the metal over the capmet in row x, col y
 	cap_x_y_met5_...all edges, this is the bottom metal connection through metal5 vias in row x, col y
 	"""
+	if pdk.finfet is not None:
+		from glayout.primitives.momcap import legacy_momcap_array
+		return legacy_momcap_array(pdk,rows,columns,size,rmult)
 	# Set layer construction based on option
 	if option == "A":
 		capmettop = "met3"

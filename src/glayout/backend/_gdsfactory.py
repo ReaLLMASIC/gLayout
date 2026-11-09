@@ -45,3 +45,43 @@ __all__ = [
     "transformed",
     "route_quad",
 ]
+
+
+# gdsfactory 7.7 truncates fractional nanometres to int(0), producing NaN
+# ports for a 0.5nm PDK. Preserve its behavior for planar PDKs, but keep the
+# fractional grid for FinFETs. Patch the core aliases used to copy ports too.
+def _fractional_snap(x, grid_factor=1):
+    from glayout.pdk.finfet import _active_technology
+    technology = _active_technology.get()
+    if technology is None:
+        return _original_snap(x, grid_factor=grid_factor)
+    import numpy as np
+    pitch = technology.manufacturing_grid * grid_factor
+    result = pitch * np.round(np.asarray(x, dtype=float) / pitch)
+    if isinstance(x, tuple):
+        return tuple(result)
+    if np.isscalar(x):
+        return float(result)
+    return result
+
+
+_original_snap = snap_to_grid
+snap_to_grid = _fractional_snap
+import importlib as _importlib
+for _name in ('snap', 'port', 'component', 'component_reference'):
+    _module = _importlib.import_module('gdsfactory.' + _name)
+    if hasattr(_module, 'snap_to_grid'):
+        _module.snap_to_grid = _fractional_snap
+
+
+def _fractional_port_snap(x,grid_factor=1):
+    from glayout.pdk.finfet import _active_technology
+    if _active_technology.get() is None:return _original_snap(x,grid_factor=grid_factor)
+    # An on-grid edge with an odd number of grid units has a half-grid
+    # midpoint. Preserve it when gdsfactory constructs or copies a Port.
+    import numpy as np
+    pitch=_active_technology.get().manufacturing_grid*grid_factor/2
+    result=pitch*np.round(np.asarray(x,dtype=float)/pitch)
+    return tuple(result) if isinstance(x,tuple) else float(result) if np.isscalar(x) else result
+
+_importlib.import_module('gdsfactory.port').snap_to_grid=_fractional_port_snap

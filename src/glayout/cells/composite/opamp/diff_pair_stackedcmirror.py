@@ -63,8 +63,9 @@ def __route_bottom_ncomps_except_drain_nbias(pdk: MappedPDK, toplevel_stacked: C
     # route diff pair cmirror
     toplevel_stacked << L_route(pdk, toplevel_stacked.ports["diffpair_ibias_purposegndport"],gndpin.ports["W"])
     # gnd diff pair substrate tap
-    toplevel_stacked << straight_route(pdk, toplevel_stacked.ports["diffpair_tap_W_top_met_E"], toplevel_stacked.ports["commonsource_cmirror_output_L_tie_E_top_met_W"],width=1,glayer2="met1")
-    toplevel_stacked << straight_route(pdk, toplevel_stacked.ports["diffpair_tap_E_top_met_W"], toplevel_stacked.ports["commonsource_cmirror_output_R_tie_W_top_met_E"],width=1,glayer2="met1")
+    _tap_w = pdk.get_grule("met1")["min_width"] if pdk.finfet is not None else 1
+    toplevel_stacked << straight_route(pdk, toplevel_stacked.ports["diffpair_tap_W_top_met_E"], toplevel_stacked.ports["commonsource_cmirror_output_L_tie_E_top_met_W"],width=_tap_w,glayer2="met1")
+    toplevel_stacked << straight_route(pdk, toplevel_stacked.ports["diffpair_tap_E_top_met_W"], toplevel_stacked.ports["commonsource_cmirror_output_R_tie_W_top_met_E"],width=_tap_w,glayer2="met1")
     # common source
     # route to gnd the sources of cmirror, also creating the bottom shared power rail.
     _cref = toplevel_stacked << c_route(pdk, 
@@ -121,8 +122,9 @@ def __route_bottom_ncomps_except_drain_nbias(pdk: MappedPDK, toplevel_stacked: C
     Lgateport = toplevel_stacked.ports["commonsource_cmirror_output_L_multiplier_0_gate_S"]
     Rdrainport = toplevel_stacked.ports["commonsource_cmirror_ref_R_multiplier_0_drain_N"]
     Rgateport = toplevel_stacked.ports["commonsource_cmirror_output_R_multiplier_0_gate_S"]
-    draintogate_L = toplevel_stacked << straight_route(pdk, Ldrainport, Lgateport, glayer1="met3",via1_alignment=('c','b'),via2_alignment=('c','t'),width=1)
-    draintogate_R = toplevel_stacked << straight_route(pdk, Rdrainport, Rgateport, glayer1="met3",via1_alignment=('c','b'),via2_alignment=('c','t'),width=1)
+    _d2g_w = pdk.get_grule("met3")["min_width"] if pdk.finfet is not None else 1
+    draintogate_L = toplevel_stacked << straight_route(pdk, Ldrainport, Lgateport, glayer1="met3",via1_alignment=('c','b'),via2_alignment=('c','t'),width=_d2g_w)
+    draintogate_R = toplevel_stacked << straight_route(pdk, Rdrainport, Rgateport, glayer1="met3",via1_alignment=('c','b'),via2_alignment=('c','t'),width=_d2g_w)
     Lcmirrorrefgate = toplevel_stacked.ports["commonsource_cmirror_ref_L_multiplier_0_gate_E"]
     Rcmirrorrefgate = toplevel_stacked.ports["commonsource_cmirror_ref_R_multiplier_0_gate_W"]
     extension = pdk.util_max_metal_seperation()
