@@ -72,4 +72,9 @@ def set_backend(name: str) -> None:
 
 _bind(_load(_backend))
 
+# Opt-in debug tagging of geometry with the code that drew it.
+if os.environ.get("GLAYOUT_PROVENANCE"):
+    from glayout.util import provenance as _provenance
+    _provenance.enable()
+
 __all__ = (*_EXPORTS, "get_backend", "set_backend")

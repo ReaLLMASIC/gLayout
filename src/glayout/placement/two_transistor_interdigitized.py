@@ -14,6 +14,7 @@ from glayout.pdk.sky130_mapped import sky130_mapped_pdk
 from glayout.pdk.gf180_mapped import gf180_mapped_pdk
 from glayout.spice.netlist import Netlist
 from glayout.primitives.via_gen import via_stack
+from glayout.routing.c_route import c_route
 #from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized; from glayout.pdk.sky130_mapped import sky130_mapped_pdk as pdk; biasParams=[6,2,4]; rmult=2
 def add_two_int_labels(two_int_in: Component,
                 pdk: MappedPDK 
@@ -63,6 +64,25 @@ def add_two_int_labels(two_int_in: Component,
     return two_int_in.flatten() 
 
 
+TERMINALS = ("A_source", "A_drain", "A_gate", "B_source", "B_drain", "B_gate")
+
+
+def interdigitized_nets(nets: Optional[dict] = None, shared_gate: bool = False) -> dict:
+    """Complete terminal -> net map. Missing terminals get their own net (their
+    own name), so ``None`` means six distinct nets: two independent devices."""
+    out = {t: t for t in TERMINALS}
+    out.update(nets or {})
+    unknown = set(out) - set(TERMINALS)
+    if unknown:
+        raise ValueError(f"unknown terminals {sorted(unknown)}; use {TERMINALS}")
+    if shared_gate:
+        out["B_gate"] = out["A_gate"]
+    for dev in "AB":
+        if out[f"{dev}_source"] == out[f"{dev}_drain"]:
+            raise ValueError(f"device {dev}: source and drain are the same net {out[dev + '_source']!r}")
+    return out
+
+
 def two_tran_interdigitized_netlist(
     pdk: MappedPDK,
     width: float,
@@ -73,7 +93,13 @@ def two_tran_interdigitized_netlist(
     n_or_p_fet: Optional[str] = 'nfet',
     subckt_only: Optional[bool] = False,
     dummies_tied_to_bulk: bool = True,
+    shared_gate: bool = False,
+    nets: Optional[dict] = None,
 ) -> Netlist:
+    # Terminals on one net (``nets``/``shared_gate``, see macro_two_transistor_interdigitized)
+    # share one rail in the layout, so they share one pin here: the pin of the first such
+    # terminal in VDD1 VDD2 VSS1 VSS2 VG1 VG2 order. E.g. shared_gate drops VG2; a current
+    # mirror (shared source, diode-connected A) keeps only VDD1 VDD2 VSS1 VB.
     if length is None:
         length = pdk.get_grule('poly')['min_width']
     if width is None:
@@ -93,9 +119,17 @@ def two_tran_interdigitized_netlist(
     # X-prefix is sky130's magic+netgen tech expectation; klayout decks
     # that classify primitive MOSFETs by SPICE prefix get their netlist
     # X→M-rewritten by the LVS runner.
+    terms = interdigitized_nets(nets, shared_gate)
+    canonical = [("A_drain", "VDD1"), ("B_drain", "VDD2"), ("A_source", "VSS1"), ("B_source", "VSS2"),
+                 ("A_gate", "VG1"), ("B_gate", "VG2")]
+    first = {}
+    for t, pin in canonical:
+        first.setdefault(terms[t], pin)
+    pin = {t: first[terms[t]] for t, _ in canonical}
+    pins = [p for _, p in canonical if p in first.values()]
     source_netlist = """.subckt {circuit_name} {nodes} """ + f'l={length} w={width} m={1} '+ f"""
-XA VDD1 VG1 VSS1 VB {model} l={length} w={width} m={mtop}
-XB VDD2 VG2 VSS2 VB {model} l={length} w={width} m={mtop}"""
+XA {pin['A_drain']} {pin['A_gate']} {pin['A_source']} VB {model} l={length} w={width} m={mtop}
+XB {pin['B_drain']} {pin['B_gate']} {pin['B_source']} VB {model} l={length} w={width} m={mtop}"""
     if with_dummy:
         source_netlist += f"\nXDUMMY {dum_node} {dum_node} {dum_node} VB {model} l={length} w={width} m={2}"
     source_netlist += "\n.ends {circuit_name}"
@@ -104,7 +138,7 @@ XB VDD2 VG2 VSS2 VB {model} l={length} w={width} m={mtop}"""
 
     return Netlist(
         circuit_name='two_trans_interdigitized',
-        nodes=['VDD1', 'VDD2', 'VSS1', 'VSS2', 'VG1', 'VG2', 'VB'],
+        nodes=pins + ['VB'],
         source_netlist=source_netlist,
         instance_format=instance_format,
         parameters={
@@ -120,6 +154,11 @@ def macro_two_transistor_interdigitized(
     numcols: int,
     deviceA_and_B: Literal["nfet", "pfet"],
     dummy: Union[bool, tuple[bool, bool]] = True,
+    shared_gate: bool = False,
+    nets: Optional[dict] = None,
+    diode_tie_side: Literal["W", "E"] = "W",
+    diode_tie_viaoffset: Optional[bool] = False,
+    rail_order: Optional[list] = None,
     **kwargs
 ) -> Component:
     """place two transistors in a single row with interdigitized placement
@@ -130,9 +169,27 @@ def macro_two_transistor_interdigitized(
     numcols = a single col is actually one col for both transistors (so AB). 2 cols = ABAB ... so on
     deviceA_and_B = the device to place for both transistors (either nfet or pfet)
     dummy = place dummy at the edges of the interdigitized place (true by default). you can specify tuple to place only on one side
-    kwargs = key word arguments for device. 
+    nets = terminal -> net map over A_source, A_drain, A_gate, B_source, B_drain, B_gate (missing
+        terminals are distinct nets). Rails are drawn per *net*, not per terminal: terminals on the
+        same net share one rail and their ports alias it (e.g. a current mirror has three source/drain
+        rails, VSS/VREF/VOUT, and one gate rail). Where a gate net is also a source/drain net (a diode
+        connection) the macro draws the one C route that joins the two rails, on ``diode_tie_side``.
+    shared_gate = shorthand for nets with B_gate == A_gate. default False
+    diode_tie_side = side of the row for diode-connection C routes. default W
+    diode_tie_viaoffset = c_route viaoffset for those ties. False (default) suits met2 rails; with
+        met3 rails it leaves a ~30nm gap between via and stub (sky130 m2.2, and an open), use None
+    rail_order = source/drain nets bottom to top (default: A_source, A_drain, then B's other nets).
+        Use it to keep side connections of different nets off adjacent rails when their vias are
+        bigger than a rail pitch allows (sky130 met3->met4 vias have a 1.5um met4 pad)
+    kwargs = key word arguments for device.
     ****NOTE: These are the same as glayout.flow.primitives.fet.multiplier arguments EXCLUDING dummy, sd_route_extension, and pdk options
+
+    source/drain rails stack above the row one rail pitch (rail height + spacing) apart, in the order
+    A_source, A_drain, then B's nets that are not already there; B's gate rail, if B has its own gate
+    net, sits one metal spacing below A's.
     """
+    nets = interdigitized_nets(nets, shared_gate)
+    shared_gate = nets["A_gate"] == nets["B_gate"]
     if isinstance(dummy, bool):
         dummy = (dummy, dummy)
     # override kwargs for needed options
@@ -145,10 +202,30 @@ def macro_two_transistor_interdigitized(
     lefttmost_devA = multiplier(**kwargs)
     kwargs["dummy"] = False
     center_devA = multiplier(**kwargs)
-    devB_sd_extension = pdk.util_max_metal_seperation() + abs(center_devA.ports["drain_N"].center[1]-center_devA.ports["diff_N"].center[1])
-    devB_gate_extension = pdk.util_max_metal_seperation() + abs(center_devA.ports["row0_col0_gate_S"].center[1]-center_devA.ports["gate_S"].center[1])
-    kwargs["sd_route_extension"] = pdk.snap_to_2xgrid(devB_sd_extension)
-    kwargs["gate_route_extension"] = pdk.snap_to_2xgrid(devB_gate_extension)
+    # rail levels: one level per distinct source/drain net (default: A's source 0, A's drain 1)
+    sd_order = []
+    for t in ("A_source", "A_drain", "B_source", "B_drain"):
+        if nets[t] not in sd_order:
+            sd_order.append(nets[t])
+    if rail_order is not None:
+        if sorted(rail_order) != sorted(sd_order):
+            raise ValueError(f"rail_order {rail_order} must list the source/drain nets {sd_order} once each")
+        sd_order = list(rail_order)
+    level = {t: sd_order.index(nets[t]) for t in ("A_source", "A_drain", "B_source", "B_drain")}
+    # one rail pitch = the distance multiplier already keeps between its source and drain rails
+    sd_pitch = center_devA.ports["drain_W"].center[1] - center_devA.ports["source_W"].center[1]
+    if (level["A_source"], level["A_drain"]) != (0, 1):
+        kwargs["source_route_extension"] = pdk.snap_to_2xgrid(level["A_source"] * sd_pitch)
+        kwargs["drain_route_extension"] = pdk.snap_to_2xgrid((level["A_drain"] - 1) * sd_pitch)
+        kwargs["dummy"] = (True,False) if dummy[0] else False
+        lefttmost_devA = multiplier(**kwargs)
+        kwargs["dummy"] = False
+        center_devA = multiplier(**kwargs)
+    kwargs["source_route_extension"] = pdk.snap_to_2xgrid(level["B_source"] * sd_pitch)
+    kwargs["drain_route_extension"] = pdk.snap_to_2xgrid((level["B_drain"] - 1) * sd_pitch)
+    # B's own gate rail: its bar top one max metal spacing below A's bar bottom
+    devB_gate_extension = abs(center_devA.ports["row0_col0_gate_S"].center[1]-center_devA.ports["gate_S"].center[1])
+    kwargs["gate_route_extension"] = 0 if shared_gate else pdk.snap_to_2xgrid(devB_gate_extension)
     center_devB = multiplier(**kwargs)
     kwargs["dummy"] = (False,True) if dummy[1] else False
     rightmost_devB = multiplier(**kwargs)
@@ -170,30 +247,56 @@ def macro_two_transistor_interdigitized(
         devletter = "B" if i%2 else "A"
         prefix=devletter+"_"+str(int(i/2))+"_"
         idplace.add_ports(refs[-1].get_ports_list(), prefix=prefix)
-    # extend poly layer for equal parasitics
+    # owner terminal of each rail: the first terminal on that net; A rails start at the
+    # leftmost A, B rails at the rightmost B (as before)
+    def _rail_ports(t: str):
+        dev, term = t.split("_")
+        if dev == "A":
+            return refs[0].ports[f"{term}_W"], refs[-1].ports[f"{term}_E"]
+        return refs[-1].ports[f"{term}_E"], refs[0].ports[f"{term}_W"]
+    sd_owner = {}
+    for t in ("A_source", "A_drain", "B_source", "B_drain"):
+        sd_owner.setdefault(nets[t], t)
+    top_rail = sd_owner[sd_order[-1]]
+    top_port = _rail_ports(top_rail)[0]
+    # extend s/d risers to the top rail and gate poly to the lowest gate rail, for equal parasitics
     for i in range(2*numcols):
         desired_end_layer = pdk.layer_to_glayer(refs[i].ports["row0_col0_rightsd_top_met_N"].layer)
-        idplace << straight_route(pdk, refs[i].ports["row0_col0_rightsd_top_met_N"],refs[-1].ports["drain_E"],glayer2=desired_end_layer)
-        idplace << straight_route(pdk, refs[i].ports["leftsd_top_met_N"],refs[-1].ports["drain_E"],glayer2=desired_end_layer)
-        if not i%2:
+        idplace << straight_route(pdk, refs[i].ports["row0_col0_rightsd_top_met_N"],top_port,glayer2=desired_end_layer)
+        idplace << straight_route(pdk, refs[i].ports["leftsd_top_met_N"],top_port,glayer2=desired_end_layer)
+        # with a shared gate rail, A and B gate poly already have equal length
+        if not i%2 and not shared_gate:
             desired_gate_end_layer = "poly"
             idplace << straight_route(pdk, refs[i].ports["row0_col0_gate_S"], refs[-1].ports["gate_E"],glayer2=desired_gate_end_layer)
     # merge s/d layer for all transistors
     idplace << straight_route(pdk, refs[0].ports["plusdoped_W"],refs[-1].ports["plusdoped_E"])
-    # create s/d/gate connections extending over entire row
-    A_src = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[0].ports["source_W"], refs[-1].ports["source_E"]), [("route_","_")]))
-    B_src = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[-1].ports["source_E"], refs[0].ports["source_W"]), [("route_","_")]))
-    A_drain = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[0].ports["drain_W"], refs[-1].ports["drain_E"]), [("route_","_")]))
-    B_drain = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[-1].ports["drain_E"], refs[0].ports["drain_W"]), [("route_","_")]))
-    A_gate = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[0].ports["gate_W"], refs[-1].ports["gate_E"]), [("route_","_")]))
-    B_gate = idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, refs[-1].ports["gate_E"], refs[0].ports["gate_W"]), [("route_","_")]))
-    # add route ports and return
+    # one row-wide rail per net: source/drain rails above the row, gate rails below
+    def _rail(t: str):
+        return idplace << rename_ports_by_orientation(rename_ports_by_list(straight_route(pdk, *_rail_ports(t)), [("route_","_")]))
+    gate_owner = {}
+    for t in ("A_gate", "B_gate"):
+        gate_owner.setdefault(nets[t], t)
+    rails = {("sd", net): _rail(sd_owner[net]) for net in sd_order}
+    rails.update({("gate", net): _rail(t) for net, t in gate_owner.items()})
+    def _rail_of(t: str):
+        return rails[("gate" if t.endswith("gate") else "sd", nets[t])]
+    # add route ports (terminals on the same net alias one rail) and return
     prefixes = ["A_source","B_source","A_drain","B_drain","A_gate","B_gate"]
-    for i, ref in enumerate([A_src, B_src, A_drain, B_drain, A_gate, B_gate]):
-        idplace.add_ports(ref.get_ports_list(),prefix=prefixes[i])
+    for t in prefixes:
+        idplace.add_ports(_rail_of(t).get_ports_list(),prefix=t)
+    # diode connections: a gate rail (below the row) joined to the source/drain rail (above) of the same net
+    maxsep = pdk.util_max_metal_seperation()
+    ties = [net for net in gate_owner if net in sd_owner]
+    for i, net in enumerate(ties):
+        side = diode_tie_side if i % 2 == 0 else ("E" if diode_tie_side == "W" else "W")
+        idplace << c_route(pdk, idplace.ports[f"{sd_owner[net]}_{side}"], idplace.ports[f"{gate_owner[net]}_{side}"],
+                           extension=(3 + 4 * (i // 2)) * maxsep, viaoffset=diode_tie_viaoffset)
     idplace = transformed(prec_ref_center(idplace))
     idplace.unlock()
     idplace.add_ports(create_private_ports(idplace, prefixes))
+    idplace.info["nets"] = dict(nets)
+    idplace.info["sd_rails"] = list(sd_order)
+    idplace.info["diode_ties"] = ties
     return idplace
 
 
@@ -276,7 +379,9 @@ def two_nfet_interdigitized(
         pdk,
         width=kwargs.get('width', 3), length=kwargs.get('length'), fingers=kwargs.get('fingers', 1), multipliers=numcols, with_dummy=dummy,
         n_or_p_fet="nfet",
-        subckt_only=True
+        subckt_only=True,
+        shared_gate=kwargs.get('shared_gate', False),
+        nets=kwargs.get('nets'),
     )
     return base_multiplier
 
@@ -361,7 +466,9 @@ def two_pfet_interdigitized(
         pdk,
         width=kwargs.get('width', 3), length=kwargs.get('length'), fingers=kwargs.get('fingers', 1), multipliers=numcols, with_dummy=dummy,
         n_or_p_fet="pfet",
-        subckt_only=True
+        subckt_only=True,
+        shared_gate=kwargs.get('shared_gate', False),
+        nets=kwargs.get('nets'),
     )
     return base_multiplier
 
@@ -382,3 +489,30 @@ def two_transistor_interdigitized(
         return two_nfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,tie_layers=tie_layers,**kwargs)
     else:
         return two_pfet_interdigitized(pdk=pdk,numcols=numcols,dummy=dummy,with_substrate_tap=with_substrate_tap,with_tie=with_tie,tie_layers=tie_layers,**kwargs)
+
+def rail_tap(pdk: MappedPDK, port, extension: float, glayer_up: Optional[str] = None) -> Component:
+    """A tap on one rail end: the rail continued by ``extension`` beyond ``port``
+    (an E- or W-facing rail port) and a via up to ``glayer_up`` (default: one
+    metal above the rail).
+
+    It replaces the C route that used to short two rails of one net only to get
+    a tap point: with net-aware rails there is one rail, so only the tap is
+    left. Ports ``con_{N,E,S,W}`` are the via's top-metal edges, as on c_route.
+    """
+    lay = pdk.layer_to_glayer(port.layer)
+    up = glayer_up or f"met{int(lay[-1]) + 1}"
+    direction = {0: 1, 180: -1}[round(port.orientation) % 360]
+    tap = Component("rail_tap")
+    via = via_stack(pdk, lay, up, fullbottom=True)
+    cx = pdk.snap_to_2xgrid(port.center[0] + direction * (extension + evaluate_bbox(via)[0] / 2))
+    x0, x1 = sorted((port.center[0], cx))
+    stub = tap << rectangle(size=(x1 - x0, port.width), layer=pdk.get_glayer(lay), centered=True)
+    stub.move(((x0 + x1) / 2, port.center[1]))
+    vref = tap << via
+    vref.move((cx, port.center[1]))
+    for p in vref.get_ports_list():
+        if p.name.startswith("top_met_"):
+            q = p.copy()
+            q.name = "con_" + p.name[len("top_met_"):]
+            tap.add_port(port=q)
+    return tap

@@ -216,7 +216,12 @@ def _stage_inputs(workdir: Path, cell: str, gds_src: Path, netlist_src: Path) ->
 
     parts = []
     if _REF_SPICE.is_file():
-        parts.append(f".include {_REF_SPICE}\n")
+        # Include a copy staged next to the netlist, not the repo path:
+        # klayout's SPICE reader ends the .include path at a '-', so a
+        # checkout in e.g. "glayout-martin/" read as "glayout" and failed.
+        ref_dst = workdir / _REF_SPICE.name
+        shutil.copy(_REF_SPICE, ref_dst)
+        parts.append(f".include {ref_dst}\n")
     parts.append(cdl_text)
     spice_dst.write_text("".join(parts))
 

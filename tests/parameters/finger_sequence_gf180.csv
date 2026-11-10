@@ -1,0 +1,11 @@
+cell,params_json
+cc_current_mirror_nfet,"{""device"": ""nfet"", ""fingers"": 4}"
+cc_current_mirror_pfet,"{""device"": ""pfet"", ""fingers"": 4}"
+cc_current_mirror_1to2,"{""device"": ""nfet"", ""fingers"": 2, ""ratio"": 2}"
+cc_diff_pair_nfet,"{""device"": ""nfet"", ""fingers"": 4}"
+cc_diff_pair_pfet,"{""device"": ""pfet"", ""fingers"": 4}"
+cc_diff_pair_f2,"{""device"": ""nfet"", ""fingers"": 2, ""width"": 6.0}"
+cc_diff_pair_f8,"{""device"": ""nfet"", ""fingers"": 8, ""width"": 1.5}"
+bias_bank_x1,"{""scale"": 1, ""width"": 3.0}"
+bias_bank_x2,"{""scale"": 2, ""width"": 1.5}"
+cs_stage_f8,"{""fingers"": 8, ""width"": 1.5}"
