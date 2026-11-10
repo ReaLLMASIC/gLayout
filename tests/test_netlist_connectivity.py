@@ -287,3 +287,119 @@ def test_random_connection_sequences_match_oracle(seed):
         else:
             apply(top, o, request)
     check(top, o)
+
+
+# --- exception atomicity and bookkeeping consistency ------------------------------------- #
+def state(top):
+    """Public, observable state that a failed call must leave untouched."""
+    return ([list(r) for r in top.netlist_connections], top.wire_index, len(top.sub_netlists),
+            top.generate_netlist())
+
+
+def assert_index_consistent(top):
+    """The label index is exactly the connected terminals grouped by their current label."""
+    expected = defaultdict(set)
+    for (i, j) in top._connected_terminals():
+        expected[top.netlist_connections[i][j]].add((i, j))
+    assert {k: set(v) for k, v in top._label_members().items()} == dict(expected)
+
+
+def test_connect_subnets_is_all_or_nothing_across_pairs():
+    top = make_top(2, pins=("P", "Q"))
+    apply(top, Oracle(), N(0, "VDD", "Q"), N(1, "VSS", "Q"))
+    before = state(top)
+    with pytest.raises(ValueError):    # the first pair is fine, the second would short VDD to VSS
+        top.connect_subnets(0, 1, [("P", "P"), ("Q", "Q")])
+    assert state(top) == before
+    assert label(top, 0, "P") == "P" and label(top, 1, "P") == "P"
+
+
+def test_connect_node_is_all_or_nothing_across_pairs():
+    top = make_top(1, pins=("P", "Q"))
+    top.connect_node(0, [("Q", "VSS")])
+    before = state(top)
+    with pytest.raises(ValueError):
+        top.connect_node(0, [("P", "VDD"), ("Q", "VDD")])
+    assert state(top) == before
+    top.connect_node(0, [("P", "OTHER")])  # "VDD" was not left behind as a half-registered name
+    assert label(top, 0, "P") == "OTHER"
+
+
+def test_unknown_node_name_mid_call_rolls_back_too():
+    top = make_top(2, pins=("P", "Q"))
+    before = state(top)
+    with pytest.raises(ValueError):
+        top.connect_subnets(0, 1, [("P", "P"), ("NOPE", "Q")])
+    with pytest.raises(ValueError):
+        top.connect_node(0, [("P", "VDD"), ("NOPE", "VSS")])
+    assert state(top) == before
+
+
+def test_failed_call_does_not_consume_wire_names():
+    def build():
+        t = make_top(4, pins=("P", "Q"))
+        apply(t, Oracle(), N(2, "VDD", "Q"), N(3, "VSS", "Q"), S(0, 1))
+        return t
+
+    top, twin = build(), build()
+    with pytest.raises(ValueError):    # the first pair would mint a wire, the second fails
+        top.connect_subnets(2, 3, [("P", "P"), ("Q", "Q")])
+    top.connect_subnets(1, 2, [("P", "P")])
+    twin.connect_subnets(1, 2, [("P", "P")])
+    assert top.netlist_connections == twin.netlist_connections and top.wire_index == twin.wire_index
+
+
+def test_connect_netlist_failure_leaves_no_sub_netlist_behind():
+    top = Netlist(circuit_name="TOP", nodes=["VDD"])
+    before = state(top)
+    with pytest.raises(ValueError):
+        top.connect_netlist(Netlist(circuit_name="C", nodes=["P", "Q"]), [("P", "VDD"), ("NOPE", "X")])
+    assert state(top) == before and top.sub_netlists == [] and top.netlist_connections == []
+
+
+def random_call(rng, n, pins, names):
+    """A callable performing one random (possibly multi-pair) connection on a netlist, or None."""
+    if rng.random() < 0.7:
+        i, j = rng.randrange(n), rng.randrange(n)
+        pairs = [(rng.choice(pins), rng.choice(pins)) for _ in range(rng.randrange(1, 4))]
+        return None if any((i, a) == (j, b) for a, b in pairs) else (lambda t: t.connect_subnets(i, j, pairs))
+    i = rng.randrange(n)
+    pairs = [(rng.choice(pins), rng.choice(names)) for _ in range(rng.randrange(1, 4))]
+    return lambda t: t.connect_node(i, pairs)
+
+
+@pytest.mark.parametrize("seed", range(40))
+def test_failed_calls_leave_no_trace_random(seed):
+    """A netlist that saw failing calls behaves exactly like a twin that only saw the successful ones."""
+    rng = random.Random(1000 + seed)
+    pins = ("P", "Q", "R")
+    top, twin = make_top(6, pins=pins), make_top(6, pins=pins)
+    for _ in range(16):
+        call = random_call(rng, 6, pins, ["VDD", "VSS", "OUT"])
+        if call is None:
+            continue
+        before = state(top)
+        try:
+            call(top)
+        except ValueError:
+            assert state(top) == before
+            continue
+        call(twin)
+        assert state(top) == state(twin)
+
+
+@pytest.mark.parametrize("seed", range(40))
+def test_label_index_stays_consistent_random(seed):
+    """Internal bookkeeping: the label index matches the stored labels after every call."""
+    rng = random.Random(2000 + seed)
+    pins = ("P", "Q", "R")
+    top = make_top(6, pins=pins)
+    for _ in range(16):
+        call = random_call(rng, 6, pins, ["VDD", "VSS", "OUT"])
+        if call is None:
+            continue
+        try:
+            call(top)
+        except ValueError:
+            pass
+        assert_index_consistent(top)
