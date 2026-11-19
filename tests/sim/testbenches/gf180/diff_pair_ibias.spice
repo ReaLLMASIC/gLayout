@@ -1,0 +1,38 @@
+* Testbench: NFET diff pair with current-mirror tail bias — gf180 (3.3 V)
+* DUT subckt: DIFFPAIR_CMIRROR_BIAS VP VN VDD1 VDD2 IBIAS VSS B
+*   Same pair as diff_pair, but the tail is the output of an internal nfet
+*   mirror whose diode-connected reference is the IBIAS port.
+*
+* Functional check: inject IB into IBIAS and verify the mirrored tail current
+* splits evenly across the pair and is recovered at the drains. itail_rec
+* also implicitly checks the internal mirror (ratio ~1, minus its error at
+* the tail-node operating point).
+*
+* run_cell_sim.py injects the gf180 model setup and .includes the DUT
+* netlist, so this file is stimulus + analysis ONLY.
+.param VDD=3.3
+.param IB=20u
+.param VCM=1.65
+* Per-branch drain supplies (double as current sensors).
+Vd1 VDD1 0 DC {VDD}
+Vd2 VDD2 0 DC {VDD}
+* Ground rail + bulk.
+Vss VSS 0 DC 0
+Vbulk VB 0 DC 0
+* Bias: push IB into the mirror's diode-connected IBIAS node.
+Ibias 0 IBIAS DC {IB}
+* Gate drive: VN pinned at VCM, VP swept through it; balance read AT VP=VCM.
+Vp VP 0 DC {VCM}
+Vn VN 0 DC {VCM}
+* DUT: VP VN VDD1 VDD2 IBIAS VSS B
+X1 VP VN VDD1 VDD2 IBIAS VSS VB DIFFPAIR_CMIRROR_BIAS
+.dc Vp 1.35 1.95 0.005
+* Drain supplies deliver the branch currents -> i(Vd*) negative; flip sign.
+* AT literal 1.65 must match VCM above (balanced point).
+.measure dc i1_raw FIND i(Vd1) AT=1.65
+.measure dc i2_raw FIND i(Vd2) AT=1.65
+.measure dc i1_bal param='-i1_raw'
+.measure dc i2_bal param='-i2_raw'
+.measure dc itail_rec param='i1_bal + i2_bal'
+.measure dc imbalance param='(i1_bal - i2_bal)/(i1_bal + i2_bal)'
+.end

@@ -1,0 +1,30 @@
+* Testbench: PFET current mirror — gf180 (3.3 V, pfet_03v3)
+* DUT subckt: CMIRROR VREF VOUT VSS B
+* NOTE: same subckt name/ports as the nfet variant, but built from pfets, so
+* the port called "VSS" is the pfet SOURCE rail -> tie it (and bulk B) to VCC.
+*
+* Functional check: pull a reference current out of the diode-connected side
+* (pfet diode sources IREF into VREF from VCC), then read the mirrored
+* current the output device sources into a swept VOUT node. iout_op at
+* mid-rail, mirror_err relative to IREF.
+*
+* run_cell_sim.py injects the gf180 model setup and .includes the DUT
+* netlist, so this file is stimulus + analysis ONLY.
+.param VDD=3.3
+.param IREF=10u
+* Source rail + bulk of the pfet mirror (the subckt's "VSS"/"B" ports).
+Vcc VCC 0 DC {VDD}
+* Reference: pull IREF out of the diode-connected VREF node to ground.
+Iref VREF 0 DC {IREF}
+* Output: force VOUT with a swept source and read the sourced current.
+Vout VOUT 0 DC 0
+* DUT: VREF VOUT VSS(=VCC rail) B(=VCC)
+X1 VREF VOUT VCC VCC CMIRROR
+.dc Vout 0 {VDD} 0.02
+* The pfet SOURCES current into the VOUT node, which flows into the Vout
+* source's + terminal -> i(Vout) is already positive. AT literal 1.65 = VDD/2.
+.measure dc iout_raw FIND i(Vout) AT=1.65
+.measure dc iout_op  param='iout_raw'
+* Literal 10e-6 must match IREF above.
+.measure dc mirror_err param='(iout_op - 10e-6)/10e-6'
+.end

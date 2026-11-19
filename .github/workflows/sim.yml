@@ -1,0 +1,185 @@
+name: "Automated: Cell ngspice"
+ 
+# Triggered automatically when the DRC workflow finishes (success OR failure),
+# in parallel with LVS. DRC produces the GDS + reference netlists, so the sim
+# job just downloads the DRC artifact and runs ngspice on it — no need to
+# rebuild the cells.
+#
+# Why hang off DRC (alongside LVS) instead of chaining off LVS: it reuses the
+# exact trigger/artifact plumbing the LVS workflow already proves out, and
+# keeps sim independent so a flaky LVS run doesn't block it.
+#
+# Also runnable on demand against the latest DRC artifact.
+on:
+  workflow_run:
+    workflows: ["Cell DRC"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      drc_run_id:
+        description: "GitHub Actions run id of the DRC workflow whose artifacts to consume (defaults to latest successful run)."
+        required: false
+ 
+# Same concurrency fallback as lvs.yml: workflow_run-triggered runs report
+# github.ref as the default branch, so fall back to the triggering DRC run's
+# head_branch when present.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch || github.ref }}
+  cancel-in-progress: true
+ 
+jobs:
+  sim:
+    name: ngspice (${{ matrix.pdk }})
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    # Skip only cancelled DRC runs; run sim on whatever cells DRC produced,
+    # mirroring lvs.yml.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion != 'cancelled' }}
+ 
+    # Same permission set as lvs.yml: actions:read for cross-run
+    # download-artifact, checks:write for the JUnit publisher.
+    permissions:
+      contents: read
+      actions: read
+      checks: write
+ 
+    container:
+      image: hpretl/iic-osic-tools:latest
+      options: --user root
+      env:
+        PDK_ROOT: /foss/pdks
+        DEBIAN_FRONTEND: noninteractive
+        PYTHONUNBUFFERED: "1"
+        PYTHONPATH: ""
+        PATH: /foss/tools/bin:/foss/tools/sak:/foss/tools/kactus2:/foss/tools/klayout:/foss/tools/osic-multitool:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ 
+    strategy:
+      fail-fast: false
+      matrix:
+        # Both PDKs ship ngspice model libs, but their shapes differ:
+        # sky130 is a single sky130A/libs.tech/ngspice/sky130.lib.spice with
+        # corner sections; gf180 (ciel versioned path) needs design.ngspice
+        # included PLUS several .lib sections of sm141064.ngspice (MOS corner
+        # + cap_mim/res_typical/moscap_typical/mimcap_typical) — `typical` is
+        # not a section of design.ngspice. run_cell_sim.py assembles the right
+        # preamble per --pdk. Testbenches resolve per PDK from
+        # tests/sim/testbenches/<pdk>/ (rails and probe points differ).
+        #
+        # NOTE: the gf180 leg requires the "Cell DRC" workflow to also run a
+        # gf180 matrix leg and upload a `drc-gf180` artifact.
+        pdk: [sky130, gf180]
+ 
+    defaults:
+      run:
+        shell: bash
+ 
+    steps:
+      - uses: actions/checkout@v4
+ 
+      - name: Download DRC artifact (drc-${{ matrix.pdk }})
+        uses: actions/download-artifact@v4
+        with:
+          name: drc-${{ matrix.pdk }}
+          path: drc_inputs/${{ matrix.pdk }}
+          # From the triggering DRC run when via workflow_run; falls back to
+          # the manual input or current run for workflow_dispatch.
+          run-id: ${{ github.event.workflow_run.id || inputs.drc_run_id || github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+ 
+      - name: Cache uv + CPython 3.10
+        id: cache-uv
+        uses: actions/cache@v4
+        with:
+          path: |
+            /headless/.local/bin/uv
+            /headless/.local/bin/uvx
+            /headless/.local/share/uv
+          key: uv-py310-${{ runner.os }}-v1
+ 
+      - name: Install Python 3.10 (uv)
+        run: |
+          set -euxo pipefail
+          if [ ! -x "$HOME/.local/bin/uv" ]; then
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+          fi
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.local/bin:$PATH"
+          uv python install 3.10
+          echo "PYTHON310=$(uv python find 3.10)" >> "$GITHUB_ENV"
+ 
+      - name: Show tool versions
+        run: |
+          set -euxo pipefail
+          ngspice --version 2>&1 | head -3 || true
+          "$PYTHON310" --version
+          ls "$PDK_ROOT"
+          # Surface the ngspice model libraries up front so a PDK install
+          # hiccup shows here rather than as a cryptic "can't find include"
+          # mid-sim. gf180 needs BOTH design.ngspice (params/options) and
+          # sm141064.ngspice (device model sections), so hard-fail if either
+          # is missing.
+          if [ "${{ matrix.pdk }}" = "sky130" ]; then
+            ls "$PDK_ROOT/sky130A/libs.tech/ngspice/sky130.lib.spice"
+          else
+            ver=$(cat "$PDK_ROOT/ciel/gf180mcu/current")
+            ls "$PDK_ROOT/ciel/gf180mcu/versions/$ver/gf180mcuD/libs.tech/ngspice/design.ngspice" \
+               "$PDK_ROOT/ciel/gf180mcu/versions/$ver/gf180mcuD/libs.tech/ngspice/sm141064.ngspice"
+          fi
+ 
+      - name: Cache python venv
+        id: cache-venv
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.venv
+          # Same key as drc.yml/lvs.yml: identical interpreter + deps, so all
+          # three workflows share a single restored venv.
+          key: drc-venv-py310-${{ runner.os }}-${{ hashFiles('setup.py', 'src/glayout/**/*.py') }}-v2
+          restore-keys: |
+            drc-venv-py310-${{ runner.os }}-
+ 
+      - name: Create venv and install glayout (cache miss)
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: |
+          set -euxo pipefail
+          rm -rf "$GITHUB_WORKSPACE/.venv"
+          "$PYTHON310" -m venv "$GITHUB_WORKSPACE/.venv"
+          . "$GITHUB_WORKSPACE/.venv/bin/activate"
+          uv pip install -e .
+ 
+      # No "refresh editable install" step on cache hit — see drc.yml.
+ 
+      - name: Sanity-check sim inputs
+        run: |
+          set -euxo pipefail
+          ls -la drc_inputs/${{ matrix.pdk }}/netlists || { echo "no netlists/ in DRC artifact"; exit 1; }
+          # gds/ is only needed if run_cell_sim.py does its own PEX extraction;
+          # a netlist-only (pre-layout) sim can proceed without it.
+          ls -la drc_inputs/${{ matrix.pdk }}/gds || echo "warning: no gds/ (ok for netlist-only sim)"
+ 
+      - name: Run cell ngspice
+        run: |
+          set -euxo pipefail
+          . "$GITHUB_WORKSPACE/.venv/bin/activate"
+          # Testbenches are picked up from tests/sim/testbenches/${{ matrix.pdk }}/
+          # automatically (flat tests/sim/testbenches/ as legacy fallback).
+          python tests/sim/run_cell_sim.py \
+            --pdk ${{ matrix.pdk }} \
+            --inputs-dir drc_inputs/${{ matrix.pdk }} \
+            --out-dir sim_results/${{ matrix.pdk }}
+ 
+      - name: Upload sim artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sim-${{ matrix.pdk }}
+          path: sim_results/${{ matrix.pdk }}
+          retention-days: 14
+ 
+      - name: Publish JUnit summary
+        if: ${{ always() && hashFiles(format('sim_results/{0}/junit.xml', matrix.pdk)) != '' }}
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: sim_results/${{ matrix.pdk }}/junit.xml
+          check_name: ngspice report (${{ matrix.pdk }})
+          require_tests: true
+ 

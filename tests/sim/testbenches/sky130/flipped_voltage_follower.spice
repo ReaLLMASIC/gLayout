@@ -1,0 +1,27 @@
+* Testbench: flipped voltage follower (FVF)
+*   FLIPPED_VOLTAGE_FOLLOWER ports: VIN VBULK VOUT Ib
+*   Internally: M0 gate=VIN, source=VOUT, drain=Ib; M1 gate=Ib, drain=VOUT,
+*   source=VBULK. Bias current is injected into the Ib node.
+*
+* Functional check: VOUT follows VIN with a roughly constant level shift
+* (VOUT ~ VIN - Vgs0) -- so over the input range the small-signal gain
+* (slope dVOUT/dVIN) should be near 1. Measure that slope plus the DC
+* level shift. (Low output impedance is the other FVF virtue; left as an
+* extension -- add a load-current step on VOUT and measure dVOUT.)
+*
+* run_cell_sim.py injects the .lib + DUT .include; stimulus + analysis ONLY.
+* sky130 (1.8 V). Same deck covers FLIPPED_VOLTAGE_FOLLOWER_1 (identical ports).
+.param VDD=1.8
+.param IB=10u
+Vbulk VBULK 0 DC 0
+Vin VIN 0 DC 0
+* Inject the bias current into the Ib node (M0 drain / M1 gate).
+Ibias 0 Ib DC {IB}
+* DUT: VIN VBULK VOUT Ib
+X1 VIN VBULK VOUT Ib FLIPPED_VOLTAGE_FOLLOWER
+.dc Vin 0.6 {VDD} 0.02
+.measure dc vout_a FIND v(VOUT) AT=0.9
+.measure dc vout_b FIND v(VOUT) AT=1.2
+.measure dc level_shift param='0.9 - vout_a'
+.measure dc follow_slope param='(vout_b - vout_a)/0.3'
+.end

@@ -1,0 +1,29 @@
+* Testbench: NFET current mirror — gf180 (3.3 V, nfet_03v3)
+* DUT subckt: CMIRROR VREF VOUT VSS B   (VSS = source rail, B = bulk)
+*
+* Functional check: inject a reference current into the diode-connected side
+* (VREF) and read back the mirrored current on the output side while sweeping
+* the output voltage. iout_op is the mirrored current at mid-rail (device
+* well into saturation); mirror_err is its relative error vs IREF, which
+* captures both W/L mismatch and channel-length modulation at that point.
+*
+* run_cell_sim.py injects the gf180 model setup and .includes the DUT
+* netlist, so this file is stimulus + analysis ONLY.
+.param VDD=3.3
+.param IREF=10u
+* Source rail + bulk of the nfet mirror.
+Vss VSS 0 DC 0
+* Reference: push IREF into the diode-connected VREF node.
+Iref 0 VREF DC {IREF}
+* Output: force VOUT with a swept source and read the drain current through it.
+Vout VOUT 0 DC 0
+* DUT: VREF VOUT VSS B
+X1 VREF VOUT VSS VSS CMIRROR
+.dc Vout 0 {VDD} 0.02
+* The Vout source SUPPLIES the nfet drain, so i(Vout) is negative; flip sign.
+* AT literal 1.65 = VDD/2 operating point.
+.measure dc iout_raw FIND i(Vout) AT=1.65
+.measure dc iout_op  param='-iout_raw'
+* Literal 10e-6 must match IREF above.
+.measure dc mirror_err param='(iout_op - 10e-6)/10e-6'
+.end

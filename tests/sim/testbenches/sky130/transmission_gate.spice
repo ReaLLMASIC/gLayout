@@ -1,0 +1,38 @@
+* Testbench: CMOS transmission gate
+*   Transmission_Gate ports: VIN VSS VOUT VCC VGP VGN
+*
+* Functional check: with the gate ENABLED (VGN high, VGP low) the switch
+* conducts from VIN to VOUT with a low, roughly rail-flat on-resistance. We
+* pull a fixed load current out of VOUT and measure the IR drop across the
+* closed switch at low / mid / high common mode; Ron = (V(VIN)-V(VOUT))/ILOAD.
+* The complementary nfet+pfet keep Ron bounded across the whole input range --
+* that flatness is the TG's defining property and what we test here.
+*
+* run_cell_sim.py injects the .lib model line and .includes the DUT netlist,
+* so this file is stimulus + analysis ONLY (no .lib / no .include here).
+*
+* sky130 (1.8 V) rails. To retarget gf180, bump VDD to 3.3 and move the AT=
+* probe points / ILOAD accordingly.
+.param VDD=1.8
+.param ILOAD=10u
+* Rails feeding the DUT (nfet bulk = VSS, pfet bulk = VCC inside the subckt).
+Vcc VCC 0 DC {VDD}
+Vss VSS 0 DC 0
+* Gate drive: switch ON -> nmos gate high, pmos gate low.
+Vgn VGN 0 DC {VDD}
+Vgp VGP 0 DC 0
+* Swept input we pass through the closed switch.
+Vin VIN 0 DC 0
+* Load: sink ILOAD out of VOUT so the closed switch must conduct it.
+Iload VOUT 0 DC {ILOAD}
+* DUT: VIN VSS VOUT VCC VGP VGN
+X1 VIN VSS VOUT VCC VGP VGN Transmission_Gate
+.dc Vin 0 {VDD} 0.02
+.measure dc vout_lo  FIND v(VOUT) AT=0.3
+.measure dc vout_mid FIND v(VOUT) AT=0.9
+.measure dc vout_hi  FIND v(VOUT) AT=1.5
+* Ron at each common mode. Literal 10e-6 must match ILOAD above.
+.measure dc ron_lo  param='(0.3 - vout_lo)/10e-6'
+.measure dc ron_mid param='(0.9 - vout_mid)/10e-6'
+.measure dc ron_hi  param='(1.5 - vout_hi)/10e-6'
+.end
