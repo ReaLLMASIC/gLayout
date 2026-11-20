@@ -1,0 +1,42 @@
+name: ASAP7 proof of concept
+on:
+  push:
+    branches: [main, FinFET-Backend]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  asap7:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        backend: [gdstk, gdsfactory]
+    env:
+      GLAYOUT_BACKEND: ${{ matrix.backend }}
+      PYTHONPATH: src
+      PDK_ROOT: /tmp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+          cache-dependency-path: setup.py
+      - run: pip install -e . pytest
+      - name: FinFET lattice, transistor, and MOM tests
+        run: pytest -q tests/test_finfet.py tests/test_finfet_flavors.py --junitxml=asap7_results/unit.xml
+      - name: Generate and verify every transistor flavor
+        run: python examples/asap7_devices.py --out-dir asap7_results/devices
+      - name: Build all CI examples and check the ASAP7 POC DRC subset
+        run: python tests/drc/run_cell_drc.py --pdk asap7 --jobs 2 --out-dir asap7_results/drc
+      - name: Extract and compare every example including opamp and MOM caps
+        run: python tests/lvs/run_cell_lvs.py --pdk asap7 --jobs 2 --inputs-dir asap7_results/drc --out-dir asap7_results/lvs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: asap7-${{ matrix.backend }}
+          path: asap7_results

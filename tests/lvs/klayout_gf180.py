@@ -216,7 +216,7 @@ def _stage_inputs(workdir: Path, cell: str, gds_src: Path, netlist_src: Path) ->
 
     parts = []
     if _REF_SPICE.is_file():
-        parts.append(f".include {_REF_SPICE}\n")
+        parts.append(f'.include "{_REF_SPICE}"\n')
     parts.append(cdl_text)
     spice_dst.write_text("".join(parts))
 
@@ -301,7 +301,7 @@ def run_lvs_klayout_gf180(
     FuseTop / met3) or "B" (met4 / FuseTop / met5). The two are mutually
     exclusive at process level, so the wrong one extracts no capacitor at all
     and every MIM shows up as missing from the layout. Defaults to
-    ``$GF180_MIM_OPTION``, then to "A".
+    ``$GF180_MIM_OPTION``, then to "B" (matching the generator).
     """
     layout_path = Path(layout)
     netlist_path = Path(netlist)
@@ -310,7 +310,7 @@ def run_lvs_klayout_gf180(
     rpt_dir.mkdir(parents=True, exist_ok=True)
 
     pdk_root = pdk_root or os.environ.get("PDK_ROOT", "/foss/pdks")
-    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "A").upper()
+    mim_option = (mim_option or os.environ.get("GF180_MIM_OPTION") or "B").upper()
     if mim_option not in ("A", "B"):
         raise ValueError(f"mim_option must be 'A' or 'B', got {mim_option!r}")
     deck_dir = _resolve_deck_dir(pdk_root)

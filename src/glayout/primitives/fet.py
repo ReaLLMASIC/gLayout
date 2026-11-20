@@ -13,6 +13,7 @@ from decimal import Decimal
 from glayout.routing.straight_route import straight_route
 from glayout.spice import Netlist
 from warnings import warn
+import math
 
 
 def __comp_min_width(pdk: MappedPDK) -> float:
@@ -44,6 +45,9 @@ def __comp_min_width(pdk: MappedPDK) -> float:
 @validate_arguments
 def __gen_fingers_macro(pdk: MappedPDK, rmult: int, fingers: int, length: float, width: float, poly_height: float, sdlayer: str, inter_finger_topmet: str) -> Component:
     """internal use: returns an array of fingers"""
+    if pdk.finfet is not None:
+        from glayout.primitives.finfet import fingers as finfet_fingers
+        return finfet_fingers(pdk,rmult,fingers,length,width,poly_height,sdlayer,inter_finger_topmet)
     length = pdk.snap_to_2xgrid(length)
     width = pdk.snap_to_2xgrid(width)
     poly_height = pdk.snap_to_2xgrid(poly_height)
@@ -125,7 +129,8 @@ def fet_netlist(
     length: float,
     fingers: int,
     multipliers: int,
-    with_dummy: Union[bool, tuple[bool, bool]]
+    with_dummy: Union[bool, tuple[bool, bool]],
+    dummies_tied_to_bulk: bool = False
 ) -> Netlist:
     """Generate a primitive transistor subckt netlist.
 
@@ -137,6 +142,12 @@ def fet_netlist(
     finger/multiplier and one explicit dummy device per row/side instead of
     relying on `m`.
     """
+    if pdk.finfet is not None:
+        from glayout.primitives.finfet import finfet_netlist
+        device = 'nfet' if model == pdk.models['nfet'] else 'pfet'
+        if length is not None and abs(length-pdk.finfet.gate_length)>1e-10:
+            raise ValueError('unsupported FinFET gate length')
+        return finfet_netlist(pdk, device, pdk.finfet.fin_count(width), fingers, multipliers, with_dummy, dummies_tied_to_bulk)
     # add spice netlist
     num_dummies = 0
     if with_dummy == False or with_dummy == (False, False):
@@ -218,7 +229,8 @@ def multiplier(
     interfinger_rmult: int=1,
     sd_route_extension: float = 0,
     gate_route_extension: float = 0,
-    dummy_routes: bool=True
+    dummy_routes: bool=True,
+    vt: Optional[str] = None
 ) -> Component:
     """Generic poly/sd vias generator
     args:
@@ -249,6 +261,8 @@ def multiplier(
     leftsd_...all ports associated with the left most via array
     dummy_L,R_N,E,S,W ports if dummy_routes=True
     """
+    if vt is not None:
+        pdk = pdk.with_finfet_flavor(vt)
     # error checking
     if "+s/d" not in sdlayer:
         raise ValueError("specify + doped region for multiplier")
@@ -264,6 +278,9 @@ def multiplier(
         raise ValueError("routing multipliers must be positive int")
     if fingers < 1:
         raise ValueError("number of fingers must be positive int")
+    # Normalize the leaf width before the existing routing derives positions.
+    if pdk.finfet is not None:
+        width=pdk.finfet.fin_count(width)*pdk.finfet.fin_pitch
     # argument parsing and rule setup
     min_length = pdk.get_grule("poly")["min_width"]
     length = min_length if (length or min_length) <= min_length else length
@@ -318,12 +335,18 @@ def multiplier(
         gate_width = gate_S_port.center[0] - multiplier.ports["row0_col0_gate_S"].center[0] + gate_S_port.width
         gate = rename_ports_by_list(via_array(pdk,"poly",gate_route_topmet, size=(gate_width,None),num_vias=(None,gate_rmult), no_exception=True, fullbottom=True),[("top_met_","gate_")])
         gate_ref = align_comp_to_port(gate.copy(), psuedo_Ngateroute, alignment=(None,'b'),layer=pdk.get_glayer("poly"))
+        if pdk.finfet is not None:
+            gate_ref.movex((gate_S_port.x+multiplier.ports['row0_col0_gate_S'].x)/2-gate_ref.center[0])
         multiplier.add(gate_ref)
         # place route met: source, drain
         sd_width = sdvia_ports[-1].center[0] - sdvia_ports[0].center[0]
         sd_route = rectangle(size=(sd_width,sdmet_hieght),layer=pdk.get_glayer(sd_route_topmet),centered=True)
         source = align_comp_to_port(sd_route.copy(), sdvia_ports[0], alignment=(None,'c'))
         drain = align_comp_to_port(sd_route.copy(), sdvia_ports[2], alignment=(None,'c'))
+        if pdk.finfet is not None:
+            sd_xcenter = (sdvia_ports[0].center[0] + sdvia_ports[-1].center[0]) / 2
+            source.movex(sd_xcenter - source.center[0])
+            drain.movex(sd_xcenter - drain.center[0])
         multiplier.add(source)
         multiplier.add(drain)
         # add ports
@@ -336,22 +359,36 @@ def multiplier(
     else:
         dummyl, dummyr = dummy
     if dummyl or dummyr:
-        dummy = __gen_fingers_macro(pdk,rmult=interfinger_rmult,fingers=1,length=length,width=width,poly_height=poly_height,sdlayer=sdlayer,inter_finger_topmet="met1")
-        dummyvia = dummy << via_stack(pdk,"poly","met1",fullbottom=True)
-        align_comp_to_port(dummyvia,dummy.ports["row0_col0_gate_S"],layer=pdk.get_glayer("poly"))
-        dummy << L_route(pdk,dummyvia.ports["top_met_W"],dummy.ports["leftsd_top_met_S"])
-        dummy << L_route(pdk,dummyvia.ports["top_met_E"],dummy.ports["row0_col0_rightsd_top_met_S"])
-        dummy.add_ports(dummyvia.get_ports_list(),prefix="gsdcon_")
-        dummy_space = pdk.get_grule(sdlayer)["min_separation"] + dummy.xmax
-        sides = list()
-        if dummyl:
-            sides.append((-1,"dummy_L_"))
-        if dummyr:
-            sides.append((1,"dummy_R_"))
-        for side, name in sides:
-            dummy_ref = multiplier << dummy
-            dummy_ref.movex(side * (dummy_space + multiplier.xmax))
-            multiplier.add_ports(dummy_ref.get_ports_list(),prefix=name)
+        if pdk.finfet is not None:
+            from glayout.primitives.finfet import add_finfet_dummies
+            add_finfet_dummies(
+                pdk,
+                multiplier,
+                fingers=fingers,
+                width=width,
+                sdlayer=sdlayer,
+                dummyl=dummyl,
+                dummyr=dummyr,
+                dummy_routes=dummy_routes,
+                rmult=interfinger_rmult,
+            )
+        else:
+            dummy = __gen_fingers_macro(pdk,rmult=interfinger_rmult,fingers=1,length=length,width=width,poly_height=poly_height,sdlayer=sdlayer,inter_finger_topmet="met1")
+            dummyvia = dummy << via_stack(pdk,"poly","met1",fullbottom=True)
+            align_comp_to_port(dummyvia,dummy.ports["row0_col0_gate_S"],layer=pdk.get_glayer("poly"))
+            dummy << L_route(pdk,dummyvia.ports["top_met_W"],dummy.ports["leftsd_top_met_S"])
+            dummy << L_route(pdk,dummyvia.ports["top_met_E"],dummy.ports["row0_col0_rightsd_top_met_S"])
+            dummy.add_ports(dummyvia.get_ports_list(),prefix="gsdcon_")
+            dummy_space = pdk.get_grule(sdlayer)["min_separation"] + dummy.xmax
+            sides = list()
+            if dummyl:
+                sides.append((-1,"dummy_L_"))
+            if dummyr:
+                sides.append((1,"dummy_R_"))
+            for side, name in sides:
+                dummy_ref = multiplier << dummy
+                dummy_ref.movex(side * (dummy_space + multiplier.xmax))
+                multiplier.add_ports(dummy_ref.get_ports_list(),prefix=name)
     # ensure correct port names and return
     return component_snap_to_grid(rename_ports_by_orientation(multiplier))
 
@@ -401,6 +438,9 @@ def __mult_array_macro(
         to_decimal(_max_metal_seperation_ps)
         + evaluate_bbox(multiplier_comp, True)[1]
     )
+    if pdk.finfet is not None:
+        two_fp = to_decimal(2 * pdk.finfet.fin_pitch)
+        multiplier_separation = int(math.ceil(float(multiplier_separation / two_fp))) * two_fp
     for rownum in range(multipliers):
         row_displacment = rownum * multiplier_separation - (multiplier_separation/2 * (multipliers-1))
         row_ref = multiplier_arr << multiplier_comp
@@ -409,8 +449,12 @@ def __mult_array_macro(
             row_ref.get_ports_list(), prefix="multiplier_" + str(rownum) + "_"
         )
     # TODO: fix extension (both extension are broken. IDK src extension and drain extension IDK metal layer)
-    src_extension = to_decimal(0.6)
-    drain_extension = src_extension + 3*to_decimal(pdk.get_grule("met4")["min_separation"])
+    if pdk.finfet is not None:
+        src_extension = to_decimal(3 * pdk.finfet.gate_pitch)
+        drain_extension = src_extension + to_decimal(2 * pdk.finfet.gate_pitch)
+    else:
+        src_extension = to_decimal(0.6)
+        drain_extension = src_extension + 3*to_decimal(pdk.get_grule("met4")["min_separation"])
     sd_side = "W" if sd_route_left else "E"
     gate_side = "E" if sd_route_left else "W"
     if routing and multipliers > 1:
@@ -471,7 +515,9 @@ def nmos(
     interfinger_rmult: int=1,
     tie_layers: tuple[str,str] = ("met2","met1"),
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
-    dummy_routes: bool=True
+    dummy_routes: bool=True,
+    nfin: Optional[int] = None,
+    vt: Optional[str] = None
 ) -> Component:
     """Generic NMOS generator
     pdk: mapped pdk to use
@@ -493,8 +539,18 @@ def nmos(
     interfinger_rmult: multiplies the thickness of the metal routes between the fingers (int only)
     tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) or well tie ring. default=("met2","met1")
     substrate_tap_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) or substrate tap ring. default=("met2","met1")
+    vt: optional FinFET threshold flavor; defaults to the selected PDK flavor
     dummy_routes: bool default=True, if true add add vias and short dummy poly,source,drain
     """
+    if vt is not None:
+        pdk = pdk.with_finfet_flavor(vt)
+    if pdk.finfet is not None:
+        pdk.get_finfet_flavor()
+        if any(isinstance(v,bool) or not isinstance(v,int) or v<1 for v in (fingers,multipliers)):
+            raise ValueError('fingers and multipliers must be positive integers')
+        width = pdk.finfet.fin_count(width,nfin)*pdk.finfet.fin_pitch
+        if length is not None and abs(length-pdk.finfet.gate_length)>1e-10:
+            raise ValueError('unsupported FinFET gate length')
     # TODO: glayer checks
     pdk.activate()
     nfet = Component()
@@ -556,13 +612,13 @@ def nmos(
     )
     nfet = add_ports_perimeter(nfet,layer=pdk.get_glayer("pwell"),prefix="well_")
     # add dnwell if dnwell
-    if with_dnwell:
+    if with_dnwell and pdk.finfet is None:
         nfet.add_padding(
             layers=(pdk.get_glayer("dnwell"),),
             default=pdk.get_grule("pwell", "dnwell")["min_enclosure"],
         )
     # add substrate tap if with_substrate_tap
-    if with_substrate_tap:
+    if with_substrate_tap and (pdk.finfet is None or not with_tie):
         substrate_tap_separation = pdk.get_grule("dnwell", "active_tap")[
             "min_separation"
         ]
@@ -590,8 +646,15 @@ def nmos(
         length=length,
         fingers=fingers,
         multipliers=multipliers,
-        with_dummy=with_dummy
+        with_dummy=with_dummy,
+        dummies_tied_to_bulk=with_tie
     )
+
+    if pdk.finfet is not None:
+        component.info['finfet']={'nfin':pdk.finfet.fin_count(width),'fingers':fingers,
+                                  'multipliers':multipliers,'length':pdk.finfet.gate_length,
+                                  'width':width,'vt':pdk.finfet_flavor,
+                                  'model':pdk.models['nfet']}
 
     return component
 
@@ -616,7 +679,9 @@ def pmos(
     interfinger_rmult: int=1,
     tie_layers: tuple[str,str] = ("met2","met1"),
     substrate_tap_layers: tuple[str,str] = ("met2","met1"),
-    dummy_routes: bool=True
+    dummy_routes: bool=True,
+    nfin: Optional[int] = None,
+    vt: Optional[str] = None
 ) -> Component:
     """Generic PMOS generator
     pdk: mapped pdk to use
@@ -638,8 +703,18 @@ def pmos(
     interfinger_rmult: multiplies the thickness of the metal routes between the fingers (int only)
     tie_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) or well tie ring. default=("met2","met1")
     substrate_tap_layers: tuple[str,str] specifying (horizontal glayer, vertical glayer) or substrate tap ring. default=("met2","met1")
+    vt: optional FinFET threshold flavor; defaults to the selected PDK flavor
     dummy_routes: bool default=True, if true add add vias and short dummy poly,source,drain
     """
+    if vt is not None:
+        pdk = pdk.with_finfet_flavor(vt)
+    if pdk.finfet is not None:
+        pdk.get_finfet_flavor()
+        if any(isinstance(v,bool) or not isinstance(v,int) or v<1 for v in (fingers,multipliers)):
+            raise ValueError('fingers and multipliers must be positive integers')
+        width = pdk.finfet.fin_count(width,nfin)*pdk.finfet.fin_pitch
+        if length is not None and abs(length-pdk.finfet.gate_length)>1e-10:
+            raise ValueError('unsupported FinFET gate length')
     # TODO: glayer checks
     pdk.activate()
     pfet = Component()
@@ -703,7 +778,7 @@ def pmos(
     )
     pfet = add_ports_perimeter(pfet,layer=pdk.get_glayer(nwell_glayer),prefix="well_")
     # add substrate tap if with_substrate_tap
-    if with_substrate_tap:
+    if with_substrate_tap and (pdk.finfet is None or not with_tie):
         substrate_tap_separation = pdk.get_grule("dnwell", "active_tap")[
             "min_separation"
         ]
@@ -728,7 +803,14 @@ def pmos(
         length=length,
         fingers=fingers,
         multipliers=multipliers,
-        with_dummy=with_dummy
+        with_dummy=with_dummy,
+        dummies_tied_to_bulk=with_tie
     )
+
+    if pdk.finfet is not None:
+        component.info['finfet']={'nfin':pdk.finfet.fin_count(width),'fingers':fingers,
+                                  'multipliers':multipliers,'length':pdk.finfet.gate_length,
+                                  'width':width,'vt':pdk.finfet_flavor,
+                                  'model':pdk.models['pfet']}
 
     return component
