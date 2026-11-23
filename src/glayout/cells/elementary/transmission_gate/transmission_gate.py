@@ -11,144 +11,48 @@ from glayout.primitives.guardring import tapring
 from glayout.util.port_utils import add_ports_perimeter
 from glayout.spice.netlist import Netlist
 from glayout.primitives.via_gen import via_stack
+from glayout.util.label_utils import add_pin_labels, LabelSpec
 try:
     from glayout.verification.evaluator_wrapper import run_evaluation
 except ImportError:
     print("Warning: evaluator_wrapper not found. Evaluation will be skipped.")
     run_evaluation = None
 
-def add_tg_labels(tg_in: Component,
-                        pdk: MappedPDK
-                        ) -> Component:
-	
-    tg_in.unlock()
-    
-    # list that will contain all port/comp info
-    move_info = list()
-    # create labels and append to info list
-    # vin
-    vinlabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-    vinlabel.add_label(text="VIN",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vinlabel,tg_in.ports["N_multiplier_0_source_E"],None))
-    
-    # vout
-    voutlabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-    voutlabel.add_label(text="VOUT",layer=pdk.get_glayer("met2_label"))
-    move_info.append((voutlabel,tg_in.ports["P_multiplier_0_drain_W"],None))
-    
-    # vcc
-    vcclabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.5,0.5),centered=True).copy()
-    vcclabel.add_label(text="VCC",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vcclabel,tg_in.ports["P_tie_S_top_met_S"],None))
-    
-    # vss
-    vsslabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.5,0.5),centered=True).copy()
-    vsslabel.add_label(text="VSS",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vsslabel,tg_in.ports["N_tie_S_top_met_N"], None))
-    
-    # VGP
-    vgplabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-    vgplabel.add_label(text="VGP",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vgplabel,tg_in.ports["P_multiplier_0_gate_E"], None))
-    
-    # VGN
-    vgnlabel = rectangle(layer=pdk.get_glayer("met2_pin"),size=(0.27,0.27),centered=True).copy()
-    vgnlabel.add_label(text="VGN",layer=pdk.get_glayer("met2_label"))
-    move_info.append((vgnlabel,tg_in.ports["N_multiplier_0_gate_E"], None))
 
-    # move everything to position
-    for comp, prt, alignment in move_info:
-        alignment = ('c','b') if alignment is None else alignment
-        compref = align_comp_to_port(comp, prt, alignment=alignment)
-        tg_in.add(compref)
-    return tg_in.flatten() 
+_TG_LABELS = [
+    LabelSpec("VIN", "N_multiplier_0_source_E", size=0.27),
+    LabelSpec("VOUT", "P_multiplier_0_drain_W", size=0.27),
+    LabelSpec("VCC", "P_tie_S_top_met_S", size=0.5),
+    LabelSpec("VSS", "N_tie_S_top_met_N", size=0.5),
+    LabelSpec("VGP", "P_multiplier_0_gate_E", size=0.27),
+    LabelSpec("VGN", "N_multiplier_0_gate_E", size=0.27),
+]
 
 
-def get_component_netlist(component):
-    """Helper function to get netlist object from component info, compatible with all gdsfactory versions"""
-    from glayout.spice.netlist import Netlist
-    
-    # Try to get stored object first (for older gdsfactory versions)
-    if 'netlist_obj' in component.info:
-        return component.info['netlist_obj']
-    
-    # Try to reconstruct from netlist_data (for newer gdsfactory versions)
-    if 'netlist_data' in component.info:
-        data = component.info['netlist_data']
-        netlist = Netlist(
-            circuit_name=data['circuit_name'],
-            nodes=data['nodes']
-        )
-        netlist.source_netlist = data['source_netlist']
-        return netlist
-    
-    # Fallback: return the string representation (should not happen in normal operation)
-    return component.info.get('netlist', '')
-
-def sky130_add_tg_labels(tg_in: Component) -> Component:
-	
-    tg_in.unlock()
-    
-    # define layers`
-    met1_pin = (68,16)
-    met1_label = (68,5)
-    li1_pin = (67,16)
-    li1_label = (67,5)
-    # list that will contain all port/comp info
-    move_info = list()
-    # create labels and append to info list
-    # vin
-    vinlabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()
-    vinlabel.add_label(text="VIN",layer=met1_label)
-    move_info.append((vinlabel,tg_in.ports["N_multiplier_0_source_E"],None))
-    
-    # vout
-    voutlabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()
-    voutlabel.add_label(text="VOUT",layer=met1_label)
-    move_info.append((voutlabel,tg_in.ports["P_multiplier_0_drain_W"],None))
-    
-    # vcc
-    vcclabel = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()
-    vcclabel.add_label(text="VCC",layer=met1_label)
-    move_info.append((vcclabel,tg_in.ports["P_tie_S_top_met_S"],None))
-    
-    # vss
-    vsslabel = rectangle(layer=met1_pin,size=(0.5,0.5),centered=True).copy()
-    vsslabel.add_label(text="VSS",layer=met1_label)
-    move_info.append((vsslabel,tg_in.ports["N_tie_S_top_met_N"], None))
-    
-    # VGP
-    vgplabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()
-    vgplabel.add_label(text="VGP",layer=met1_label)
-    move_info.append((vgplabel,tg_in.ports["P_multiplier_0_gate_E"], None))
-    
-    # VGN
-    vgnlabel = rectangle(layer=met1_pin,size=(0.27,0.27),centered=True).copy()
-    vgnlabel.add_label(text="VGN",layer=met1_label)
-    move_info.append((vgnlabel,tg_in.ports["N_multiplier_0_gate_E"], None))
-
-    # move everything to position
-    for comp, prt, alignment in move_info:
-        alignment = ('c','b') if alignment is None else alignment
-        compref = align_comp_to_port(comp, prt, alignment=alignment)
-        tg_in.add(compref)
-    return tg_in.flatten() 
+def add_tg_labels(tg_in: Component, pdk: MappedPDK) -> Component:
+    """Add LVS pin rectangles + text labels to a transmission gate (PDK-agnostic)."""
+    return add_pin_labels(tg_in, pdk, _TG_LABELS)
 
 
 def tg_netlist(nfet: Component, pfet: Component) -> Netlist:
+    netlist = Netlist(
+        circuit_name="Transmission_Gate",
+        nodes=["VIN", "VSS", "VOUT", "VCC", "VGP", "VGN"],
+    )
+    # Each fet's dummies physically tie to that fet's own welltie ring (NMOS bulk
+    # = VSS, PMOS bulk = VCC), so DUM maps to the same bulk net and the schematic
+    # matches the layout extraction. DUM is a real port of the subckt:
+    # `.subckt NMOS D G S B DUM`.
+    netlist.connect_netlist(
+        nfet.info["netlist"],
+        [("D", "VOUT"), ("G", "VGN"), ("S", "VIN"), ("B", "VSS"), ("DUM", "VSS")],
+    )
+    netlist.connect_netlist(
+        pfet.info["netlist"],
+        [("D", "VOUT"), ("G", "VGP"), ("S", "VIN"), ("B", "VCC"), ("DUM", "VCC")],
+    )
 
-         netlist = Netlist(circuit_name='Transmission_Gate', nodes=['VIN', 'VSS', 'VOUT', 'VCC', 'VGP', 'VGN'])
-         # Use helper function to get netlist objects regardless of gdsfactory version.
-         # Each fet's dummies physically tie to the fet's own welltie ring (NMOS
-         # bulk = VSS, PMOS bulk = VCC), so DUM gets mapped to the same bulk net
-         # so the schematic matches the layout extraction.
-         nfet_netlist = get_component_netlist(nfet)
-         pfet_netlist = get_component_netlist(pfet)
-         netlist.connect_netlist(nfet_netlist, [('D', 'VOUT'), ('G', 'VGN'), ('S', 'VIN'), ('B', 'VSS'), ('DUM', 'VSS')])
-         netlist.connect_netlist(pfet_netlist, [('D', 'VOUT'), ('G', 'VGP'), ('S', 'VIN'), ('B', 'VCC'), ('DUM', 'VCC')])
-
-         return netlist
-
+    return netlist
 
 
 @cell
@@ -228,26 +132,9 @@ def  transmission_gate(
             pass
 
     return component
-if __name__ == "__main__":
-    # OLD EVAL CODE
-    # comp = transmission_gate(sky130)
-    # # comp.pprint_ports()
-    # comp = add_tg_labels(comp,sky130)
-    # comp.name = "TG"
-    # comp.show()
-    # #print(comp.info['netlist'].generate_netlist())
-    # print("...Running DRC...")
-    # drc_result = sky130.drc_magic(comp, "TG")
-    # ## Klayout DRC
-    # #drc_result = gf180.drc(comp)\n
-    
-    # time.sleep(5)
-        
-    # print("...Running LVS...")
-    # lvs_res=sky130.lvs_netgen(comp, "TG")
-    # #print("...Saving GDS...")
-    # #comp.write_gds('out_TG.gds')
 
+
+if __name__ == "__main__":
     # NEW EVAL CODE
     #transmission_gate = transmission_gate(sky130_mapped_pdk)
     transmission_gate = add_tg_labels(transmission_gate(sky130),sky130)
