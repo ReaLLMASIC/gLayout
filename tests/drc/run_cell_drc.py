@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import importlib.util
 import json
 import os
 import subprocess
@@ -80,11 +81,31 @@ _CELL_BUILDERS: Dict[str, str] = {
     "current_mirror_nfet_c3":                 "glayout.cells.elementary:current_mirror",
     "current_mirror_pfet_c1":                 "glayout.cells.elementary:current_mirror",
     "current_mirror_pfet_c3":                 "glayout.cells.elementary:current_mirror",
+    # Floorplanner and router (glayout.floorplan), built by the worked example
+    # in docs/floorplan. Parameters: floorplan_<pdk>.csv (annealed, not routed)
+    # and routed_<pdk>.csv (floorplanned and routed: DRC plus end-to-end LVS)
+    "floorplan_two_stage_ota":                "docs/floorplan/two_stage_ota.py:two_stage_ota_floorplan",
+    "floorplan_two_stage_ota_nodrr":          "docs/floorplan/two_stage_ota.py:two_stage_ota_floorplan",
+    "routed_two_stage_ota_drr":               "docs/floorplan/two_stage_ota.py:two_stage_ota_routed",
+    "routed_two_stage_ota_closed_loop":       "docs/floorplan/two_stage_ota.py:two_stage_ota_routed",
 }
 
 
 def _resolve_builder(import_path: str) -> Callable[..., Any]:
+    """``package.module:function``, or ``path/to/script.py:function`` for a
+    script outside the package (a documentation example), by path from the
+    repository root."""
     module_name, attr = import_path.split(":", 1)
+    if module_name.endswith(".py"):
+        path = REPO_ROOT / module_name
+        key = f"_cell_builder_{path.stem}"
+        module = sys.modules.get(key)
+        if module is None:
+            spec = importlib.util.spec_from_file_location(key, path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[key] = module      # before exec, as dataclasses and pickling look it up
+            spec.loader.exec_module(module)
+        return getattr(module, attr)
     module = __import__(module_name, fromlist=[attr])
     return getattr(module, attr)
 

@@ -5,3 +5,6 @@
   - [Git Template](https://github.com/Jianxun/iic-osic-tools-project-template)
 ### :eyes: [gLayout Specific Setup](gLayout_Install.md)
 ### :seedling: [Contributing Guide](contributor_guide.md)
+
+## Guides
+### [Floorplanning and routing several blocks](floorplan/README.md)
