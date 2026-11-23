@@ -1,0 +1,3 @@
+cell,params_json
+routed_two_stage_ota_drr,"{""mode"": ""drr"", ""seed"": 0}"
+routed_two_stage_ota_closed_loop,"{""mode"": ""closed_loop"", ""seed"": 0}"

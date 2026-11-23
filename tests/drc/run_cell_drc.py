@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import importlib.util
 import json
 import os
 import subprocess
@@ -58,11 +59,53 @@ _CELL_BUILDERS: Dict[str, str] = {
     # channel (CO.4 in gf180), so these exercise the dogbone path in fet.py.
     "nmos_narrow":                            "glayout.primitives.fet:nmos",
     "pmos_narrow":                            "glayout.primitives.fet:pmos",
+    # One-row common-centroid cells with diffusion shared across devices
+    # (glayout.placement.finger_sequence). Parameters: finger_sequence_<pdk>.csv
+    "cc_current_mirror_nfet":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_current_mirror_pfet":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_current_mirror_1to2":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_diff_pair_nfet":                      "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_pfet":                      "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_f2":                        "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_f8":                        "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    # Generic finger_sequence_cell: a three-device bias bank and a one-device
+    # stage, each also with its source rail tied to the bulk ring (bulk_net)
+    "bias_bank_x1":                           "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "bias_bank_x2":                           "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "cs_stage_f8":                            "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "bias_bank_x1_bulk":                      "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "cs_stage_f8_bulk":                       "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    # Net-aware interdigitized rows (one rail per net): extra mirror sizes.
+    # Parameters: tests/parameters/netaware_<pdk>.csv
+    "current_mirror_nfet_c1":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_nfet_c3":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_pfet_c1":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_pfet_c3":                 "glayout.cells.elementary:current_mirror",
+    # Floorplanner and router (glayout.floorplan), built by the worked example
+    # in docs/floorplan. Parameters: floorplan_<pdk>.csv (annealed, not routed)
+    # and routed_<pdk>.csv (floorplanned and routed: DRC plus end-to-end LVS)
+    "floorplan_two_stage_ota":                "docs/floorplan/two_stage_ota.py:two_stage_ota_floorplan",
+    "floorplan_two_stage_ota_nodrr":          "docs/floorplan/two_stage_ota.py:two_stage_ota_floorplan",
+    "routed_two_stage_ota_drr":               "docs/floorplan/two_stage_ota.py:two_stage_ota_routed",
+    "routed_two_stage_ota_closed_loop":       "docs/floorplan/two_stage_ota.py:two_stage_ota_routed",
 }
 
 
 def _resolve_builder(import_path: str) -> Callable[..., Any]:
+    """``package.module:function``, or ``path/to/script.py:function`` for a
+    script outside the package (a documentation example), by path from the
+    repository root."""
     module_name, attr = import_path.split(":", 1)
+    if module_name.endswith(".py"):
+        path = REPO_ROOT / module_name
+        key = f"_cell_builder_{path.stem}"
+        module = sys.modules.get(key)
+        if module is None:
+            spec = importlib.util.spec_from_file_location(key, path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[key] = module      # before exec, as dataclasses and pickling look it up
+            spec.loader.exec_module(module)
+        return getattr(module, attr)
     module = __import__(module_name, fromlist=[attr])
     return getattr(module, attr)
 
@@ -277,6 +320,18 @@ def _run_magic_drc(item: dict, pdk, comp_name: str, gds_path: Path, magic_dir: P
     res: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "engine": "magic", "status": "skip"}
     rpt_dir = magic_dir / "drc" / comp_name
     rpt_path = rpt_dir / f"{comp_name}.rpt"
+    # magic prints "Cell <name> couldn't be read" and writes an empty report
+    # when the GDS top cell is named differently (e.g. gdsfactory's "<name>$1"),
+    # which used to count as a clean pass.
+    try:
+        import gdstk
+        tops = [c.name for c in gdstk.read_gds(str(gds_path)).top_level()]
+    except Exception:
+        tops = None
+    if tops is not None and comp_name not in tops:
+        res.update({"status": "error", "message": f"top cell {comp_name!r} not in GDS (found {tops})"})
+        print(f"[ERROR] {name}: {res['message']}", flush=True)
+        return res
     try:
         print(f"[MAGIC]{name}", flush=True)
         pdk.drc_magic(
