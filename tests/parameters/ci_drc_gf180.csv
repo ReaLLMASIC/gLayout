@@ -10,3 +10,5 @@ low_voltage_cmirror,"{""width"": [4.0, 1.5], ""length"": 2.0, ""fingers"": [2, 1
 opamp,"{""half_diffpair_params"": [5.0, 1.0, 1], ""diffpair_bias"": [5.0, 2.0, 1], ""half_common_source_params"": [7.0, 1.0, 10, 5], ""half_common_source_bias"": [6.0, 2.0, 8, 4], ""half_pload"": [6.0, 1.0, 5], ""add_output_stage"": false, ""with_antenna_diode_on_diffinputs"": 0, ""rmult"": 1}"
 nmos_narrow,"{""width"": 0.22, ""length"": 0.28}"
 pmos_narrow,"{""width"": 0.22, ""length"": 0.28}"
+two_transistor_interdigitized,"{""device"": ""nfet"", ""numcols"": 2}"
+common_centroid_ab_ba,"{""width"": 3, ""fingers"": 4, ""n_or_p_fet"": true}"
