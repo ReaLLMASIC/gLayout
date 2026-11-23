@@ -9,7 +9,7 @@ os.environ.setdefault("GLAYOUT_TABLES", "0")
 from dataclasses import replace  # noqa: E402
 
 from glayout.floorplan.router import (  # noqa: E402
-    AccessOption, RouterPin, RouterTech, RoutingGrid, RoutingProblem, _f, _too_close, bidirectional_astar, detours,
+    AccessOption, RouterPin, RouterTech, RoutingGrid, RoutingProblem, bidirectional_astar, detours, f_cost, too_close,
     route,
 )
 
@@ -41,7 +41,7 @@ def _shapes_ok(rr):
                 continue
             for la, ra in a.shapes:
                 for lb, rb in b.shapes:
-                    if la == lb and _too_close(ra, rb, 0.5):
+                    if la == lb and too_close(ra, rb, 0.5):
                         return False
     return True
 
@@ -118,7 +118,7 @@ def test_same_net_via_pads_overlap_only_when_concentric():
             concentric = abs(a.x - b.x) < 1e-6 and abs(a.y - b.y) < 1e-6
             for la, ra in a.shapes[1:]:
                 for lb, rb in b.shapes[1:]:
-                    assert concentric or la != lb or not _too_close(ra, rb, 0.3), (a.pin.owner, b.pin.owner)
+                    assert concentric or la != lb or not too_close(ra, rb, 0.3), (a.pin.owner, b.pin.owner)
 
 
 class _ReversedSet(set):
@@ -163,8 +163,8 @@ def test_detour_is_relanded_on_the_other_side():
 
 
 def test_dynamic_weighting_eq5():
-    assert _f(1.0, 3.0, 3.0) == 4.0                 # g < h: plain A*
-    assert _f(3.0, 1.0, 3.0) == (3.0 + 5.0) / 3.0   # g >= h: (g + (2κ-1)h)/κ
+    assert f_cost(1.0, 3.0, 3.0) == 4.0                 # g < h: plain A*
+    assert f_cost(3.0, 1.0, 3.0) == (3.0 + 5.0) / 3.0   # g >= h: (g + (2κ-1)h)/κ
 
 
 if __name__ == "__main__":

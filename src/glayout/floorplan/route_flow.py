@@ -21,7 +21,7 @@ from glayout.floorplan.anneal import FloorplanResult, FloorplanWeights, Placed, 
 from glayout.floorplan.block import Block
 from glayout.floorplan.circuit import Circuit
 from glayout.floorplan.drr import apply_drr
-from glayout.floorplan.realize import cell_origin, realize_floorplan
+from glayout.floorplan.realize import realize_floorplan
 from glayout.floorplan.router import (
     AccessOption, H, RouterPin, RouterTech, RoutingProblem, RoutingResult, route,
 )
