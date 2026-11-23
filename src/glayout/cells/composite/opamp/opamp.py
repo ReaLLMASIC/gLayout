@@ -13,11 +13,12 @@ from glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by
 from glayout.routing.straight_route import straight_route
 from glayout.util.snap_to_grid import component_snap_to_grid
 from pydantic import validate_arguments
-from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
+from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized, rail_tap
 from glayout.spice import Netlist
 
 from glayout.cells.composite.opamp.opamp_twostage import opamp_twostage
 from glayout.cells.elementary.current_mirror import current_mirror_netlist
+from glayout.cells.elementary.current_mirror.current_mirror import MIRROR_NETS
 
 
 def _erase_subcell_pin_labels(opamp_top: Component, label_texts) -> Component:
@@ -206,6 +207,8 @@ def __add_output_stage(
         tie_layers=("met2","met2")
     )
     # Instantiate bias FET
+    # bias mirror: one source rail, one gate rail, and the A drain-to-gate tie
+    # (E side, where the old gate short was) all drawn by the macro
     cmirror_ibias = opamp_top << two_nfet_interdigitized(
         pdk,
         numcols=biasParams[2],
@@ -216,7 +219,14 @@ def __add_output_stage(
         sd_route_topmet="met3",
         rmult=rmult,
         with_substrate_tap=False,
-        tie_layers=("met2","met2")
+        tie_layers=("met2","met2"),
+        nets=MIRROR_NETS,
+        diode_tie_side="E",
+        diode_tie_viaoffset=None,   # as the old gate short: flush via on met3 rails
+        # VREF / VSS / VOUT bottom to top: the E side carries the diode tie (VREF) and the
+        # B drain route (VOUT), two rails apart; the W ground tap is alone on VSS. Adjacent,
+        # sky130's 1.5um met4 via pads overlap (a VREF-VOUT short).
+        rail_order=["VREF", "VSS", "VOUT"],
     )
 
     metal_sep = pdk.util_max_metal_seperation()
@@ -250,11 +260,9 @@ def __add_output_stage(
     align_comp_to_port(vddvia,opamp_top.ports["pin_vdd_e4"],('c','t'))
     # route drain of cmirror to source of amplifier
     opamp_top << c_route(pdk, cmirror_ibias.ports["B_drain_E"],amp_fet_ref.ports["multiplier_0_source_E"],extension=metal_sep)
-    # route cmirror: A gate, B gate and A drain together. Then A source and B source to ground
-    gate_short = opamp_top << c_route(pdk, cmirror_ibias.ports["A_gate_E"],cmirror_ibias.ports["B_gate_E"],extension=3*metal_sep,viaoffset=None)
-    opamp_top << L_route(pdk, gate_short.ports["con_N"],cmirror_ibias.ports["A_drain_E"],viaoffset=False,fullbottom=False)
-    srcshort = opamp_top << c_route(pdk, cmirror_ibias.ports["A_source_W"],cmirror_ibias.ports["B_source_W"],extension=metal_sep)
-    opamp_top << straight_route(pdk, srcshort.ports["con_N"], cmirror_ibias.ports["welltie_N_top_met_S"],via2_alignment_layer="met2")
+    # route cmirror source (one rail) to ground: a tap on its W end, then up to the welltie
+    srctap = opamp_top << rail_tap(pdk, cmirror_ibias.ports["A_source_W"], extension=metal_sep)
+    opamp_top << straight_route(pdk, srctap.ports["con_N"], cmirror_ibias.ports["welltie_N_top_met_S"],via2_alignment_layer="met2")
     # Route all tap rings together and ground them
     opamp_top << straight_route(pdk, cmirror_ibias.ports["welltie_N_top_met_N"],amp_fet_ref.ports["tie_S_top_met_S"])
     # hwidth capped at 2.5 (under sky130's 3um huge_m1 threshold). The L_route's

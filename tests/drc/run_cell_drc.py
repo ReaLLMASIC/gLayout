@@ -58,6 +58,28 @@ _CELL_BUILDERS: Dict[str, str] = {
     # channel (CO.4 in gf180), so these exercise the dogbone path in fet.py.
     "nmos_narrow":                            "glayout.primitives.fet:nmos",
     "pmos_narrow":                            "glayout.primitives.fet:pmos",
+    # One-row common-centroid cells with diffusion shared across devices
+    # (glayout.placement.finger_sequence). Parameters: finger_sequence_<pdk>.csv
+    "cc_current_mirror_nfet":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_current_mirror_pfet":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_current_mirror_1to2":                 "glayout.cells.elementary.finger_sequence:cc_current_mirror",
+    "cc_diff_pair_nfet":                      "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_pfet":                      "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_f2":                        "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    "cc_diff_pair_f8":                        "glayout.cells.elementary.finger_sequence:cc_diff_pair",
+    # Generic finger_sequence_cell: a three-device bias bank and a one-device
+    # stage, each also with its source rail tied to the bulk ring (bulk_net)
+    "bias_bank_x1":                           "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "bias_bank_x2":                           "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "cs_stage_f8":                            "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "bias_bank_x1_bulk":                      "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    "cs_stage_f8_bulk":                       "glayout.cells.elementary.finger_sequence:finger_sequence_cell",
+    # Net-aware interdigitized rows (one rail per net): extra mirror sizes.
+    # Parameters: tests/parameters/netaware_<pdk>.csv
+    "current_mirror_nfet_c1":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_nfet_c3":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_pfet_c1":                 "glayout.cells.elementary:current_mirror",
+    "current_mirror_pfet_c3":                 "glayout.cells.elementary:current_mirror",
 }
 
 
@@ -277,6 +299,18 @@ def _run_magic_drc(item: dict, pdk, comp_name: str, gds_path: Path, magic_dir: P
     res: Dict[str, Any] = {"cell": name, "pdk": pdk_name, "engine": "magic", "status": "skip"}
     rpt_dir = magic_dir / "drc" / comp_name
     rpt_path = rpt_dir / f"{comp_name}.rpt"
+    # magic prints "Cell <name> couldn't be read" and writes an empty report
+    # when the GDS top cell is named differently (e.g. gdsfactory's "<name>$1"),
+    # which used to count as a clean pass.
+    try:
+        import gdstk
+        tops = [c.name for c in gdstk.read_gds(str(gds_path)).top_level()]
+    except Exception:
+        tops = None
+    if tops is not None and comp_name not in tops:
+        res.update({"status": "error", "message": f"top cell {comp_name!r} not in GDS (found {tops})"})
+        print(f"[ERROR] {name}: {res['message']}", flush=True)
+        return res
     try:
         print(f"[MAGIC]{name}", flush=True)
         pdk.drc_magic(

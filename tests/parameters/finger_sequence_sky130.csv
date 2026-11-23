@@ -1,0 +1,13 @@
+cell,params_json
+cc_current_mirror_nfet,"{""device"": ""nfet"", ""fingers"": 4}"
+cc_current_mirror_pfet,"{""device"": ""pfet"", ""fingers"": 4}"
+cc_current_mirror_1to2,"{""device"": ""nfet"", ""fingers"": 2, ""ratio"": 2}"
+cc_diff_pair_nfet,"{""device"": ""nfet"", ""fingers"": 4}"
+cc_diff_pair_pfet,"{""device"": ""pfet"", ""fingers"": 4}"
+cc_diff_pair_f2,"{""device"": ""nfet"", ""fingers"": 2, ""width"": 6.0}"
+cc_diff_pair_f8,"{""device"": ""nfet"", ""fingers"": 8, ""width"": 1.5}"
+bias_bank_x1,"{""devices"": [{""name"": ""R"", ""source"": ""VSS"", ""drain"": ""IBIAS"", ""gate"": ""IBIAS"", ""fingers"": 2}, {""name"": ""T"", ""source"": ""VSS"", ""drain"": ""VTAIL"", ""gate"": ""IBIAS"", ""fingers"": 4}, {""name"": ""K"", ""source"": ""VSS"", ""drain"": ""VOUT"", ""gate"": ""IBIAS"", ""fingers"": 4}], ""device"": ""nfet"", ""width"": 3.0, ""circuit_name"": ""BIAS_BANK"", ""pins"": [""IBIAS"", ""VTAIL"", ""VOUT"", ""VSS"", ""B""]}"
+bias_bank_x2,"{""devices"": [{""name"": ""R"", ""source"": ""VSS"", ""drain"": ""IBIAS"", ""gate"": ""IBIAS"", ""fingers"": 4}, {""name"": ""T"", ""source"": ""VSS"", ""drain"": ""VTAIL"", ""gate"": ""IBIAS"", ""fingers"": 8}, {""name"": ""K"", ""source"": ""VSS"", ""drain"": ""VOUT"", ""gate"": ""IBIAS"", ""fingers"": 8}], ""device"": ""nfet"", ""width"": 1.5, ""circuit_name"": ""BIAS_BANK"", ""pins"": [""IBIAS"", ""VTAIL"", ""VOUT"", ""VSS"", ""B""]}"
+cs_stage_f8,"{""devices"": [{""name"": ""M"", ""source"": ""VDD"", ""drain"": ""VOUT"", ""gate"": ""VG"", ""fingers"": 8}], ""device"": ""pfet"", ""width"": 1.5, ""circuit_name"": ""CS_STAGE"", ""pins"": [""VG"", ""VOUT"", ""VDD"", ""B""]}"
+bias_bank_x1_bulk,"{""devices"": [{""name"": ""R"", ""source"": ""VSS"", ""drain"": ""IBIAS"", ""gate"": ""IBIAS"", ""fingers"": 2}, {""name"": ""T"", ""source"": ""VSS"", ""drain"": ""VTAIL"", ""gate"": ""IBIAS"", ""fingers"": 4}, {""name"": ""K"", ""source"": ""VSS"", ""drain"": ""VOUT"", ""gate"": ""IBIAS"", ""fingers"": 4}], ""device"": ""nfet"", ""width"": 3.0, ""circuit_name"": ""BIAS_BANK"", ""pins"": [""IBIAS"", ""VTAIL"", ""VOUT"", ""VSS""], ""bulk_net"": ""VSS""}"
+cs_stage_f8_bulk,"{""devices"": [{""name"": ""M"", ""source"": ""VDD"", ""drain"": ""VOUT"", ""gate"": ""VG"", ""fingers"": 8}], ""device"": ""pfet"", ""width"": 1.5, ""circuit_name"": ""CS_STAGE"", ""pins"": [""VG"", ""VOUT"", ""VDD""], ""bulk_net"": ""VDD""}"
