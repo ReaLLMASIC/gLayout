@@ -137,6 +137,25 @@ def test_astar_does_not_depend_on_the_target_sets_order():
     assert a == b
 
 
+def test_hotspots_do_not_depend_on_string_hashing():
+    # the landings of unroutable nets were listed in the order of a set of net names, which
+    # follows string hashing, so one failure listed its spots differently in every interpreter
+    import subprocess
+    import sys
+    code = ("from glayout.floorplan.router import AccessOption, RouterPin, RouterTech, RoutingProblem, route\n"
+            "cells = [(2.0, 2.0, 4.0, 18.0), (16.0, 2.0, 18.0, 18.0), (9.0, 0.0, 11.0, 20.0)]\n"
+            "nets = {n: [RouterPin(n, 'A.' + n, 0, [AccessOption('E', 4.0, y, 'met2', 0.5)]),\n"
+            "            RouterPin(n, 'B.' + n, 1, [AccessOption('W', 16.0, y, 'met2', 0.5)])]\n"
+            "        for n, y in (('N', 4.0), ('M', 8.0), ('P', 12.0), ('Q', 16.0))}\n"
+            "rr = route(RoutingProblem(20.0, 20.0, cells, nets), RouterTech.abstract())\n"
+            "assert sorted(rr.failed_nets) == ['M', 'N', 'P', 'Q']\n"
+            "print(rr.hotspots)\n")
+    outs = {subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, check=True,
+                           env={**os.environ, "GLAYOUT_TABLES": "0", "PYTHONHASHSEED": str(seed)}).stdout
+            for seed in range(6)}
+    assert len(outs) == 1, outs
+
+
 def test_side_ties_spread_over_both_channels():
     # each net's W/W and E/E choices have the same HPWL; they used to both take
     # the first-listed side (W) and share one channel

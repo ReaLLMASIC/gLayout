@@ -117,7 +117,7 @@ def _hotspots(grid: RoutingGrid, problem: RoutingProblem, landings: dict[str, li
               conflicts: dict[tuple, set[str]], dead: set[str], unreachable: list[str]) -> list[tuple[float, float]]:
     """Where routing failed: conflict nodes, the landings of unroutable nets, the ports of unlanded pins."""
     spots = [grid.xy(n) for n in conflicts]
-    for net in dead:
+    for net in sorted(dead):        # a set of names iterates in string-hash order, which varies per process
         spots += [(l.x, l.y) for l in landings.get(net, [])]
     for owner in unreachable:
         for pins in problem.nets.values():
