@@ -37,6 +37,7 @@ PDK column lists what's needed *at runtime*. `glayout`'s gf180 module reads `PDK
 | `PDK_ROOT` | Root directory holding the PDK install. Used at glayout import time to compute magic/netgen paths. | `/foss/pdks` | `/home/you/openmpw/pdk/volare/gf180mcu/versions/<hash>` |
 | `PDK` | Which PDK variant to use. Used by the magic-DRC/LVS helpers to find `${PDKPATH}/libs.tech/magic/${PDK}.magicrc` etc. | `gf180mcuD` (or `sky130A`) | `gf180mcuD` |
 | `PDKPATH` | Full path to the specific PDK variant directory. The bootstrap cell auto-derives this as `$PDK_ROOT/$PDK` if you don't set it. | `/foss/pdks/gf180mcuD` | `$PDK_ROOT/$PDK` |
+| `GLAYOUT_SKIP_EXTRESIST` | Optional. When set (sets `1`), the PEX cells in the FVF/INV/BJT tutorials skip magic's `extresist` pass and extract devices + capacitance only — full RC extraction takes minutes on a flattened design. Leave unset locally to run the full flow. | `1` | unset |
 
 The bootstrap cell at the top of every PDK-touching notebook does:
 

@@ -116,3 +116,8 @@ If you use Glayout in your research, please cite our papers:
 
 For questions and support, please contact:
 - Email: mehdi_saligane@brown.edu
+
+## ASAP7 FinFET demo
+
+ASAP7 transistor generation, lattice enforcement, custom MOM capacitors, and
+DRC/LVS example runs are documented in [docs/asap7.md](docs/asap7.md).

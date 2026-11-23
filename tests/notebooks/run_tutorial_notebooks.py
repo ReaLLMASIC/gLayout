@@ -119,6 +119,51 @@ def _scan_executed(path: Path) -> Optional[Dict[str, Any]]:
     return None
 
 
+def _as_text(data) -> str:
+    """str/bytes/None -> str (subprocess.TimeoutExpired yields bytes)."""
+    if data is None:
+        return ""
+    if isinstance(data, bytes):
+        return data.decode("utf-8", errors="replace")
+    return str(data)
+
+
+# IPython startup file injected into every kernel nbconvert spawns (via
+# IPYTHONDIR). It stops ipywidgets.Output from *capturing* cell output.
+#
+# Why: the tutorials wrap generation/display in `with widgets.Output():`
+# blocks laid out in a GridspecLayout. Under headless nbconvert that capture
+# makes nbclient sit idle for the full per-cell timeout after each such cell
+# even though the kernel already reported idle - measured: GLayout_Cells took
+# 10+ min per widget cell with capture, 11 s end-to-end without it. Grids,
+# sliders and buttons still render as widgets; only the capture is disabled,
+# so printed text and SVGs land in the normal cell output instead (which is
+# also more useful in the executed notebook artifact).
+_NOWIDGET_CAPTURE = """\
+try:
+    import ipywidgets as _w
+    class _PassthroughOutput(_w.Output):
+        def __enter__(self):
+            return self
+        def __exit__(self, *exc):
+            return False
+    _w.Output = _PassthroughOutput
+    _w.widgets.Output = _PassthroughOutput
+except Exception:
+    pass
+"""
+
+
+def _kernel_env(out_dir: Path) -> dict:
+    """Environment for nbconvert: IPYTHONDIR with the widget-capture stub."""
+    ipy = out_dir / "ipythondir" / "profile_default" / "startup"
+    ipy.mkdir(parents=True, exist_ok=True)
+    (ipy / "00-ci-nowidget-capture.py").write_text(_NOWIDGET_CAPTURE)
+    env = dict(os.environ)
+    env["IPYTHONDIR"] = str(out_dir / "ipythondir")
+    return env
+
+
 def _run_one(
     nb: Path,
     executed_dir: Path,
@@ -139,6 +184,11 @@ def _run_one(
         "jupyter", "nbconvert", "--to", "notebook", "--execute",
         f"--ExecutePreprocessor.timeout={timeout_per_cell}",
         "--ExecutePreprocessor.allow_errors=True",
+        # On a per-cell timeout, interrupt the kernel and carry on so the
+        # executed .ipynb is still written and _scan_executed can point at the
+        # exact cell. nbconvert's default (False) kills the kernel and writes
+        # nothing, which surfaces as an opaque "NbconvertCrash".
+        "--ExecutePreprocessor.interrupt_on_timeout=True",
         f"--ExecutePreprocessor.kernel_name={kernel_name}",
         "--output", str(executed),
         nb.name,
@@ -148,7 +198,7 @@ def _run_one(
     try:
         proc = subprocess.run(
             cmd, cwd=workdir, capture_output=True, text=True,
-            timeout=timeout_per_notebook,
+            timeout=timeout_per_notebook, env=_kernel_env(executed_dir.parent),
         )
         rc = proc.returncode
         log.write_text((proc.stdout or "") + "\n" + (proc.stderr or ""))
@@ -157,12 +207,15 @@ def _run_one(
         # not failure, so the matrix view differentiates "test broke" from
         # "test ran and a cell complained".
         elapsed = time.monotonic() - start
-        log.write_text((exc.stdout or "") + "\n" + (exc.stderr or "") + f"\n[timeout after {timeout_per_notebook}s]\n")
+        # TimeoutExpired carries bytes even when run() was given text=True.
+        out = _as_text(exc.stdout)
+        err = _as_text(exc.stderr)
+        log.write_text(out + "\n" + err + f"\n[timeout after {timeout_per_notebook}s]\n")
         return NotebookResult(
             notebook=rel, status="error", duration_s=elapsed,
             error_name="NotebookTimeout",
             error_message=f"nbconvert exceeded {timeout_per_notebook}s",
-            log_tail=(exc.stderr or "")[-800:],
+            log_tail=err[-800:],
             executed_path=str(executed.relative_to(executed_dir.parent)) if executed.exists() else None,
         )
 
@@ -248,12 +301,14 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--out-dir", default="notebook_results")
     p.add_argument(
-        "--cell-timeout", type=int, default=180,
-        help="Per-cell timeout passed to nbconvert (default: 180s).",
+        "--cell-timeout", type=int, default=600,
+        help="Per-cell timeout passed to nbconvert (default: 600s; the magic "
+             "PEX / netgen LVS cells are the long pole).",
     )
     p.add_argument(
-        "--notebook-timeout", type=int, default=900,
-        help="Hard wall-clock cap per notebook (default: 900s).",
+        "--notebook-timeout", type=int, default=1200,
+        help="Hard wall-clock cap per notebook (default: 1200s). Keep this well "
+             "under the CI job timeout so junit.xml is always written.",
     )
     p.add_argument(
         "--kernel-name", default="python3",
