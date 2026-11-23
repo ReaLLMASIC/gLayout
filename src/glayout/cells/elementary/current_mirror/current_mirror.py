@@ -118,7 +118,7 @@ def current_mirror(
     with_dummy: Optional[bool] = True,
     with_substrate_tap: Optional[bool] = False,
     with_tie: Optional[bool] = True,
-    tie_layers: tuple[str,str]=("met2","met1"),
+    tie_layers: tuple[str,str]=("met1","met1"),
     **kwargs
 ) -> Component:
     """An instantiable current mirror that returns a Component object. The current mirror is a two transistor interdigitized structure with a shorted source and gate. It can be instantiated with either nmos or pmos devices. It can also be instantiated with a dummy device, a substrate tap, and a tie layer, and is centered at the origin. Transistor A acts as the reference and Transistor B acts as the mirror fet
